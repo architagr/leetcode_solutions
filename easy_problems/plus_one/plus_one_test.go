@@ -18,10 +18,10 @@ func TestPlusOne(t *testing.T) {
 		{input: []int{9}, expected: []int{1, 0}},
 	}
 
-	for _, testcase := range testCases {
-		t.Run(fmt.Sprintf("%+v as input", testcase.input), func(test *testing.T) {
+	for i, testcase := range testCases {
+		t.Run(fmt.Sprintf("%d as input", (i+1)), func(test *testing.T) {
 			if got := plusOne(testcase.input); !reflect.DeepEqual(got, testcase.expected) {
-				test.Fatalf("for input %+v expected is %+v got %+v", testcase.input, testcase.expected, got)
+				test.Fatalf("for input %d expected is %+v got %+v", (i + 1), testcase.expected, got)
 			}
 		})
 	}
