@@ -2,41 +2,27 @@ package longest_consecutive_sequence
 
 func LongestConsecutive(nums []int) int {
 
-	mapN := make(map[int]int)
-	n, max := len(nums), 0
-	if n <= 1 {
-		return n
+	if len(nums) == 0 {
+		return 0
 	}
-	for i := 0; i < n; i++ {
-		mapN[nums[i]] = 1
+	max_len := 0
+	num_map := map[int]bool{}
+	for _, n := range nums {
+		num_map[n] = true
 	}
 
-	for key, val := range mapN {
-
-		x := key + 1
-		v, ok := mapN[x]
-		for ok {
-			//carry the count of current to next value in sequence
-
-			if v == 0 {
-				// if count is zero that means it was visited earlier
-				// and we should to move to the next value in the sequence
-				x++
-				v, ok = mapN[x]
-			} else {
-				// carry the count of current to next value in sequence and then set the count of current
-				// number to zero
-				mapN[x] = val + v
-				mapN[key] = 0
-				if max < val+v {
-					max = val + v
-				}
-				ok = false
-			}
+	for n := range num_map {
+		if num_map[n-1] {
+			continue
+		}
+		tmp_n, tmp_len := n, 1
+		for num_map[tmp_n+1] {
+			tmp_n++
+			tmp_len++
+		}
+		if tmp_len > max_len {
+			max_len = tmp_len
 		}
 	}
-	if max == 0 {
-		return 1
-	}
-	return max
+	return max_len
 }
