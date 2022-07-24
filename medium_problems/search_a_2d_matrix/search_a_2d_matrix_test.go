@@ -1,4 +1,4 @@
-package search_a_2d_matrix_ii
+package search_a_2d_matrix
 
 import (
 	"fmt"
@@ -22,10 +22,10 @@ var testCases []TestCase = []TestCase{
 	{[][]int{{1, 4, 7, 11, 15}, {2, 5, 8, 12, 19}, {3, 6, 9, 16, 22}, {10, 13, 14, 17, 24}, {18, 21, 23, 26, 30}}, 20, false},
 }
 
-func TestSearchMatrix2(t *testing.T) {
+func TestSearchMatrix(t *testing.T) {
 	for i, testCase := range testCases {
 		t.Run(fmt.Sprintf("testing number %d", (i+1)), func(test *testing.T) {
-			got := SearchMatrix2(testCase.input, testCase.target)
+			got := SearchMatrix(testCase.input, testCase.target)
 			if !reflect.DeepEqual(got, testCase.expected) {
 				test.Fatalf("tested %d expected %+v bti got %+v", (i + 1), testCase.expected, got)
 			}
