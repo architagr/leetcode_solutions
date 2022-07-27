@@ -1,4 +1,4 @@
-package construct_b_tree_pre_inorder_traversal
+package construct_b_tree_preorder_traversal
 
 import (
 	"fmt"
