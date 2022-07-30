@@ -5,13 +5,13 @@ func UniversalWordSubset(words1, words2 []string) []string {
 	arr := make([]string, 0, len(words1))
 	for _, word := range words1 {
 		temp := convertWordToMap(word)
-		count := 0
-		for i := 0; i < 26; i++ {
-			if temp[i] >= words2Map[i] {
-				count++
+		i := 0
+		for ; i < 26; i++ {
+			if temp[i] < words2Map[i] {
+				break
 			}
 		}
-		if count == len(words2Map) {
+		if i == 26 {
 			arr = append(arr, word)
 		}
 	}
