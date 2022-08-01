@@ -17,6 +17,7 @@ func MatrixReshape(mat [][]int, r, c int) [][]int {
 			l++
 			if l == c {
 				arr[k] = row
+				k++
 				l = 0
 			}
 		}
