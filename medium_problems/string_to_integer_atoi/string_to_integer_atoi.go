@@ -1,59 +1,61 @@
 package string_to_integer_atoi
 
-import "strings"
-
 func MyAtoi(s string) int {
-	hasNegitive := false
-	s = strings.TrimSpace(s)
-	num := int64(0)
-	lastSign := false
-	for i := 0; i < len(s); i++ {
-		a, ok := validChar(s[i])
-		if ok && a < 0 && num >= 0 && i > 0 && s[i-1] != ' ' {
-			break
-		}
-		if ok && a == -1 {
-			hasNegitive = true
-			if lastSign {
-				break
-			}
-			lastSign = true
-		} else if ok && a == -2 {
-			hasNegitive = false
-			if lastSign {
-				break
-			}
-			lastSign = true
-		} else if ok && a >= 0 {
-			lastSign = false
-			num = (num * 10) + int64(a)
-			if hasNegitive && num >= (1<<31) {
-				return -(1 << 31)
-			}
+	maxInt := 2147483647
+	minInt := -2147483648
+	var result int
+	var multiplier int
+	length := len(s)
 
-			if num > ((1 << 31) - 1) {
-				return ((1 << 31) - 1)
-			}
-		} else if !ok {
+	var startFrom int
+
+	for ; startFrom < length; startFrom++ {
+		if s[startFrom] != ' ' {
 			break
 		}
 	}
-	if hasNegitive {
-		num = num * -1
+
+	s = s[startFrom:]
+	length = len(s)
+
+	if length == 0 {
+		return result
 	}
 
-	return int(num)
-}
-
-func validChar(b byte) (int, bool) {
-	if b >= '0' && b <= '9' {
-		return int(b - '0'), true
-	} else if b == '-' {
-		return -1, true
-	} else if b == '+' {
-		return -2, true
+	if (s[0] < '0') || (s[0] > '9') {
+		if s[0] == '-' {
+			multiplier = -1
+		} else if s[0] == '+' {
+			multiplier = 1
+		} else {
+			return result
+		}
+	} else {
+		result = int(s[0] - '0')
+		multiplier = 1
 	}
 
-	return 0, false
+	for i := 1; i < length; i++ {
+		if (s[i] < '0') || (s[i] > '9') {
+			break
+		}
 
+		result = (result * 10) + int(s[i]-'0')
+
+		if result >= maxInt {
+			break
+		}
+	}
+
+	result *= multiplier
+
+	if result >= maxInt {
+		return maxInt
+	}
+
+	if result <= minInt {
+		return minInt
+	}
+
+	return result
 }
