@@ -17,6 +17,7 @@ func MergeKLists(lists []*ListNode) *ListNode {
 		x = 0
 		min := math.MaxInt32
 		minIndex := n + 1
+		// find min from current node of the entire list
 		for i := 0; i < n; i++ {
 			if lists[i] != nil {
 				if lists[i].Val < min {
@@ -27,6 +28,7 @@ func MergeKLists(lists []*ListNode) *ListNode {
 				x++
 			}
 		}
+		// if conlete list was not nil then push the min to the new linked list
 		if x < n {
 			if head == nil {
 				head = new(ListNode)
@@ -37,6 +39,7 @@ func MergeKLists(lists []*ListNode) *ListNode {
 				temp = temp.Next
 				temp.Val = min
 			}
+			// move the node of the minIndex to next
 			lists[minIndex] = lists[minIndex].Next
 		}
 	}
