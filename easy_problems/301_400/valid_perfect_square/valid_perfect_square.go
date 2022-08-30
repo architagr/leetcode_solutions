@@ -24,8 +24,5 @@ func sqrt(x int) int {
 }
 
 func check(num, target int) bool {
-	if num*num <= target {
-		return true
-	}
-	return false
+	return num*num <= target
 }
