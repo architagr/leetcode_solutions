@@ -8,7 +8,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func tree2str(root *TreeNode) string {
+func Tree2str(root *TreeNode) string {
 	return parse(root)
 }
 
