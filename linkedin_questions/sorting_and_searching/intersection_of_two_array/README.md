@@ -1,4 +1,4 @@
-## 
+## Intersection of two arrays
 
 ### Description
 
