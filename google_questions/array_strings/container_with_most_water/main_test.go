@@ -1,4 +1,4 @@
-package container_with_most_water
+package containerwithmostwater
 
 import (
 	"fmt"
@@ -21,8 +21,7 @@ func TestRotatedSortedArray(t *testing.T) {
 
 	for i, testCase := range testCases {
 		t.Run(fmt.Sprintf("testing %d", (i+1)), func(tb *testing.T) {
-			got := MaxArea(testCase.a)
-
+			got := maxArea(testCase.a)
 			if got != testCase.expected {
 				tb.Errorf("testing %d, expected %+v, got %+v", (i + 1), testCase.expected, got)
 			}
