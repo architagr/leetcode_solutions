@@ -1,4 +1,4 @@
-package numberofconnectedcomponentsinaundirectedgraph
+package numberofconnectedcomponentsinanundirectedgraph
 
 type DisJointSet struct {
 	root  []int
