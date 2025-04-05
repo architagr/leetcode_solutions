@@ -12,7 +12,7 @@ type testcase struct {
 	expected     int
 }
 
-func TestUniquePaths(t *testing.T) {
+func TestUniquePathsWithObstacles(t *testing.T) {
 	testcaes := []testcase{
 		{
 			obstacleGrid: [][]int{{1, 0}},
