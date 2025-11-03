@@ -79,9 +79,9 @@ Explanation: After calling your read method, buf should contain "abcdABCD1234". 
 
 ## Constraints
 
-1 <= file.length <= 500
-file consist of English letters and digits.
-1 <= n <= 1000
+- `1 <= file.length <= 500`
+- `file` consist of English letters and digits.
+- `1 <= n <= 1000`
 
 ## Companies
 
