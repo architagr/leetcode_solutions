@@ -2118,7 +2118,7 @@ git commit -m "feat(challenge): seed empty queue.yaml and number_folder_map.yaml
 ```markdown
 ---
 name: leetcode-content
-description: Generate teaching content (intuition/solution docs, commented code, companies, hero image, LinkedIn/Discord post drafts) for already-solved LeetCode questions from a problem-list URL, in resumable "365 Days of LeetCode Challenge" order. Trigger: /leetcode-content
+description: 'Generate teaching content (intuition/solution docs, commented code, companies, hero image, LinkedIn/Discord post drafts) for already-solved LeetCode questions from a problem-list URL, in resumable "365 Days of LeetCode Challenge" order. Trigger: /leetcode-content'
 ---
 
 # LeetCode Content-Gen Agent
@@ -2172,8 +2172,12 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
         re-run once solved. Do NOT ask the user about every unresolved question — only ask if
         you have a specific, well-founded suspicion it IS solved but the tooling missed it
         (e.g. you can see a matching file via other means).
-      - If `"canonical": false` — the question was found in a non-canonical location
-        (a root straggler, or under `google_questions`/`linkedin_questions`). Reorganize it:
+      - If `"source"` is anything other than `"canonical"` — the question was found in a
+        non-canonical location (a root straggler, or under `google_questions`/`linkedin_questions`,
+        or via the gitmap/fuzzy fallback). Note: `ResolveResult.Canonical` is tagged
+        `json:"canonical,omitempty"`, so a non-canonical result never actually contains a
+        `"canonical":false` key — the key is simply absent. Check `source`, not the
+        presence/value of `canonical`. Reorganize it:
         ```bash
         /tmp/leetcodectl reorg '{"repoRoot":".","fromPath":"<result.path>","difficulty":"<difficulty>","number":<number>,"slug":"<slug>"}'
         ```
