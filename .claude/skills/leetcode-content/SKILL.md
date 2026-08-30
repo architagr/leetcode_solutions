@@ -34,13 +34,21 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
 
 2. **Fetch the problem list:**
    ```bash
-   /tmp/leetcodectl fetch-list '{"url":"<the URL>","difficulty":"<the --filter value>"}'
+   /tmp/leetcodectl fetch-list '{"url":"<the URL>","difficulty":"<the difficulty value parsed out of --filter, e.g. --filter difficulty=easy -> \"easy\">"}'
    ```
    Sort the returned problems by `Number` ascending.
 
 3. **For each problem, in that sorted order:**
 
-   a. Skip it if `queue-has` returns `{"has": true}`:
+   If any `leetcodectl` call in this loop (other than the two failure modes explicitly
+   handled below — unresolved `resolve`, failed `hero-screenshot`) exits non-zero or
+   returns unparseable output: stop processing THIS problem only, note it in the
+   end-of-run summary with the error message, and continue to the next problem in the
+   list. Never let one problem's failure abort the whole batch, and never silently
+   proceed past a failed call as if it had succeeded (e.g. don't fabricate a folder path
+   or day number when a call that was supposed to produce one failed).
+
+   a. Skip it if `queue-has` returns `{"has": true}` (the subcommand's JSON result, not a bare `true`):
       ```bash
       /tmp/leetcodectl queue-has '{"queuePath":"challenge/queue.yaml","number":<number>}'
       ```
@@ -54,13 +62,12 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
         re-run once solved. Do NOT ask the user about every unresolved question — only ask if
         you have a specific, well-founded suspicion it IS solved but the tooling missed it
         (e.g. you can see a matching file via other means).
-      - If `"status": "resolved"` but `canonical` is not `true` — note that the JSON encoder
-        omits the `canonical` field entirely when it's `false`, so a non-canonical result
-        looks like `{"status":"resolved","path":"...","source":"straggler"}` with no
-        `canonical` key at all, rather than `"canonical":false`. Treat "canonical key absent"
-        the same as "canonical false". This happens when `source` is `straggler`,
-        `google_questions`, `linkedin_questions`, `gitmap`, or `fuzzy` — i.e. anything other
-        than `source: "canonical"`. Reorganize it:
+      - If `"source"` is anything other than `"canonical"` — the question was found in a
+        non-canonical location (a root straggler, or under `google_questions`/`linkedin_questions`,
+        or via the gitmap/fuzzy fallback). Note: `ResolveResult.Canonical` is tagged
+        `json:"canonical,omitempty"`, so a non-canonical result never actually contains a
+        `"canonical":false` key — the key is simply absent. Check `source`, not the
+        presence/value of `canonical`. Reorganize it:
         ```bash
         /tmp/leetcodectl reorg '{"repoRoot":".","fromPath":"<result.path>","difficulty":"<difficulty>","number":<number>,"slug":"<slug>"}'
         ```
@@ -78,6 +85,17 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       converting the HTML statement to clean Markdown (headings, code blocks for
       examples, a Constraints list) — follow the style of existing README.md files
       elsewhere in the repo (e.g. `easy_problems/1_100/climbing_stairs/README.md`).
+
+      `ContentHTML` may contain `<img>` tags (tree/graph diagrams, matrix illustrations,
+      etc. — common on LeetCode statements). For each one: download it to
+      `<folder>/images/<n>.<ext>` (`<ext>` from the URL or `Content-Type`, `<n>` a
+      1-based index in the order the images appear) with
+      `curl -sL '<image-url>' -o '<folder>/images/<n>.<ext>'`, and rewrite that image's
+      markdown reference to the local relative path (`images/<n>.<ext>`) instead of the
+      remote URL. Do not leave a remote LeetCode CDN URL in the committed README — this
+      repo should be self-contained and not depend on LeetCode's CDN staying up. If a
+      download fails, skip that one image (note it in the end-of-run summary) rather than
+      failing the whole README.
 
    e. Write `<folder>/INTUITION.md`: a plain-language walkthrough of the approach used in
       the existing code — the key insight, why this technique applies, time/space
@@ -99,23 +117,30 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       If the returned `companies` array is non-empty, write `<folder>/COMPANIES.md` listing
       them. If empty, don't create the file at all.
 
-   i. Render and screenshot the hero image. The `day` value is whatever the NEXT
-      `queue-append` call in step (j) will assign — since `queue.yaml`'s `next_day` is
-      known before appending, use that value here (it becomes the entry's `day`):
+   i. Append to the queue FIRST — this assigns and returns the authoritative Day number
+      that every remaining step in this iteration needs (hero image, both post drafts):
       ```bash
-      /tmp/leetcodectl hero-render-html '{"templatePath":"challenge/hero_template.html","outPath":"<folder>/HERO.html","data":{"Day":<next_day>,"Total":365,"Topic":"<list-name>","Difficulty":"<difficulty>","Title":"<title>"}}'
+      /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>"}}'
+      ```
+      Use the returned `day` for steps (j)-(l) below. Do not try to predict or read
+      `next_day` yourself before calling this — `queue-append` is the only source of
+      truth for which day number a question gets, and calling it exactly once per
+      question, before rendering anything that embeds the day number, is what keeps a
+      multi-question batch's day numbers correct. (This ordering matters specifically
+      because there is no read-only way to peek `next_day` without mutating it — the
+      only two things that touch it are `queue-has`, which doesn't return it, and
+      `queue-append`, which advances it. Calling `queue-append` first removes any need
+      to predict its value.)
+
+   j. Render and screenshot the hero image, using the real `day` from step (i):
+      ```bash
+      /tmp/leetcodectl hero-render-html '{"templatePath":"challenge/hero_template.html","outPath":"<folder>/HERO.html","data":{"Day":<day>,"Total":365,"Topic":"<list-name>","Difficulty":"<difficulty>","Title":"<title>"}}'
       /tmp/leetcodectl hero-screenshot '{"htmlPath":"<folder>/HERO.html","outPath":"<folder>/HERO.png"}'
       ```
       If `hero-screenshot` fails (e.g. Playwright/Chromium isn't installed — see
       `challenge/README.md`), leave `HERO.html` in place, note the failure to the user at
       the end of the run, and continue with the rest of the pipeline; don't block the batch
       on it.
-
-   j. Append to the queue (this assigns and returns the Day number — use it for the post
-      drafts below):
-      ```bash
-      /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>"}}'
-      ```
 
    k. Write `<folder>/POST_LINKEDIN.md`: header "365 Days of LeetCode Challenge — Day
       <day>/365", question title + LeetCode link, a 2-3 line intuition hook (not the full
@@ -135,8 +160,9 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       ```
 
 4. **At the end of the run**, summarize for the user: how many questions were processed,
-   how many were skipped as not-yet-solved, any folders reorganized, and any hero-image
-   generation failures.
+   how many were skipped as not-yet-solved, any folders reorganized, any hero-image
+   generation failures, any per-image download failures in README generation, and any
+   questions skipped mid-pipeline due to an unexpected `leetcodectl` failure.
 
 ## Notes
 
