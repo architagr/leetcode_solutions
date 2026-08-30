@@ -5,6 +5,7 @@
 package gitmap
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -81,7 +82,10 @@ func ScanNewCommits(repoDir, sinceSHA string) (entries map[int]string, newestSHA
 	cmd := exec.Command("git", "-C", repoDir, "log", "--reverse", "--pretty=format:%H%x1f%s", rangeArg)
 	out, err := cmd.Output()
 	if err != nil {
-		return nil, sinceSHA, err
+		if exitErr, ok := err.(*exec.ExitError); ok {
+			return nil, sinceSHA, fmt.Errorf("git log %s: %w: %s", rangeArg, err, exitErr.Stderr)
+		}
+		return nil, sinceSHA, fmt.Errorf("git log %s: %w", rangeArg, err)
 	}
 	entries = map[int]string{}
 	newestSHA = sinceSHA
@@ -109,6 +113,13 @@ func ScanNewCommits(repoDir, sinceSHA string) (entries map[int]string, newestSHA
 	return entries, newestSHA, nil
 }
 
+// folderForCommit returns (string, bool) rather than propagating an
+// error: it's called once per matching commit inside ScanNewCommits's
+// bulk history walk, and a `git show` failure on one commit (e.g. a
+// shallow clone missing that object) reasonably degrades to "skip this
+// commit" rather than aborting the entire scan. This does mean a real
+// git failure here is indistinguishable from "no matching .go file in
+// this commit" — accepted tradeoff, not an oversight.
 func folderForCommit(repoDir, sha string) (string, bool) {
 	cmd := exec.Command("git", "-C", repoDir, "show", "--name-only", "--pretty=format:", sha)
 	out, err := cmd.Output()
