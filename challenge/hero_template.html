@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; width: 1200px; height: 630px; font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .card {
+    width: 1200px; height: 630px; box-sizing: border-box; padding: 64px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .badge {
+    width: 56px; height: 56px; border-radius: 12px; background: #ffa116;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 22px; color: #1a1a2e;
+  }
+  .challenge-name { font-size: 20px; letter-spacing: 2px; text-transform: uppercase; color: #ffa116; }
+  .day { font-size: 96px; font-weight: 800; margin: 24px 0 0 0; }
+  .day small { font-size: 40px; font-weight: 500; color: #cccccc; }
+  .meta { font-size: 28px; color: #ffa116; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .title { font-size: 48px; font-weight: 700; line-height: 1.2; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="badge">LC</div>
+      <div class="challenge-name">365 Days of LeetCode Challenge</div>
+    </div>
+    <div>
+      <div class="day">Day {{.Day}}<small> / {{.Total}}</small></div>
+      <div class="meta" style="margin-top: 32px;">{{.Topic}} &middot; {{.Difficulty}}</div>
+      <div class="title">{{.Title}}</div>
+    </div>
+  </div>
+</body>
+</html>
