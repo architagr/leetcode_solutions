@@ -1716,10 +1716,15 @@ type ResolveResult struct {
 
 // Resolve locates a solved question on disk: static candidates first,
 // then the git-history-derived number map, then a fuzzy name match.
+//
+// Note: resolver.Location.Source is a resolver.Source, a defined string
+// type — assigning it to ResolveResult's plain string field requires an
+// explicit conversion (string(loc.Source)), it will not compile as a bare
+// assignment.
 func Resolve(repoRoot, mapPath string, number int, difficulty, slug string) (ResolveResult, error) {
 	candidates := resolver.CandidatePaths(repoRoot, number, difficulty, slug)
 	if loc, ok := resolver.Find(repoRoot, candidates); ok {
-		return ResolveResult{Status: "resolved", Path: loc.Path, Canonical: loc.Canonical, Source: loc.Source}, nil
+		return ResolveResult{Status: "resolved", Path: loc.Path, Canonical: loc.Canonical, Source: string(loc.Source)}, nil
 	}
 
 	m, err := gitmap.Load(mapPath)
@@ -1728,12 +1733,12 @@ func Resolve(repoRoot, mapPath string, number int, difficulty, slug string) (Res
 	}
 	if folder, ok := m.Entries[number]; ok {
 		if info, statErr := os.Stat(repoRoot + "/" + folder); statErr == nil && info.IsDir() {
-			return ResolveResult{Status: "resolved", Path: folder, Source: "gitmap"}, nil
+			return ResolveResult{Status: "resolved", Path: folder, Source: string(resolver.SourceGitmap)}, nil
 		}
 	}
 
 	if loc, ok := resolver.FuzzyFind(repoRoot, slug); ok {
-		return ResolveResult{Status: "resolved", Path: loc.Path, Source: loc.Source}, nil
+		return ResolveResult{Status: "resolved", Path: loc.Path, Source: string(loc.Source)}, nil
 	}
 
 	return ResolveResult{Status: "unresolved"}, nil
