@@ -70,7 +70,7 @@ solved, a re-run with the same command picks up exactly those 20 and skips the 1
 
 | File | Content | Notes |
 |---|---|---|
-| `README.md` | Problem statement, examples, constraints | Only written if missing |
+| `README.md` | Problem statement, examples, constraints | Only written if missing. Any `<img>` in the statement (diagrams, matrix illustrations) is downloaded into `<folder>/images/` and the reference rewritten to the local path — the repo doesn't hotlink LeetCode's CDN |
 | `INTUITION.md` | Plain-language approach + why + complexity | New file |
 | `SOLUTION.md` | Narrated walkthrough of the *existing* solution code | Explains the user's actual code, doesn't rewrite it |
 | `main.go` | Same logic, inline `//` comments added | Comments only, no logic changes |
