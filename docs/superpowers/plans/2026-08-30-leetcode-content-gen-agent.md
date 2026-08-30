@@ -2158,7 +2158,7 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
 
 3. **For each problem, in that sorted order:**
 
-   a. Skip it if `queue-has` returns `true`:
+   a. Skip it if `queue-has` returns `{"has": true}` (the subcommand's JSON result, not a bare `true`):
       ```bash
       /tmp/leetcodectl queue-has '{"queuePath":"challenge/queue.yaml","number":<number>}'
       ```
