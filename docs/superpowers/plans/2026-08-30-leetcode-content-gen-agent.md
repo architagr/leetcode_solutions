@@ -190,11 +190,13 @@ func TestSaveLoadRoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Load: %v", err)
 	}
-	if loaded.NextDay != 2 || len(loaded.Entries) != 1 || loaded.Entries[0].Number != 1 {
+	if loaded.NextDay != 3 || len(loaded.Entries) != 1 || loaded.Entries[0].Number != 1 {
 		t.Fatalf("loaded = %+v", loaded)
 	}
 }
 ```
+
+(`NextDay` is 3, not 2, because `Append` increments it — `Queue{NextDay: 2}` + one `Append` = `NextDay: 3`, consistent with `TestAppendAssignsDayAndIncrements` above.)
 
 - [ ] **Step 2: Run test to verify it fails**
 
