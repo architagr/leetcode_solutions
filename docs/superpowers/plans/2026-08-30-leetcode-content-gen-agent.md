@@ -2166,6 +2166,19 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
    proceed past a failed call as if it had succeeded (e.g. don't fabricate a folder path
    or day number when a call that was supposed to produce one failed).
 
+   **Post-`queue-append` failures need special handling, since `queue-append` (step i)
+   is the point of no return.** Once it succeeds, `queue-has` will report this number as
+   already queued on every future run — there is no "un-append" operation. So a failure
+   in any of steps (j) through (m) — hero rendering (other than the already-handled
+   `hero-screenshot` case, which is non-fatal by design), writing the post drafts, or the
+   final `git commit` — leaves a permanently "claimed" queue entry with incomplete or
+   missing content, which a future re-run will silently skip forever rather than retry.
+   If this happens: do NOT treat it as a normal per-problem skip. Call it out prominently
+   and separately in the end-of-run summary (e.g. "Day N / question NUMBER was queued but
+   its commit failed — needs manual follow-up: <error>"), so the user knows to
+   investigate and finish that entry by hand rather than assuming a clean re-run will
+   pick it up.
+
    a. Skip it if `queue-has` returns `{"has": true}` (the subcommand's JSON result, not a bare `true`):
       ```bash
       /tmp/leetcodectl queue-has '{"queuePath":"challenge/queue.yaml","number":<number>}'
