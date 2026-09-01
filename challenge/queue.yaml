@@ -1,10 +1,18 @@
-next_day: 2
+next_day: 3
 entries:
     - day: 1
       number: 104
       title: Maximum Depth of Binary Tree
       difficulty: easy
       folder: easy_problems/101_200/maximum_depth_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 2
+      number: 108
+      title: Convert Sorted Array to Binary Search Tree
+      difficulty: easy
+      folder: easy_problems/101_200/convert_sorted_array_to_binary_search_tree
       batch: binary tree
       status: content_ready
       posted_at: null
