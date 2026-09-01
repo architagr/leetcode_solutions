@@ -48,6 +48,19 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
    proceed past a failed call as if it had succeeded (e.g. don't fabricate a folder path
    or day number when a call that was supposed to produce one failed).
 
+   **Post-`queue-append` failures need special handling, since `queue-append` (step i)
+   is the point of no return.** Once it succeeds, `queue-has` will report this number as
+   already queued on every future run — there is no "un-append" operation. So a failure
+   in any of steps (j) through (m) — hero rendering (other than the already-handled
+   `hero-screenshot` case, which is non-fatal by design), writing the post drafts, or the
+   final `git commit` — leaves a permanently "claimed" queue entry with incomplete or
+   missing content, which a future re-run will silently skip forever rather than retry.
+   If this happens: do NOT treat it as a normal per-problem skip. Call it out prominently
+   and separately in the end-of-run summary (e.g. "Day N / question NUMBER was queued but
+   its commit failed — needs manual follow-up: <error>"), so the user knows to
+   investigate and finish that entry by hand rather than assuming a clean re-run will
+   pick it up.
+
    a. Skip it if `queue-has` returns `{"has": true}` (the subcommand's JSON result, not a bare `true`):
       ```bash
       /tmp/leetcodectl queue-has '{"queuePath":"challenge/queue.yaml","number":<number>}'
@@ -122,7 +135,7 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       ```bash
       /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>"}}'
       ```
-      Use the returned `day` for steps (j)-(l) below. Do not try to predict or read
+      Use the returned `day` for steps (j)-(m) below. Do not try to predict or read
       `next_day` yourself before calling this — `queue-append` is the only source of
       truth for which day number a question gets, and calling it exactly once per
       question, before rendering anything that embeds the day number, is what keeps a
@@ -162,7 +175,11 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
 4. **At the end of the run**, summarize for the user: how many questions were processed,
    how many were skipped as not-yet-solved, any folders reorganized, any hero-image
    generation failures, any per-image download failures in README generation, and any
-   questions skipped mid-pipeline due to an unexpected `leetcodectl` failure.
+   questions skipped mid-pipeline due to an unexpected `leetcodectl` failure. Give any
+   post-`queue-append` failure (steps j-m, per the note above) its OWN separate, clearly
+   flagged line — e.g. "⚠ Day N / question NUMBER was queued but incomplete — needs
+   manual follow-up: <error>" — do not fold it into the general skipped-questions bullet,
+   since it cannot be silently retried on a future run.
 
 ## Notes
 
