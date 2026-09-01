@@ -12,6 +12,8 @@ func maxDepth(root *TreeNode) int {
 	}
 	max := 0
 	queue := make([]*TreeNode, 0)
+	// nil is a sentinel marking "end of the current level" in the queue, so a
+	// plain BFS can tell levels apart without tracking per-level sizes.
 	queue = append(queue, root, nil)
 	pop := func() *TreeNode {
 		node := queue[0]
@@ -24,7 +26,9 @@ func maxDepth(root *TreeNode) int {
 	for len(queue) > 0 {
 		node := pop()
 		if node == nil {
+			// Popping the sentinel means we've drained a whole level.
 			if len(queue) > 0 {
+				// More real nodes remain: push the next level's end marker.
 				push(nil)
 			}
 			max++
