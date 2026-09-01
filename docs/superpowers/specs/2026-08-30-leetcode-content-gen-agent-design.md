@@ -75,9 +75,10 @@ solved, a re-run with the same command picks up exactly those 20 and skips the 1
 | `SOLUTION.md` | Narrated walkthrough of the *existing* solution code | Explains the user's actual code, doesn't rewrite it |
 | `main.go` | Same logic, inline `//` comments added | Comments only, no logic changes |
 | `COMPANIES.md` | Companies known to have asked this question | Only written if the vendored dataset has a hit; silently skipped otherwise |
-| `HERO.png` | Branded image: "Day N / 365", topic, difficulty, question title, LeetCode logo | Rendered from `challenge/hero_template.html` via headless-browser screenshot |
-| `POST_LINKEDIN.md` | Day N header, title+link, 2-3 line intuition hook, code snippet/link, companies if present | Discord-join CTA is NOT baked in here — it's added as a comment by the poster (subsystem #2), not part of the post body |
-| `POST_DISCORD.md` | Shorter, Discord-markdown formatted version | Same Day N |
+| `HERO.png` | Branded image: "Day N / 365", topic, difficulty, question title, LeetCode logo, author photo | Rendered from `challenge/hero_template.html` via headless-browser screenshot |
+| `POST_LINKEDIN_ARTICLE.md` | Full intuition + full solution walkthrough, styled as a LinkedIn Newsletter/Article edition | The actual long-form content; the short post below just points at it |
+| `POST_LINKEDIN.md` | Day N header, title+link, 2-3 line intuition summary (a hook, not the full write-up), pointer to the article | Discord-join CTA is NOT baked in here — it's added as a comment by the poster (subsystem #2), not part of the post body |
+| `POST_DISCORD.md` | Day N header, intuition summary, then the FULL solution (code + walkthrough), Discord-markdown formatted | Unlike LinkedIn, Discord gets everything in one post — no separate article |
 
 ### Companies dataset
 
