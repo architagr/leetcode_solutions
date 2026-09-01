@@ -10,6 +10,8 @@ type TreeNode struct {
 }
 
 func binaryTreePaths(root *TreeNode) []string {
+	// The root never gets a "->" prefix, so it's seeded separately from
+	// every node below it (handled by foo).
 	current := fmt.Sprint(root.Val)
 	if root.Left == nil && root.Right == nil {
 		return []string{current}
@@ -25,8 +27,12 @@ func binaryTreePaths(root *TreeNode) []string {
 }
 
 func foo(node *TreeNode, current string, result *[]string) {
+	// Every node below the root always needs the "->" separator, unlike
+	// the root itself. current is a local copy (strings are immutable in
+	// Go), so sibling branches don't interfere with each other's path.
 	current += fmt.Sprintf("->%d", node.Val)
 	if node.Left == nil && node.Right == nil {
+		// Leaf reached: current is now a complete root-to-leaf path.
 		*result = append(*result, current)
 		return
 	}

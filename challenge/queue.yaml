@@ -1,4 +1,4 @@
-next_day: 3
+next_day: 4
 entries:
     - day: 1
       number: 104
@@ -13,6 +13,14 @@ entries:
       title: Convert Sorted Array to Binary Search Tree
       difficulty: easy
       folder: easy_problems/101_200/convert_sorted_array_to_binary_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 3
+      number: 257
+      title: Binary Tree Paths
+      difficulty: easy
+      folder: easy_problems/201_300/binary_tree_path
       batch: binary tree
       status: content_ready
       posted_at: null
