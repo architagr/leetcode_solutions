@@ -27,9 +27,15 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
 
 ## Steps
 
-1. **Refresh the git-history cache:**
+1. **Refresh the git-history cache, and commit the refresh immediately, unconditionally —
+   don't wait for the first per-question commit in step 3 to sweep it up.** If every
+   question in this run turns out to be already-queued or not-yet-solved, the loop in
+   step 3 never reaches a commit at all, and a rescanned `number_folder_map.yaml` would
+   otherwise sit as an uncommitted working-tree change with nothing to notice it:
    ```bash
    /tmp/leetcodectl gitmap-update '{"repoRoot":".","mapPath":"challenge/number_folder_map.yaml"}'
+   git add challenge/number_folder_map.yaml
+   git diff --cached --quiet challenge/number_folder_map.yaml || git commit -m "chore(challenge): refresh git-history cache"
    ```
 
 2. **Fetch the problem list:**
