@@ -57,7 +57,7 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
    **Post-`queue-append` failures need special handling, since `queue-append` (step i)
    is the point of no return.** Once it succeeds, `queue-has` will report this number as
    already queued on every future run — there is no "un-append" operation. So a failure
-   in any of steps (j) through (m) — hero rendering (other than the already-handled
+   in any of steps (j) through (n) — hero rendering (other than the already-handled
    `hero-screenshot` case, which is non-fatal by design), writing the post drafts, or the
    final `git commit` — leaves a permanently "claimed" queue entry with incomplete or
    missing content, which a future re-run will silently skip forever rather than retry.
@@ -141,7 +141,7 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       ```bash
       /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>"}}'
       ```
-      Use the returned `day` for steps (j)-(m) below. Do not try to predict or read
+      Use the returned `day` for steps (j)-(n) below. Do not try to predict or read
       `next_day` yourself before calling this — `queue-append` is the only source of
       truth for which day number a question gets, and calling it exactly once per
       question, before rendering anything that embeds the day number, is what keeps a
@@ -161,17 +161,29 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       the end of the run, and continue with the rest of the pipeline; don't block the batch
       on it.
 
-   k. Write `<folder>/POST_LINKEDIN.md`: header "365 Days of LeetCode Challenge — Day
-      <day>/365", question title + LeetCode link, a 2-3 line intuition hook (not the full
-      writeup — a teaser), a short code snippet or a link to the repo file, and the
-      companies list if `COMPANIES.md` was written. Do NOT include a Discord-join call to
-      action in the body — that's posted separately as a comment by the (future) poster
-      subsystem.
+   k. Write `<folder>/POST_LINKEDIN_ARTICLE.md`: the long-form piece, styled as a
+      LinkedIn Newsletter/Article edition. Header "365 Days of LeetCode Challenge — Day
+      <day>/365", question title + LeetCode link, the FULL intuition write-up (based on
+      INTUITION.md, expanded for a public audience who hasn't seen INTUITION.md itself),
+      the FULL solution walkthrough with the real code (based on SOLUTION.md), and the
+      companies list if `COMPANIES.md` was written. This is the actual content — the
+      short post below just points people at it.
 
-   l. Write `<folder>/POST_DISCORD.md`: a shorter version of the same content, using
-      Discord markdown (`**bold**`, `` ``` `` code fences), same Day N header.
+   l. Write `<folder>/POST_LINKEDIN.md`: a SHORT teaser/share post for the article above.
+      Header "365 Days of LeetCode Challenge — Day <day>/365", question title + LeetCode
+      link, a 2-3 line intuition summary (a hook, not the full write-up), and a line
+      pointing readers to the full article (e.g. "Full breakdown in today's newsletter
+      article ⬇" — the actual link/attachment mechanics are the future posting
+      subsystem's job, not this skill's). Do NOT include a Discord-join call to action in
+      the body — that's posted separately as a comment by the (future) poster subsystem.
 
-   m. Commit everything for this question in one commit:
+   m. Write `<folder>/POST_DISCORD.md`: header "365 Days of LeetCode Challenge — Day
+      <day>/365", a 2-3 line intuition summary, then the ENTIRE solution — the real code
+      in a fenced code block plus its walkthrough — using Discord markdown (`**bold**`,
+      `` ``` `` code fences for the code block). Unlike the LinkedIn split, Discord gets
+      the full content directly in one post; there's no separate "article" for Discord.
+
+   n. Commit everything for this question in one commit:
       ```bash
       git add <folder>
       git add challenge/queue.yaml challenge/number_folder_map.yaml
@@ -182,7 +194,7 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
    how many were skipped as not-yet-solved, any folders reorganized, any hero-image
    generation failures, any per-image download failures in README generation, and any
    questions skipped mid-pipeline due to an unexpected `leetcodectl` failure. Give any
-   post-`queue-append` failure (steps j-m, per the note above) its OWN separate, clearly
+   post-`queue-append` failure (steps j-n, per the note above) its OWN separate, clearly
    flagged line — e.g. "⚠ Day N / question NUMBER was queued but incomplete — needs
    manual follow-up: <error>" — do not fold it into the general skipped-questions bullet,
    since it cannot be silently retried on a future run.
