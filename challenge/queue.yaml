@@ -1,4 +1,4 @@
-next_day: 4
+next_day: 5
 entries:
     - day: 1
       number: 104
@@ -21,6 +21,14 @@ entries:
       title: Binary Tree Paths
       difficulty: easy
       folder: easy_problems/201_300/binary_tree_path
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 4
+      number: 404
+      title: Sum of Left Leaves
+      difficulty: easy
+      folder: easy_problems/401_500/sum_of_left_leaves
       batch: binary tree
       status: content_ready
       posted_at: null
