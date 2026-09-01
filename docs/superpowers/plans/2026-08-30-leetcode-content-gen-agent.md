@@ -2253,7 +2253,7 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       ```bash
       /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>"}}'
       ```
-      Use the returned `day` for steps (j)-(l) below. Do not try to predict or read
+      Use the returned `day` for steps (j)-(m) below. Do not try to predict or read
       `next_day` yourself before calling this — `queue-append` is the only source of
       truth for which day number a question gets, and calling it exactly once per
       question, before rendering anything that embeds the day number, is what keeps a
@@ -2293,7 +2293,11 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
 4. **At the end of the run**, summarize for the user: how many questions were processed,
    how many were skipped as not-yet-solved, any folders reorganized, any hero-image
    generation failures, any per-image download failures in README generation, and any
-   questions skipped mid-pipeline due to an unexpected `leetcodectl` failure.
+   questions skipped mid-pipeline due to an unexpected `leetcodectl` failure. Give any
+   post-`queue-append` failure (steps j-m, per the note above) its OWN separate, clearly
+   flagged line — e.g. "⚠ Day N / question NUMBER was queued but incomplete — needs
+   manual follow-up: <error>" — do not fold it into the general skipped-questions bullet,
+   since it cannot be silently retried on a future run.
 
 ## Notes
 
