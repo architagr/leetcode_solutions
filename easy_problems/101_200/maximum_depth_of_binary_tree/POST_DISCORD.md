@@ -1,12 +1,61 @@
 **365 Days of LeetCode Challenge — Day 1/365**
 **Maximum Depth of Binary Tree** (Easy)
+🔗 https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
-BFS with a twist: push a `nil` sentinel after the root to mark end-of-level. Pop a
-sentinel → level done, bump depth counter, push the next sentinel if nodes remain.
+**Intuition:** Count tree levels via BFS. Push a `nil` sentinel after the root to mark
+"end of level" — popping it means a level's done, so bump the depth counter and push a
+fresh sentinel if there's more tree left.
 
+**Full solution:**
 ```go
-queue := []*TreeNode{root, nil}
-// pop nil -> level complete, max++, push new nil if queue non-empty
+func maxDepth(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	max := 0
+	queue := make([]*TreeNode, 0)
+	// nil is a sentinel marking "end of the current level" in the queue, so a
+	// plain BFS can tell levels apart without tracking per-level sizes.
+	queue = append(queue, root, nil)
+	pop := func() *TreeNode {
+		node := queue[0]
+		queue = queue[1:]
+		return node
+	}
+	push := func(node *TreeNode) {
+		queue = append(queue, node)
+	}
+	for len(queue) > 0 {
+		node := pop()
+		if node == nil {
+			// Popping the sentinel means we've drained a whole level.
+			if len(queue) > 0 {
+				// More real nodes remain: push the next level's end marker.
+				push(nil)
+			}
+			max++
+			continue
+		}
+		if node.Left != nil {
+			push(node.Left)
+		}
+		if node.Right != nil {
+			push(node.Right)
+		}
+	}
+
+	return max
+}
 ```
 
-🔗 https://leetcode.com/problems/maximum-depth-of-binary-tree/
+**Walkthrough** on `[3,9,20,null,null,15,7]` (expected `3`):
+- `[3,nil]` → pop `3`, push children → `[nil,9,20]`
+- pop `nil` → level 1 done (`max=1`), push new sentinel → `[9,20,nil]`
+- pop `9` (leaf) → `[20,nil]`
+- pop `20`, push children → `[nil,15,7]`
+- pop `nil` → level 2 done (`max=2`), push sentinel → `[15,7,nil]`
+- pop `15`, `7` (leaves) → `[nil]`
+- pop `nil` → level 3 done (`max=3`), queue empty, stop
+- **return 3** ✓
+
+O(n) time, O(n) worst-case space (wide, shallow tree).
