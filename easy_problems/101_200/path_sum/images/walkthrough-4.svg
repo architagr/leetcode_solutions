@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" font-family="SFMono-Regular, Menlo, Consolas, monospace">
+  <rect x="0" y="0" width="520" height="320" fill="#ffffff"/>
+  <text x="16" y="20" font-size="11" letter-spacing="1" fill="#8a939c">STEP 4 / 4</text>
+
+  <!-- edges: right subtree edges dashed/dimmed -- never visited (short-circuit) -->
+  <g stroke="#7f8c8d" stroke-width="2">
+    <line x1="150" y1="110" x2="150" y2="180"/>
+    <line x1="150" y1="180" x2="100" y2="250"/>
+    <line x1="150" y1="180" x2="200" y2="250"/>
+  </g>
+  <g stroke="#dfe3e6" stroke-width="2" stroke-dasharray="4 4">
+    <line x1="260" y1="40" x2="150" y2="110"/>
+    <line x1="260" y1="40" x2="370" y2="110"/>
+    <line x1="370" y1="110" x2="330" y2="180"/>
+    <line x1="370" y1="110" x2="410" y2="180"/>
+    <line x1="410" y1="180" x2="410" y2="250"/>
+  </g>
+
+  <!-- node 5: root -- true bubbles all the way up, right side short-circuited -->
+  <circle cx="260" cy="40" r="22" fill="#4a90d9" stroke="#2f3640" stroke-width="4"/>
+  <text x="260" y="40" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">5</text>
+  <text x="260" y="10" text-anchor="middle" font-size="11" fill="#4a90d9">true</text>
+
+  <!-- node 4: true -->
+  <circle cx="150" cy="110" r="22" fill="#4a90d9" stroke="#2f3640" stroke-width="2"/>
+  <text x="150" y="110" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">4</text>
+
+  <!-- node 8: never visited, OR short-circuited before recursing here -->
+  <circle cx="370" cy="110" r="22" fill="#f2f3f4" stroke="#dfe3e6" stroke-width="2"/>
+  <text x="370" y="110" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#b0b6bb">8</text>
+
+  <!-- node 11: true -->
+  <circle cx="150" cy="180" r="22" fill="#4a90d9" stroke="#2f3640" stroke-width="2"/>
+  <text x="150" y="180" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">11</text>
+
+  <circle cx="330" cy="180" r="22" fill="#f2f3f4" stroke="#dfe3e6" stroke-width="2"/>
+  <text x="330" y="180" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#b0b6bb">13</text>
+
+  <circle cx="410" cy="180" r="22" fill="#f2f3f4" stroke="#dfe3e6" stroke-width="2"/>
+  <text x="410" y="180" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#b0b6bb">4</text>
+
+  <circle cx="100" cy="250" r="22" fill="#ccced1" stroke="#c0392b" stroke-width="2"/>
+  <text x="100" y="250" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">7</text>
+
+  <circle cx="200" cy="250" r="22" fill="#4a90d9" stroke="#2f3640" stroke-width="2"/>
+  <text x="200" y="250" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">2</text>
+
+  <circle cx="410" cy="250" r="22" fill="#f2f3f4" stroke="#dfe3e6" stroke-width="2"/>
+  <text x="410" y="250" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#b0b6bb">1</text>
+
+  <text x="260" y="295" text-anchor="middle" font-size="13" fill="#2f3640">true bubbles 2 -&gt; 11 -&gt; 4 -&gt; 5; right subtree (8) never explored (||  short-circuits)</text>
+</svg>
