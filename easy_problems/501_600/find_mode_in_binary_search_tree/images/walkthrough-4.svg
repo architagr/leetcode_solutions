@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" font-family="SFMono-Regular, Menlo, Consolas, monospace">
+  <rect x="0" y="0" width="480" height="260" fill="#ffffff"/>
+  <text x="16" y="20" font-size="11" letter-spacing="1" fill="#8a939c">STEP 4 / 4 — findMode scans data for the max, then collects it</text>
+
+  <!-- traversal is done; final map table -->
+  <rect x="40" y="50" width="180" height="110" rx="6" fill="#ffffff" stroke="#2f3640" stroke-width="1.5"/>
+  <text x="52" y="72" font-size="12" fill="#8a939c">data (final)</text>
+  <line x1="52" y1="82" x2="208" y2="82" stroke="#dcdfe3" stroke-width="1"/>
+  <text x="52" y="104" font-size="14" fill="#2f3640">key 1 → cnt 1</text>
+  <text x="52" y="130" font-size="14" fill="#e67e22" font-weight="700">key 2 → cnt 2</text>
+
+  <!-- arrow -->
+  <line x1="230" y1="105" x2="270" y2="105" stroke="#7f8c8d" stroke-width="2" marker-end="url(#arrow)"/>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- loop 1: find max cnt -->
+  <rect x="280" y="40" width="170" height="50" rx="6" fill="#fdebd3" stroke="#e67e22" stroke-width="2"/>
+  <text x="290" y="58" font-size="11" fill="#8a939c">loop 1</text>
+  <text x="290" y="78" font-size="14" fill="#2f3640" font-weight="700">cnt = 2 (the max)</text>
+
+  <!-- loop 2: collect keys == cnt -->
+  <rect x="280" y="110" width="170" height="50" rx="6" fill="#fdebd3" stroke="#e67e22" stroke-width="2"/>
+  <text x="290" y="128" font-size="11" fill="#8a939c">loop 2</text>
+  <text x="290" y="148" font-size="14" fill="#2f3640" font-weight="700">res = [2]</text>
+
+  <text x="240" y="220" text-anchor="middle" font-size="13" fill="#2f3640">only key 2 has count == cnt → return [2]</text>
+</svg>
