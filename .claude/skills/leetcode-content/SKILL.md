@@ -25,6 +25,55 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
 /tmp/leetcodectl resolve '{"repoRoot":".","mapPath":"challenge/number_folder_map.yaml","number":965,"difficulty":"easy","slug":"univalued-binary-tree"}'
 ```
 
+## Writing style — sound human, not AI
+
+Every prose file this skill writes (INTUITION.md, SOLUTION.md, POST_LINKEDIN_ARTICLE.md,
+POST_LINKEDIN.md, POST_DISCORD.md) goes out under the user's own name on their own
+channels. Default LLM prose has well-known tells that make it read as machine-written —
+avoid them from the first draft, don't write generic and "clean up" after:
+
+- **Cut the AI vocabulary.** Don't use: delve, dive into, navigate (figurative), underscore,
+  bolster, foster, harness, leverage, unpack, shed light on, pave the way, pivotal,
+  groundbreaking, cutting-edge, transformative, game-changing, innovative, robust,
+  comprehensive, seamless, intricate, nuanced, vibrant, multifaceted, holistic, testament,
+  landscape/realm (figurative), crucial, enhance, garner, showcase, tapestry, interplay,
+  align with, enduring. Say the plain thing instead ("shows" not "showcases", "uses" not
+  "leverages").
+- **Cut the AI sentence patterns.** No "It's not just X — it's Y", "Not only X, but Y",
+  "This isn't about X. It's about Y.", "No X. No Y. Just Z." False contrasts like these are
+  one of the most recognizable AI tells. Also drop throat-clearing openers ("In today's
+  fast-paced world...", "It's important to note that...", "When it comes to...") and weak
+  transitions ("This is where X comes in", "Let's break it down", "Let's dive in").
+- **Don't force things into threes.** LLMs default to rule-of-three lists ("fast, reliable,
+  and scalable") to sound thorough. Use however many points actually apply — one, two,
+  four, whatever's true.
+- **Skip the "Bold term: explanation" list format.** It's the single most recognizable AI
+  formatting tell (`- **Performance:** Performance has been improved...`). Write it as
+  prose, or as a plain list without the bolded-header-plus-colon pattern.
+- **One em dash, maybe, not five.** AI prose overuses em dashes as a punchy connector.
+  Prefer a period, a comma, or a parenthetical. If a paragraph already has an em dash,
+  don't add a second.
+- **No emoji decoration on headings or bullets**, no curly/smart quotes (use straight `"`
+  `'`), sentence case in headings (not Title Case Everywhere).
+- **Vary sentence length on purpose.** A run of same-length, same-shape sentences is a
+  giveaway. Follow a long sentence with a short one sometimes.
+- **Write like the author has an opinion.** This is the user's own solution and their own
+  walkthrough of it — it's fine, even good, for INTUITION.md or a post to say what's
+  actually satisfying, surprising, or fiddly about the approach, in first person, rather
+  than neutrally narrating every step with no point of view. "This one's a nice one, the
+  parent has to spot the left leaf because the leaf can't see itself" beats "This solution
+  demonstrates an elegant technique."
+- **Don't summarize with a generic uplifting close.** No "This represents a great learning
+  opportunity" or "Exciting times ahead" wrap-ups. End when the point is made.
+- **Never leave in chatbot artifacts** — no "I hope this helps!", "Let's explore...",
+  "Great question!", or any other trace of this having been a conversation with an
+  assistant. The reader should never be able to tell an LLM was involved in writing it.
+
+Run a quick self-check on every prose file before considering it done: read it back and
+ask whether it sounds like a specific person who solved this problem talking about it, or
+like a generic summary that could've been written about any problem. If it's the latter,
+rewrite it.
+
 ## Steps
 
 1. **Refresh the git-history cache, and commit the refresh immediately, unconditionally —
@@ -119,11 +168,13 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
    e. Write `<folder>/INTUITION.md`: a plain-language walkthrough of the approach used in
       the existing code — the key insight, why this technique applies, time/space
       complexity. Written for a reader who's seen the problem but not the solution.
+      Follow the "Writing style" section above.
 
    f. Write `<folder>/SOLUTION.md`: a narrated walkthrough of the ACTUAL code in
       `main.go` — reference real function/variable names, explain each meaningful step
       in the order they appear in the code. This is not a generic solution write-up; it
-      must describe this specific implementation.
+      must describe this specific implementation. Follow the "Writing style" section
+      above.
 
       Make the walkthrough visual wherever a picture beats a paragraph:
       - If step (d) downloaded example images (tree/graph/matrix diagrams) to
@@ -184,7 +235,8 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       INTUITION.md, expanded for a public audience who hasn't seen INTUITION.md itself),
       the FULL solution walkthrough with the real code (based on SOLUTION.md), and the
       companies list if `COMPANIES.md` was written. This is the actual content — the
-      short post below just points people at it.
+      short post below just points people at it. Follow the "Writing style" section
+      above. End with a line of 5-8 hashtags (see hashtags note below step m).
 
    l. Write `<folder>/POST_LINKEDIN.md`: a SHORT teaser/share post for the article above.
       Header "365 Days of LeetCode Challenge — Day <day>/365", question title + LeetCode
@@ -193,14 +245,28 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       article ⬇" — the actual link/attachment mechanics are the future posting
       subsystem's job, not this skill's). Do NOT include a Discord-join call to action in
       the body — that's posted separately as a comment by the (future) poster subsystem.
+      Follow the "Writing style" section above. End with a line of 5-8 hashtags (see
+      hashtags note below).
 
    m. Write `<folder>/POST_DISCORD.md`: header "365 Days of LeetCode Challenge — Day
       <day>/365", a 2-3 line intuition summary, then the ENTIRE solution — the real code
       in a fenced code block plus its walkthrough — using Discord markdown (`**bold**`,
       `` ``` `` code fences for the code block). Unlike the LinkedIn split, Discord gets
       the full content directly in one post; there's no separate "article" for Discord.
+      Follow the "Writing style" section above. No hashtag line here — hashtags are a
+      LinkedIn convention, not a Discord one.
 
-   n. Commit everything for this question in one commit:
+      **Hashtags (POST_LINKEDIN_ARTICLE.md and POST_LINKEDIN.md only):** a single line of
+      5-8 hashtags at the very end, mixing a few general ones (from e.g. `#DSA #LeetCode
+      #100DaysOfCode #SoftwareEngineering #CodingInterview #TechCareer #Programming
+      #Algorithms`) with 1-3 that name this problem's actual topic/technique (e.g.
+      `#BinaryTree #BFS #DFS #Recursion #BinarySearchTree #Golang` — pick whichever
+      genuinely apply, don't reuse the same topic tags for every problem regardless of fit).
+
+   n. Commit everything for this question in one commit. The message body is
+      user-facing product content like everything else this skill writes — it must never
+      mention Claude, an AI assistant, or that the content was generated by a model (no
+      "Generated with Claude", no `Co-Authored-By: Claude ...` trailer, nothing like it):
       ```bash
       git add <folder>
       git add challenge/queue.yaml challenge/number_folder_map.yaml
