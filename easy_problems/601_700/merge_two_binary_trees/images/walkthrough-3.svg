@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" font-family="SFMono-Regular, Menlo, Consolas, monospace">
+  <rect x="0" y="0" width="480" height="260" fill="#ffffff"/>
+  <text x="16" y="20" font-size="11" letter-spacing="1" fill="#8a939c">STEP 3 / 3</text>
+
+  <!-- all edges now established -->
+  <g stroke="#7f8c8d" stroke-width="2">
+    <line x1="240" y1="40" x2="140" y2="120"/>
+    <line x1="140" y1="120" x2="80" y2="200"/>
+    <line x1="140" y1="120" x2="200" y2="200"/>
+    <line x1="240" y1="40" x2="340" y2="120"/>
+    <line x1="340" y1="120" x2="380" y2="200"/>
+  </g>
+
+  <!-- root -->
+  <circle cx="240" cy="40" r="22" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
+  <text x="240" y="40" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">3</text>
+
+  <!-- left subtree, settled in step 2 -->
+  <circle cx="140" cy="120" r="22" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
+  <text x="140" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">4</text>
+  <circle cx="80" cy="200" r="20" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
+  <text x="80" y="200" dy="0.35em" text-anchor="middle" font-size="15" fill="#2f3640">5</text>
+  <circle cx="200" cy="200" r="20" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
+  <text x="200" y="200" dy="0.35em" text-anchor="middle" font-size="15" fill="#2f3640">4</text>
+
+  <!-- right child: mergeTrees(2,3) = 5, just created -->
+  <circle cx="340" cy="120" r="22" fill="#ffffff" stroke="#e67e22" stroke-width="4"/>
+  <text x="340" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">5</text>
+
+  <!-- no left child here: mergeTrees(nil, nil) returns nil, so nothing is drawn -->
+  <text x="290" y="203" text-anchor="middle" font-size="10" fill="#c3c8cd">null</text>
+
+  <!-- 7: mergeTrees(nil, 7) returns root2 as-is -->
+  <circle cx="380" cy="200" r="20" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
+  <text x="380" y="200" dy="0.35em" text-anchor="middle" font-size="15" fill="#2f3640">7</text>
+
+  <text x="340" y="150" text-anchor="middle" font-size="11" fill="#8a939c">2 + 3</text>
+  <text x="400" y="226" text-anchor="middle" font-size="10" fill="#8a939c">root1 nil</text>
+
+  <text x="240" y="248" text-anchor="middle" font-size="13" fill="#2f3640">merge complete: [3,4,5,5,4,null,7]</text>
+</svg>
