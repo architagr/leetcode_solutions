@@ -6,6 +6,8 @@
 this about itself. So check `root.Left` for leaf-ness from `root`'s call, not from
 inside the child's own base case.
 
+![Example 1](images/1.jpg "Example1")
+
 **Full solution:**
 ```go
 func sumOfLeftLeaves(root *TreeNode) int {
@@ -29,7 +31,15 @@ func sumOfLeftLeaves(root *TreeNode) int {
 - `9` (leaf, `3`'s left child) → counts
 - `15` (leaf, `20`'s left child) → counts
 - `7` (leaf, `20`'s **right** child) → doesn't count
+
+![Step 1: 9, 15, and 7 bottom out as leaves, each returning 0](images/walkthrough-1.svg)
+
 - `sumOfLeftLeaves(20)` → detects `15` → returns `15`
+
+![Step 2: at node 20, left child 15 is a left leaf, l becomes 15](images/walkthrough-2.svg)
+
 - `sumOfLeftLeaves(3)` → detects `9` → `9 + 15 = 24` ✓
+
+![Step 3: at node 3, left child 9 is a left leaf, l becomes 9, r is 15, returns 24](images/walkthrough-3.svg)
 
 O(n) time, O(h) space (tree height).

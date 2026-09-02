@@ -23,6 +23,8 @@ return the total.
 
 ### The solution
 
+![Example 1](images/1.jpg "Example1")
+
 ```go
 func sumOfLeftLeaves(root *TreeNode) int {
 	if root == nil {
@@ -45,8 +47,16 @@ Walking it through `[3,9,20,null,null,15,7]` (expected `24`):
 - `9` is a leaf and `3`'s left child → counts.
 - `15` is a leaf and `20`'s left child → counts.
 - `7` is a leaf but `20`'s *right* child → doesn't count.
+
+![Step 1: 9, 15, and 7 bottom out as leaves, each returning 0](images/walkthrough-1.svg)
+
 - `sumOfLeftLeaves(20)` detects `15` as a left leaf → returns `15`.
+
+![Step 2: at node 20, left child 15 is a left leaf, l becomes 15](images/walkthrough-2.svg)
+
 - `sumOfLeftLeaves(3)` detects `9` as a left leaf → `9 + 15 = 24`. ✓
+
+![Step 3: at node 3, left child 9 is a left leaf, l becomes 9, r is 15, returns 24](images/walkthrough-3.svg)
 
 **Complexity:** O(n) time — every node visited once. O(h) space for the recursion
 stack, where h is the tree height.
