@@ -31,6 +31,10 @@ easy to track with a single counter and no extra bookkeeping about level sizes.
 
 ### The solution
 
+Here's the tree from LeetCode's own example, which we'll trace below:
+
+![Example tree](tmp-tree.jpg)
+
 ```go
 func maxDepth(root *TreeNode) int {
 	if root == nil {
@@ -75,12 +79,20 @@ func maxDepth(root *TreeNode) int {
 Walking it through `[3,9,20,null,null,15,7]` (expected depth `3`):
 - Queue starts `[3, nil]`. Pop `3` (real): push its children `9, 20` → queue `[nil, 9, 20]`.
 - Pop `nil` (level 1 done, `max=1`): queue not empty, push new sentinel → `[9, 20, nil]`.
+
+  ![Level 1 complete: node 3 visited, max=1](images/walkthrough-1.svg)
+
 - Pop `9` (real, no children) → `[20, nil]`.
 - Pop `20` (real): push children `15, 7` → `[nil, 15, 7]`.
 - Pop `nil` (level 2 done, `max=2`): push new sentinel → `[15, 7, nil]`.
+
+  ![Level 2 complete: nodes 3, 9, 20 visited, max=2](images/walkthrough-2.svg)
+
 - Pop `15`, then `7` (both leaves) → `[nil]`.
 - Pop `nil` (level 3 done, `max=3`): queue empty, no new sentinel.
 - Return `max = 3`. ✓
+
+  ![Level 3 complete: all nodes visited, max=3, loop ends](images/walkthrough-3.svg)
 
 **Complexity:** O(n) time — every node is enqueued/dequeued once. O(n) space in the
 worst case for the queue (a very wide, shallow tree).

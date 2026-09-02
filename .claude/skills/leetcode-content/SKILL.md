@@ -125,6 +125,23 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
       in the order they appear in the code. This is not a generic solution write-up; it
       must describe this specific implementation.
 
+      Make the walkthrough visual wherever a picture beats a paragraph:
+      - If step (d) downloaded example images (tree/graph/matrix diagrams) to
+        `<folder>/images/`, reuse them here instead of re-describing the example input in
+        prose — reference the local `images/<n>.<ext>` path. Don't regenerate an example
+        that LeetCode's own statement already illustrates well.
+      - For the parts of the walkthrough LeetCode doesn't illustrate — the data structure's
+        state as the algorithm progresses (stack/queue contents, tree pointers, DP table
+        fill order, etc.) — draw it yourself as one SVG per meaningful step, saved to
+        `<folder>/images/walkthrough-<n>.svg` (1-based, in step order), and embed each
+        inline at the point in SOLUTION.md that narrates that step. Keep each SVG small and
+        focused (one state snapshot, not the whole trace) — a reader should be able to see
+        at a glance what changed since the previous step.
+
+      Reuse the same example images and walkthrough SVGs in the LinkedIn article (k) and
+      Discord post (m) too — both carry the full solution walkthrough, so both should be
+      visual for the same reasons, not just SOLUTION.md.
+
    g. Edit `<folder>/main.go` in place to add inline `//` comments at non-obvious steps
       (loop invariants, why a particular data structure, edge cases handled). Do not
       change any logic, formatting style, or the test file.

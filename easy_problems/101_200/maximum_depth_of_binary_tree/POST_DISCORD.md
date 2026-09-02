@@ -6,6 +6,10 @@
 "end of level" — popping it means a level's done, so bump the depth counter and push a
 fresh sentinel if there's more tree left.
 
+Here's LeetCode's own example tree, which we'll trace below:
+
+![Example tree](tmp-tree.jpg)
+
 **Full solution:**
 ```go
 func maxDepth(root *TreeNode) int {
@@ -51,11 +55,19 @@ func maxDepth(root *TreeNode) int {
 **Walkthrough** on `[3,9,20,null,null,15,7]` (expected `3`):
 - `[3,nil]` → pop `3`, push children → `[nil,9,20]`
 - pop `nil` → level 1 done (`max=1`), push new sentinel → `[9,20,nil]`
+
+![Level 1 complete: node 3 visited, max=1](images/walkthrough-1.svg)
+
 - pop `9` (leaf) → `[20,nil]`
 - pop `20`, push children → `[nil,15,7]`
 - pop `nil` → level 2 done (`max=2`), push sentinel → `[15,7,nil]`
+
+![Level 2 complete: nodes 3, 9, 20 visited, max=2](images/walkthrough-2.svg)
+
 - pop `15`, `7` (leaves) → `[nil]`
 - pop `nil` → level 3 done (`max=3`), queue empty, stop
 - **return 3** ✓
+
+![Level 3 complete: all nodes visited, max=3, loop ends](images/walkthrough-3.svg)
 
 O(n) time, O(n) worst-case space (wide, shallow tree).

@@ -1,6 +1,9 @@
 ## Solution walkthrough
 
-The implementation is `maxDepth(root *TreeNode) int` in `main.go`.
+The implementation is `maxDepth(root *TreeNode) int` in `main.go`. We'll trace it on
+LeetCode's own example tree:
+
+![Example tree](tmp-tree.jpg)
 
 1. **Base case.** If `root == nil`, the tree is empty, so its depth is `0`. Handled
    immediately at the top.
@@ -31,9 +34,17 @@ The implementation is `maxDepth(root *TreeNode) int` in `main.go`.
 Walking it through the test case (`[3,9,20,null,null,15,7]`, expected depth `3`):
 - Queue starts `[3, nil]`. Pop `3` (real): push its children `9, 20` → queue `[nil, 9, 20]`.
 - Pop `nil` (level 1 done, `max=1`): queue not empty, push new sentinel → `[9, 20, nil]`.
+
+  ![Level 1 complete: node 3 visited, max=1](images/walkthrough-1.svg)
+
 - Pop `9` (real, no children): queue unchanged → `[20, nil]`.
 - Pop `20` (real): push its children `15, 7` → `[nil, 15, 7]`.
 - Pop `nil` (level 2 done, `max=2`): push new sentinel → `[15, 7, nil]`.
+
+  ![Level 2 complete: nodes 3, 9, 20 visited, max=2](images/walkthrough-2.svg)
+
 - Pop `15`, then `7` (both real, no children) → queue `[nil]`.
 - Pop `nil` (level 3 done, `max=3`): queue is now empty, so no new sentinel is pushed.
 - Loop ends, return `max = 3`. ✓
+
+  ![Level 3 complete: all nodes visited, max=3, loop ends](images/walkthrough-3.svg)

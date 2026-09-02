@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 220">
+  <style>
+    text { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .title { font-size: 12px; fill: #8a94a0; }
+    .lbl { font-size: 11px; fill: #8a94a0; }
+    .edge { stroke: #c9d1d9; stroke-width: 2; }
+    .node-done { fill: #4a90d9; stroke: #2f3640; stroke-width: 2; }
+    .node-faint { fill: #ffffff; stroke: #c9d1d9; stroke-width: 2; }
+    .txt-done { font-size: 14px; fill: #ffffff; font-weight: 600; text-anchor: middle; dominant-baseline: central; }
+    .txt-faint { font-size: 14px; fill: #9aa5b1; text-anchor: middle; dominant-baseline: central; }
+    .qbox { fill: #eaf2fb; stroke: #2f3640; stroke-width: 2; }
+    .qbox-sentinel { fill: #ffffff; stroke: #4a90d9; stroke-width: 2; stroke-dasharray: 4,3; }
+    .qtxt { font-size: 15px; fill: #2f3640; text-anchor: middle; dominant-baseline: central; font-weight: 600; }
+    .qtxt-sentinel { font-size: 15px; fill: #4a90d9; text-anchor: middle; dominant-baseline: central; font-style: italic; }
+    .cap { font-size: 22px; fill: #2f3640; font-weight: 700; }
+  </style>
+
+  <rect x="0" y="0" width="480" height="220" fill="#ffffff"/>
+  <text class="title" x="16" y="20">level 2 complete</text>
+
+  <!-- tree edges -->
+  <line class="edge" x1="100" y1="40" x2="55" y2="95"/>
+  <line class="edge" x1="100" y1="40" x2="145" y2="95"/>
+  <line class="edge" x1="145" y1="95" x2="115" y2="150"/>
+  <line class="edge" x1="145" y1="95" x2="175" y2="150"/>
+
+  <!-- nodes: 3, 9, 20 done (depth 2 reached); 15, 7 not yet reached -->
+  <circle class="node-done" cx="100" cy="40" r="16"/>
+  <text class="txt-done" x="100" y="41">3</text>
+
+  <circle class="node-done" cx="55" cy="95" r="16"/>
+  <text class="txt-done" x="55" y="96">9</text>
+
+  <circle class="node-done" cx="145" cy="95" r="16"/>
+  <text class="txt-done" x="145" y="96">20</text>
+
+  <circle class="node-faint" cx="115" cy="150" r="16"/>
+  <text class="txt-faint" x="115" y="151">15</text>
+
+  <circle class="node-faint" cx="175" cy="150" r="16"/>
+  <text class="txt-faint" x="175" y="151">7</text>
+
+  <line x1="205" y1="10" x2="205" y2="210" stroke="#e3e7eb" stroke-width="1"/>
+
+  <!-- queue after popping the level-2 sentinel: [15, 7, nil] -->
+  <text class="lbl" x="225" y="30">queue</text>
+  <rect class="qbox" x="225" y="40" width="42" height="42" rx="6"/>
+  <text class="qtxt" x="246" y="62">15</text>
+
+  <rect class="qbox" x="277" y="40" width="42" height="42" rx="6"/>
+  <text class="qtxt" x="298" y="62">7</text>
+
+  <rect class="qbox-sentinel" x="329" y="40" width="42" height="42" rx="6"/>
+  <text class="qtxt-sentinel" x="350" y="62">&#8709;</text>
+
+  <text class="lbl" x="225" y="105">&#8709; = nil sentinel (end of level)</text>
+
+  <text class="cap" x="225" y="165">max = 2</text>
+</svg>
