@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" font-family="SFMono-Regular, Menlo, Consolas, monospace">
+  <rect x="0" y="0" width="480" height="280" fill="#ffffff"/>
+  <text x="16" y="20" font-size="11" letter-spacing="1" fill="#8a939c">STEP 4 / 4</text>
+
+  <!-- edges -->
+  <g stroke="#7f8c8d" stroke-width="2">
+    <line x1="240" y1="40" x2="130" y2="120"/>
+    <line x1="240" y1="40" x2="350" y2="120"/>
+    <line x1="130" y1="120" x2="80" y2="200"/>
+    <line x1="130" y1="120" x2="180" y2="200"/>
+    <line x1="350" y1="120" x2="400" y2="200"/>
+  </g>
+
+  <!-- node 4: just resolved (root). l=10 r=16, tilt += 6, returns 30 -->
+  <circle cx="240" cy="40" r="24" fill="#ccced1" stroke="#e67e22" stroke-width="4"/>
+  <text x="240" y="40" dy="0.35em" text-anchor="middle" font-size="17" font-weight="700" fill="#2f3640">4</text>
+
+  <!-- node 2: already resolved, faded, subtree sum 10 -->
+  <circle cx="130" cy="120" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="130" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">2</text>
+
+  <!-- node 9: already resolved, faded, subtree sum 16 -->
+  <circle cx="350" cy="120" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="350" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">9</text>
+
+  <!-- node 3, 5, 7: already resolved, faded -->
+  <circle cx="80" cy="200" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="80" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">3</text>
+  <circle cx="180" cy="200" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="180" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">5</text>
+  <circle cx="400" cy="200" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="400" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">7</text>
+
+  <text x="130" y="90" text-anchor="middle" font-size="12" fill="#2f3640">l=sum(2)=10</text>
+  <text x="350" y="90" text-anchor="middle" font-size="12" fill="#2f3640">r=sum(9)=16</text>
+
+  <text x="240" y="248" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3640">node 4: *res += |10-16| = 6 (res=15), returns 30</text>
+  <text x="240" y="266" text-anchor="middle" font-size="13" font-weight="700" fill="#e67e22">findTilt(root) returns res = 15 ✓</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" font-family="SFMono-Regular, Menlo, Consolas, monospace">
+  <rect x="0" y="0" width="480" height="280" fill="#ffffff"/>
+  <text x="16" y="20" font-size="11" letter-spacing="1" fill="#8a939c">STEP 3 / 4</text>
+
+  <!-- edges -->
+  <g stroke="#7f8c8d" stroke-width="2">
+    <line x1="240" y1="40" x2="130" y2="120"/>
+    <line x1="240" y1="40" x2="350" y2="120"/>
+    <line x1="130" y1="120" x2="80" y2="200"/>
+    <line x1="130" y1="120" x2="180" y2="200"/>
+    <line x1="350" y1="120" x2="400" y2="200"/>
+  </g>
+  <!-- dashed edge to node 9's absent left child -->
+  <line x1="350" y1="120" x2="300" y2="200" stroke="#b6bcc2" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- node 4 (root, untouched at this point) -->
+  <circle cx="240" cy="40" r="22" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
+  <text x="240" y="40" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">4</text>
+
+  <!-- node 2: already resolved, faded -->
+  <circle cx="130" cy="120" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="130" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">2</text>
+
+  <!-- node 9: just resolved. l=0 (no left child) r=7, tilt += 7, returns 16 -->
+  <circle cx="350" cy="120" r="22" fill="#ccced1" stroke="#e67e22" stroke-width="4"/>
+  <text x="350" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">9</text>
+
+  <!-- nil placeholder for node 9's missing left child -->
+  <circle cx="300" cy="200" r="14" fill="#ffffff" stroke="#b6bcc2" stroke-width="2" stroke-dasharray="3 2"/>
+  <text x="300" y="200" dy="0.35em" text-anchor="middle" font-size="10" fill="#8a939c">nil</text>
+
+  <!-- node 3: already resolved, faded -->
+  <circle cx="80" cy="200" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="80" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">3</text>
+
+  <!-- node 5: already resolved, faded -->
+  <circle cx="180" cy="200" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="180" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">5</text>
+
+  <!-- node 7: already resolved, faded -->
+  <circle cx="400" cy="200" r="22" fill="#f2f3f4" stroke="#b6bcc2" stroke-width="2"/>
+  <text x="400" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">7</text>
+
+  <text x="300" y="225" text-anchor="middle" font-size="12" fill="#8a939c">l=sum(nil)=0</text>
+  <text x="400" y="240" text-anchor="middle" font-size="12" fill="#2f3640">r=sum(7)=7</text>
+
+  <text x="240" y="272" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3640">node 9: *res += |0-7| = 7 (res=9), returns 0+7+9=16</text>
+</svg>
