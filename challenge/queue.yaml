@@ -1,4 +1,4 @@
-next_day: 5
+next_day: 29
 entries:
     - day: 1
       number: 104
@@ -29,6 +29,198 @@ entries:
       title: Sum of Left Leaves
       difficulty: easy
       folder: easy_problems/401_500/sum_of_left_leaves
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 5
+      number: 110
+      title: Balanced Binary Tree
+      difficulty: easy
+      folder: easy_problems/101_200/balanced_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 6
+      number: 111
+      title: Minimum Depth of Binary Tree
+      difficulty: easy
+      folder: easy_problems/101_200/minimum_depth_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 7
+      number: 112
+      title: Path Sum
+      difficulty: easy
+      folder: easy_problems/101_200/path_sum
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 8
+      number: 144
+      title: Binary Tree Preorder Traversal
+      difficulty: easy
+      folder: easy_problems/101_200/binary_tree_preorder_traversal
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 9
+      number: 145
+      title: Binary Tree Postorder Traversal
+      difficulty: easy
+      folder: easy_problems/101_200/binary_tree_postorder_traversal
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 10
+      number: 501
+      title: Find Mode in Binary Search Tree
+      difficulty: easy
+      folder: easy_problems/501_600/find_mode_in_binary_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 11
+      number: 530
+      title: Minimum Absolute Difference in BST
+      difficulty: easy
+      folder: easy_problems/501_600/minimum_absolute_difference_in_bst
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 12
+      number: 543
+      title: Diameter of Binary Tree
+      difficulty: easy
+      folder: easy_problems/501_600/diameter_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 13
+      number: 563
+      title: Binary Tree Tilt
+      difficulty: easy
+      folder: easy_problems/501_600/binary_tree_tilt
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 14
+      number: 572
+      title: Subtree of Another Tree
+      difficulty: easy
+      folder: easy_problems/501_600/subtree_of_another_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 15
+      number: 617
+      title: Merge Two Binary Trees
+      difficulty: easy
+      folder: easy_problems/601_700/merge_two_binary_trees
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 16
+      number: 637
+      title: Average of Levels in Binary Tree
+      difficulty: easy
+      folder: easy_problems/601_700/average_of_levels_in_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 17
+      number: 653
+      title: Two Sum IV - Input is a BST
+      difficulty: easy
+      folder: easy_problems/601_700/two_sum_iv_input_is_a_bst
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 18
+      number: 671
+      title: Second Minimum Node In a Binary Tree
+      difficulty: easy
+      folder: easy_problems/601_700/second_minimum_node_in_a_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 19
+      number: 700
+      title: Search in a Binary Search Tree
+      difficulty: easy
+      folder: easy_problems/601_700/search_in_a_binary_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 20
+      number: 703
+      title: Kth Largest Element in a Stream
+      difficulty: easy
+      folder: easy_problems/701_800/kth_largest_element_in_a_stream
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 21
+      number: 783
+      title: Minimum Distance Between BST Nodes
+      difficulty: easy
+      folder: easy_problems/701_800/minimum_distance_between_bst_nodes
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 22
+      number: 872
+      title: Leaf-Similar Trees
+      difficulty: easy
+      folder: easy_problems/801_900/leaf_similar_trees
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 23
+      number: 897
+      title: Increasing Order Search Tree
+      difficulty: easy
+      folder: easy_problems/801_900/increasing_order_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 24
+      number: 965
+      title: Univalued Binary Tree
+      difficulty: easy
+      folder: easy_problems/901_1000/univalued_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 25
+      number: 993
+      title: Cousins in Binary Tree
+      difficulty: easy
+      folder: easy_problems/901_1000/cousins_in_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 26
+      number: 1022
+      title: Sum of Root To Leaf Binary Numbers
+      difficulty: easy
+      folder: easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 27
+      number: 1379
+      title: Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+      difficulty: easy
+      folder: easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 28
+      number: 2331
+      title: Evaluate Boolean Binary Tree
+      difficulty: easy
+      folder: easy_problems/2301_2400/evaluate_boolean_binary_tree
       batch: binary tree
       status: content_ready
       posted_at: null
