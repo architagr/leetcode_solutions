@@ -6,6 +6,14 @@
 to its left and larger to its right. Pick it as root, recurse on both halves — the
 tree comes out balanced for free, no rebalancing needed.
 
+LeetCode's example for `[-10,-3,0,5,9]`:
+
+![Example 1](images/1.jpg "Example1")
+
+Alternate accepted shape (the one this trace builds):
+
+![Alternative valid answer](images/2.jpg "Example1 alternative")
+
 **Full solution:**
 ```go
 func SortedArrayToBST(nums []int) *TreeNode {
@@ -27,8 +35,14 @@ func SortedArrayToBST(nums []int) *TreeNode {
 
 **Walkthrough** on `[-10,-3,0,5,9]`:
 - `mid=2`, root `0`
+
+  ![Step 1: mid=2, root=0](images/walkthrough-1.svg)
 - left: `SortedArrayToBST([-10,-3])` → root `-3`, left child `-10`
+
+  ![Step 2: left half [-10,-3], mid=1, root=-3](images/walkthrough-2.svg)
 - right: `SortedArrayToBST([5,9])` → root `9`, left child `5`
+
+  ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.svg)
 - **final tree:** `0` with left subtree `-3(-10)`, right subtree `9(5)` — matches
   `[0,-3,9,-10,null,5]` ✓
 

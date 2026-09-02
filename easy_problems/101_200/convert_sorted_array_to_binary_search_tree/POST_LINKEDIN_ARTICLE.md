@@ -29,6 +29,15 @@ resulting tree is automatically balanced — no rebalancing needed afterward.
 
 ### The solution
 
+LeetCode's own example illustrates the target shape for `nums = [-10,-3,0,5,9]`:
+
+![Example 1](images/1.jpg "Example1")
+
+The trace below builds the alternate accepted shape `[0,-3,9,-10,null,5]`, shown in
+LeetCode's own alternative diagram:
+
+![Alternative valid answer](images/2.jpg "Example1 alternative")
+
 ```go
 func SortedArrayToBST(nums []int) *TreeNode {
 	if len(nums) == 0 {
@@ -49,8 +58,14 @@ func SortedArrayToBST(nums []int) *TreeNode {
 
 Walking it through `nums = [-10,-3,0,5,9]`:
 - `mid = 2`, `root.Val = 0`.
+
+  ![Step 1: mid=2, root=0](images/walkthrough-1.svg)
 - Left: `SortedArrayToBST([-10,-3])` → root `-3` with left child `-10`.
+
+  ![Step 2: left half [-10,-3], mid=1, root=-3](images/walkthrough-2.svg)
 - Right: `SortedArrayToBST([5,9])` → root `9` with left child `5`.
+
+  ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.svg)
 - Final tree: `0` with left subtree `-3`(`-10`) and right subtree `9`(`5`) — matching
   the example's accepted output shape `[0,-3,9,-10,null,5]`.
 
