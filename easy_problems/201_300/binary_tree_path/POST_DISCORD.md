@@ -38,11 +38,20 @@ func foo(node *TreeNode, current string, result *[]string) {
 }
 ```
 
-**Walkthrough** on `[1,2,3,null,5]`:
+**Walkthrough** on `[1,2,3,null,5]` (node `2` has a right child `5`, node `3` is a leaf):
+
+![Example tree](images/1.jpg "Example tree")
+
 - root `current="1"`, recurse into `2` and `3`
+
+  ![Walkthrough step 1: current = "1", result = []](images/walkthrough-1.svg "Step 1")
 - `foo(2,"1")` → `"1->2"`, recurse into `5`
 - `foo(5,"1->2")` → `"1->2->5"`, leaf → append
+
+  ![Walkthrough step 2: current = "1->2->5", result = ["1->2->5"]](images/walkthrough-2.svg "Step 2")
 - `foo(3,"1")` → `"1->3"`, leaf → append
+
+  ![Walkthrough step 3: current = "1->3", result = ["1->2->5", "1->3"]](images/walkthrough-3.svg "Step 3")
 - **result:** `["1->2->5", "1->3"]` ✓
 
 O(n²) worst case (skewed tree), O(n log n) balanced.

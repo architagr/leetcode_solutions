@@ -56,12 +56,21 @@ func foo(node *TreeNode, current string, result *[]string) {
 }
 ```
 
-Walking it through `root = [1,2,3,null,5]` (node `2` has a right child `5`, node `3`
-has no children):
+Walking it through the example tree from the problem statement, `root = [1,2,3,null,5]`
+(node `2` has a right child `5`, node `3` has no children):
+
+![Example tree](images/1.jpg "Example tree")
+
 - `binaryTreePaths`: `current = "1"`. Recurse into both children.
+
+  ![Walkthrough step 1: current = "1", result = []](images/walkthrough-1.svg "Step 1")
 - `foo(2, "1", ...)`: `current = "1->2"`. Node `2` has a right child, so recurse into `5`.
 - `foo(5, "1->2", ...)`: `current = "1->2->5"`. Leaf — append `"1->2->5"`.
+
+  ![Walkthrough step 2: current = "1->2->5", result = ["1->2->5"]](images/walkthrough-2.svg "Step 2")
 - `foo(3, "1", ...)`: `current = "1->3"`. Leaf — append `"1->3"`.
+
+  ![Walkthrough step 3: current = "1->3", result = ["1->2->5", "1->3"]](images/walkthrough-3.svg "Step 3")
 - Final result: `["1->2->5", "1->3"]`.
 
 **Complexity:** O(n²) worst case (building each path string copies the prefix so far;

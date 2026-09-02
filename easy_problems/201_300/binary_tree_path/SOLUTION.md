@@ -4,6 +4,11 @@ The implementation is split across `binaryTreePaths(root *TreeNode) []string` (t
 entry point) and `foo(node *TreeNode, current string, result *[]string)` (the recursive
 helper for everything below the root), both in `main.go`.
 
+We'll trace it on the example tree from the problem statement, `root = [1,2,3,null,5]`
+(node `2` has a right child `5`, node `3` is a leaf):
+
+![Example tree](images/1.jpg "Example tree")
+
 1. **`binaryTreePaths` seeds the path with the root.** `current := fmt.Sprint(root.Val)`
    starts the path string as just the root's value, with no `"->"` prefix — the root is
    the one node that never needs a separator before it.
@@ -35,11 +40,17 @@ Walking it through `root = [1,2,3,null,5]` (node `2` has a right child `5`, node
 no children):
 - `binaryTreePaths`: `current = "1"`. Root has both children, so calls `foo(2, "1", &result)`
   and `foo(3, "1", &result)`.
+
+  ![Walkthrough step 1: current = "1", result = []](images/walkthrough-1.svg "Step 1")
 - `foo(2, "1", ...)`: `current = "1->2"`. Node `2` has a right child (`5`), so it's not a
   leaf — recurse: `foo(5, "1->2", &result)`.
 - `foo(5, "1->2", ...)`: `current = "1->2->5"`. Node `5` has no children — leaf reached,
   append `"1->2->5"` to `result`.
+
+  ![Walkthrough step 2: current = "1->2->5", result = ["1->2->5"]](images/walkthrough-2.svg "Step 2")
 - `foo(3, "1", ...)`: `current = "1->3"`. Node `3` has no children — leaf reached,
   append `"1->3"` to `result`.
+
+  ![Walkthrough step 3: current = "1->3", result = ["1->2->5", "1->3"]](images/walkthrough-3.svg "Step 3")
 - Final `result = ["1->2->5", "1->3"]`, matching the example (order may vary, which the
   problem explicitly allows).
