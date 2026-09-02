@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" font-family="SFMono-Regular, Menlo, Consolas, monospace">
+  <rect x="0" y="0" width="480" height="260" fill="#ffffff"/>
+  <text x="16" y="20" font-size="11" letter-spacing="1" fill="#8a939c">STEP 3 / 3 — isCousins comparison</text>
+
+  <!-- all edges shown, neutral -->
+  <g stroke="#7f8c8d" stroke-width="2">
+    <line x1="240" y1="40" x2="130" y2="120"/>
+    <line x1="240" y1="40" x2="350" y2="120"/>
+    <line x1="130" y1="120" x2="190" y2="200"/>
+    <line x1="350" y1="120" x2="410" y2="200"/>
+  </g>
+
+  <!-- root 1 -->
+  <circle cx="240" cy="40" r="22" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
+  <text x="240" y="40" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">1</text>
+
+  <!-- node 2: parentY -->
+  <circle cx="130" cy="120" r="22" fill="#eaf7f0" stroke="#27ae60" stroke-width="3"/>
+  <text x="130" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">2</text>
+  <text x="130" y="95" text-anchor="middle" font-size="10" fill="#27ae60">parentY</text>
+
+  <!-- node 3: parentX -->
+  <circle cx="350" cy="120" r="22" fill="#eaf7f0" stroke="#27ae60" stroke-width="3"/>
+  <text x="350" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">3</text>
+  <text x="350" y="95" text-anchor="middle" font-size="10" fill="#27ae60">parentX</text>
+
+  <!-- node 4: y, depth 2 -->
+  <circle cx="190" cy="200" r="24" fill="#eaf7f0" stroke="#27ae60" stroke-width="4"/>
+  <text x="190" y="200" dy="0.35em" text-anchor="middle" font-size="17" font-weight="700" fill="#27ae60">4</text>
+  <text x="190" y="228" text-anchor="middle" font-size="10" fill="#27ae60">y, depth=2</text>
+
+  <!-- node 5: x, depth 2 -->
+  <circle cx="410" cy="200" r="24" fill="#eaf7f0" stroke="#27ae60" stroke-width="4"/>
+  <text x="410" y="200" dy="0.35em" text-anchor="middle" font-size="17" font-weight="700" fill="#27ae60">5</text>
+  <text x="410" y="228" text-anchor="middle" font-size="10" fill="#27ae60">x, depth=2</text>
+
+  <text x="240" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">depthX==depthY (2==2) &amp;&amp; parentX!=parentY (3!=2) -&gt; true</text>
+</svg>
