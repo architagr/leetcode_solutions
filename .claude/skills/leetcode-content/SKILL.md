@@ -189,6 +189,24 @@ rewrite it.
         focused (one state snapshot, not the whole trace) — a reader should be able to see
         at a glance what changed since the previous step.
 
+      **Every walkthrough SVG must also be exported to PNG**, same basename, beside it:
+      ```bash
+      rsvg-convert -w 1200 --keep-aspect-ratio -b white \
+        -o <folder>/images/walkthrough-<n>.png <folder>/images/walkthrough-<n>.svg
+      ```
+      SOLUTION.md keeps the `.svg` (GitHub renders it natively and it stays sharp at any
+      zoom); POST_LINKEDIN_ARTICLE.md references the `.png`, because **LinkedIn's article
+      editor rejects SVG uploads**. Both files exist for every diagram — don't ship one
+      without the other.
+
+      **Never write `--` inside an SVG comment.** A double hyphen is illegal in XML
+      comments, and it silently breaks the whole file: the SVG won't render on GitHub or
+      convert to PNG. Use a single hyphen or an en dash for a parenthetical instead. After
+      writing the SVGs, verify every one parses before moving on:
+      ```bash
+      python3 -c "import xml.etree.ElementTree as ET,glob,sys; [ET.parse(f) for f in glob.glob('<folder>/images/*.svg')]" && echo "all SVGs valid"
+      ```
+
       Reuse the same example images and walkthrough SVGs in the LinkedIn article (k) and
       Discord post (m) too — both carry the full solution walkthrough, so both should be
       visual for the same reasons, not just SOLUTION.md.

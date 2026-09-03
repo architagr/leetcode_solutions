@@ -100,29 +100,29 @@ nodes in this order: 4, 5, 2, 3, 1.
 **Step 1: `calc(4)`.** A leaf, so both children return height `0`. `dia`
 stays `0`, and node 4 reports `height = 1`.
 
-![step 1](images/walkthrough-1.svg)
+![step 1](images/walkthrough-1.png)
 
 **Step 2: `calc(5)`.** Also a leaf. Same result: `dia` stays `0`, height `1`.
 
-![step 2](images/walkthrough-2.svg)
+![step 2](images/walkthrough-2.png)
 
 **Step 3: `calc(2)`.** Both children are now known (`left=1`, `right=1`). The
 path through node 2 has length `1+1=2`, which beats `dia=0`, so `dia` updates
 to `2`. Node 2 reports `height = max(1,1)+1 = 2`.
 
-![step 3](images/walkthrough-3.svg)
+![step 3](images/walkthrough-3.png)
 
 **Step 4: `calc(3)`.** A leaf on the other side of the root. `dia` stays `2`,
 height is `1`.
 
-![step 4](images/walkthrough-4.svg)
+![step 4](images/walkthrough-4.png)
 
 **Step 5: `calc(1)`.** The root has `left=2` (from node 2) and `right=1`
 (from node 3). The path through the root has length `2+1=3`, which beats
 `dia=2`, so `dia` lands on its final value: `3`. That's the path
 `4 → 2 → 1 → 3` (or `5 → 2 → 1 → 3`) from the problem statement.
 
-![step 5](images/walkthrough-5.svg)
+![step 5](images/walkthrough-5.png)
 
 `diameterOfBinaryTree` returns `dia = 3`, the correct answer.
 

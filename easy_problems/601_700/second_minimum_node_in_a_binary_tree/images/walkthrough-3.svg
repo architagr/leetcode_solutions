@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 280" width="360" height="280" font-family="SFMono-Regular, Consolas, Menlo, monospace">
-  <rect x="0" y="0" width="360" height="280" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-34.7 0.0 556.7 280.0" width="360" height="280" font-family="SFMono-Regular, Consolas, Menlo, monospace">
+  <rect x="-34.7" y="0.0" width="556.7" height="280.0" fill="#ffffff"/>
   <text x="180" y="20" text-anchor="middle" font-size="13" fill="#2f3640" font-weight="bold">Step 3: dfs(right) — candidate found, subtree pruned</text>
 
   <!-- edges -->

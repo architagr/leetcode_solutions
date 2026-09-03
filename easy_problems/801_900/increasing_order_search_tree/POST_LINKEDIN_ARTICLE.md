@@ -111,7 +111,7 @@ node explicitly.
 
 ![Example 2](images/2.jpg "Example2")
 
-![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](images/walkthrough-1.svg)
+![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](images/walkthrough-1.png)
 
 `inOrder(5)` recurses left and right before touching `5` itself. `inOrder(1)` has both
 children nil, so `left=[]` and `right=[]`; clearing `1.Left` and `1.Right` is a no-op
@@ -122,7 +122,7 @@ Back in `inOrder(5)`: `left=[1]`, `right=[7]`. Now `5.Left = nil` and `5.Right =
 detach `5` from its old children. `res = append([1], 5) = [1, 5]`, then
 `res = append([1,5], 7...) = [1, 5, 7]`.
 
-![Step 2: inOrder returns [1, 5, 7], all three nodes already detached from old children](images/walkthrough-2.svg)
+![Step 2: inOrder returns [1, 5, 7], all three nodes already detached from old children](images/walkthrough-2.png)
 
 Back in `increasingBST`, `inorder = [1, 5, 7]`, and the relinking loop runs twice:
 `i=1` sets `inorder[0].Right = inorder[1]`, meaning `1.Right = 5`. `i=2` sets
@@ -130,7 +130,7 @@ Back in `increasingBST`, `inorder = [1, 5, 7]`, and the relinking loop runs twic
 `inorder[0]`, node `1`, now the root of a chain `1 → 5 → 7`, linked purely through
 `.Right`, matching the expected output `[1,null,5,null,7]`.
 
-![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](images/walkthrough-3.svg)
+![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](images/walkthrough-3.png)
 
 The same two-phase approach scales directly to the bigger example above
 (`root = [5,3,6,2,4,null,8,1,null,null,null,7,9]`): `inOrder` collects all nine nodes

@@ -63,19 +63,19 @@ Tracing it through `root1 = [1,3,2,5]`, `root2 = [2,1,3,null,4,null,7]` (expecte
 - `mergeTrees(1, 2)`: both non-nil, so a new node `1+2 = 3`. Its children aren't
   merged yet.
 
-  ![Step 1: merged root created as 1+2=3, children still pending](images/walkthrough-1.svg)
+  ![Step 1: merged root created as 1+2=3, children still pending](images/walkthrough-1.png)
 
   - `root.Left = mergeTrees(3, 1)`: both non-nil, new node `3+1 = 4`. Its own
     children come straight from base cases: `mergeTrees(5, nil)` hands back root1's
     `5` untouched, and `mergeTrees(nil, 4)` hands back root2's `4` untouched.
 
-    ![Step 2: left subtree resolved — 3+1=4, reusing 5 from root1 and 4 from root2 as leaves](images/walkthrough-2.svg)
+    ![Step 2: left subtree resolved — 3+1=4, reusing 5 from root1 and 4 from root2 as leaves](images/walkthrough-2.png)
 
   - `root.Right = mergeTrees(2, 3)`: both non-nil, new node `2+3 = 5`. Left child
     comes from `mergeTrees(nil, nil)`, which is just nil, so no left child at all.
     Right child comes from `mergeTrees(nil, 7)`, root2's `7` untouched.
 
-    ![Step 3: right subtree resolved — 2+3=5, right child reuses 7 from root2, no left child — merge complete](images/walkthrough-3.svg)
+    ![Step 3: right subtree resolved — 2+3=5, right child reuses 7 from root2, no left child — merge complete](images/walkthrough-3.png)
 
 - Back at the root, `root.Left = 4` and `root.Right = 5` get wired in, giving the
   final merged tree `[3,4,5,5,4,null,7]`, which matches what's expected.

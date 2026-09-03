@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 260" font-family="Consolas, 'SF Mono', Menlo, monospace">
-  <rect x="0" y="0" width="520" height="260" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-25.7 -4.0 541.0 266.0" font-family="Consolas, 'SF Mono', Menlo, monospace">
+  <rect x="-25.7" y="-4.0" width="541.0" height="266.0" fill="#ffffff"/>
 
   <!-- title -->
   <text x="260" y="18" text-anchor="middle" font-size="12" fill="#2f3640" font-weight="bold">Step 1 &#8212; pick mid (index 2), root = 0</text>

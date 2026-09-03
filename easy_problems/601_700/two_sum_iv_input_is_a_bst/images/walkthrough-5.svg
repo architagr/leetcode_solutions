@@ -31,7 +31,7 @@
   <circle cx="200" cy="200" r="22" fill="#4a90d9" stroke="#2f3640" stroke-width="2"/>
   <text x="200" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">4</text>
 
-  <!-- node 7: never visited -- recursion into 6's right child is skipped by 6's early return -->
+  <!-- node 7: never visited – recursion into 6's right child is skipped by 6's early return -->
   <circle cx="400" cy="200" r="22" fill="#ffffff" stroke="#2f3640" stroke-width="2" stroke-dasharray="4 3"/>
   <text x="400" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#8a939c">7</text>
 

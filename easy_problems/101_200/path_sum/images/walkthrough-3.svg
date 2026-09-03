@@ -36,7 +36,7 @@
   <circle cx="100" cy="250" r="22" fill="#ccced1" stroke="#c0392b" stroke-width="2"/>
   <text x="100" y="250" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">7</text>
 
-  <!-- node 2: leaf, currently checked -- matches! -->
+  <!-- node 2: leaf, currently checked – matches! -->
   <circle cx="200" cy="250" r="22" fill="#4a90d9" stroke="#2f3640" stroke-width="4"/>
   <text x="200" y="250" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">2</text>
   <text x="200" y="222" text-anchor="middle" font-size="11" fill="#4a90d9">current=20</text>

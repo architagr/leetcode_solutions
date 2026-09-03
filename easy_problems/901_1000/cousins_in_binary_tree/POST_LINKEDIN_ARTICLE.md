@@ -101,7 +101,7 @@ back empty, the root call moves on to its right child, `3`. `3` doesn't match `5
 directly, but `3.Right` *is* `5` — a direct child match — so that call returns
 `(depth=2, parent=3, found=true)` immediately, no further recursion needed.
 
-![Step 1: searching for x=5 — the miss down through node 2 and leaf 4 backtracks, then 5 is found as node 3's right child at depth 2](images/walkthrough-1.svg)
+![Step 1: searching for x=5 — the miss down through node 2 and leaf 4 backtracks, then 5 is found as node 3's right child at depth 2](images/walkthrough-1.png)
 
 Searching for `y = 4`: `foo(1, 0, 4)` again checks node `1`, descends left into `2`, and
 this time `2.Right` *is* `4` — a direct hit on the very first recursive call, no
@@ -109,13 +109,13 @@ backtracking required. That returns `(depth=2, parent=2, found=true)`, and becau
 `found` is `true`, the root call's `if found { return }` fires right away — node `3`'s
 entire subtree is never even visited.
 
-![Step 2: searching for y=4 — found directly as node 2's right child at depth 2, so the right subtree is never visited](images/walkthrough-2.svg)
+![Step 2: searching for y=4 — found directly as node 2's right child at depth 2, so the right subtree is never visited](images/walkthrough-2.png)
 
 Back in `isCousins`: `depthX == depthY` → `2 == 2` → `true`. `parentX != parentY` → `3
 != 2` → `true`. Both hold, so the function returns `true` — `5` and `4` sit at the same
 depth under different parents, exactly the definition of cousins.
 
-![Step 3: comparing the two results — same depth (2 and 2), different parents (3 and 2) — cousins](images/walkthrough-3.svg)
+![Step 3: comparing the two results — same depth (2 and 2), different parents (3 and 2) — cousins](images/walkthrough-3.png)
 
 **Complexity:**
 - Time: O(n) — `foo` runs twice, and each call visits at most every node once (fewer,

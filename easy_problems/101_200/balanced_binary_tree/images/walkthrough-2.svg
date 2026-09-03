@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 360" font-family="Menlo, Consolas, monospace">
-  <rect width="440" height="360" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-77.0 -1.7 593.0 361.7" font-family="Menlo, Consolas, monospace">
+  <rect width="593.0" height="361.7" fill="#ffffff"/>
   <text x="220" y="22" text-anchor="middle" font-size="14" fill="#2f3640" font-weight="bold">Step 2: recursion moves into node.Left (2), right child (3) first</text>
 
   <line x1="260" y1="70" x2="150" y2="150" stroke="#2f3640" stroke-width="2"/>

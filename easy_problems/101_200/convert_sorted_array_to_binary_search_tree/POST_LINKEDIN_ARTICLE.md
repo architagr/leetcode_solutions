@@ -59,13 +59,13 @@ func SortedArrayToBST(nums []int) *TreeNode {
 Walking it through `nums = [-10,-3,0,5,9]`:
 - `mid = 2`, so the root is `0`.
 
-  ![Step 1: mid=2, root=0](images/walkthrough-1.svg)
+  ![Step 1: mid=2, root=0](images/walkthrough-1.png)
 - The left half, `[-10,-3]`, becomes root `-3` with left child `-10`.
 
-  ![Step 2: left half [-10,-3], mid=1, root=-3](images/walkthrough-2.svg)
+  ![Step 2: left half [-10,-3], mid=1, root=-3](images/walkthrough-2.png)
 - The right half, `[5,9]`, becomes root `9` with left child `5`.
 
-  ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.svg)
+  ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.png)
 - Put it together and you get `0` with left subtree `-3(-10)` and right subtree
   `9(5)`. That's the same shape as the alternate accepted output `[0,-3,9,-10,null,5]`.
 

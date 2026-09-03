@@ -131,14 +131,14 @@ of threading it through return values. Not the prettiest pattern on its own, but
 Step 1: initialize. `min` gets pinned to `root.Val`, which is 2. `ans` starts at
 infinity, meaning no candidate yet.
 
-<img src="images/walkthrough-1.svg" alt="Step 1: initialize min and ans" width="360" />
+<img src="images/walkthrough-1.png" alt="Step 1: initialize min and ans" width="360" />
 
 Step 2: `dfs(root)`, then the left child. At the root, `root.Val` (2) equals `min`, so we
 skip the `if` and take the `else if`, recursing into both children. The left child is
 also 2, same story, recurse again. It's a leaf though, so both of its recursive calls
 just hit the `nil` base case and do nothing.
 
-<img src="images/walkthrough-2.svg" alt="Step 2: recursing while value equals min" width="360" />
+<img src="images/walkthrough-2.png" alt="Step 2: recursing while value equals min" width="360" />
 
 Step 3: the right child, value 5. This is the part I like. Back at the root we visit the
 right child, value 5, and now `min < root.Val && root.Val < ans` holds (2 < 5 < ∞), so
@@ -146,13 +146,13 @@ right child, value 5, and now `min < root.Val && root.Val < ans` holds (2 < 5 < 
 underneath it. That's the pruning, and it's the whole reason this beats sorting
 everything.
 
-<img src="images/walkthrough-3.svg" alt="Step 3: candidate found, subtree pruned" width="360" />
+<img src="images/walkthrough-3.png" alt="Step 3: candidate found, subtree pruned" width="360" />
 
 Step 4: unwind and return. Nothing left on the stack, so control returns to
 `findSecondMinimumValue`. `ans` is 5, less than the sentinel, so the function returns 5,
 matching the expected output.
 
-<img src="images/walkthrough-4.svg" alt="Step 4: final return value" width="360" />
+<img src="images/walkthrough-4.png" alt="Step 4: final return value" width="360" />
 
 ### Why Example 2 returns -1
 

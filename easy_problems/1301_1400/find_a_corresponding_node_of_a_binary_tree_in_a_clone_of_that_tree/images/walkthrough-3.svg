@@ -19,15 +19,15 @@
     <line x1="560" y1="135" x2="600" y2="215"/>
   </g>
 
-  <!-- original: root 7 -- already visited -->
+  <!-- original: root 7 – already visited -->
   <circle cx="150" cy="60" r="20" fill="#ffffff" stroke="#b8c2cc" stroke-width="2"/>
   <text x="150" y="60" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#8a939c">7</text>
 
-  <!-- original: 4 -- already visited -->
+  <!-- original: 4 – already visited -->
   <circle cx="80" cy="135" r="20" fill="#ffffff" stroke="#b8c2cc" stroke-width="2"/>
   <text x="80" y="135" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#8a939c">4</text>
 
-  <!-- original: 3 -- currently visiting AND the target -- match! -->
+  <!-- original: 3 – currently visiting AND the target – match! -->
   <circle cx="220" cy="135" r="24" fill="#ffffff" stroke="#9b59b6" stroke-width="2" stroke-dasharray="4 3"/>
   <circle cx="220" cy="135" r="20" fill="#ffffff" stroke="#27ae60" stroke-width="4"/>
   <text x="220" y="135" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">3</text>
@@ -39,15 +39,15 @@
   <circle cx="260" cy="215" r="20" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
   <text x="260" y="215" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">19</text>
 
-  <!-- cloned: root 7 -- already visited -->
+  <!-- cloned: root 7 – already visited -->
   <circle cx="490" cy="60" r="20" fill="#ffffff" stroke="#b8c2cc" stroke-width="2"/>
   <text x="490" y="60" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#8a939c">7</text>
 
-  <!-- cloned: 4 -- already visited -->
+  <!-- cloned: 4 – already visited -->
   <circle cx="420" cy="135" r="20" fill="#ffffff" stroke="#b8c2cc" stroke-width="2"/>
   <text x="420" y="135" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#8a939c">4</text>
 
-  <!-- cloned: 3 -- match! this is the returned answer node -->
+  <!-- cloned: 3 – match! this is the returned answer node -->
   <circle cx="560" cy="135" r="20" fill="#ffffff" stroke="#27ae60" stroke-width="4"/>
   <text x="560" y="135" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">3</text>
   <text x="560" y="108" text-anchor="middle" font-size="10" fill="#27ae60">found</text>

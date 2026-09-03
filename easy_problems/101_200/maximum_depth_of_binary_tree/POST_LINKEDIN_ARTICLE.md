@@ -78,31 +78,32 @@ func maxDepth(root *TreeNode) int {
 ```
 
 Tracing it on `[3,9,20,null,null,15,7]` (expected depth `3`):
+
 - Queue starts `[3, nil]`. Pop `3` (real): push its children `9, 20` → queue `[nil, 9, 20]`.
 - Pop `nil` (level 1 done, `max=1`): queue not empty, push new sentinel → `[9, 20, nil]`.
 
-  ![Level 1 complete: node 3 visited, max=1](images/walkthrough-1.svg)
+  ![Level 1 complete: node 3 visited, max=1](images/walkthrough-1.png)
 
 - Pop `9` (real, no children) → `[20, nil]`.
 - Pop `20` (real): push children `15, 7` → `[nil, 15, 7]`.
 - Pop `nil` (level 2 done, `max=2`): push new sentinel → `[15, 7, nil]`.
 
-  ![Level 2 complete: nodes 3, 9, 20 visited, max=2](images/walkthrough-2.svg)
+  ![Level 2 complete: nodes 3, 9, 20 visited, max=2](images/walkthrough-2.png)
 
 - Pop `15`, then `7` (both leaves) → `[nil]`.
 - Pop `nil` (level 3 done, `max=3`): queue empty, no new sentinel.
 - Return `max = 3`, which matches.
 
-  ![Level 3 complete: all nodes visited, max=3, loop ends](images/walkthrough-3.svg)
+  ![Level 3 complete: all nodes visited, max=3, loop ends](images/walkthrough-3.png)
 
 Runtime is O(n): every node gets enqueued and dequeued exactly once. Space is O(n) too
 in the worst case, since a very wide, shallow tree can have close to half its nodes
 sitting in the queue at the same time.
 
-Full code + tests: `easy_problems/101_200/maximum_depth_of_binary_tree/` in the repo.
+Full code + tests: [easy_problems/101_200/maximum_depth_of_binary_tree](https://github.com/architagr/leetcode_solutions/easy_problems/101_200/maximum_depth_of_binary_tree/) in the repo.
 
 #DSA #LeetCode #100DaysOfCode #BinaryTree #BFS #Golang #CodingInterview #Algorithms
 
 ---
 
-*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
+_Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement._

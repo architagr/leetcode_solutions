@@ -65,24 +65,24 @@ child is `2`, and `2` has a left child `3`. Expected output is `[1,2,3]`.
 
 `traversal(1)` appends `1`, so `arr = [1]`.
 
-![Step 1: visit root 1, arr becomes [1]](images/walkthrough-1.svg)
+![Step 1: visit root 1, arr becomes [1]](images/walkthrough-1.png)
 
 `1.Left` is `nil`, so that call hits the base case immediately and does
 nothing. `1.Right` is `2`, so `traversal(2)` appends `2` and `arr` becomes
 `[1,2]`.
 
-![Step 2: 1.Left is nil, visit 2, arr becomes [1,2]](images/walkthrough-2.svg)
+![Step 2: 1.Left is nil, visit 2, arr becomes [1,2]](images/walkthrough-2.png)
 
 `2.Left` is `3`, so `traversal(3)` appends `3`. `arr` is now `[1,2,3]`.
 
-![Step 3: visit 3 via 2.Left, arr becomes [1,2,3]](images/walkthrough-3.svg)
+![Step 3: visit 3 via 2.Left, arr becomes [1,2,3]](images/walkthrough-3.png)
 
 `3` has no children, so both of its calls hit the base case and return
 without touching anything. The `[1,2,3]` slice unwinds back up through `3`,
 then `2` (whose `Right` is also `nil`), then `1`, and out. That's the whole
 trace.
 
-![Step 4: 3's children are nil, unwind to return [1,2,3]](images/walkthrough-4.svg)
+![Step 4: 3's children are nil, unwind to return [1,2,3]](images/walkthrough-4.png)
 
 O(n) time, since every node gets visited once and does O(1) work. O(h) space
 for the recursion stack, where h is the tree's height, plus O(n) for the

@@ -80,17 +80,17 @@ Walking it through `[3,9,20,null,null,15,7]` (expected `2`):
 - `9`, `15`, and `7` are leaves. Both children are nil, so `left != 0` fails and each
   one falls through to `return right + 1 = 1`.
 
-![Step 1: 9, 15, and 7 bottom out as leaves, each returning 1](images/walkthrough-1.svg)
+![Step 1: 9, 15, and 7 bottom out as leaves, each returning 1](images/walkthrough-1.png)
 
 - `minDepth(20)`: `left=1` (from `15`), `right=1` (from `7`), both non-zero, so
   `minVal(1, 1) + 1 = 2`.
 
-![Step 2: at node 20, left=1 and right=1, both non-zero, min(1,1)+1 = 2](images/walkthrough-2.svg)
+![Step 2: at node 20, left=1 and right=1, both non-zero, min(1,1)+1 = 2](images/walkthrough-2.png)
 
 - `minDepth(3)`: `left=1` (from `9`), `right=2` (from `20`), both non-zero, so
   `minVal(1, 2) + 1 = 2`, which matches the expected answer.
 
-![Step 3: at node 3, left=1 and right=2, both non-zero, min(1,2)+1 = 2 (final answer)](images/walkthrough-3.svg)
+![Step 3: at node 3, left=1 and right=2, both non-zero, min(1,2)+1 = 2 (final answer)](images/walkthrough-3.png)
 
 Here's why the `left != 0` / `right != 0` guard is the whole problem. Example 2,
 `[2,null,3,null,4,null,5,null,6]`, has no left children at all: a straight
@@ -100,7 +100,7 @@ right-leaning chain down to leaf `6`, correct answer `5`. If the code ever compu
 missing child is not a leaf. The guard keeps a `0` from a nil child out of the `min`
 comparison entirely; the code just follows whichever single side actually exists.
 
-![Step 4: at node 2, left is nil (0), so the min is skipped and the code follows the existing right child instead](images/walkthrough-4.svg)
+![Step 4: at node 2, left is nil (0), so the min is skipped and the code follows the existing right child instead](images/walkthrough-4.png)
 
 Time comes out to O(n), since every node gets visited once. Space is O(h) for the
 recursion stack, where h is the tree height: O(log n) if it's balanced, O(n) if it's

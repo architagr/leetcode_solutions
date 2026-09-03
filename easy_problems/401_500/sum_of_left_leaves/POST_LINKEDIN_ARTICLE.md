@@ -50,15 +50,15 @@ is a leaf too, it just never gets a vote:
 - `15` is a leaf and `20`'s left child → counts.
 - `7` is a leaf but `20`'s *right* child → doesn't count.
 
-![Step 1: 9, 15, and 7 bottom out as leaves, each returning 0](images/walkthrough-1.svg)
+![Step 1: 9, 15, and 7 bottom out as leaves, each returning 0](images/walkthrough-1.png)
 
 - `sumOfLeftLeaves(20)` detects `15` as a left leaf → returns `15`.
 
-![Step 2: at node 20, left child 15 is a left leaf, l becomes 15](images/walkthrough-2.svg)
+![Step 2: at node 20, left child 15 is a left leaf, l becomes 15](images/walkthrough-2.png)
 
 - `sumOfLeftLeaves(3)` detects `9` as a left leaf → `9 + 15 = 24`. ✓
 
-![Step 3: at node 3, left child 9 is a left leaf, l becomes 9, r is 15, returns 24](images/walkthrough-3.svg)
+![Step 3: at node 3, left child 9 is a left leaf, l becomes 9, r is 15, returns 24](images/walkthrough-3.png)
 
 Time is O(n), every node gets visited once. Space is O(h) for the recursion stack,
 where h is the tree height, so it's cheap unless the tree is a long skinny chain.

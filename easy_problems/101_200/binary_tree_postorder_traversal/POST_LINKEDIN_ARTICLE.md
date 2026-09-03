@@ -64,17 +64,17 @@ its right child is `2`, and `2`'s left child is `3`), expected output `[3,2,1]`:
     - `traversal(3, [])` has both children `nil`, so it bottoms out immediately
       and appends its own value → `arr = [3]`.
 
-    ![Step 1: node 3 is a leaf — both children hit the nil base case, so it appends itself first](images/walkthrough-1.svg)
+    ![Step 1: node 3 is a leaf — both children hit the nil base case, so it appends itself first](images/walkthrough-1.png)
 
   - Back in `traversal(2, [])`: left came back `[3]`, right (`nil`) adds
     nothing. Both sides done → appends `2` → `arr = [3, 2]`.
 
-    ![Step 2: node 2's left (3) and right (nil) are both resolved, so it appends itself next](images/walkthrough-2.svg)
+    ![Step 2: node 2's left (3) and right (nil) are both resolved, so it appends itself next](images/walkthrough-2.png)
 
 - Back in `traversal(1, [])`: left (`nil`) contributed nothing, right came back
   `[3, 2]`. Both sides done → appends `1` → `arr = [3, 2, 1]`.
 
-  ![Step 3: node 1's left (nil) and right (2) are both resolved, so it appends itself last](images/walkthrough-3.svg)
+  ![Step 3: node 1's left (nil) and right (2) are both resolved, so it appends itself last](images/walkthrough-3.png)
 
 `PostorderTraversal` returns `[3, 2, 1]`. ✓
 

@@ -14,11 +14,11 @@
   <circle cx="240" cy="40" r="22" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
   <text x="240" y="40" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">3</text>
 
-  <!-- node 9: leaf, still pending -- not yet checked by its parent 3 -->
+  <!-- node 9: leaf, still pending – not yet checked by its parent 3 -->
   <circle cx="130" cy="120" r="22" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
   <text x="130" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">9</text>
 
-  <!-- node 20: currently evaluating -- looking at its own left child (15) -->
+  <!-- node 20: currently evaluating – looking at its own left child (15) -->
   <circle cx="350" cy="120" r="22" fill="#ffffff" stroke="#e67e22" stroke-width="4"/>
   <text x="350" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">20</text>
 

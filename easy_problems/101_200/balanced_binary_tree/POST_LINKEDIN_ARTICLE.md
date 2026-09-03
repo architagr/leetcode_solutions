@@ -160,30 +160,30 @@ every level, the actual order of computation is:
 "2") has two `nil` children, so both recursive calls immediately return `(0, true)`, and
 this node computes `height = max(0,0)+1 = 1`, `ok = true`.
 
-![Step 1](images/walkthrough-1.svg)
+![Step 1](images/walkthrough-1.png)
 
 **Step 2: on to the left subtree, right child first.** Inside the call for the left "2",
 the right child ("3", a leaf) resolves next, also to `(1, true)`.
 
-![Step 2](images/walkthrough-2.svg)
+![Step 2](images/walkthrough-2.png)
 
 **Step 3: the left "3" and its two "4" leaves resolve.** Both "4" nodes return
 `(1, true)`. Their parent computes `diff = 1-1 = 0`, passes, and reports
 `height = max(1,1)+1 = 2`.
 
-![Step 3](images/walkthrough-3.svg)
+![Step 3](images/walkthrough-3.png)
 
 **Step 4: the left "2" combines its two children.** `rightHeight = 1`, `leftHeight = 2`.
 `diff = 1`, within `[-1, 1]`, so it's fine and reports `height = max(2,1)+1 = 3`.
 
-![Step 4](images/walkthrough-4.svg)
+![Step 4](images/walkthrough-4.png)
 
 **Step 5: the root combines its children and fails.** `rightHeight = 1` (from the leaf
 "2"), `leftHeight = 3` (from the "2" subtree just resolved). `diff = 2`, and `2 > 1`, so
 `ok` flips to `false` right here. `isBalanced` returns `false` without ever looking at
 anything else.
 
-![Step 5](images/walkthrough-5.svg)
+![Step 5](images/walkthrough-5.png)
 
 ---
 

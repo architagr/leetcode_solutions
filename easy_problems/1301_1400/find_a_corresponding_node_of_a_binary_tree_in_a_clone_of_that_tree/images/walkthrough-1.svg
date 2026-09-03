@@ -19,7 +19,7 @@
     <line x1="560" y1="135" x2="600" y2="215"/>
   </g>
 
-  <!-- original: root 7 -- currently visiting -->
+  <!-- original: root 7 – currently visiting -->
   <circle cx="150" cy="60" r="20" fill="#ffffff" stroke="#e67e22" stroke-width="4"/>
   <text x="150" y="60" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">7</text>
 
@@ -27,7 +27,7 @@
   <circle cx="80" cy="135" r="20" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
   <text x="80" y="135" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">4</text>
 
-  <!-- original: 3, not yet visited -- this is the target node -->
+  <!-- original: 3, not yet visited – this is the target node -->
   <circle cx="220" cy="135" r="20" fill="#ffffff" stroke="#9b59b6" stroke-width="2" stroke-dasharray="4 3"/>
   <text x="220" y="135" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">3</text>
   <text x="220" y="112" text-anchor="middle" font-size="10" fill="#9b59b6">target</text>
@@ -38,7 +38,7 @@
   <circle cx="260" cy="215" r="20" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
   <text x="260" y="215" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">19</text>
 
-  <!-- cloned: root 7 -- currently visiting -->
+  <!-- cloned: root 7 – currently visiting -->
   <circle cx="490" cy="60" r="20" fill="#ffffff" stroke="#e67e22" stroke-width="4"/>
   <text x="490" y="60" dy="0.35em" text-anchor="middle" font-size="15" font-weight="700" fill="#2f3640">7</text>
 

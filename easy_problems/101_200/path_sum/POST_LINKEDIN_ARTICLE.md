@@ -70,22 +70,22 @@ Walking it through `root = [5,4,8,11,null,13,4,7,2,null,null,null,1]`, `targetSu
 - `sum(11, 22, 9)`: `11` has two children, so it tries both `7` and `2`, each
   arriving with `current=20`.
 
-![Step 1: current sum descends 5 -> 4 -> 11, current becomes 9](images/walkthrough-1.svg)
+![Step 1: current sum descends 5 -> 4 -> 11, current becomes 9](images/walkthrough-1.png)
 
 - `sum(7, 22, 20)`: `7` is a leaf. `22 == 7+20` (`27`)? No, so `false`.
 
-![Step 2: at leaf 7, 22 != 27, returns false](images/walkthrough-2.svg)
+![Step 2: at leaf 7, 22 != 27, returns false](images/walkthrough-2.png)
 
 - `sum(2, 22, 20)`: `2` is a leaf. `22 == 2+20` (`22`)? Yes, so `true`.
 
-![Step 3: at leaf 2, 22 == 22, returns true](images/walkthrough-3.svg)
+![Step 3: at leaf 2, 22 == 22, returns true](images/walkthrough-3.png)
 
 `true` bubbles back up through `11`, then `4`, then `5`. Because Go's `||`
 short-circuits, `sum(8, 22, 5)`, the entire right subtree (`13`, `4`, `1`), never
 runs at all. That's the part I like about this solution: `hasPathSum` returns `true`
 without ever looking at half the tree.
 
-![Step 4: true bubbles up 2 -> 11 -> 4 -> 5, right subtree never visited](images/walkthrough-4.svg)
+![Step 4: true bubbles up 2 -> 11 -> 4 -> 5, right subtree never visited](images/walkthrough-4.png)
 
 **Complexity:** O(n) time, every node is visited at most once (fewer, whenever `||`
 short-circuits). O(h) space for the recursion stack, where h is the tree's height.

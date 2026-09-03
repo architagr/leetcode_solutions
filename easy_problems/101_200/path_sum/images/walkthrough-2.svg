@@ -33,7 +33,7 @@
   <circle cx="410" cy="180" r="22" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
   <text x="410" y="180" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">4</text>
 
-  <!-- node 7: leaf, currently checked -- fails -->
+  <!-- node 7: leaf, currently checked – fails -->
   <circle cx="100" cy="250" r="22" fill="#ffffff" stroke="#c0392b" stroke-width="4"/>
   <text x="100" y="250" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">7</text>
   <text x="100" y="222" text-anchor="middle" font-size="11" fill="#c0392b">current=20</text>

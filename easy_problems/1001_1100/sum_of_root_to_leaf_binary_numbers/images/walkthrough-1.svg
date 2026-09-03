@@ -12,34 +12,34 @@
     <line x1="340" y1="130" x2="400" y2="205"/>
   </g>
 
-  <!-- root: 1 -- on active path, currentSum shifts to 1 -->
+  <!-- root: 1 – on active path, currentSum shifts to 1 -->
   <circle cx="240" cy="55" r="22" fill="#ffffff" stroke="#e67e22" stroke-width="4"/>
   <text x="240" y="55" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">1</text>
   <text x="268" y="50" font-size="12" fill="#e67e22">bits=1</text>
 
-  <!-- left child: 0 -- on active path, currentSum becomes 10b -->
+  <!-- left child: 0 – on active path, currentSum becomes 10b -->
   <circle cx="140" cy="130" r="22" fill="#ffffff" stroke="#e67e22" stroke-width="4"/>
   <text x="140" y="130" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">0</text>
   <text x="112" y="152" font-size="12" fill="#e67e22" text-anchor="end">bits=10</text>
 
-  <!-- leftleft leaf: 0 -- currently being computed, currentSum = 100b = 4 -->
+  <!-- leftleft leaf: 0 – currently being computed, currentSum = 100b = 4 -->
   <circle cx="80" cy="205" r="22" fill="#4a90d9" stroke="#2f3640" stroke-width="2"/>
   <text x="80" y="205" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">0</text>
   <text x="80" y="240" text-anchor="middle" font-size="12" fill="#4a90d9">bits=100 &#8594; 4</text>
 
-  <!-- leftright leaf: 1 -- not yet visited -->
+  <!-- leftright leaf: 1 – not yet visited -->
   <circle cx="200" cy="205" r="22" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
   <text x="200" y="205" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">1</text>
 
-  <!-- right child: 1 -- not yet visited -->
+  <!-- right child: 1 – not yet visited -->
   <circle cx="340" cy="130" r="22" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
   <text x="340" y="130" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">1</text>
 
-  <!-- rightleft leaf: 0 -- not yet visited -->
+  <!-- rightleft leaf: 0 – not yet visited -->
   <circle cx="280" cy="205" r="22" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
   <text x="280" y="205" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">0</text>
 
-  <!-- rightright leaf: 1 -- not yet visited -->
+  <!-- rightright leaf: 1 – not yet visited -->
   <circle cx="400" cy="205" r="22" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
   <text x="400" y="205" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">1</text>
 

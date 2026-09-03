@@ -75,16 +75,16 @@ Walking it through Example 1 — `root1 = [3,5,1,6,2,9,8,null,null,7,4]`,
 - `leafs(root1)` collects `6`, `7`, `4` from the left subtree, then `9`, `8` from the
   right subtree.
 
-![Step 1: root1's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-1.svg "Step 1")
+![Step 1: root1's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-1.png "Step 1")
 
 - `leafs(root2)` has a completely different shape, but it comes back with the same
   values in the same order: `6`, `7`, `4`, `9`, `8`.
 
-![Step 2: root2's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-2.svg "Step 2")
+![Step 2: root2's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-2.png "Step 2")
 
 - Same length, same value at every index, so `leafSimilar` returns `true`.
 
-![Step 3: comparing the two leaf sequences element by element → true](images/walkthrough-3.svg "Step 3")
+![Step 3: comparing the two leaf sequences element by element → true](images/walkthrough-3.png "Step 3")
 
 **Complexity:** O(n + m) time, since every node of both trees gets visited exactly
 once. O(n + m) space for the two leaf slices, plus O(h1 + h2) for the recursion

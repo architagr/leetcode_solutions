@@ -87,25 +87,25 @@ Expected output is `[2]`.
 
 - `getCnt(1, data)` fires first: `data[1]++` sets `data = {1: 1}`.
 
-![Step 1: getCnt visits the root, data becomes {1: 1}](images/walkthrough-1.svg)
+![Step 1: getCnt visits the root, data becomes {1: 1}](images/walkthrough-1.png)
 
 - `1.Left` is `nil`, so that branch returns immediately without touching anything.
   `getCnt(2a, data)`, the right child of `1`, bumps its own key: `data[2]++` gives
   `data = {1: 1, 2: 1}`.
 
-![Step 2: getCnt visits 1's right child, data becomes {1: 1, 2: 1}](images/walkthrough-2.svg)
+![Step 2: getCnt visits 1's right child, data becomes {1: 1, 2: 1}](images/walkthrough-2.png)
 
 - `getCnt(2b, data)`, the left child of `2a`, increments the same key again:
   `data = {1: 1, 2: 2}`. `2b` has no children, so recursion just unwinds from here.
 
-![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](images/walkthrough-3.svg)
+![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](images/walkthrough-3.png)
 
 **Phase 2: `findMode` finds the max, then collects the ties**
 
 - First pass over `data`: the highest count seen is `cnt = 2`.
 - Second pass over `data`: only key `2` matches, so `res = [2]`.
 
-![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](images/walkthrough-4.svg)
+![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](images/walkthrough-4.png)
 
 `return res` hands back `[2]`, which matches what the problem expects.
 

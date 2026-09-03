@@ -15,7 +15,7 @@
   <circle cx="240" cy="40" r="22" fill="#ffffff" stroke="#2f3640" stroke-width="2"/>
   <text x="240" y="40" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">4</text>
 
-  <!-- node 2: prev -- already output -->
+  <!-- node 2: prev – already output -->
   <circle cx="130" cy="120" r="22" fill="#ccced1" stroke="#2980b9" stroke-width="3"/>
   <text x="130" y="120" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">2</text>
 
@@ -27,7 +27,7 @@
   <circle cx="70" cy="200" r="22" fill="#ccced1" stroke="#2f3640" stroke-width="2"/>
   <text x="70" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">1</text>
 
-  <!-- node 3: current -- compared against prev (2) -->
+  <!-- node 3: current – compared against prev (2) -->
   <circle cx="190" cy="200" r="22" fill="#ffffff" stroke="#e67e22" stroke-width="4"/>
   <text x="190" y="200" dy="0.35em" text-anchor="middle" font-size="16" font-weight="700" fill="#2f3640">3</text>
 

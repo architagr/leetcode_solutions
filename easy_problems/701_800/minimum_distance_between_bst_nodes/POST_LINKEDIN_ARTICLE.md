@@ -77,7 +77,7 @@ First, flatten the tree into a sorted list. `arr := inOrder(root)` walks left, n
 right, so on `[4,2,6,1,3]` it comes back as `[1, 2, 3, 4, 6]`. Already sorted, for free,
 because that's just what in-order traversal does to a BST.
 
-![Step 1: in-order traversal collects [1, 2, 3, 4, 6] from the tree](images/walkthrough-1.svg)
+![Step 1: in-order traversal collects [1, 2, 3, 4, 6] from the tree](images/walkthrough-1.png)
 
 Then scan for the smallest neighboring gap. `minVal` starts at `math.MaxInt` so the
 first comparison always wins. The loop walks the sorted array one adjacent pair at a
@@ -85,12 +85,12 @@ time: `(1,2)`, `(2,3)`, `(3,4)`, `(4,6)`. It takes the absolute difference of ea
 and keeps the smallest. Since the answer can only live between adjacent values once
 everything is sorted, one linear pass covers it.
 
-![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](images/walkthrough-2.svg)
+![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](images/walkthrough-2.png)
 
 Last, return the answer. Once the loop finishes, `minVal` is holding the smallest gap
 found across the whole sequence.
 
-![Step 3: minDiffInBST(root) returns 1](images/walkthrough-3.svg)
+![Step 3: minDiffInBST(root) returns 1](images/walkthrough-3.png)
 
 One thing worth flagging: the traversal visits each of the `n` nodes once, but `inOrder`
 rebuilds and copies a slice at every recursive call through nested `append`s, so the
