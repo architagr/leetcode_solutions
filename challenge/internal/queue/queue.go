@@ -5,6 +5,7 @@ package queue
 
 import (
 	"os"
+	"sort"
 	"time"
 
 	"gopkg.in/yaml.v3"
@@ -134,6 +135,26 @@ func (l legacyQueue) normalize() Queue {
 		})
 	}
 	return q
+}
+
+// NextUnposted returns up to limit entries that have not yet gone out to
+// destination, oldest day first. Selection goes by day rather than file
+// order, so a hand-edited queue can't change which days come next.
+func (q *Queue) NextUnposted(destination string, limit int) []Entry {
+	if limit <= 0 {
+		return nil
+	}
+	pending := make([]Entry, 0, len(q.Entries))
+	for _, e := range q.Entries {
+		if !e.IsPosted(destination) {
+			pending = append(pending, e)
+		}
+	}
+	sort.Slice(pending, func(i, j int) bool { return pending[i].Day < pending[j].Day })
+	if len(pending) > limit {
+		pending = pending[:limit]
+	}
+	return pending
 }
 
 // MarkPosted records that the entry for number went out to destination

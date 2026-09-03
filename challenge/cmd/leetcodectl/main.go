@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"time"
 
 	"leetcode_solutions/challenge/internal/cli"
 	"leetcode_solutions/challenge/internal/hero"
@@ -185,6 +186,39 @@ func dispatch(cmd string, payload []byte) (any, error) {
 			return nil, fmt.Errorf("DISCORD_WEBHOOK_URL is not set")
 		}
 		return cli.PostDiscord(in.RepoRoot, in.QueuePath, webhookURL)
+
+	case "linkedin-batch":
+		var in struct {
+			RepoRoot    string `json:"repoRoot"`
+			QueuePath   string `json:"queuePath"`
+			Destination string `json:"destination"`
+			Count       int    `json:"count"`
+			OutPath     string `json:"outPath"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		if in.Destination == "" {
+			in.Destination = queue.DestinationLinkedInMain
+		}
+		if in.Count == 0 {
+			in.Count = 7
+		}
+		if in.OutPath == "" {
+			in.OutPath = fmt.Sprintf("/tmp/linkedin-batch-%s.md", time.Now().Format("2006-01-02"))
+		}
+		return cli.LinkedInBatch(in.RepoRoot, in.QueuePath, in.Destination, in.Count, in.OutPath)
+
+	case "mark-posted":
+		var in struct {
+			QueuePath   string `json:"queuePath"`
+			Destination string `json:"destination"`
+			Numbers     []int  `json:"numbers"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		return cli.MarkPosted(in.QueuePath, in.Destination, in.Numbers)
 
 	default:
 		return nil, fmt.Errorf("unknown command %q", cmd)

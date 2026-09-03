@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"leetcode_solutions/challenge/internal/companies"
@@ -208,4 +209,145 @@ func PostDiscord(repoRoot, queuePath, webhookURL string) (PostDiscordResult, err
 		PostedAt: postedAt.Format(time.RFC3339),
 		Message:  fmt.Sprintf("posted day %d to Discord", entry.Day),
 	}, nil
+}
+
+// LinkedInBatchResult reports what a linkedin-batch run prepared.
+// MarkCommand is the exact follow-up command to run once the days have
+// actually been scheduled in LinkedIn.
+type LinkedInBatchResult struct {
+	Days        []int  `json:"days"`
+	Numbers     []int  `json:"numbers"`
+	OutPath     string `json:"outPath,omitempty"`
+	MarkCommand string `json:"markCommand,omitempty"`
+	Message     string `json:"message"`
+}
+
+// LinkedInBatch writes the next count unposted days' LinkedIn content to
+// outPath as one paste-ready file, for scheduling by hand in LinkedIn's
+// own composer.
+//
+// It deliberately does not mark anything: LinkedIn's scheduler is a
+// manual, partial process, and claiming days that never got scheduled
+// would skip them forever. Marking is the explicit follow-up in
+// MarkCommand, listing only what actually went out.
+func LinkedInBatch(repoRoot, queuePath, destination string, count int, outPath string) (LinkedInBatchResult, error) {
+	if err := validateDestination(destination); err != nil {
+		return LinkedInBatchResult{}, err
+	}
+	q, err := queue.Load(queuePath)
+	if err != nil {
+		return LinkedInBatchResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+	}
+
+	pending := q.NextUnposted(destination, count)
+	if len(pending) == 0 {
+		return LinkedInBatchResult{Message: fmt.Sprintf("nothing to prepare: every queued entry is already on %s", destination)}, nil
+	}
+
+	var doc strings.Builder
+	days := make([]int, 0, len(pending))
+	numbers := make([]int, 0, len(pending))
+
+	fmt.Fprintf(&doc, "# LinkedIn batch — %d day(s) for %s\n\n", len(pending), destination)
+	doc.WriteString("Schedule these in LinkedIn's composer, then run the mark-posted command at the bottom for the days you actually scheduled.\n")
+
+	for _, e := range pending {
+		teaser, err := os.ReadFile(filepath.Join(repoRoot, e.Folder, "POST_LINKEDIN.md"))
+		if err != nil {
+			return LinkedInBatchResult{}, fmt.Errorf("day %d (%s): reading POST_LINKEDIN.md: %w", e.Day, e.Title, err)
+		}
+		article, err := os.ReadFile(filepath.Join(repoRoot, e.Folder, "POST_LINKEDIN_ARTICLE.md"))
+		if err != nil {
+			return LinkedInBatchResult{}, fmt.Errorf("day %d (%s): reading POST_LINKEDIN_ARTICLE.md: %w", e.Day, e.Title, err)
+		}
+
+		days = append(days, e.Day)
+		numbers = append(numbers, e.Number)
+
+		fmt.Fprintf(&doc, "\n\n---\n\n## Day %d — %s (#%d)\n\n", e.Day, e.Title, e.Number)
+		heroPath := filepath.Join(e.Folder, "HERO.png")
+		if _, err := os.Stat(filepath.Join(repoRoot, heroPath)); err == nil {
+			fmt.Fprintf(&doc, "Image to attach: `%s`\n", heroPath)
+		} else {
+			doc.WriteString("Image to attach: (no HERO.png for this day)\n")
+		}
+		fmt.Fprintf(&doc, "\n### Short post\n\n%s\n\n### Newsletter article\n\n%s\n", strings.TrimSpace(string(teaser)), strings.TrimSpace(string(article)))
+	}
+
+	markCmd := fmt.Sprintf(`leetcodectl mark-posted '{"queuePath":%q,"destination":%q,"numbers":%s}'`,
+		queuePath, destination, intsToJSON(numbers))
+	fmt.Fprintf(&doc, "\n\n---\n\nOnce scheduled, mark them:\n\n    %s\n", markCmd)
+
+	if err := os.MkdirAll(filepath.Dir(outPath), 0o755); err != nil {
+		return LinkedInBatchResult{}, err
+	}
+	if err := os.WriteFile(outPath, []byte(doc.String()), 0o644); err != nil {
+		return LinkedInBatchResult{}, fmt.Errorf("writing batch file: %w", err)
+	}
+
+	return LinkedInBatchResult{
+		Days:        days,
+		Numbers:     numbers,
+		OutPath:     outPath,
+		MarkCommand: markCmd,
+		Message:     fmt.Sprintf("prepared %d day(s) for %s", len(days), destination),
+	}, nil
+}
+
+// MarkPostedResult reports which numbers were marked and which weren't
+// in the queue at all.
+type MarkPostedResult struct {
+	Marked      []int  `json:"marked"`
+	NotFound    []int  `json:"notFound,omitempty"`
+	Destination string `json:"destination"`
+	Message     string `json:"message"`
+}
+
+// MarkPosted stamps the given question numbers as posted to destination.
+// It's the manual counterpart to the Discord cron, for destinations
+// published by hand.
+func MarkPosted(queuePath, destination string, numbers []int) (MarkPostedResult, error) {
+	if err := validateDestination(destination); err != nil {
+		return MarkPostedResult{}, err
+	}
+	q, err := queue.Load(queuePath)
+	if err != nil {
+		return MarkPostedResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+	}
+
+	now := time.Now().UTC()
+	res := MarkPostedResult{Destination: destination}
+	for _, n := range numbers {
+		if q.MarkPosted(n, destination, now) {
+			res.Marked = append(res.Marked, n)
+		} else {
+			res.NotFound = append(res.NotFound, n)
+		}
+	}
+	if len(res.Marked) > 0 {
+		if err := q.Save(queuePath); err != nil {
+			return MarkPostedResult{}, fmt.Errorf("saving queue: %w", err)
+		}
+	}
+	res.Message = fmt.Sprintf("marked %d entr(ies) posted to %s", len(res.Marked), destination)
+	return res, nil
+}
+
+// validateDestination rejects typos rather than silently writing a key
+// nothing will ever read.
+func validateDestination(destination string) error {
+	for _, known := range queue.KnownDestinations {
+		if destination == known {
+			return nil
+		}
+	}
+	return fmt.Errorf("unknown destination %q (known: %s)", destination, strings.Join(queue.KnownDestinations, ", "))
+}
+
+func intsToJSON(ns []int) string {
+	parts := make([]string, len(ns))
+	for i, n := range ns {
+		parts[i] = fmt.Sprint(n)
+	}
+	return "[" + strings.Join(parts, ",") + "]"
 }

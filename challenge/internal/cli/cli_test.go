@@ -283,3 +283,161 @@ func TestPostDiscordMissingContentFileIsAnError(t *testing.T) {
 		t.Errorf("error should name the missing file, got: %v", err)
 	}
 }
+
+func writeLinkedInFolder(t *testing.T, repoRoot, folder string) {
+	t.Helper()
+	if err := os.MkdirAll(filepath.Join(repoRoot, folder), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	for name, body := range map[string]string{
+		"POST_LINKEDIN.md":         "teaser for " + folder,
+		"POST_LINKEDIN_ARTICLE.md": "article for " + folder,
+		"HERO.png":                 "png",
+	} {
+		if err := os.WriteFile(filepath.Join(repoRoot, folder, name), []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
+func TestLinkedInBatchWritesRequestedDaysInOrder(t *testing.T) {
+	repoRoot := t.TempDir()
+	writeLinkedInFolder(t, repoRoot, "f1")
+	writeLinkedInFolder(t, repoRoot, "f2")
+	writeLinkedInFolder(t, repoRoot, "f3")
+
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 104, Title: "One", Folder: "f1"})
+	q.Append(queue.Entry{Number: 108, Title: "Two", Folder: "f2"})
+	q.Append(queue.Entry{Number: 257, Title: "Three", Folder: "f3"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	outPath := filepath.Join(repoRoot, "batch.md")
+	res, err := LinkedInBatch(repoRoot, queuePath, queue.DestinationLinkedInMain, 2, outPath)
+	if err != nil {
+		t.Fatalf("LinkedInBatch: %v", err)
+	}
+	if len(res.Days) != 2 || res.Days[0] != 1 || res.Days[1] != 2 {
+		t.Errorf("Days = %v, want [1 2]", res.Days)
+	}
+	if len(res.Numbers) != 2 || res.Numbers[0] != 104 {
+		t.Errorf("Numbers = %v, want [104 108]", res.Numbers)
+	}
+
+	body, err := os.ReadFile(outPath)
+	if err != nil {
+		t.Fatalf("batch file not written: %v", err)
+	}
+	text := string(body)
+	for _, want := range []string{"teaser for f1", "article for f1", "teaser for f2", "HERO.png", "Day 1", "Day 2"} {
+		if !strings.Contains(text, want) {
+			t.Errorf("batch file missing %q", want)
+		}
+	}
+	if strings.Contains(text, "f3") {
+		t.Error("batch file should stop at the requested count, day 3 leaked in")
+	}
+	// Preparing content must not claim the days — the user may only get
+	// through some of them in LinkedIn's scheduler.
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationLinkedInMain) {
+		t.Error("LinkedInBatch must not mark days posted; marking is an explicit follow-up")
+	}
+	if !strings.Contains(res.MarkCommand, "104") || !strings.Contains(res.MarkCommand, "mark-posted") {
+		t.Errorf("MarkCommand should be a ready-to-run mark-posted command, got %q", res.MarkCommand)
+	}
+}
+
+func TestLinkedInBatchSkipsAlreadyPostedAndReportsEmpty(t *testing.T) {
+	repoRoot := t.TempDir()
+	writeLinkedInFolder(t, repoRoot, "f1")
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 104, Title: "One", Folder: "f1"})
+	q.MarkPosted(104, queue.DestinationLinkedInMain, time.Now())
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	res, err := LinkedInBatch(repoRoot, queuePath, queue.DestinationLinkedInMain, 5, filepath.Join(repoRoot, "batch.md"))
+	if err != nil {
+		t.Fatalf("an empty batch must not be an error: %v", err)
+	}
+	if len(res.Days) != 0 {
+		t.Errorf("Days = %v, want empty", res.Days)
+	}
+}
+
+func TestLinkedInBatchMissingContentIsAnError(t *testing.T) {
+	repoRoot := t.TempDir()
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 104, Title: "One", Folder: "gone"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err := LinkedInBatch(repoRoot, queuePath, queue.DestinationLinkedInMain, 1, filepath.Join(repoRoot, "batch.md"))
+	if err == nil {
+		t.Fatal("a missing POST_LINKEDIN.md must be an error")
+	}
+	if !strings.Contains(err.Error(), "POST_LINKEDIN.md") {
+		t.Errorf("error should name the missing file, got %v", err)
+	}
+}
+
+func TestMarkPostedMarksListedNumbersOnly(t *testing.T) {
+	repoRoot := t.TempDir()
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 104, Folder: "f1"})
+	q.Append(queue.Entry{Number: 108, Folder: "f2"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	res, err := MarkPosted(queuePath, queue.DestinationLinkedInMain, []int{104, 999})
+	if err != nil {
+		t.Fatalf("MarkPosted: %v", err)
+	}
+	if len(res.Marked) != 1 || res.Marked[0] != 104 {
+		t.Errorf("Marked = %v, want [104]", res.Marked)
+	}
+	if len(res.NotFound) != 1 || res.NotFound[0] != 999 {
+		t.Errorf("NotFound = %v, want [999]", res.NotFound)
+	}
+
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reloaded.Entries[0].IsPosted(queue.DestinationLinkedInMain) {
+		t.Error("104 should be marked")
+	}
+	if reloaded.Entries[1].IsPosted(queue.DestinationLinkedInMain) {
+		t.Error("108 was not in the list and must stay unmarked")
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationDiscord) {
+		t.Error("marking linkedin must not touch discord")
+	}
+}
+
+func TestMarkPostedRejectsUnknownDestination(t *testing.T) {
+	repoRoot := t.TempDir()
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 104, Folder: "f1"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := MarkPosted(queuePath, "twitter", []int{104}); err == nil {
+		t.Fatal("an unknown destination should be rejected, not silently written")
+	}
+}

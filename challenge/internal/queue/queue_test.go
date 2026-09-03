@@ -170,3 +170,28 @@ func TestSaveLoadRoundTrip(t *testing.T) {
 		t.Fatalf("loaded = %+v", loaded)
 	}
 }
+
+func TestNextUnpostedReturnsOldestFirstUpToLimit(t *testing.T) {
+	posted := "2026-09-01T09:00:00Z"
+	q := &Queue{Entries: []Entry{
+		{Day: 3, Number: 257},
+		{Day: 1, Number: 104, PostedAt: map[string]*string{DestinationLinkedInMain: &posted}},
+		{Day: 2, Number: 108},
+		{Day: 4, Number: 404},
+	}}
+
+	got := q.NextUnposted(DestinationLinkedInMain, 2)
+	if len(got) != 2 {
+		t.Fatalf("got %d entries, want 2", len(got))
+	}
+	if got[0].Day != 2 || got[1].Day != 3 {
+		t.Errorf("got days %d,%d — want 2,3 (oldest unposted first, day 1 already posted)", got[0].Day, got[1].Day)
+	}
+
+	if all := q.NextUnposted(DestinationLinkedInMain, 99); len(all) != 3 {
+		t.Errorf("a limit past the end should return all 3 unposted, got %d", len(all))
+	}
+	if none := q.NextUnposted(DestinationLinkedInMain, 0); len(none) != 0 {
+		t.Errorf("limit 0 should return nothing, got %d", len(none))
+	}
+}
