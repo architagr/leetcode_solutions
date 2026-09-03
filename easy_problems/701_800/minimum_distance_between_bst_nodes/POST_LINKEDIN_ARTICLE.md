@@ -6,26 +6,29 @@
 
 ### The problem
 
-Given the root of a Binary Search Tree (BST), return the minimum difference between the
-values of any two different nodes in the tree.
+You're given the root of a Binary Search Tree (BST). Return the minimum difference
+between the values of any two different nodes in the tree.
 
 ### The intuition
 
-The key property to lean on is what makes a tree a **BST** in the first place: an
-in-order traversal (left, node, right) visits every value in **strictly sorted order**.
+The whole trick lives in what makes a tree a BST in the first place: walk it in-order
+(left, node, right) and the values come out in strictly sorted order. Once you notice
+that, the problem stops looking like an O(n²) check-every-pair mess and turns into
+something almost boring.
 
-That one fact turns "find the minimum difference between *any* two nodes" — which sounds
-like it could require checking every pair, an O(n²) affair — into something much
-simpler. Once the values are sorted, the smallest possible difference between any two of
-them can only ever occur between two values that are **adjacent** in that sorted order.
-Any pair that skips over a value in between can't beat the gap between neighbors,
-because the skipped value sits strictly between them and splits that gap into two
-smaller (or equal) pieces.
+Here's why. Once the values are sorted, the smallest gap between any two of them can
+only show up between two neighbors in that sorted order. If you skip over a value in
+between, that skipped value splits the gap into two smaller pieces. So there's no reason
+to check anything but neighbors.
 
-So the whole problem reduces to two steps:
-1. Collect every node's value via an in-order traversal — this hands back an
-   already-sorted list, no separate sort needed.
+Two steps, then:
+1. Collect every node's value with an in-order traversal, which hands back an
+   already-sorted list for free.
 2. Walk that sorted list once, tracking the smallest gap between consecutive entries.
+
+I like this one because the hard part isn't the code, it's noticing that "any two nodes"
+quietly collapses into "any two neighbors" the moment you trust the tree to already be
+telling you the order.
 
 ### The solution
 
@@ -70,30 +73,36 @@ func inOrder(root *TreeNode) []int {
 }
 ```
 
-**Step 1 — flatten the tree into a sorted list.** `arr := inOrder(root)` walks the tree
-left, node, right, so on `[4,2,6,1,3]` it comes back as `[1, 2, 3, 4, 6]` — already
-sorted, for free, because the tree is a BST.
+First, flatten the tree into a sorted list. `arr := inOrder(root)` walks left, node,
+right, so on `[4,2,6,1,3]` it comes back as `[1, 2, 3, 4, 6]`. Already sorted, for free,
+because that's just what in-order traversal does to a BST.
 
 ![Step 1: in-order traversal collects [1, 2, 3, 4, 6] from the tree](images/walkthrough-1.svg)
 
-**Step 2 — scan for the smallest neighboring gap.** `minVal` starts at `math.MaxInt` so
-the first comparison always wins. The loop then walks the sorted array one adjacent pair
-at a time — `(1,2)`, `(2,3)`, `(3,4)`, `(4,6)` — taking `abs` of each difference and
-keeping the smallest. Because the minimum difference between any two BST values can only
-occur between values adjacent once sorted, this single linear pass is enough.
+Then scan for the smallest neighboring gap. `minVal` starts at `math.MaxInt` so the
+first comparison always wins. The loop walks the sorted array one adjacent pair at a
+time: `(1,2)`, `(2,3)`, `(3,4)`, `(4,6)`. It takes the absolute difference of each pair
+and keeps the smallest. Since the answer can only live between adjacent values once
+everything is sorted, one linear pass covers it.
 
 ![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](images/walkthrough-2.svg)
 
-**Step 3 — return the answer.** After the loop, `minVal` holds the smallest gap found
-across the whole sorted sequence.
+Last, return the answer. Once the loop finishes, `minVal` is holding the smallest gap
+found across the whole sequence.
 
 ![Step 3: minDiffInBST(root) returns 1](images/walkthrough-3.svg)
 
-**Complexity:** the traversal visits each of the `n` nodes once, but because `inOrder`
-rebuilds and copies a slice at every recursive call via nested `append`s, the total
-copying work can degrade toward O(n²) on a heavily skewed tree rather than staying
-linear (a straightforward accumulator-based traversal would avoid this). The final scan
-over the sorted array is a clean O(n). Space is O(n) for the collected slice plus O(h)
-for the recursion stack, where `h` is the tree's height.
+One thing worth flagging: the traversal visits each of the `n` nodes once, but `inOrder`
+rebuilds and copies a slice at every recursive call through nested `append`s, so the
+copying work can creep toward O(n²) on a heavily skewed tree instead of staying linear.
+A version that appends into one shared accumulator slice would dodge that. The scan
+afterward is a clean O(n). Space is O(n) for the collected values plus O(h) for the
+recursion stack, where `h` is the tree's height.
 
 Full code: `easy_problems/701_800/minimum_distance_between_bst_nodes/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #Programming #BinarySearchTree #InOrderTraversal #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

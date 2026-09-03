@@ -3,9 +3,11 @@
 **Minimum Distance Between BST Nodes** (Easy)
 🔗 https://leetcode.com/problems/minimum-distance-between-bst-nodes/
 
-The trick: an in-order traversal of a BST always visits values in sorted order, so the
-minimum difference between *any* two nodes can only ever show up between two values that
-are neighbors once sorted. Sort once (for free, via the traversal), then scan for the
-smallest adjacent gap — no need to check every pair.
+An in-order traversal of a BST comes out sorted automatically, so the minimum
+difference between any two nodes can only happen between two values that end up next to
+each other once sorted. Traverse once to get that order for free, then scan for the
+smallest gap between neighbors. No need to touch every pair.
 
-Full breakdown in today's newsletter article ⬇️
+Full breakdown in today's newsletter article ⬇
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #SoftwareEngineering #BinarySearchTree #InOrderTraversal
