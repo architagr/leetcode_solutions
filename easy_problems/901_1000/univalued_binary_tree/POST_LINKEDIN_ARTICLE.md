@@ -14,19 +14,20 @@ otherwise.
 
 ### The intuition
 
-A tree is uni-valued exactly when *every* parent-child edge connects two nodes with
-the same value — if that holds everywhere, all values in the tree must be equal to the
-root's value by transitivity, and if it fails anywhere, the tree isn't uni-valued.
+A tree is uni-valued exactly when every parent-child edge connects two nodes with the
+same value. If that holds at every edge, all the values in the tree equal the root's
+value by transitivity. If it fails at even one edge, the tree isn't uni-valued. That's
+the whole problem, really.
 
-So instead of collecting every value into a set and checking they're all equal, it's
-enough to walk the tree and compare each node to its own parent as we go. A node
-doesn't need to know the root's value directly — it just needs to know its parent's
-value, which is available to the parent at the moment it looks at its child.
+My first instinct was to throw every value into a set and check the set has size one.
+That works, but it's more machinery than the problem needs. You don't have to know the
+root's value at all, you only need to know your parent's value, and your parent
+already has that the moment it looks at you.
 
-That gives a simple recursion: a subtree rooted at `node` is uni-valued if both its
-children (when present) share `node`'s value, *and* the subtrees hanging off those
-children are themselves uni-valued. An empty subtree is trivially uni-valued — there's
-nothing to disagree with — so `nil` is the base case that returns `true`.
+So the recursion is simple: a subtree rooted at `node` is uni-valued if each existing
+child shares `node`'s value, and that child's own subtree is uni-valued too. An empty
+subtree can't disagree with anything, so `nil` returns `true` and that's the base
+case.
 
 ### The solution
 
@@ -68,36 +69,42 @@ Walking it through `root = [2,2,2,5,2]` (expected `false`):
     5   2
 ```
 
-- `isUnivalTree(2)` (root) recurses left into node `A = 2`, and right into node
-  `B = 2` (a leaf).
-  - `isUnivalTree(A=2)` recurses left into leaf `C = 5`, and right into leaf `D = 2`.
-    - `isUnivalTree(C=5)`: no children → returns `true` (this call has no idea `5`
-      doesn't match its parent — that's not its job).
-    - `isUnivalTree(D=2)`: no children → returns `true`, same reasoning.
-    - `isUnivalTree(B=2)`: no children → returns `true`.
+`isUnivalTree(2)` on the root recurses left into node `A = 2` and right into node
+`B = 2` (a leaf). `isUnivalTree(A=2)` in turn recurses left into leaf `C = 5` and right
+into leaf `D = 2`. `C`, `D`, and `B` have no children, so all three just return `true`.
+Worth noticing: `isUnivalTree(C=5)` has no idea `5` doesn't match its parent's value.
+Checking against the parent isn't its job. It's the parent's.
 
 ![Step 1: 5, 2, and 2 bottom out as leaves, each returning true](images/walkthrough-1.svg)
 
-- Back in `isUnivalTree(A=2)`: `left = isUnivalTree(C) && C.Val == A.Val` →
-  `true && (5 == 2)` → `left = false`. `right = isUnivalTree(D) && D.Val == A.Val` →
-  `true && (2 == 2)` → `right = true`. Returns `left && right = false`.
+Back in `isUnivalTree(A=2)`: `left = isUnivalTree(C) && C.Val == A.Val` works out to
+`true && (5 == 2)`, so `left = false`. `right = isUnivalTree(D) && D.Val == A.Val` is
+`true && (2 == 2)`, so `right = true`. The call returns `left && right = false`.
 
 ![Step 2: at node A (value 2), left child 5 mismatches, left becomes false](images/walkthrough-2.svg)
 
-- Back at the root: `left = isUnivalTree(A) && A.Val == root.Val` →
-  `false && (2 == 2)` — the left-hand side of `&&` is already `false`, so `left = false`
-  regardless of what the value comparison would have said. `right = isUnivalTree(B) &&
-  B.Val == root.Val` → `true && (2 == 2)` → `right = true`. Returns
-  `left && right = false`. ✓
+Back at the root: `left = isUnivalTree(A) && A.Val == root.Val` is
+`false && (2 == 2)`. The `&&` already sees `false` on the left, so it short-circuits,
+and `left = false` no matter what the value comparison would have said.
+`right = isUnivalTree(B) && B.Val == root.Val` is `true && (2 == 2)`, so
+`right = true`. The root returns `left && right = false`, matching what the problem
+expects.
 
 ![Step 3: at the root, the left subtree already resolved to false, so the whole tree is false](images/walkthrough-3.svg)
 
-The mismatch (`5` under a `2`) is detected two levels down, at node `A`, and then just
-propagates upward as `false` through every ancestor's `left`/`right` combination —
-nothing further up needs to re-check values it already knows are wrong.
+What I like about this trace: the mismatch (`5` sitting under a `2`) gets caught two
+levels down, at node `A`, and then just rides upward as `false` through every
+ancestor's `left`/`right` check. Nobody further up has to re-examine values it already
+knows are wrong.
 
-**Complexity:** O(n) time — every node is visited exactly once. O(h) space for the
-recursion stack, where h is the tree's height (O(log n) for a balanced tree, O(n) for
-a completely skewed one).
+**Complexity:** O(n) time, since every node gets visited exactly once. Space is O(h)
+for the recursion stack, where h is the tree's height, so O(log n) if the tree's
+balanced and O(n) if it's basically a linked list.
 
 Full code: `easy_problems/901_1000/univalued_binary_tree/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #Recursion #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

@@ -3,9 +3,9 @@
 🔗 https://leetcode.com/problems/univalued-binary-tree/
 
 **Intuition:** A tree is uni-valued exactly when every parent-child edge connects two
-equal values. A node never needs the root's value directly — it just compares each
-child to its own value as the recursion walks down, and an empty subtree is trivially
-uni-valued (`nil` → `true`).
+equal values. A node never needs the root's value directly. It just compares each
+child to its own value as the recursion walks down. An empty subtree is trivially
+uni-valued, so `nil` returns `true`.
 
 ![Example 2](images/2.png "Example2")
 
@@ -44,22 +44,23 @@ func isUnivalTree(root *TreeNode) bool {
      / \
     5   2
 ```
-- `isUnivalTree(A=2)`, `isUnivalTree(D=2)`, and `isUnivalTree(B=2)` bottom out on
-  leaves → each returns `true`
+- `isUnivalTree(A=2)`, `isUnivalTree(D=2)`, and `isUnivalTree(B=2)` all bottom out on
+  leaves, so each just returns `true`
 
 ![Step 1: 5, 2, and 2 bottom out as leaves, each returning true](images/walkthrough-1.svg)
 
-- At node `A=2`: left child `C=5` mismatches (`5 != 2`) → `left = false`; right child
-  `D=2` matches → `right = true` → `isUnivalTree(A)` returns `false`
+- At node `A=2`: left child `C=5` doesn't match (`5 != 2`), so `left = false`. Right
+  child `D=2` matches, so `right = true`. `isUnivalTree(A)` returns `false`
 
 ![Step 2: at node A (value 2), left child 5 mismatches, left becomes false](images/walkthrough-2.svg)
 
-- At the root: `left = isUnivalTree(A) && A.Val == root.Val` is `false` because
-  `isUnivalTree(A)` already came back `false`; `right = true` → root returns `false` ✓
+- At the root: `left = isUnivalTree(A) && A.Val == root.Val` is `false`, since
+  `isUnivalTree(A)` already came back `false` and short-circuits the rest. `right =
+  true`. Root returns `false`, which matches
 
 ![Step 3: at the root, the left subtree already resolved to false, so the whole tree is false](images/walkthrough-3.svg)
 
-The mismatch (`5` under a `2`) is caught two levels down and just propagates upward
-through each ancestor's `left`/`right` combination.
+Nice bit here: the mismatch (`5` under a `2`) gets caught two levels down and just
+rides upward through each ancestor's `left`/`right` check, no re-checking needed.
 
 O(n) time, O(h) space (tree height).
