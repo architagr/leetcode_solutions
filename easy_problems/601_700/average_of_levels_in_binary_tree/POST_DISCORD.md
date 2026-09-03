@@ -2,11 +2,12 @@
 **Average of Levels in Binary Tree** (Easy)
 🔗 https://leetcode.com/problems/average-of-levels-in-binary-tree/
 
-**Intuition:** Most solutions use BFS (drain the tree one level at a time with a
-queue). This one uses DFS instead — it carries the current depth as a parameter and
-uses it as an index into two running-total arrays (`result[level]`, `count[level]`), so
-nodes from completely different branches still accumulate into the same slot as long as
-they share a depth.
+**Intuition:** Most solutions here use BFS, draining the tree one level at a time with
+a queue. I went with DFS instead: it carries the current depth as a parameter and uses
+that as an index into two running-total arrays (`result[level]`, `count[level]`), so
+nodes from completely different branches still accumulate into the same slot as long
+as they're at the same depth. Feels a little like cheating the first time you see it
+work.
 
 ![Example 1](images/1.jpg "Example1")
 
@@ -48,7 +49,7 @@ func getSumAndCount(node *TreeNode, result, count *[]float64, level int) {
 
 ![Step 2: visit 9 (level 1), create slot 1, result[1]=9, count[1]=1](images/walkthrough-2.svg)
 
-- Visit `20` (level 1): slot 1 already exists (from `9`) → updated in place:
+- Visit `20` (level 1): slot 1 already exists (from `9`), so it's updated in place:
   `result[1] += 20` → `29.0`, `count[1]++` → `2.0`
 
 ![Step 3: visit 20 (level 1), slot 1 exists, result[1] becomes 29, count[1] becomes 2](images/walkthrough-3.svg)
@@ -58,15 +59,15 @@ func getSumAndCount(node *TreeNode, result, count *[]float64, level int) {
 
 ![Step 4: visit 15 (level 2), create slot 2, result[2]=15, count[2]=1](images/walkthrough-4.svg)
 
-- Visit `7` (level 2): slot 2 already exists → updated in place: `result[2] += 7` →
+- Visit `7` (level 2): slot 2 already exists, updated in place: `result[2] += 7` →
   `22.0`, `count[2]++` → `2.0`
 
 ![Step 5: visit 7 (level 2), slot 2 exists, result[2] becomes 22, count[2] becomes 2](images/walkthrough-5.svg)
 
 - Final pass divides each slot by its count: `3.0/1 = 3.0`, `29.0/2 = 14.5`,
-  `22.0/2 = 11.0` → `[3.0, 14.5, 11.0]` ✓
+  `22.0/2 = 11.0`, giving `[3.0, 14.5, 11.0]`
 
 ![Step 6: divide result[i] by count[i] for every level, giving 3.0, 14.5, 11.0](images/walkthrough-6.svg)
 
-O(n) time (every node visited once), O(h) space for the recursion stack plus O(L) for
-the level arrays (L = number of levels, at most h + 1).
+O(n) time, every node gets visited once. O(h) space for the recursion stack, plus O(L)
+for the level arrays (L is the number of levels, at most h + 1).
