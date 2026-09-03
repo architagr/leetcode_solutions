@@ -41,16 +41,16 @@ no children):
 - `binaryTreePaths`: `current = "1"`. Root has both children, so calls `foo(2, "1", &result)`
   and `foo(3, "1", &result)`.
 
-  ![Walkthrough step 1: current = "1", result = []](images/walkthrough-1.svg "Step 1")
+  ![Walkthrough step 1: current = "1", result = []](images/walkthrough-1.png "Step 1")
 - `foo(2, "1", ...)`: `current = "1->2"`. Node `2` has a right child (`5`), so it's not a
   leaf — recurse: `foo(5, "1->2", &result)`.
 - `foo(5, "1->2", ...)`: `current = "1->2->5"`. Node `5` has no children — leaf reached,
   append `"1->2->5"` to `result`.
 
-  ![Walkthrough step 2: current = "1->2->5", result = ["1->2->5"]](images/walkthrough-2.svg "Step 2")
+  ![Walkthrough step 2: current = "1->2->5", result = ["1->2->5"]](images/walkthrough-2.png "Step 2")
 - `foo(3, "1", ...)`: `current = "1->3"`. Node `3` has no children — leaf reached,
   append `"1->3"` to `result`.
 
-  ![Walkthrough step 3: current = "1->3", result = ["1->2->5", "1->3"]](images/walkthrough-3.svg "Step 3")
+  ![Walkthrough step 3: current = "1->3", result = ["1->2->5", "1->3"]](images/walkthrough-3.png "Step 3")
 - Final `result = ["1->2->5", "1->3"]`, matching the example (order may vary, which the
   problem explicitly allows).

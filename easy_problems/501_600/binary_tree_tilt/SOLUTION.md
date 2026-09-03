@@ -22,7 +22,7 @@ We'll trace it on Example 2 above, `root = [4,2,9,3,5,null,7]` (expected `15`).
    any tilt they contain) must be fully known before this node can compute its own
    tilt or its own contribution to its parent's subtree sum.
 
-   ![Step 1: leaves 3, 5, 7 are base cases — each returns its own Val, tilt+=0](images/walkthrough-1.svg)
+   ![Step 1: leaves 3, 5, 7 are base cases — each returns its own Val, tilt+=0](images/walkthrough-1.png)
 
 4. **Accumulate this node's tilt.** `*res += absDiff(l, r)` — the absolute difference
    between the left subtree's total and the right subtree's total is exactly this
@@ -38,17 +38,17 @@ Walking the recursion bottom-up:
 - Back in `sum(2)`: `l=3, r=5`. `*res += |3-5| = 2` (running total `2`). Returns
   `3 + 5 + 2 = 10`.
 
-  ![Step 2: node 2 resolves — l=3, r=5, tilt+=2, returns 10](images/walkthrough-2.svg)
+  ![Step 2: node 2 resolves — l=3, r=5, tilt+=2, returns 10](images/walkthrough-2.png)
 
 - `sum(9)` recurses into `sum(9.Left)` — `nil`, so `l=0` — and `sum(7)`, a leaf
   returning `7`, so `r=7`. `*res += |0-7| = 7` (running total `9`). Returns
   `0 + 7 + 9 = 16`.
 
-  ![Step 3: node 9 resolves — l=0 (no left child), r=7, tilt+=7, returns 16](images/walkthrough-3.svg)
+  ![Step 3: node 9 resolves — l=0 (no left child), r=7, tilt+=7, returns 16](images/walkthrough-3.png)
 
 - Back in `sum(4)` (the root): `l=10` (from the `2` call), `r=16` (from the `9` call).
   `*res += |10-16| = 6` (running total `15`). Returns `10 + 16 + 4 = 30`.
 
-  ![Step 4: node 4 resolves — l=10, r=16, tilt+=6, res=15](images/walkthrough-4.svg)
+  ![Step 4: node 4 resolves — l=10, r=16, tilt+=6, res=15](images/walkthrough-4.png)
 
 - `findTilt` returns `res = 15`. ✓

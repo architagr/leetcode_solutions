@@ -54,17 +54,17 @@ Walking it through `root = [3,9,20,null,null,15,7]`:
     - `minDepth(15)` → both children nil → falls to step 5 → returns `1`.
     - `minDepth(7)` → both children nil → falls to step 5 → returns `1`.
 
-    ![Step 1: 9, 15, and 7 bottom out as leaves, each returning 1](images/walkthrough-1.svg)
+    ![Step 1: 9, 15, and 7 bottom out as leaves, each returning 1](images/walkthrough-1.png)
 
     - Back in `minDepth(20)`: `left=1` (from `15`), `right=1` (from `7`). Both
       non-zero → step 3 → `minVal(1, 1) + 1 = 2`. Returns `2`.
 
-    ![Step 2: at node 20, left=1 and right=1, both non-zero, min(1,1)+1 = 2](images/walkthrough-2.svg)
+    ![Step 2: at node 20, left=1 and right=1, both non-zero, min(1,1)+1 = 2](images/walkthrough-2.png)
 
   - Back in `minDepth(3)`: `left=1` (from `9`), `right=2` (from `20`). Both non-zero
     → step 3 → `minVal(1, 2) + 1 = 2`. Returns `2`. ✓
 
-  ![Step 3: at node 3, left=1 and right=2, both non-zero, min(1,2)+1 = 2 (final answer)](images/walkthrough-3.svg)
+  ![Step 3: at node 3, left=1 and right=2, both non-zero, min(1,2)+1 = 2 (final answer)](images/walkthrough-3.png)
 
 ### Why the `left != 0` / `right != 0` guard is the whole problem
 
@@ -80,7 +80,7 @@ That's exactly what the `left != 0` / `right != 0` checks in steps 3–5 prevent
 `0` coming back from a nil child is never allowed to compete in the `min` — the
 code instead follows whichever single side actually exists.
 
-![Step 4: at node 2, left is nil (0), so the min is skipped and the code follows the existing right child instead](images/walkthrough-4.svg)
+![Step 4: at node 2, left is nil (0), so the min is skipped and the code follows the existing right child instead](images/walkthrough-4.png)
 
 **Complexity:** O(n) time — every node is visited exactly once. O(h) space for the
 recursion stack, where h is the tree's height (O(log n) balanced, O(n) skewed).

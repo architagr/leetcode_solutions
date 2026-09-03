@@ -37,16 +37,16 @@ LeetCode's own alternative diagram):
 Walking it through `nums = [-10,-3,0,5,9]`:
 - `mid = 2`, `root.Val = 0`.
 
-  ![Step 1: mid=2, root=0](images/walkthrough-1.svg)
+  ![Step 1: mid=2, root=0](images/walkthrough-1.png)
 - Left: `SortedArrayToBST([-10,-3])` → `mid=1`, root `-3`, left `SortedArrayToBST([-10])`
   → single-node tree `-10`, right `SortedArrayToBST([])` → `nil`. So `-3` has left
   child `-10`.
 
-  ![Step 2: left half [-10,-3], mid=1, root=-3](images/walkthrough-2.svg)
+  ![Step 2: left half [-10,-3], mid=1, root=-3](images/walkthrough-2.png)
 - Right: `SortedArrayToBST([5,9])` → `mid=1`, root `9`, left `SortedArrayToBST([5])` →
   single-node tree `5`, right `nil`. So `9` has left child `5`.
 
-  ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.svg)
+  ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.png)
 - Final tree: `0` with left subtree rooted at `-3` (which has left child `-10`) and
   right subtree rooted at `9` (which has left child `5`) — matching the example's
   accepted output shape `[0,-3,9,-10,null,5]`.

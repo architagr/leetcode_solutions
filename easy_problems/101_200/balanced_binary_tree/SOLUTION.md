@@ -152,31 +152,31 @@ every level, the actual order of computation is:
 leaf "2") has two `nil` children, so both recursive calls immediately return `(0, true)`,
 and this node computes `height = max(0,0)+1 = 1`, `ok = true`.
 
-![Step 1](images/walkthrough-1.svg)
+![Step 1](images/walkthrough-1.png)
 
 **Step 2 — descend into the root's left subtree, right child first.** Inside the call for
 the left "2", `validateTree(node.Right)` runs before `validateTree(node.Left)` — so the
 leaf "3" on the right resolves next, also to `(1, true)`.
 
-![Step 2](images/walkthrough-2.svg)
+![Step 2](images/walkthrough-2.png)
 
 **Step 3 — the left "3" and its two "4" leaves resolve.** Both "4" nodes are leaves and
 return `(1, true)`. Back in their parent "3", `diff = leftHeight - rightHeight = 1-1 = 0`,
 so it passes its own check and reports `height = max(1,1)+1 = 2`.
 
-![Step 3](images/walkthrough-3.svg)
+![Step 3](images/walkthrough-3.png)
 
 **Step 4 — the left "2" combines its two children.** `rightHeight` (from the leaf "3") is
 `1`, `leftHeight` (from the "3" with two "4" children) is `2`. `diff = 2-1 = 1`, which is
 within `[-1, 1]`, so this node is fine and reports `height = max(2,1)+1 = 3`.
 
-![Step 4](images/walkthrough-4.svg)
+![Step 4](images/walkthrough-4.png)
 
 **Step 5 — the root combines its children and fails.** `rightHeight` (from the leaf "2")
 is `1`, `leftHeight` (from the "2" subtree just resolved) is `3`. `diff = 3-1 = 2`, and
 `2 > 1`, so `ok` is set to `false` right here at the root. `isBalanced` returns `false`.
 
-![Step 5](images/walkthrough-5.svg)
+![Step 5](images/walkthrough-5.png)
 
 ## Complexity
 

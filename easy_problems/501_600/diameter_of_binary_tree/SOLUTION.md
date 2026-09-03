@@ -71,31 +71,31 @@ tree that visits nodes in the order **4, 5, 2, 3, 1**.
 **Step 1 — `calc(4)`:** node 4 is a leaf, so both children return height `0`.
 `dia` stays `0`, and `calc` returns `height = 1` up to node 2.
 
-![step 1](images/walkthrough-1.svg)
+![step 1](images/walkthrough-1.png)
 
 **Step 2 — `calc(5)`:** same story — node 5 is also a leaf. `dia` is still `0`,
 and its height is `1`.
 
-![step 2](images/walkthrough-2.svg)
+![step 2](images/walkthrough-2.png)
 
 **Step 3 — `calc(2)`:** now both children of node 2 are known (`left=1`,
 `right=1`). The path through node 2 has length `1+1=2`, which beats the current
 `dia=0`, so `dia` updates to `2`. Node 2 reports `height = max(1,1)+1 = 2` up to
 the root.
 
-![step 3](images/walkthrough-3.svg)
+![step 3](images/walkthrough-3.png)
 
 **Step 4 — `calc(3)`:** node 3 is a leaf on the other side of the root. `dia`
 stays `2` (a leaf can't beat that), and its height is `1`.
 
-![step 4](images/walkthrough-4.svg)
+![step 4](images/walkthrough-4.png)
 
 **Step 5 — `calc(1)`:** the root now has `left=2` (from node 2) and `right=1`
 (from node 3). The path through the root has length `2+1=3`, which beats the
 current `dia=2`, so `dia` updates to its final value, `3`. That's the path
 `4 → 2 → 1 → 3` (or `5 → 2 → 1 → 3`) from the problem's explanation.
 
-![step 5](images/walkthrough-5.svg)
+![step 5](images/walkthrough-5.png)
 
 `diameterOfBinaryTree` returns `dia = 3`, matching the expected output.
 

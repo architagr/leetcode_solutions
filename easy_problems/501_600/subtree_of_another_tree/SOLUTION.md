@@ -32,12 +32,12 @@ Walking it through the example, `isSubtree(root=3, subRoot=4)`:
 - `subRoot` isn't nil, `root` isn't nil, so we compare values: `3 != 4` → skip
   `equalBinaryTree`, fall through to the recursive case.
 
-![Step 1: node 3 vs subRoot's 4 — values differ, skip equalBinaryTree, recurse into 4 and 5](images/walkthrough-1.svg)
+![Step 1: node 3 vs subRoot's 4 — values differ, skip equalBinaryTree, recurse into 4 and 5](images/walkthrough-1.png)
 
 - Recurse left: `isSubtree(root=4, subRoot=4)`. Now `4 == 4`, so this time
   `equalBinaryTree(4-subtree, subRoot)` actually runs.
 
-![Step 2: node 4 vs subRoot's 4 — values match, call equalBinaryTree](images/walkthrough-2.svg)
+![Step 2: node 4 vs subRoot's 4 — values match, call equalBinaryTree](images/walkthrough-2.png)
 
 ### `equalBinaryTree` — confirm the anchor matches exactly
 
@@ -67,7 +67,7 @@ Continuing the trace, `equalBinaryTree(root=[4,1,2], subRoot=[4,1,2])`:
   node `5` is never even examined, since the left branch already found a match.
 - That `true` propagates all the way back up through `isSubtree(root=3, subRoot)`. ✓
 
-![Step 3: equalBinaryTree walks 4/1/2 against 4/1/2 in lockstep — all match, isSubtree returns true, node 5 never checked](images/walkthrough-3.svg)
+![Step 3: equalBinaryTree walks 4/1/2 against 4/1/2 in lockstep — all match, isSubtree returns true, node 5 never checked](images/walkthrough-3.png)
 
 **Complexity:** O(m·n) time in the worst case (`m` = nodes in `root`, `n` = nodes in
 `subRoot`) — up to `m` candidate anchors, each costing up to `n` work in

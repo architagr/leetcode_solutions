@@ -45,13 +45,13 @@ Walking it through `root = [3,9,20,null,null,15,7]` (expected `[3.0, 14.5, 11.0]
 - `getSumAndCount(3, level=0)`: no slot exists yet, so slot 0 is created; `result=[3.0]`,
   `count=[1.0]`. Then it recurses left into `9` and right into `20`.
 
-  ![Step 1: visit 3 (level 0), create slot 0, result[0]=3, count[0]=1](images/walkthrough-1.svg)
+  ![Step 1: visit 3 (level 0), create slot 0, result[0]=3, count[0]=1](images/walkthrough-1.png)
 
 - `getSumAndCount(9, level=1)`: no slot 1 yet, so it's created; `result=[3.0, 9.0]`,
   `count=[1.0, 1.0]`. `9` has no children, so both recursive calls hit the base case
   immediately.
 
-  ![Step 2: visit 9 (level 1), create slot 1, result[1]=9, count[1]=1](images/walkthrough-2.svg)
+  ![Step 2: visit 9 (level 1), create slot 1, result[1]=9, count[1]=1](images/walkthrough-2.png)
 
 - `getSumAndCount(20, level=1)`: slot 1 already exists from the `9` visit, so no new
   slot is appended — it's updated in place: `result[1] += 20` → `29.0`,
@@ -59,23 +59,23 @@ Walking it through `root = [3,9,20,null,null,15,7]` (expected `[3.0, 14.5, 11.0]
   `20` is in a completely different branch than `9`, yet they both write into the same
   slot because they share a depth.
 
-  ![Step 3: visit 20 (level 1), slot 1 exists, result[1] becomes 29, count[1] becomes 2](images/walkthrough-3.svg)
+  ![Step 3: visit 20 (level 1), slot 1 exists, result[1] becomes 29, count[1] becomes 2](images/walkthrough-3.png)
 
 - `getSumAndCount(15, level=2)`: no slot 2 yet, so it's created; `result=[3.0, 29.0,
   15.0]`, `count=[1.0, 2.0, 1.0]`.
 
-  ![Step 4: visit 15 (level 2), create slot 2, result[2]=15, count[2]=1](images/walkthrough-4.svg)
+  ![Step 4: visit 15 (level 2), create slot 2, result[2]=15, count[2]=1](images/walkthrough-4.png)
 
 - `getSumAndCount(7, level=2)`: slot 2 already exists, updated in place:
   `result[2] += 7` → `22.0`, `count[2]++` → `2.0`.
 
-  ![Step 5: visit 7 (level 2), slot 2 exists, result[2] becomes 22, count[2] becomes 2](images/walkthrough-5.svg)
+  ![Step 5: visit 7 (level 2), slot 2 exists, result[2] becomes 22, count[2] becomes 2](images/walkthrough-5.png)
 
 - Recursion is done: `result=[3.0, 29.0, 22.0]`, `count=[1.0, 2.0, 2.0]`. Back in
   `AverageOfLevel`, the final loop divides each slot: `3.0/1.0 = 3.0`,
   `29.0/2.0 = 14.5`, `22.0/2.0 = 11.0`, giving `[3.0, 14.5, 11.0]`. ✓
 
-  ![Step 6: divide result[i] by count[i] for every level, giving 3.0, 14.5, 11.0](images/walkthrough-6.svg)
+  ![Step 6: divide result[i] by count[i] for every level, giving 3.0, 14.5, 11.0](images/walkthrough-6.png)
 
 **Complexity:**
 - Time: O(n) — `getSumAndCount` visits every node exactly once; the final division

@@ -189,15 +189,26 @@ rewrite it.
         focused (one state snapshot, not the whole trace) — a reader should be able to see
         at a glance what changed since the previous step.
 
-      **Every walkthrough SVG must also be exported to PNG**, same basename, beside it:
+      **Every walkthrough SVG must be exported to PNG**, same basename, beside it:
       ```bash
       rsvg-convert -w 1200 --keep-aspect-ratio -b white \
         -o <folder>/images/walkthrough-<n>.png <folder>/images/walkthrough-<n>.svg
       ```
-      SOLUTION.md keeps the `.svg` (GitHub renders it natively and it stays sharp at any
-      zoom); POST_LINKEDIN_ARTICLE.md references the `.png`, because **LinkedIn's article
-      editor rejects SVG uploads**. Both files exist for every diagram — don't ship one
-      without the other.
+      **Reference the `.png` everywhere — SOLUTION.md, POST_LINKEDIN_ARTICLE.md, all of
+      it. Never embed the `.svg`.** LinkedIn's article editor rejects SVG uploads outright,
+      and an SVG that's subtly malformed fails silently as a broken image rather than
+      erroring, which is how a batch of them once shipped broken. The SVG stays in the
+      folder as the editable source; the PNG is what every document points at.
+
+      After exporting, confirm nothing is cut off at the edges — text that overflows the
+      `viewBox` gets clipped mid-sentence in both formats:
+      ```bash
+      python3 -c "
+      from PIL import Image; import numpy as np, sys
+      a = np.array(Image.open(sys.argv[1]).convert('L')) < 240
+      edges = a[:,0].sum() + a[:,-1].sum() + a[0,:].sum() + a[-1,:].sum()
+      print('CLIPPED - widen the viewBox' if edges else 'ok')" <folder>/images/walkthrough-<n>.png
+      ```
 
       **Never write `--` inside an SVG comment.** A double hyphen is illegal in XML
       comments, and it silently breaks the whole file: the SVG won't render on GitHub or

@@ -20,7 +20,7 @@ We'll trace it on the example above, `root = [4,2,6,1,3]` (expected `1`).
    every value in strictly increasing order. That turns "compare every pair of nodes"
    into "sort once, then only compare neighbors."
 
-   ![Step 1: in-order traversal collects [1, 2, 3, 4, 6] from the tree](images/walkthrough-1.svg)
+   ![Step 1: in-order traversal collects [1, 2, 3, 4, 6] from the tree](images/walkthrough-1.png)
 
 3. **Scan for the smallest neighboring gap.**
    ```go
@@ -36,12 +36,12 @@ We'll trace it on the example above, `root = [4,2,6,1,3]` (expected `1`).
    node values can only occur between two values that are adjacent once sorted, this
    single linear pass is enough; no need to check non-adjacent pairs.
 
-   ![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](images/walkthrough-2.svg)
+   ![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](images/walkthrough-2.png)
 
 4. **Return the answer.** `return minVal` — after the loop, `minVal` holds the smallest
    gap found across the whole sorted sequence.
 
-   ![Step 3: minDiffInBST(root) returns 1](images/walkthrough-3.svg)
+   ![Step 3: minDiffInBST(root) returns 1](images/walkthrough-3.png)
 
 ### `abs`
 

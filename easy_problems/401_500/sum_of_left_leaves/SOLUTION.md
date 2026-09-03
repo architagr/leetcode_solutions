@@ -33,15 +33,15 @@ it doesn't count):
     - `sumOfLeftLeaves(15)` → `0` (leaf, but detected by its parent `20`, not here).
     - `sumOfLeftLeaves(7)` → `0` (same reasoning).
 
-    ![Step 1: 9, 15, and 7 bottom out as leaves, each returning 0](images/walkthrough-1.svg)
+    ![Step 1: 9, 15, and 7 bottom out as leaves, each returning 0](images/walkthrough-1.png)
 
     - Back in `sumOfLeftLeaves(20)`: `l=0, r=0`. Check `20.Left` (`15`): it exists and
       has no children → it's a left leaf → `l += 15` → `l=15`. Returns `15`.
 
-    ![Step 2: at node 20, left child 15 is a left leaf, l becomes 15](images/walkthrough-2.svg)
+    ![Step 2: at node 20, left child 15 is a left leaf, l becomes 15](images/walkthrough-2.png)
 
   - Back in `sumOfLeftLeaves(3)`: `l=0` (from the `9` call), `r=15` (from the `20`
     call). Check `3.Left` (`9`): it exists and has no children → left leaf →
     `l += 9` → `l=9`. Returns `l + r = 9 + 15 = 24`. ✓
 
-  ![Step 3: at node 3, left child 9 is a left leaf, l becomes 9, r is 15, returns 24](images/walkthrough-3.svg)
+  ![Step 3: at node 3, left child 9 is a left leaf, l becomes 9, r is 15, returns 24](images/walkthrough-3.png)

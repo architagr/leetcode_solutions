@@ -37,28 +37,28 @@ Walking it through `root = [4,2,6,1,3]`, whose in-order sequence is `1, 2, 3, 4,
   which recurses left into `helper(nil)` (returns immediately). Back at node `1`:
   `prev` is still `nil`, so the comparison is skipped, and `prev` becomes `1`.
 
-  ![Step 1: descend to leftmost node 1, prev initialized](images/walkthrough-1.svg)
+  ![Step 1: descend to leftmost node 1, prev initialized](images/walkthrough-1.png)
 
 - `helper(1)` then recurses right into `helper(nil)` and returns. Back at node `2`:
   `prev` is `1`, so `res = min(∞, 2-1) = 1`, then `prev` becomes `2`.
 
-  ![Step 2: at node 2, diff 2-1=1, res becomes 1](images/walkthrough-2.svg)
+  ![Step 2: at node 2, diff 2-1=1, res becomes 1](images/walkthrough-2.png)
 
 - `helper(2)` recurses right into `helper(3)`. At node `3`: `prev` is `2`, so
   `res = min(1, 3-2) = 1` (unchanged), then `prev` becomes `3`.
 
-  ![Step 3: at node 3, diff 3-2=1, res stays 1](images/walkthrough-3.svg)
+  ![Step 3: at node 3, diff 3-2=1, res stays 1](images/walkthrough-3.png)
 
 - Control returns up to the root, node `4`: `prev` is `3`, so
   `res = min(1, 4-3) = 1` (unchanged), then `prev` becomes `4`.
 
-  ![Step 4: back at root 4, diff 4-3=1, res stays 1](images/walkthrough-4.svg)
+  ![Step 4: back at root 4, diff 4-3=1, res stays 1](images/walkthrough-4.png)
 
 - `helper(4)` recurses right into `helper(6)`. At node `6`: `prev` is `4`, so
   `res = min(1, 6-4) = min(1, 2) = 1` (unchanged), then `prev` becomes `6`.
   `helper(6)` recurses right into `helper(nil)` and the traversal ends.
 
-  ![Step 5: at node 6, diff 6-4=2, res stays 1 — final answer](images/walkthrough-5.svg)
+  ![Step 5: at node 6, diff 6-4=2, res stays 1 — final answer](images/walkthrough-5.png)
 
 - `getMinimumDifference` returns `res = 1`. ✓
 

@@ -71,7 +71,7 @@ Tracing `foo` for `x = 5` first:
 
 So `depthX = 2`, `parentX = 3`.
 
-![Step 1: searching for x=5 — the miss down through node 2 and leaf 4 backtracks, then 5 is found as node 3's right child at depth 2](images/walkthrough-1.svg)
+![Step 1: searching for x=5 — the miss down through node 2 and leaf 4 backtracks, then 5 is found as node 3's right child at depth 2](images/walkthrough-1.png)
 
 Now `y = 4`, same starting point:
 
@@ -85,13 +85,13 @@ Now `y = 4`, same starting point:
 
 So `depthY = 2`, `parentY = 2`.
 
-![Step 2: searching for y=4 — found directly as node 2's right child at depth 2, so the right subtree is never visited](images/walkthrough-2.svg)
+![Step 2: searching for y=4 — found directly as node 2's right child at depth 2, so the right subtree is never visited](images/walkthrough-2.png)
 
 6. **Back in `isCousins`:** `depthX == depthY` → `2 == 2` → `true`. `parentX !=
    parentY` → `3 != 2` → `true`. Both hold, so `isCousins` returns `true` — `5` and `4`
    are cousins: same depth, different parents. ✓
 
-![Step 3: comparing the two results — same depth (2 and 2), different parents (3 and 2) — cousins](images/walkthrough-3.svg)
+![Step 3: comparing the two results — same depth (2 and 2), different parents (3 and 2) — cousins](images/walkthrough-3.png)
 
 **Complexity:**
 - Time: O(n) — `foo` is called twice from `isCousins`, and each call visits at most

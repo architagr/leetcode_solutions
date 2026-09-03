@@ -34,14 +34,14 @@ node from `clones`):
 - `getTargetCopy(7, 7, target)`: `clones.Val(7) != target.Val(3)` → recurse left first,
   into `(4, 4)`.
 
-  ![Step 1: at the root pair (7,7), values don't match, recurse left into (4,4)](images/walkthrough-1.svg)
+  ![Step 1: at the root pair (7,7), values don't match, recurse left into (4,4)](images/walkthrough-1.png)
 
 - `getTargetCopy(4, 4, target)`: `clones.Val(4) != target.Val(3)`. `4` is a leaf in both
   trees, so recursing left goes to `(nil, nil)` → returns `nil` immediately, and
   recursing right also goes to `(nil, nil)` → returns `nil`. This call returns `nil`
   — the target isn't anywhere under `4`.
 
-  ![Step 2: at pair (4,4), values don't match and both children are nil, so this branch is a dead end — returns nil](images/walkthrough-2.svg)
+  ![Step 2: at pair (4,4), values don't match and both children are nil, so this branch is a dead end — returns nil](images/walkthrough-2.png)
 
 - Back in `getTargetCopy(7, 7, target)`: the left recursion returned `nil`, so it falls
   through to `return getTargetCopy(original.Right, clones.Right, target)`, i.e.
@@ -51,7 +51,7 @@ node from `clones`):
   `clones` directly — the `3` node from the *cloned* tree. This result is propagated all
   the way back up as the final answer. ✓
 
-  ![Step 3: at pair (3,3), values match — clones (the cloned-tree node) is returned as the answer](images/walkthrough-3.svg)
+  ![Step 3: at pair (3,3), values match — clones (the cloned-tree node) is returned as the answer](images/walkthrough-3.png)
 
 **Complexity:** O(n) time — in the worst case every node pair is visited once (e.g. when
 `target` is the last node reached, or the tree is degenerate). O(h) space for the

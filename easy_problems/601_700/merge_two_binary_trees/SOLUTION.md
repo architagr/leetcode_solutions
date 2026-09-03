@@ -35,14 +35,14 @@ Walking it through `root1 = [1,3,2,5]`, `root2 = [2,1,3,null,4,null,7]`:
 - `mergeTrees(1, 2)`: both non-nil → new node `1+2 = 3`. Its children aren't merged
   yet.
 
-  ![Step 1: merged root created as 1+2=3, children still pending](images/walkthrough-1.svg)
+  ![Step 1: merged root created as 1+2=3, children still pending](images/walkthrough-1.png)
 
   - `root.Left = mergeTrees(3, 1)`: both non-nil → new node `3+1 = 4`.
     - `mergeTrees(5, nil)`: `root2` is nil → returns `root1`'s subtree, `5`, untouched.
     - `mergeTrees(nil, 4)`: `root1` is nil → returns `root2`'s subtree, `4`, untouched.
     - Node `4`'s children are wired in: left `5`, right `4`.
 
-    ![Step 2: left subtree resolved — 3+1=4, reusing 5 from root1 and 4 from root2 as leaves](images/walkthrough-2.svg)
+    ![Step 2: left subtree resolved — 3+1=4, reusing 5 from root1 and 4 from root2 as leaves](images/walkthrough-2.png)
 
   - `root.Right = mergeTrees(2, 3)`: both non-nil → new node `2+3 = 5`.
     - `mergeTrees(nil, nil)`: `root1` is nil → returns `root2`'s subtree, which is
@@ -51,7 +51,7 @@ Walking it through `root1 = [1,3,2,5]`, `root2 = [2,1,3,null,4,null,7]`:
       untouched.
     - Node `5`'s children are wired in: left `nil`, right `7`.
 
-    ![Step 3: right subtree resolved — 2+3=5, right child reuses 7 from root2, no left child — merge complete](images/walkthrough-3.svg)
+    ![Step 3: right subtree resolved — 2+3=5, right child reuses 7 from root2, no left child — merge complete](images/walkthrough-3.png)
 
 - Back at the root, `root.Left = 4` (with children `5`, `4`) and `root.Right = 5`
   (with children `nil`, `7`) are both wired in, giving the final merged tree

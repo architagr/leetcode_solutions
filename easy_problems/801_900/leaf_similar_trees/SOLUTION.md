@@ -30,13 +30,13 @@ We'll trace it on Example 1 from the problem statement:
    Running `leafs` on `root1` visits `6`, `7`, `4` (from the left subtree rooted at
    `5`), then `9`, `8` (from the right subtree rooted at `1`):
 
-   ![Step 1: root1's leaves collected left-to-right &#8594; (6, 7, 4, 9, 8)](images/walkthrough-1.svg "Step 1")
+   ![Step 1: root1's leaves collected left-to-right &#8594; (6, 7, 4, 9, 8)](images/walkthrough-1.png "Step 1")
 
    Running `leafs` on `root2` visits the same values, `6`, `7` (left subtree rooted at
    `5`), then `4`, `9`, `8` (right subtree rooted at `1`) — a differently shaped tree,
    but the same left-to-right leaf order:
 
-   ![Step 2: root2's leaves collected left-to-right &#8594; (6, 7, 4, 9, 8)](images/walkthrough-2.svg "Step 2")
+   ![Step 2: root2's leaves collected left-to-right &#8594; (6, 7, 4, 9, 8)](images/walkthrough-2.png "Step 2")
 
 5. **Back in `leafSimilar`, compare lengths first.**
    `if len(root1Leafs) != len(root2Leafs) { return false }` — a cheap early exit: two
@@ -60,7 +60,7 @@ We'll trace it on Example 1 from the problem statement:
    `root1Leafs = [6, 7, 4, 9, 8]` and `root2Leafs = [6, 7, 4, 9, 8]` — same length, same
    values at every index, so `leafSimilar` returns `true`, matching the example:
 
-   ![Step 3: comparing the two leaf sequences element by element &#8594; true](images/walkthrough-3.svg "Step 3")
+   ![Step 3: comparing the two leaf sequences element by element &#8594; true](images/walkthrough-3.png "Step 3")
 
 **Complexity:** O(n + m) time — every node of both trees is visited exactly once
 (n and m are each tree's node count). O(n + m) space for the two leaf slices, plus

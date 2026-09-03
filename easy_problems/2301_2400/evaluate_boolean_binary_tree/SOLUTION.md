@@ -35,18 +35,18 @@ Now the trace on `root = [2,1,3,null,null,0,1]` — root is `OR`, its left child
   (`1`) returns `True`; on `AND`'s left child (`0`) returns `False`; on `AND`'s right
   child (`1`) returns `True`.
 
-  ![Step 1: leaves hit the base case, root.Val == TRUE decides each](images/walkthrough-1.svg)
+  ![Step 1: leaves hit the base case, root.Val == TRUE decides each](images/walkthrough-1.png)
 
 - Back at the `AND` node: `left = False`, `right = True`. `root.Val` is `AND`, not
   `OR`, so it falls to `return left && right` → `False && True = False`.
 
-  ![Step 2: AND node combines left && right = False && True = False](images/walkthrough-2.svg)
+  ![Step 2: AND node combines left && right = False && True = False](images/walkthrough-2.png)
 
 - Back at the `root` (`OR`) node: `left = True` (its own left child, resolved in step
   1), `right = False` (the just-resolved `AND` subtree). `root.Val == OR`, so
   `return left || right` → `True || False = True`. ✓
 
-  ![Step 3: root OR combines left || right = True || False = True](images/walkthrough-3.svg)
+  ![Step 3: root OR combines left || right = True || False = True](images/walkthrough-3.png)
 
 **Complexity:** O(n) time — every node is visited and evaluated exactly once. O(h)
 space for the recursion stack, where h is the tree's height.

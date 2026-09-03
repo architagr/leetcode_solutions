@@ -42,29 +42,29 @@ leftright=1, rightleft=0, rightright=1) — four leaves, four root-to-leaf binar
     Not a leaf, recurse further.
     - `sum(leftleft=0, 2)`: `currentSum = 100b = 4`. `leftleft` is a leaf → returns `4`.
 
-    ![Step 1: first path root → 0 → 0 reaches a leaf, currentSum = 100b = 4](images/walkthrough-1.svg)
+    ![Step 1: first path root → 0 → 0 reaches a leaf, currentSum = 100b = 4](images/walkthrough-1.png)
 
     - `sum(leftright=1, 2)`: `currentSum = 101b = 5`. `leftright` is a leaf → returns
       `5`. Back in the `left` call: `leftSum = 4 + 5 = 9`.
 
-    ![Step 2: second path root → 0 → 1 reaches a leaf, currentSum = 101b = 5, left subtree total so far = 9](images/walkthrough-2.svg)
+    ![Step 2: second path root → 0 → 1 reaches a leaf, currentSum = 101b = 5, left subtree total so far = 9](images/walkthrough-2.png)
 
   - `sum(right=1, 1)`: `rootLevelSum` becomes `11b = 3`, `currentSum = 3` ("bits=11").
     Not a leaf, recurse further.
     - `sum(rightleft=0, 3)`: `currentSum = 110b = 6`. `rightleft` is a leaf → returns
       `6`.
 
-    ![Step 3: third path root → 1 → 0 reaches a leaf, currentSum = 110b = 6; left subtree already totals 9](images/walkthrough-3.svg)
+    ![Step 3: third path root → 1 → 0 reaches a leaf, currentSum = 110b = 6; left subtree already totals 9](images/walkthrough-3.png)
 
     - `sum(rightright=1, 3)`: `currentSum = 111b = 7`. `rightright` is a leaf → returns
       `7`. Back in the `right` call: `rightSum = 6 + 7 = 13`.
 
-    ![Step 4: fourth path root → 1 → 1 reaches a leaf, currentSum = 111b = 7; all four leaves now computed](images/walkthrough-4.svg)
+    ![Step 4: fourth path root → 1 → 1 reaches a leaf, currentSum = 111b = 7; all four leaves now computed](images/walkthrough-4.png)
 
   - Back in the top-level `sum(root, 0)` call: `leftSum = 9` and `rightSum = 13` have
     both returned, so `sum` returns `leftSum + rightSum = 9 + 13 = 22`. ✓
 
-  ![Step 5: recursion unwinds, leftSum=9 and rightSum=13 bubble up to root, total = 22](images/walkthrough-5.svg)
+  ![Step 5: recursion unwinds, leftSum=9 and rightSum=13 bubble up to root, total = 22](images/walkthrough-5.png)
 
 **Complexity:** O(n) time — every node visited once. O(h) space for the recursion
 stack, where h is the tree height.

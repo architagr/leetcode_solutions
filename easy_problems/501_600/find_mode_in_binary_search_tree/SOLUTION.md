@@ -25,18 +25,18 @@ no left child, its right child is a `2`, and that `2`'s left child is another `2
    `root.Left`, then `root.Right`):
    - `getCnt(1, data)`: `data[1]++` → `data = {1: 1}`.
 
-     ![Step 1: getCnt visits the root, data becomes {1: 1}](images/walkthrough-1.svg)
+     ![Step 1: getCnt visits the root, data becomes {1: 1}](images/walkthrough-1.png)
 
    - `1.Left` is `nil`, so that branch returns immediately without touching `data`.
    - `getCnt(2a, data)` (the right child of `1`): `data[2]++` → `data = {1: 1, 2: 1}`.
 
-     ![Step 2: getCnt visits 1's right child, data becomes {1: 1, 2: 1}](images/walkthrough-2.svg)
+     ![Step 2: getCnt visits 1's right child, data becomes {1: 1, 2: 1}](images/walkthrough-2.png)
 
    - `getCnt(2b, data)` (the left child of `2a`): `data[2]++` again →
      `data = {1: 1, 2: 2}`. `2b` has no children, so both of its recursive calls hit the
      `nil` base case and return.
 
-     ![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](images/walkthrough-3.svg)
+     ![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](images/walkthrough-3.png)
 
    By the time `getCnt` unwinds back to `findMode`, `data` holds the full frequency
    table: `{1: 1, 2: 2}`.
@@ -54,7 +54,7 @@ no left child, its right child is a `2`, and that `2`'s left child is another `2
    correctly return *all* modes when there's a tie, not just one. Here only `k = 2` has
    `v == cnt`, so `res = [2]`.
 
-   ![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](images/walkthrough-4.svg)
+   ![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](images/walkthrough-4.png)
 
 5. **Return the result.** `return res` hands back `[2]`, matching the expected output.
 

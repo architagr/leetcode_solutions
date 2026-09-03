@@ -53,7 +53,7 @@ We'll trace the whole run against LeetCode's first example, `root = [2,2,5,null,
 
 **Step 1 — initialize.**
 
-<img src="images/walkthrough-1.svg" alt="Step 1: initialize min and ans" width="360" />
+<img src="images/walkthrough-1.png" alt="Step 1: initialize min and ans" width="360" />
 
 `min` is pinned to `root.Val` (2), and `ans` starts at infinity.
 
@@ -65,7 +65,7 @@ holds again, and we recurse into *its* children. But this node is a leaf (`Left`
 `Right` are both `nil`), so both recursive calls hit the `if root == nil { return }` base
 case immediately and do nothing.
 
-<img src="images/walkthrough-2.svg" alt="Step 2: recursing while value equals min" width="360" />
+<img src="images/walkthrough-2.png" alt="Step 2: recursing while value equals min" width="360" />
 
 This is the "haven't branched away from the minimum yet" case from the intuition —
 nothing to record, just keep descending.
@@ -78,14 +78,14 @@ because this subtree's own minimum is 5 (by the tree invariant), nothing underne
 the 5 and 7 further down — can possibly produce a smaller second-minimum candidate than 5
 itself, so descending into it would be wasted work.
 
-<img src="images/walkthrough-3.svg" alt="Step 3: candidate found, subtree pruned" width="360" />
+<img src="images/walkthrough-3.png" alt="Step 3: candidate found, subtree pruned" width="360" />
 
 **Step 4 — unwind and return.** `dfs` has no more calls left on the stack (every branch
 either hit a `nil` base case or found a candidate and stopped), so control returns to
 `findSecondMinimumValue`. `ans` is now `5`, which is less than `math.MaxInt64`, so the
 function returns `5` — matching the expected output.
 
-<img src="images/walkthrough-4.svg" alt="Step 4: final return value" width="360" />
+<img src="images/walkthrough-4.png" alt="Step 4: final return value" width="360" />
 
 ### The other example — no second minimum
 

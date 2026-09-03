@@ -64,7 +64,7 @@ draw every node explicitly.
 
 ![Example 2](images/2.jpg "Example2")
 
-![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](images/walkthrough-1.svg)
+![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](images/walkthrough-1.png)
 
 - `inOrder(5)` recurses left and right before touching `5` itself:
   - `inOrder(1)`: both children nil, so `left=[]`, `right=[]`. `1.Left` and `1.Right`
@@ -75,7 +75,7 @@ draw every node explicitly.
   detach `5` from its old children. `res = append([1], 5) = [1, 5]`, then
   `res = append([1,5], 7...) = [1, 5, 7]`. Returns `[1, 5, 7]`.
 
-![Step 2: inOrder returns [1, 5, 7], all three nodes already detached from old children](images/walkthrough-2.svg)
+![Step 2: inOrder returns [1, 5, 7], all three nodes already detached from old children](images/walkthrough-2.png)
 
 Back in `increasingBST`, `inorder = [1, 5, 7]`. The relinking loop runs for
 `i = 1` and `i = 2`:
@@ -86,7 +86,7 @@ Back in `increasingBST`, `inorder = [1, 5, 7]`. The relinking loop runs for
 `1 → 5 → 7`, each linked purely through `.Right`, matching the expected output
 `[1,null,5,null,7]`.
 
-![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](images/walkthrough-3.svg)
+![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](images/walkthrough-3.png)
 
 The same two-phase idea scales directly to the bigger example above
 (`root = [5,3,6,2,4,null,8,1,null,null,null,7,9]`): `inOrder` collects all nine nodes

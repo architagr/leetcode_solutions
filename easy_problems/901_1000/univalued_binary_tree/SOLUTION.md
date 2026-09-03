@@ -46,14 +46,14 @@ Walking it through `root = [2,2,2,5,2]`:
     - `isUnivalTree(D=2)`: no children → returns `true`, same reasoning.
     - `isUnivalTree(B=2)`: no children → returns `true`.
 
-    ![Step 1: 5, 2, and 2 bottom out as leaves, each returning true](images/walkthrough-1.svg)
+    ![Step 1: 5, 2, and 2 bottom out as leaves, each returning true](images/walkthrough-1.png)
 
   - Back in `isUnivalTree(A=2)`: `left = isUnivalTree(C) && C.Val == A.Val` →
     `true && (5 == 2)` → `true && false` → `left = false`. `right =
     isUnivalTree(D) && D.Val == A.Val` → `true && (2 == 2)` → `right = true`. Returns
     `left && right = false && true = false`.
 
-    ![Step 2: at node A (value 2), left child 5 mismatches, left becomes false](images/walkthrough-2.svg)
+    ![Step 2: at node A (value 2), left child 5 mismatches, left becomes false](images/walkthrough-2.png)
 
   - Back at the root: `left = isUnivalTree(A) && A.Val == root.Val` →
     `false && (2 == 2)` — the left-hand side of `&&` is already `false`, so `left =
@@ -61,7 +61,7 @@ Walking it through `root = [2,2,2,5,2]`:
     isUnivalTree(B) && B.Val == root.Val` → `true && (2 == 2)` → `right = true`.
     Returns `left && right = false && true = false`. ✓
 
-    ![Step 3: at the root, the left subtree already resolved to false, so the whole tree is false](images/walkthrough-3.svg)
+    ![Step 3: at the root, the left subtree already resolved to false, so the whole tree is false](images/walkthrough-3.png)
 
 The mismatch (`5` under a `2`) is detected two levels down, at node `A`, and then just
 propagates upward as `false` through every ancestor's `left`/`right` combination —

@@ -59,15 +59,15 @@ Walking the trace on `[5,4,8,11,null,13,4,7,2,null,null,null,1]`, `targetSum = 2
 - `sum(11, 22, 9)`: `11` has both children → recurse into `7` and `2`, each with
   `current=9+11=20`.
 
-  ![Step 1: current sum descends 5 -> 4 -> 11, current becomes 9](images/walkthrough-1.svg)
+  ![Step 1: current sum descends 5 -> 4 -> 11, current becomes 9](images/walkthrough-1.png)
 
 - `sum(7, 22, 20)`: `7` is a leaf. Check: `22 == 7+20` (`27`)? No → returns `false`.
 
-  ![Step 2: at leaf 7, 22 != 27, returns false](images/walkthrough-2.svg)
+  ![Step 2: at leaf 7, 22 != 27, returns false](images/walkthrough-2.png)
 
 - `sum(2, 22, 20)`: `2` is a leaf. Check: `22 == 2+20` (`22`)? Yes → returns `true`.
 
-  ![Step 3: at leaf 2, 22 == 22, returns true](images/walkthrough-3.svg)
+  ![Step 3: at leaf 2, 22 == 22, returns true](images/walkthrough-3.png)
 
 - Back in `sum(11, 22, 9)`: `false || true` → `true`.
 - Back in `sum(4, 22, 5)`: `true` (nothing else to combine with; only the left branch
@@ -76,7 +76,7 @@ Walking the trace on `[5,4,8,11,null,13,4,7,2,null,null,null,1]`, `targetSum = 2
   `sum(8, 22, 5)` (the entire right subtree, `13`/`4`/`1`) is never evaluated at all.
   `hasPathSum` returns `true`. ✓
 
-  ![Step 4: true bubbles up 2 -> 11 -> 4 -> 5, right subtree never visited](images/walkthrough-4.svg)
+  ![Step 4: true bubbles up 2 -> 11 -> 4 -> 5, right subtree never visited](images/walkthrough-4.png)
 
 **Complexity:** O(n) time — every node is visited at most once (fewer, when `||`
 short-circuits). O(h) space for the recursion stack, where h is the tree's height.

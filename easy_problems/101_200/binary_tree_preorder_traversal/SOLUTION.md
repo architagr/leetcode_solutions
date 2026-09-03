@@ -21,7 +21,7 @@ child and a right child `2`, and `2` has a left child `3`.
    in preorder: the current node's value is recorded *before* either subtree is
    touched.
 
-   ![Step 1: visit root 1, arr becomes [1]](images/walkthrough-1.svg)
+   ![Step 1: visit root 1, arr becomes [1]](images/walkthrough-1.png)
 
 4. **Recurse left.** `arr = traversal(A.Left, arr)` — the (possibly grown) slice is
    passed in and the (possibly grown again) slice is captured back out. Threading
@@ -35,11 +35,11 @@ child and a right child `2`, and `2` has a left child `3`.
    right subtree. `1.Right` is `2`, so this call visits `2` (`arr = [1,2]`), then
    recurses into *its* children.
 
-   ![Step 2: 1.Left is nil, visit 2, arr becomes [1,2]](images/walkthrough-2.svg)
+   ![Step 2: 1.Left is nil, visit 2, arr becomes [1,2]](images/walkthrough-2.png)
 
    `2.Left` is `3`, so that recursive call visits `3` next (`arr = [1,2,3]`).
 
-   ![Step 3: visit 3 via 2.Left, arr becomes [1,2,3]](images/walkthrough-3.svg)
+   ![Step 3: visit 3 via 2.Left, arr becomes [1,2,3]](images/walkthrough-3.png)
 
 6. **Unwind.** `3` has no children, so both of its recursive calls hit the base
    case and return `arr` untouched. That `[1,2,3]` bubbles back up through `3`'s
@@ -48,7 +48,7 @@ child and a right child `2`, and `2` has a left child `3`.
    the end of `traversal` is what carries the final slice back through every frame
    on the stack.
 
-   ![Step 4: 3's children are nil, unwind to return [1,2,3]](images/walkthrough-4.svg)
+   ![Step 4: 3's children are nil, unwind to return [1,2,3]](images/walkthrough-4.png)
 
 The result, `[1, 2, 3]`, matches the expected output — root before left before
 right, all the way down.

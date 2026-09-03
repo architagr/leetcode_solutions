@@ -42,13 +42,13 @@ Output: [2,1,3]
 - `searchBST(4, val=2)`: `root.Val(4) > val(2)` → recurse left, into node `2`. The right
   subtree (`7`) is eliminated in this single comparison — it's never even visited.
 
-  ![Step 1: at node 4, 4 > 2, recurse left, right subtree eliminated](images/walkthrough-1.svg)
+  ![Step 1: at node 4, 4 > 2, recurse left, right subtree eliminated](images/walkthrough-1.png)
 
 - `searchBST(2, val=2)`: `root.Val(2) == val(2)` → neither `if` fires, so `return root`
   returns node `2`. Its `Left` (`1`) and `Right` (`3`) pointers are still attached,
   giving the expected output subtree `[2,1,3]`.
 
-  ![Step 2: at node 2, match found, returns subtree [2,1,3]](images/walkthrough-2.svg)
+  ![Step 2: at node 2, match found, returns subtree [2,1,3]](images/walkthrough-2.png)
 
 ### Example 2: value not found
 
@@ -62,14 +62,14 @@ Output: []
 - `searchBST(4, val=5)`: `root.Val(4) < val(5)` → recurse right, into node `7`. This time
   the *left* subtree (`2,1,3`) is the one eliminated.
 
-  ![Step 3: at node 4, 4 < 5, recurse right, left subtree eliminated](images/walkthrough-3.svg)
+  ![Step 3: at node 4, 4 < 5, recurse right, left subtree eliminated](images/walkthrough-3.png)
 
 - `searchBST(7, val=5)`: `root.Val(7) > val(5)` → recurse left, into `7.Left`, which is
   `nil`. That call hits the base case immediately: `searchBST(nil, val=5)` returns
   `nil`, and that `nil` propagates straight back up as the final answer — matching the
   expected empty output.
 
-  ![Step 4: at node 7, 7 > 5, recurse left into nil, base case returns nil](images/walkthrough-4.svg)
+  ![Step 4: at node 7, 7 > 5, recurse left into nil, base case returns nil](images/walkthrough-4.png)
 
 Both traces show the same shape: one comparison per level, one subtree eliminated per
 comparison, no branch ever explored twice.

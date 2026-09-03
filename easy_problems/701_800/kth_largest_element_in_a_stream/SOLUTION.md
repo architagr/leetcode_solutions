@@ -80,7 +80,7 @@ For `Constructor(3, [4, 5, 8, 2])`: `limit = 3`, so `4`, `5`, `8` are pushed
 unconditionally, filling the heap to `{4, 5, 8}` with root `4`. Then `i = 3`, `nums[3] =
 2`: is `root(4) < 2`? No — `2` is rejected and the heap stays `{4, 5, 8}`.
 
-![Step 1: Constructor fills the heap with 4, 5, 8; rejects 2](images/walkthrough-1.svg)
+![Step 1: Constructor fills the heap with 4, 5, 8; rejects 2](images/walkthrough-1.png)
 
 ### `Add(val int) int`
 
@@ -117,27 +117,27 @@ call, so each one takes the comparison branch:
 **`Add(3)`**: root is `4`. Is `4 < 3`? No — `3` is rejected, heap stays `{4, 5, 8}`,
 returns `4`.
 
-![Step 2: Add(3) is rejected, heap unchanged, returns 4](images/walkthrough-2.svg)
+![Step 2: Add(3) is rejected, heap unchanged, returns 4](images/walkthrough-2.png)
 
 **`Add(5)`**: root is `4`. Is `4 < 5`? Yes — pop `4`, push `5`. Heap becomes
 `{5, 5, 8}` with root `5`, returns `5`.
 
-![Step 3: Add(5) pops 4, pushes 5, returns 5](images/walkthrough-3.svg)
+![Step 3: Add(5) pops 4, pushes 5, returns 5](images/walkthrough-3.png)
 
 **`Add(10)`**: root is `5`. Is `5 < 10`? Yes — pop that `5`, push `10`. Heap becomes
 `{5, 8, 10}` with root `5` (the *other* `5` that was already in the heap), returns `5`.
 
-![Step 4: Add(10) pops 5, pushes 10, returns 5](images/walkthrough-4.svg)
+![Step 4: Add(10) pops 5, pushes 10, returns 5](images/walkthrough-4.png)
 
 **`Add(9)`**: root is `5`. Is `5 < 9`? Yes — pop `5`, push `9`. Heap becomes
 `{8, 9, 10}` with root `8`, returns `8`.
 
-![Step 5: Add(9) pops 5, pushes 9, returns 8](images/walkthrough-5.svg)
+![Step 5: Add(9) pops 5, pushes 9, returns 8](images/walkthrough-5.png)
 
 **`Add(4)`**: root is `8`. Is `8 < 4`? No — `4` is rejected, heap stays `{8, 9, 10}`,
 returns `8`.
 
-![Step 6: Add(4) is rejected, heap unchanged, returns 8](images/walkthrough-6.svg)
+![Step 6: Add(4) is rejected, heap unchanged, returns 8](images/walkthrough-6.png)
 
 Final sequence of returns: `[4, 5, 5, 8, 8]` — exactly matching the problem statement's
 expected output.

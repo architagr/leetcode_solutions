@@ -39,26 +39,26 @@ Now the full trace, following `find(5, 9, {})`:
 - **At node `5` (root).** `hashMap` is empty, so `5` isn't in it. Store the complement
   it needs: `hashMap[9-5] = hashMap[4] = true`.
 
-  ![Step 1: at root 5, map is empty, store complement 4](images/walkthrough-1.svg)
+  ![Step 1: at root 5, map is empty, store complement 4](images/walkthrough-1.png)
 
 - **Recurse left, into `3`.** `3` isn't in `{4}`. Store `hashMap[9-3] = hashMap[6] =
   true`.
 
-  ![Step 2: at node 3, store complement 6](images/walkthrough-2.svg)
+  ![Step 2: at node 3, store complement 6](images/walkthrough-2.png)
 
   - **Recurse left, into `2` (a leaf).** `2` isn't in `{4, 6}`. Store
     `hashMap[9-2] = hashMap[7] = true`. Both of `2`'s children are `nil`, so its own
     `left`/`right` calls immediately return `false`, and `find(2, ...)` returns
     `false`.
 
-    ![Step 3: at leaf 2, store complement 7, returns false](images/walkthrough-3.svg)
+    ![Step 3: at leaf 2, store complement 7, returns false](images/walkthrough-3.png)
 
   - **Recurse right, into `4`.** `4` **is already in** `hashMap` (`{4, 6, 7}`) — it was
     stored two levels up, while visiting `5`. So `find(4, ...)` hits the match check on
     line 3 and returns `true` immediately, without storing anything or recursing into
     `4`'s (nil) children. This is the actual pair: `5 + 4 = 9`.
 
-    ![Step 4: at node 4, 4 is already in the map -> match, returns true](images/walkthrough-4.svg)
+    ![Step 4: at node 4, 4 is already in the map -> match, returns true](images/walkthrough-4.png)
 
   - Back in `find(3, ...)`: `left = false` (from `2`), `right = true` (from `4`).
     `return left || right` → `true`.
@@ -69,7 +69,7 @@ Now the full trace, following `find(5, 9, {})`:
   `3`, since `9 - 3 = 6`) — another valid pair, `3 + 6 = 9`. `find(6, ...)` returns
   `true` immediately, so its own right child `7` is never visited at all.
 
-  ![Step 5: at node 6, 6 is already in the map -> also a match, 7 is never visited](images/walkthrough-5.svg)
+  ![Step 5: at node 6, 6 is already in the map -> also a match, 7 is never visited](images/walkthrough-5.png)
 
 - Back in `find(5, ...)`: `left = true` (from `3`), `right = true` (from `6`).
   `return left || right` → `true`. ✓ Matches the expected output.
