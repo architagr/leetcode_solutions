@@ -36,3 +36,64 @@ to do here, but it's worth knowing about if you're on a minimal environment that
 ```bash
 go test ./challenge/...
 ```
+
+## Posting
+
+Content generation (the `/leetcode-content` skill) fills `queue.yaml`; posting reads it.
+Each entry tracks posting per destination under `posted_at`, so a day can be on Discord
+but not yet on LinkedIn:
+
+```yaml
+posted_at:
+    discord: "2026-09-03T09:00:00Z"
+    linkedin_main_account: null
+    linkedin_company_page: null
+    linkedin_group: null
+```
+
+`status` says nothing about posting — it only means content was generated. Adding a new
+place to post means adding a key to `queue.KnownDestinations`; no migration needed.
+
+### Discord — automatic
+
+`.github/workflows/discord-daily-post.yml` runs daily at 03:30 UTC (09:00 IST) and posts
+the oldest entry not yet on Discord, attaching that day's `HERO.png`. The message body is
+the day's `POST_DISCORD.md`, sent verbatim — that file is written to be exactly what lands
+in the channel, so it must stay under Discord's 2000-character limit and must not
+reference SVGs (Discord can't preview them).
+
+Setup: create an incoming webhook on the target channel (Edit Channel → Integrations →
+Webhooks → New Webhook → Copy Webhook URL) and store it as the repository secret
+`DISCORD_WEBHOOK_URL`. Trigger the workflow by hand once from the Actions tab before
+relying on the cron.
+
+The queue is only written after Discord accepts the message, so a failed run leaves the
+day unclaimed and the next run retries it instead of skipping ahead.
+
+Run it locally against a real or fake webhook:
+
+```bash
+DISCORD_WEBHOOK_URL=... go run ./challenge/cmd/leetcodectl post-discord \
+  '{"repoRoot":".","queuePath":"challenge/queue.yaml"}'
+```
+
+### LinkedIn — manual, batch-prepared
+
+LinkedIn's API requires product approval, rotates tokens every ~60 days, and has no
+endpoint for publishing newsletter articles, so these are scheduled by hand in LinkedIn's
+own composer. The tooling just prepares the content and tracks what went out.
+
+```bash
+# Write the next 7 unposted days to one paste-ready file
+go run ./challenge/cmd/leetcodectl linkedin-batch \
+  '{"repoRoot":".","queuePath":"challenge/queue.yaml","count":7}'
+
+# After scheduling them, mark only the ones that actually went out
+go run ./challenge/cmd/leetcodectl mark-posted \
+  '{"queuePath":"challenge/queue.yaml","destination":"linkedin_main_account","numbers":[104,108]}'
+```
+
+`linkedin-batch` never marks anything itself — scheduling by hand is a partial process, and
+claiming days that were never scheduled would skip them permanently. It prints the exact
+`mark-posted` command to run afterwards. Valid destinations are `linkedin_main_account`,
+`linkedin_company_page` and `linkedin_group`.
