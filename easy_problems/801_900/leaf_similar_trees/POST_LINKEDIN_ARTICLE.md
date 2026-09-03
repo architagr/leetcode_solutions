@@ -6,10 +6,10 @@
 
 ### The problem
 
-Consider all the leaves of a binary tree, from left to right, and read off their
-values — that's the tree's **leaf value sequence**. Two trees are *leaf-similar* if
-their leaf value sequences are the same, even if the trees themselves are shaped
-completely differently.
+Line up all the leaves of a binary tree from left to right and read off their
+values, and that's the tree's **leaf value sequence**. Two trees are *leaf-similar*
+if their leaf value sequences match, even when the trees themselves look nothing
+alike.
 
 ![Example tree](images/1.png "Example tree")
 
@@ -17,22 +17,20 @@ For the tree above, the leaf value sequence is `(6, 7, 4, 9, 8)`.
 
 ### The intuition
 
-"Leaf-similar" is really just asking: if you read off each tree's leaves left to
-right, do you get the same sequence? So the problem reduces to two much simpler
-steps — extract the leaf sequence of each tree, then compare the two sequences
-directly. There's no need to compare the trees' shapes at all; only the leaves, in
-left-to-right order, matter.
+What I like about this one is how much it lets you ignore. "Leaf-similar" sounds
+like it should involve comparing shapes somehow, but shape never enters into it.
+Read the leaves left to right off each tree and check whether the two lists match.
+That's the whole problem, once you see it.
 
-Extracting a tree's leaf sequence in left-to-right order is exactly what a
-depth-first traversal that always visits the left subtree before the right subtree
-gives you for free: recurse left, recurse right, and whenever you land on a node with
-no children, that's a leaf — record its value. Because the left subtree is always
-fully explored before the right subtree, the leaves naturally come out in
-left-to-right order without any extra bookkeeping.
+Getting the leaves out in left-to-right order costs nothing extra either. A plain
+depth-first walk that visits the left subtree before the right one already produces
+that order for free: recurse left, recurse right, and whenever you land on a node
+with no children, that's a leaf, so record it. Because the left side always
+finishes before the right side starts, the leaves come out in order without any
+sorting or index bookkeeping.
 
-Once both leaf sequences are collected into two slices, comparing them for
-leaf-similarity is just comparing two lists: same length, and same value at every
-index.
+Once both sequences sit in slices, comparing them for leaf-similarity is just list
+equality: same length, and the same value at every position.
 
 ### The solution
 
@@ -79,8 +77,8 @@ Walking it through Example 1 — `root1 = [3,5,1,6,2,9,8,null,null,7,4]`,
 
 ![Step 1: root1's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-1.svg "Step 1")
 
-- `leafs(root2)` — a differently shaped tree — collects the same values in the same
-  order: `6`, `7`, `4`, `9`, `8`.
+- `leafs(root2)` has a completely different shape, but it comes back with the same
+  values in the same order: `6`, `7`, `4`, `9`, `8`.
 
 ![Step 2: root2's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-2.svg "Step 2")
 
@@ -88,8 +86,14 @@ Walking it through Example 1 — `root1 = [3,5,1,6,2,9,8,null,null,7,4]`,
 
 ![Step 3: comparing the two leaf sequences element by element → true](images/walkthrough-3.svg "Step 3")
 
-**Complexity:** O(n + m) time — every node of both trees is visited exactly once.
-O(n + m) space for the two leaf slices, plus O(h1 + h2) for the recursion stacks
-(each tree's height).
+**Complexity:** O(n + m) time, since every node of both trees gets visited exactly
+once. O(n + m) space for the two leaf slices, plus O(h1 + h2) for the recursion
+stacks (each tree's height).
 
 Full code: `easy_problems/801_900/leaf_similar_trees/` in the repo.
+
+#DSA #LeetCode #BinaryTree #DFS #Golang #100DaysOfCode #CodingInterview
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

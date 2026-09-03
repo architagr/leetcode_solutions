@@ -2,9 +2,10 @@
 **Leaf-Similar Trees** (Easy)
 🔗 https://leetcode.com/problems/leaf-similar-trees/
 
-**Intuition:** Stop comparing tree shapes — extract each tree's leaves left-to-right
-into a slice (left subtree fully explored before right, so order comes for free),
-then it's just a list-equality check: same length, same value at every index.
+**Intuition:** forget the tree shapes entirely. Pull each tree's leaves out
+left-to-right into a slice (the left subtree always finishes before the right one
+starts, so the order comes out correct on its own), then it's just list equality:
+same length, same value at every index.
 
 ![Example tree](images/1.png "Example tree")
 
@@ -47,16 +48,16 @@ func leafs(node *TreeNode) []int {
 
 ![Example 1](images/2.jpg "Example1")
 
-- `leafs(root1)` → `6, 7, 4` (left subtree), then `9, 8` (right subtree)
+- `leafs(root1)` gives `6, 7, 4` from the left subtree, then `9, 8` from the right
 
 ![Step 1: root1's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-1.svg "Step 1")
 
-- `leafs(root2)` (different shape) → same order: `6, 7, 4, 9, 8`
+- `leafs(root2)` is shaped completely differently, and still comes back `6, 7, 4, 9, 8`
 
 ![Step 2: root2's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-2.svg "Step 2")
 
-- Same length, same values at every index → `true`
+- Same length, same values at every index, so the answer is `true`
 
 ![Step 3: comparing the two leaf sequences element by element → true](images/walkthrough-3.svg "Step 3")
 
-O(n + m) time, O(n + m) space (plus O(h1 + h2) recursion stack).
+O(n + m) time, O(n + m) space (plus O(h1 + h2) for the recursion stack).
