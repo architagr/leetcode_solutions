@@ -3,8 +3,12 @@
 **Binary Tree Tilt** (Easy)
 🔗 https://leetcode.com/problems/binary-tree-tilt/
 
-Every node's tilt needs its left and right subtree sums — so instead of re-summing
-each subtree from scratch at every node, compute each subtree's sum exactly once,
-bottom-up, and pipe every node's tilt into one shared accumulator along the way.
+Each node's tilt depends on the sum of everything under it, not just its two kids.
+Summing from scratch at every node redoes the same work over and over, so the trick
+is to compute each subtree's sum once, bottom-up, and feed every node's tilt into a
+shared accumulator as you go. The neat part is one recursive call quietly does both
+jobs at once.
 
-Full breakdown in today's newsletter article ⬇️
+Full breakdown in today's newsletter article, linked below.
+
+#DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview

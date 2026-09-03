@@ -2,10 +2,12 @@
 **Binary Tree Tilt** (Easy)
 🔗 https://leetcode.com/problems/binary-tree-tilt/
 
-**Intuition:** Each node's tilt needs the sum of *everything* in its left subtree vs.
-its right subtree. Re-summing from scratch at every node is wasteful, so compute each
-subtree's sum exactly once, bottom-up (postorder), and feed every node's tilt into one
-shared accumulator as you go.
+**Intuition:** Each node's tilt is the absolute difference between everything under
+its left child and everything under its right child, not just the two direct kids.
+Redoing that sum from scratch at every node wastes work, so compute each subtree's
+sum once, bottom-up (postorder), and add every node's tilt into a shared running
+total as you go. The fun bit is that one recursive call does both of those jobs at
+the same time, accumulate and return, without them getting tangled up.
 
 ![Example 2](images/2.jpg "Example2")
 
@@ -52,7 +54,8 @@ func absDiff(a, b int) int {
 
 **Walkthrough** on `[4,2,9,3,5,null,7]` (expected `15`):
 
-- Leaves `3` and `5` bottom out: `l=0, r=0`, `tilt+=0`, each returns its own value.
+- Leaves `3` and `5` are the base case: `l=0, r=0`, `tilt+=0`, each just returns its
+  own value.
 
 ![Step 1: leaves 3, 5, 7 are base cases — each returns its own Val, tilt+=0](images/walkthrough-1.svg)
 
@@ -70,4 +73,5 @@ func absDiff(a, b int) int {
 
 ![Step 4: node 4 resolves — l=10, r=16, tilt+=6, res=15](images/walkthrough-4.svg)
 
-O(n) time (every node visited once), O(h) space (recursion stack, tree height).
+O(n) time, since each node is visited once, O(h) space for the recursion stack,
+where h is the tree's height.

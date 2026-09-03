@@ -6,28 +6,29 @@
 
 ### The problem
 
-Given the root of a binary tree, return the sum of every node's **tilt** — the
-absolute difference between the sum of all values in its left subtree and the sum of
-all values in its right subtree (a missing child counts as a subtree sum of `0`).
+Given the root of a binary tree, add up every node's **tilt**: the absolute
+difference between the sum of everything in its left subtree and the sum of
+everything in its right subtree. A missing child just counts as `0`.
 
 ### The intuition
 
-Computing one node's tilt needs the sum of *every* value in its left subtree and
-*every* value in its right subtree — not just its immediate children. Re-summing each
-subtree from scratch at every node would be wasteful: the same lower subtree's sum
-would get recomputed over and over as you climb back up the tree.
+Working out one node's tilt takes the sum of *every* value under its left child and
+*every* value under its right child, not just the two direct children. Sum each
+subtree from scratch every time you need it and the same numbers, sitting lower in
+the tree, get added up again and again as you climb back toward the root.
 
-The fix is to compute each subtree's sum exactly once, bottom-up, and hand it back to
-the caller. That's a **postorder** traversal: visit the left subtree, visit the right
-subtree, *then* do work at the current node — because the current node's tilt (and its
-own contribution to its parent's subtree sum) depends on both children's totals
-already being known.
+The way around that is to compute each subtree's sum exactly once, on the way back
+up, and hand it to whoever asked for it. That's a **postorder** traversal: visit
+left, visit right, then do the actual work at this node. You can't do that work any
+earlier, because this node's tilt depends on both children's totals already being
+settled.
 
-So the recursive helper does two jobs on every call: it accumulates into a running
-tilt total shared by every call (via a pointer to an int), and it returns the sum of
-the subtree rooted at the current node so the parent can use it. Each node's tilt is
-simply the absolute difference between what its left recursive call returned and what
-its right recursive call returned.
+What I like about this one is that a single recursive call ends up doing two
+unrelated-feeling jobs. It adds this node's tilt into a running total through a
+shared pointer, and separately it returns this subtree's sum so the parent can use
+it. One number goes sideways into an accumulator, the other travels up the call
+stack. Once you see the split it looks obvious, but it wasn't obvious to me on the
+first read.
 
 ### The solution
 
@@ -73,7 +74,7 @@ func absDiff(a, b int) int {
 }
 ```
 
-Walking it through `root = [4,2,9,3,5,null,7]` (expected `15`):
+Tracing it through `root = [4,2,9,3,5,null,7]` (expected `15`):
 
 - `sum(2)` recurses into leaves `3` and `5`: `l=0, r=0` for each, `*res += |0-0| = 0`,
   each returns its own value.
@@ -95,8 +96,14 @@ Walking it through `root = [4,2,9,3,5,null,7]` (expected `15`):
 
   ![Step 4: node 4 resolves — l=10, r=16, tilt+=6, res=15](images/walkthrough-4.svg)
 
-**Complexity:** O(n) time — every node is visited exactly once, doing O(1) work.
-O(h) space for the recursion stack, where h is the tree's height (O(log n) balanced,
-O(n) fully skewed).
+**Complexity:** O(n) time, since every node is visited exactly once and each one
+does O(1) work. O(h) space for the recursion stack, where h is the tree's height:
+O(log n) if it's balanced, O(n) if it's basically a straight line.
 
 Full code: `easy_problems/501_600/binary_tree_tilt/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
