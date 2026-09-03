@@ -2,13 +2,13 @@
 **Sum of Left Leaves** (Easy)
 🔗 https://leetcode.com/problems/sum-of-left-leaves/
 
-**Intuition:** Only a parent knows if its child is a "left" leaf — a node can't tell
-this about itself. So check `root.Left` for leaf-ness from `root`'s call, not from
-inside the child's own base case.
+Only a parent knows if its child is a "left" leaf. A node can't tell this about
+itself. So the leaf check happens on `root.Left`, from `root`'s call, not from inside
+the child's own base case. That flip is the whole trick here.
 
 ![Example 1](images/1.jpg "Example1")
 
-**Full solution:**
+Full solution:
 ```go
 func sumOfLeftLeaves(root *TreeNode) int {
 	if root == nil {
@@ -27,7 +27,8 @@ func sumOfLeftLeaves(root *TreeNode) int {
 }
 ```
 
-**Walkthrough** on `[3,9,20,null,null,15,7]` (expected `24`):
+Walking it through `[3,9,20,null,null,15,7]` (expected `24`), notice `7` is a leaf
+too, it just loses on which side it's on:
 - `9` (leaf, `3`'s left child) → counts
 - `15` (leaf, `20`'s left child) → counts
 - `7` (leaf, `20`'s **right** child) → doesn't count

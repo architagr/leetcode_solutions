@@ -6,20 +6,21 @@
 
 ### The problem
 
-Given the root of a binary tree, return the sum of all left leaves — leaves that are
-the left child of their parent.
+Given the root of a binary tree, add up every left leaf: every leaf node that happens
+to be its parent's left child.
 
 ### The intuition
 
-The tricky part isn't finding leaves — it's knowing whether a leaf is a **left** child
-or a **right** child, since only left leaves count. A node itself can't tell you this
-about itself; only its **parent** knows which side it's on.
+Finding leaves is the easy part. Figuring out which side of the parent a leaf sits on
+is the annoying part, and that's the whole problem, since only left leaves count. A
+node has no way to know that about itself. It doesn't carry a pointer back up, so it
+can't say "I'm my parent's left child" on its own. Only the parent can tell you that.
 
-So the recursion needs to check "is my left child a leaf?" from the parent's
-perspective, rather than each node trying to detect its own leaf-and-side status in
-isolation. The rest is a standard tree recursion: sum the left leaves found in each
-subtree, add in the current node's left child's value if that child qualifies, and
-return the total.
+So the recursion has to ask the question from the other direction. Instead of each
+node checking "am I a left leaf," the parent checks "is my left child a leaf." Once
+that clicks, everything else is a plain tree recursion: sum whatever the left and
+right subtrees already found, add in the current node's left child value if it
+qualifies, and return the total.
 
 ### The solution
 
@@ -43,7 +44,8 @@ func sumOfLeftLeaves(root *TreeNode) int {
 }
 ```
 
-Walking it through `[3,9,20,null,null,15,7]` (expected `24`):
+Tracing it on `[3,9,20,null,null,15,7]` (expected `24`), the part I like is that `7`
+is a leaf too, it just never gets a vote:
 - `9` is a leaf and `3`'s left child → counts.
 - `15` is a leaf and `20`'s left child → counts.
 - `7` is a leaf but `20`'s *right* child → doesn't count.
@@ -58,7 +60,13 @@ Walking it through `[3,9,20,null,null,15,7]` (expected `24`):
 
 ![Step 3: at node 3, left child 9 is a left leaf, l becomes 9, r is 15, returns 24](images/walkthrough-3.svg)
 
-**Complexity:** O(n) time — every node visited once. O(h) space for the recursion
-stack, where h is the tree height.
+Time is O(n), every node gets visited once. Space is O(h) for the recursion stack,
+where h is the tree height, so it's cheap unless the tree is a long skinny chain.
 
 Full code: `easy_problems/401_500/sum_of_left_leaves/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview #Programming
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
