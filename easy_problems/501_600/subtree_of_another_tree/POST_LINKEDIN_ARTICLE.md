@@ -6,29 +6,27 @@
 
 ### The problem
 
-Given the roots of two binary trees `root` and `subRoot`, return `true` if there is a
-subtree of `root` with the same structure and node values as `subRoot`, and `false`
-otherwise. A subtree of a tree is a node together with all of its descendants — a tree
-also counts as a subtree of itself.
+Given the roots of two binary trees `root` and `subRoot`, return `true` if `root` has a
+subtree with the same structure and values as `subRoot`, and `false` if it doesn't. A
+subtree is a node plus everything hanging below it, and a tree counts as a subtree of
+itself too.
 
 ### The intuition
 
-This problem is really two smaller problems stacked on top of each other:
+This one is really two problems stacked on top of each other. First: are two trees
+identical, same shape and same values at every position? That's the classic Same Tree
+check. Second: does `root` contain some node where, if you rooted a tree right there, it
+would match `subRoot` exactly? That second question is just the first one, tried at
+every possible anchor point in `root`.
 
-1. **"Are two trees identical?"** — same shape, same values everywhere. That's the
-   classic Same Tree check.
-2. **"Does `root` contain a node where, if you rooted a tree right there, it would be
-   identical to `subRoot`?"** — that's just problem 1, tried at every possible anchor
-   point in `root`.
+So the approach walks every node of `root` and asks the same question each time: if I
+treat this node as the root of its own little tree, does it match `subRoot`? The first
+node that says yes ends the search.
 
-So the approach walks every node of `root` and asks, at each one: "if I treat this node
-as the root of its own little tree, is that tree identical to `subRoot`?" As soon as one
-node answers yes, the whole thing is a match.
-
-A cheap pruning trick makes this practical: don't bother running the full structural
-comparison unless the current node's value already matches `subRoot`'s value — two
-trees can't be identical if their roots don't match, so checking values first avoids a
-lot of wasted work.
+The part I actually like here is the pruning trick. Check the value before running the
+full structural comparison. Two trees obviously can't be identical if their roots don't
+even agree, so that one comparison saves a lot of wasted recursion once the trees stop
+being tiny.
 
 ### The solution
 
@@ -63,26 +61,33 @@ func equalBinaryTree(root *TreeNode, subRoot *TreeNode) bool {
 }
 ```
 
-Walking it through `root = [3,4,5,1,2]`, `subRoot = [4,1,2]` (expected `true`):
+Here's the trace on `root = [3,4,5,1,2]`, `subRoot = [4,1,2]` (expected `true`):
 
-- `isSubtree(root=3, subRoot=4)`: values differ (`3 != 4`), so skip the equality check
-  and recurse into both children instead.
+`isSubtree(root=3, subRoot=4)` hits a value mismatch right away: `3 != 4`. So it skips
+`equalBinaryTree` entirely and just recurses into both children.
 
 ![Step 1: node 3 vs subRoot's 4 — values differ, skip equalBinaryTree, recurse into 4 and 5](images/walkthrough-1.svg)
 
-- Recursing left, `isSubtree(root=4, subRoot=4)`: values match this time, so
-  `equalBinaryTree` actually runs.
+Recursing left lands on `isSubtree(root=4, subRoot=4)`. Values match this time, so
+`equalBinaryTree` finally gets to run.
 
 ![Step 2: node 4 vs subRoot's 4 — values match, call equalBinaryTree](images/walkthrough-2.svg)
 
-- `equalBinaryTree` walks both trees in lockstep: `4=4`, then `1=1` and `2=2` down each
-  side — every pair matches, so it returns `true`. `isSubtree` returns `true`
-  immediately, and because `||` short-circuits, node `5` is never even examined.
+`equalBinaryTree` walks both trees in lockstep: `4` matches `4`, then `1` matches `1`
+and `2` matches `2` on each side. Every pair lines up, so it returns `true`, and
+`isSubtree` returns `true` right away. Because `||` short-circuits, node `5` never even
+gets checked. The left branch already settled it.
 
 ![Step 3: equalBinaryTree walks 4/1/2 against 4/1/2 in lockstep — all match, isSubtree returns true, node 5 never checked](images/walkthrough-3.svg)
 
-**Complexity:** O(m·n) time in the worst case (`m` = nodes in `root`, `n` = nodes in
-`subRoot`) — up to `m` candidate anchors, each costing up to `n` work in
-`equalBinaryTree`. O(h1 + h2) space for the two recursion stacks.
+Worst case this runs in O(m·n) time, where `m` is the node count of `root` and `n` is
+the node count of `subRoot`: up to `m` candidate anchors, each one costing up to `n`
+work inside `equalBinaryTree`. Space is O(h1 + h2) for the two recursion stacks.
 
-Full code: `easy_problems/501_600/subtree_of_another_tree/` in the repo.
+Full code lives at `easy_problems/501_600/subtree_of_another_tree/` in the repo.
+
+#LeetCode #100DaysOfCode #Algorithms #CodingInterview #BinaryTree #Recursion #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
