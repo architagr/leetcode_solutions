@@ -2,10 +2,11 @@
 **Path Sum** (Easy)
 🔗 https://leetcode.com/problems/path-sum/
 
-**Intuition:** "Root-to-leaf" means the comparison only happens at a genuine leaf — a
-node with children is never checked, even if the sum matches along the way. Carry the
-running total down the recursion as an extra argument, and only compare it against
-`targetSum` once you reach a node with no children left to descend into.
+Here's the idea: "root-to-leaf" means the check only happens at a genuine leaf. A
+node with children is never compared against the target, even when the running sum
+matches it exactly along the way. So the running total rides down the recursion as
+an extra argument, and it only gets checked against `targetSum` once you hit a node
+with nothing left underneath it.
 
 ![Example 1](images/1.jpg)
 
@@ -46,16 +47,18 @@ func sum(root *TreeNode, target, current int) bool {
 
 ![Step 1: current sum descends 5 -> 4 -> 11, current becomes 9](images/walkthrough-1.svg)
 
-- `sum(7,22,20)` → leaf, `22 == 7+20` (27)? no → `false`
+- `sum(7,22,20)` → leaf, `22 == 7+20` (27)? no, so `false`
 
 ![Step 2: at leaf 7, 22 != 27, returns false](images/walkthrough-2.svg)
 
-- `sum(2,22,20)` → leaf, `22 == 2+20` (22)? yes → `true`
+- `sum(2,22,20)` → leaf, `22 == 2+20` (22)? yes, so `true`
 
 ![Step 3: at leaf 2, 22 == 22, returns true](images/walkthrough-3.svg)
 
-`true` bubbles back up `11` → `4` → `5`. `||` short-circuits, so the entire right
-subtree (`8`, `13`, `4`, `1`) is never visited. Returns `true` ✓
+`true` climbs back up `11` → `4` → `5`. `||` short-circuits along the way, so the
+entire right subtree (`8`, `13`, `4`, `1`) never gets visited. That's my favorite
+part of this one: half the tree just doesn't matter once you've found your answer.
+Returns `true`.
 
 ![Step 4: true bubbles up 2 -> 11 -> 4 -> 5, right subtree never visited](images/walkthrough-4.svg)
 
