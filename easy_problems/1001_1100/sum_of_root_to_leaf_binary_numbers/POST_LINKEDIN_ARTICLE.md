@@ -8,29 +8,32 @@
 
 You're given the root of a binary tree where every node holds a `0` or a `1`. Read a
 root-to-leaf path top to bottom and its node values spell out a binary number, most
-significant bit first — the path `0 -> 1 -> 1 -> 0 -> 1` reads as `01101` in binary,
-which is `13`. Sum up that binary number for *every* leaf in the tree and return the
-total.
+significant bit first: the path `0 -> 1 -> 1 -> 0 -> 1` reads as `01101` in binary,
+which is `13`. Do that for every leaf in the tree and add up the results.
 
 ### The intuition
 
 Each root-to-leaf path spells out a binary number one bit at a time, most significant
-bit first — exactly the order a top-down recursion visits nodes in. So instead of
-collecting the bits into a list and converting them to a number only once a leaf is
-reached, the recursion maintains the number *as it descends*: at each step, shift the
-value built so far one bit to the left (multiply by 2) and drop in the current node's
-bit (`0` or `1`) in the units place. That's just how binary numbers are built digit by
-digit — `1101` in binary is `((1*2+1)*2+0)*2+1` — and it maps directly onto "go one
-level deeper, append one more bit."
+bit first, and that happens to be the exact order a top-down recursion visits nodes in.
+That match is really the whole trick here. Instead of collecting bits into a list and
+converting them to a number once you finally reach a leaf, you can carry the number
+itself down the recursion: at each step, shift what's been built so far one bit to the
+left (multiply by 2) and drop in the current node's bit in the units place. It's the
+same thing you'd do by hand reading a binary number left to right: `1101` is
+`((1*2+1)*2+0)*2+1`. Once you see it that way, "go one level deeper, append one bit"
+and "shift and add" turn out to be the same sentence.
 
-Carrying that running value down as a function parameter means each recursive call
-only needs to know "the number formed by the path so far," not the whole path itself.
-When a leaf is hit, that running value *is* the complete binary number for that path,
-so it's returned directly. Internal nodes don't contribute a value of their own — they
-just pass the (now-extended) running value down to their children and sum whatever
-comes back up from the left and right subtrees.
+Carrying that value as a function parameter means each recursive call only needs one
+number: the path so far. No list of bits, no whole-path tracking. Hit a leaf and that
+running value already is the answer for the path, no conversion step needed
+afterward. Internal nodes don't contribute a value of their own; they just hand the
+extended value to both children and add up whatever comes back from the left and right
+subtrees.
 
 ### The solution
+
+Here's the code. Once the shift-and-add idea clicks, the whole thing is maybe five
+lines that matter.
 
 ![Example 1](images/1.png "Example1")
 
@@ -70,37 +73,44 @@ func isLeafNode(node *TreeNode) bool {
 }
 ```
 
-Walking it through `root = [1,0,1,0,1,0,1]` (root=1, left=0, right=1, leftleft=0,
-leftright=1, rightleft=0, rightright=1), expected `22`:
+Let's trace it on `root = [1,0,1,0,1,0,1]` (root=1, left=0, right=1, leftleft=0,
+leftright=1, rightleft=0, rightright=1). Expected answer: `22`.
 
-- `sum(root=1, 0)`: `currentSum = 1` ("bits=1"). Not a leaf, recurse into both
+- `sum(root=1, 0)`: `currentSum = 1` ("bits=1"). Not a leaf, so recurse into both
   children.
-  - `sum(left=0, 1)`: `currentSum = 10b = 2`. Not a leaf, recurse further.
-    - `sum(leftleft=0, 2)`: `currentSum = 100b = 4`. Leaf → returns `4`.
+  - `sum(left=0, 1)`: `currentSum = 10b = 2`. Still not a leaf, keep going.
+    - `sum(leftleft=0, 2)`: `currentSum = 100b = 4`. That's a leaf, so it returns `4`.
 
     ![Step 1: first path root → 0 → 0 reaches a leaf, currentSum = 100b = 4](images/walkthrough-1.svg)
 
-    - `sum(leftright=1, 2)`: `currentSum = 101b = 5`. Leaf → returns `5`.
+    - `sum(leftright=1, 2)`: `currentSum = 101b = 5`. Leaf, returns `5`.
       `leftSum = 4 + 5 = 9`.
 
     ![Step 2: second path root → 0 → 1 reaches a leaf, currentSum = 101b = 5, left subtree total so far = 9](images/walkthrough-2.svg)
 
   - `sum(right=1, 1)`: `currentSum = 11b = 3`. Not a leaf, recurse further.
-    - `sum(rightleft=0, 3)`: `currentSum = 110b = 6`. Leaf → returns `6`.
+    - `sum(rightleft=0, 3)`: `currentSum = 110b = 6`. Leaf, returns `6`.
 
     ![Step 3: third path root → 1 → 0 reaches a leaf, currentSum = 110b = 6; left subtree already totals 9](images/walkthrough-3.svg)
 
-    - `sum(rightright=1, 3)`: `currentSum = 111b = 7`. Leaf → returns `7`.
+    - `sum(rightright=1, 3)`: `currentSum = 111b = 7`. Leaf, returns `7`.
       `rightSum = 6 + 7 = 13`.
 
     ![Step 4: fourth path root → 1 → 1 reaches a leaf, currentSum = 111b = 7; all four leaves now computed](images/walkthrough-4.svg)
 
   - Back at the top: `leftSum = 9`, `rightSum = 13`, so the total returned is
-    `9 + 13 = 22`. ✓
+    `9 + 13 = 22`, which matches.
 
   ![Step 5: recursion unwinds, leftSum=9 and rightSum=13 bubble up to root, total = 22](images/walkthrough-5.svg)
 
-**Complexity:** O(n) time — every node visited once. O(h) space for the recursion
-stack, where h is the tree height (O(log n) balanced, O(n) fully skewed).
+**Complexity:** O(n) time, since every node is visited exactly once. O(h) space for the
+recursion stack, where h is the tree height (O(log n) if it's balanced, O(n) if it's a
+straight line down one side).
 
 Full code: `easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/` in the repo.
+
+#LeetCode #100DaysOfCode #DSA #CodingInterview #Programming #BinaryTree #DFS #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

@@ -3,9 +3,11 @@
 **Sum of Root To Leaf Binary Numbers** (Easy)
 🔗 https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/
 
-Every root-to-leaf path spells out a binary number top to bottom — so instead of
-collecting bits and converting at the end, carry a running value down the recursion:
-shift it left and drop in each node's bit as you descend. By the time you hit a leaf,
-the running value already *is* the answer for that path.
+Every root-to-leaf path spells out a binary number top to bottom, so why wait until
+you hit a leaf to build the number? Carry a running value down the recursion instead:
+shift it left, drop in each node's bit, keep going. By the time you reach a leaf, that
+running value already is the answer for the path.
 
-Full breakdown in today's newsletter article ⬇️
+Full breakdown in today's newsletter article, link below.
+
+#LeetCode #100DaysOfCode #DSA #SoftwareEngineering #TechCareer #BinaryTree #DFS #Golang

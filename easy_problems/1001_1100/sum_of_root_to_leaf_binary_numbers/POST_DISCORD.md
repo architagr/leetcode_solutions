@@ -2,10 +2,11 @@
 **Sum of Root To Leaf Binary Numbers** (Easy)
 🔗 https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/
 
-**Intuition:** Each root-to-leaf path spells out a binary number top to bottom, so
-carry the running value *down* the recursion instead of building it up after the fact:
-shift left (`*2`) and drop in the current node's bit at every step. When a leaf is hit,
-that running value already is the complete binary number for the path.
+**Intuition:** Each root-to-leaf path spells out a binary number top to bottom, so skip
+the collect-then-convert step and carry the running value *down* the recursion
+instead. Shift left (`*2`) and drop in the current node's bit at every step. Hit a
+leaf and that running value already is the complete binary number for the path, no
+extra work needed.
 
 ![Example 1](images/1.png "Example1")
 
@@ -46,7 +47,8 @@ func isLeafNode(node *TreeNode) bool {
 }
 ```
 
-**Walkthrough** on `[1,0,1,0,1,0,1]` (expected `22`):
+**Walkthrough** on `[1,0,1,0,1,0,1]` (expected `22`). Quick trace so the shift-and-add
+is visible step by step:
 
 - `sum(left=0, 1)` → `sum(leftleft=0, 2)`: `currentSum = 100b = 4`, leaf → `4`
 
@@ -64,8 +66,9 @@ func isLeafNode(node *TreeNode) bool {
 
 ![Step 4: fourth path root → 1 → 1 reaches a leaf, currentSum = 111b = 7; all four leaves now computed](images/walkthrough-4.svg)
 
-- Back at root: `leftSum(9) + rightSum(13) = 22` ✓
+- Back at root: `leftSum(9) + rightSum(13) = 22`, which is the expected total
 
 ![Step 5: recursion unwinds, leftSum=9 and rightSum=13 bubble up to root, total = 22](images/walkthrough-5.svg)
 
-O(n) time, O(h) space (tree height).
+O(n) time, since every node is visited once. O(h) space for the call stack, where h is
+the tree's height.
