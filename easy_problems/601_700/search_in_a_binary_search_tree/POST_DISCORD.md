@@ -2,10 +2,10 @@
 **Search in a Binary Search Tree** (Easy)
 🔗 https://leetcode.com/problems/search-in-a-binary-search-tree/
 
-**Intuition:** The BST property does the comparison's work for you — at each node,
-`root.Val` vs `val` doesn't just say "match or not," it says "the answer, if it exists,
-can only be in this one subtree." No backtracking, no checking both children, just a
-single root-to-node walk.
+**Intuition:** at each node, `root.Val` vs `val` tells you which single subtree could
+still hold the answer, so you never have to check both children or backtrack. It's just
+a straight walk from the root down to wherever `val` lives, or down to `nil` if it
+doesn't.
 
 **Full solution:**
 ```go
@@ -42,7 +42,7 @@ Example 1, `val = 2` (found):
 
 ![Step 1: at node 4, 4 > 2, recurse left, right subtree eliminated](images/walkthrough-1.svg)
 
-- `searchBST(2, val=2)`: `2 == 2` → found, returns subtree `[2,1,3]` ✓
+- `searchBST(2, val=2)`: `2 == 2`, so it's a match, returns subtree `[2,1,3]` as expected
 
 ![Step 2: at node 2, match found, returns subtree [2,1,3]](images/walkthrough-2.svg)
 
@@ -54,8 +54,12 @@ Example 2, `val = 5` (not found):
 
 ![Step 3: at node 4, 4 < 5, recurse right, left subtree eliminated](images/walkthrough-3.svg)
 
-- `searchBST(7, val=5)`: `7 > 5` → recurse left into `nil` → base case returns `nil` ✓
+- `searchBST(7, val=5)`: `7 > 5` → recurse left into `nil`, which hits the base case and
+  returns `nil` straight away
 
 ![Step 4: at node 7, 7 > 5, recurse left into nil, base case returns nil](images/walkthrough-4.svg)
+
+Same shape both times: one comparison per level, one subtree gone per comparison. That's
+what makes this a nice easy one to trace by hand.
 
 O(h) time, O(h) space, where h is the tree's height.
