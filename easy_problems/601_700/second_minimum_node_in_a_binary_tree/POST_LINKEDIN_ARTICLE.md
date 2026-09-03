@@ -8,7 +8,7 @@
 
 ### The problem
 
-You're given a non-empty binary tree with a very specific shape rule: every node has
+You're given a non-empty binary tree with an odd shape rule baked in: every node has
 either **zero** or **two** children, and whenever a node has two children, its own value
 is the smaller of its two children's values:
 
@@ -41,41 +41,35 @@ Explanation: The smallest value is 2, but there isn't any second smallest value.
 
 ### The intuition
 
-The obvious approach — collect every value into a set, sort it, and grab the second
-element — works. But that special structural rule the problem hands us,
-`root.val = min(root.left.val, root.right.val)`, lets us do a lot better, and it's worth
-sitting with *why* before jumping to code.
+My first instinct was the boring one: throw every value into a set, sort it, take the
+second element. That works fine. But the problem statement is handing you something for
+free here, and ignoring it feels wasteful. The rule is `root.val = min(root.left.val,
+root.right.val)` for every node with two children, and once you sit with what that
+actually implies, a much cheaper solution falls out.
 
-**Fact 1 — the root is always the global minimum.** Because every parent's value is the
-smaller of its two children's values, the minimum can't hide deeper in the tree — it
-always bubbles up to the root. So `root.Val` *is* the smallest value in the tree, with no
+First, the root is always the global minimum. Every parent's value is the smaller of its
+two children's, so the smallest value in the whole tree can't be buried somewhere deep,
+it has to bubble all the way up to the root. `root.Val` is the minimum, full stop, no
 search required.
 
-**Fact 2 — a subtree's minimum equals its own root's value.** Apply the same rule
-recursively: whatever value sits at the root of *any* subtree is also the smallest value
-anywhere inside that subtree. Values never decrease as you descend — they only stay the
-same or grow.
+Second, and this is the part that actually matters: the same logic applies to any
+subtree. Whatever value sits at a subtree's root is also the smallest value anywhere
+inside that subtree. Values never shrink as you go down, only stay flat or grow.
 
-That second fact is the whole trick. Suppose we're walking the tree and we land on a node
-whose value is strictly greater than the known global minimum. Two things are now true at
-once:
+That second fact is what makes pruning possible. Walk the tree, and the moment you land
+on a node whose value is strictly bigger than the known minimum, two things are true at
+once: this node's value is a real candidate for the second-minimum answer, and nothing
+below it can ever beat that candidate, because the subtree's floor is this node's own
+value. So you record the candidate and stop. No reason to walk into that branch.
 
-- this node's value is a **candidate** for the second-minimum answer, and
-- **nothing below it can beat that candidate**, because the entire subtree underneath is
-  bounded below by this node's own value.
+The only reason to keep going deeper is when the current node's value still equals the
+global minimum. That means the tree hasn't branched away from the minimum yet, so the
+second-minimum value, if it exists, is still hiding further down.
 
-So the moment we find such a node, we can record it as a candidate and stop descending
-into that branch entirely — a free pruning opportunity that a plain "collect everything"
-approach doesn't get.
-
-The only reason to keep recursing into a branch is when the current node's value is
-*still equal* to the global minimum — meaning the tree hasn't "branched away" from the
-minimum yet, so any second-minimum value is still hiding further down.
-
-**Complexity.** Time is O(n) in the worst case (imagine a tree where only one deep leaf
-differs from the minimum — you still have to walk down to it), and space is O(h) for the
-recursion stack, where h is the tree's height. No auxiliary collection of values is ever
-stored, unlike the sort-based approach.
+Complexity-wise this is O(n) in the worst case (picture a tree where only one deep leaf
+differs from the minimum, you still have to walk all the way down to find it), and O(h)
+space for the recursion stack, where h is the tree's height. No set, no sort, nothing
+extra stored.
 
 ---
 
@@ -118,8 +112,9 @@ func findSecondMinimumValue(root *TreeNode) int {
 }
 ```
 
-Two package-level variables, `min` and `ans`, carry state across recursive calls without
-threading them through return values.
+Two package-level variables, `min` and `ans`, carry state across recursive calls instead
+of threading it through return values. Not the prettiest pattern on its own, but it keeps
+`dfs` down to one job.
 
 ### Tracing it against Example 1
 
@@ -133,46 +128,53 @@ threading them through return values.
         5   7
 ```
 
-**Step 1 — initialize.** `min` is pinned to `root.Val` (2). `ans` starts at infinity —
-"no candidate yet."
+Step 1: initialize. `min` gets pinned to `root.Val`, which is 2. `ans` starts at
+infinity, meaning no candidate yet.
 
 <img src="images/walkthrough-1.svg" alt="Step 1: initialize min and ans" width="360" />
 
-**Step 2 — `dfs(root)`, then `dfs(left child)`.** At the root, `root.Val` (2) equals
-`min`, so we skip the `if` and take the `else if`, recursing into both children. Down the
-left branch, the left child also has value 2 — same story, `min == root.Val`, recurse
-again. But this node is a leaf, so both recursive calls immediately hit the `nil` base
-case and do nothing.
+Step 2: `dfs(root)`, then the left child. At the root, `root.Val` (2) equals `min`, so we
+skip the `if` and take the `else if`, recursing into both children. The left child is
+also 2, same story, recurse again. It's a leaf though, so both of its recursive calls
+just hit the `nil` base case and do nothing.
 
 <img src="images/walkthrough-2.svg" alt="Step 2: recursing while value equals min" width="360" />
 
-**Step 3 — `dfs(right child)`, value 5.** Back at the root, we now visit the right
-child, value 5. Now `min < root.Val && root.Val < ans` — i.e. `2 < 5 < ∞` — holds, so
-`ans = 5`. Note this branch does **not** recurse into the node's own children (the 5 and
-7 further down) — that's the pruning described above, in action.
+Step 3: the right child, value 5. This is the part I like. Back at the root we visit the
+right child, value 5, and now `min < root.Val && root.Val < ans` holds (2 < 5 < ∞), so
+`ans = 5`. Notice this branch does not recurse into its own children, the 5 and 7 sitting
+underneath it. That's the pruning, and it's the whole reason this beats sorting
+everything.
 
 <img src="images/walkthrough-3.svg" alt="Step 3: candidate found, subtree pruned" width="360" />
 
-**Step 4 — unwind and return.** With no more calls left on the stack, control returns to
-`findSecondMinimumValue`. `ans` is `5`, less than `math.MaxInt64`, so the function
-returns `5` — matching the expected output.
+Step 4: unwind and return. Nothing left on the stack, so control returns to
+`findSecondMinimumValue`. `ans` is 5, less than the sentinel, so the function returns 5,
+matching the expected output.
 
 <img src="images/walkthrough-4.svg" alt="Step 4: final return value" width="360" />
 
 ### Why Example 2 returns -1
 
-For `root = [2,2,2]`, every single node has value 2, which equals `min` at every step.
-`dfs` only ever takes the `else if` branch, recursing all the way to the leaves without
-ever satisfying `min < root.Val < ans`. `ans` is never touched, so it's still
-`math.MaxInt64` by the time `findSecondMinimumValue` checks it, and the function
-correctly returns `-1`.
+For `root = [2,2,2]`, every node has value 2, so `min` matches at every step. `dfs` never
+leaves the `else if` branch, it just recurses to the leaves without ever tripping
+`min < root.Val < ans`. `ans` sits untouched at `math.MaxInt64`, so
+`findSecondMinimumValue` falls through to `-1`.
 
 ---
 
 ### Takeaway
 
-When a problem statement hands you a structural invariant like
-`root.val = min(root.left.val, root.right.val)`, don't just use it to sanity-check the
-input — use it to prune your search. Here it told us two free facts (root is the global
-min, and a subtree's minimum equals its root) that turned "collect everything and sort"
-into a single DFS pass with early termination.
+What I like about this problem is that the invariant isn't flavor text, it's the whole
+algorithm. `root.val = min(root.left.val, root.right.val)` looks like a throwaway
+constraint until you realize it hands you two free facts: the root is the global
+minimum, and a subtree's minimum equals its own root. Those two facts are enough to turn
+collect-everything-and-sort into a single DFS pass with early termination. Next time a
+problem statement includes a weird structural rule like this one, it's worth asking what
+it lets you skip, not just what it guarantees.
+
+#DSA #LeetCode #100DaysOfCode #BinaryTree #DFS #Golang #CodingInterview
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
