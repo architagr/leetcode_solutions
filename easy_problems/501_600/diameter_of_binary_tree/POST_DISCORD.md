@@ -1,24 +1,8 @@
-## 365 Days of LeetCode Challenge — Day 12/365
+**365 Days of LeetCode Challenge — Day 12/365**
+**Diameter of Binary Tree** (Easy)
+🔗 https://leetcode.com/problems/diameter-of-binary-tree/
 
-**Diameter of Binary Tree** — [LeetCode 543](https://leetcode.com/problems/diameter-of-binary-tree/) · Difficulty: **Easy**
-
-The longest path between two nodes doesn't have to pass through the root, it
-can sit entirely inside a subtree. Key trick: for any node, the longest path
-through that node is `height(left subtree) + height(right subtree)`. Do one
-post-order DFS that computes heights normally, and update a running max
-diameter at every node along the way. One pass, no extra work.
-
-**Example:**
-
-!["Example 1"](diamtree.jpg "Example 1")
-
-```
-Input: root = [1,2,3,4,5]
-Output: 3
-Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3].
-```
-
-**Code:**
+The longest path between two nodes doesn't have to pass through the root, it can sit entirely inside a subtree. The trick: for any node, the longest path through it is `height(left) + height(right)`. So one post-order DFS computes heights normally and updates a running max diameter at every node on the way back up. One pass, no extra work.
 
 ```go
 var dia = 0
@@ -38,6 +22,7 @@ func calc(root *TreeNode) int {
 	dia = maxVal(left+right, dia)
 	return maxVal(left, right) + 1
 }
+
 func maxVal(a, b int) int {
 	if a > b {
 		return a
@@ -46,40 +31,6 @@ func maxVal(a, b int) int {
 }
 ```
 
-`dia` is a package-level running best, reset to `0` at the start of each call
-so a previous call's result can't leak in. `calc(root)`'s own return value at
-the top level is discarded because we only care about the side effect: every
-recursive call updates `dia` whenever `left+right` (the path through the
-current node) beats the current best. Then it returns `max(left, right)+1`,
-this node's height, up to its parent so the same check can repeat one level
-higher.
+`calc`'s top-level return value gets discarded because only the side effect matters. `dia` is package-level, so it's reset at the start of every call to keep a previous run's result from leaking in. O(n) time, O(h) space.
 
-**Walkthrough** on `root = [1,2,3,4,5]` (node 2's children are 4 and 5).
-Post-order visits nodes in the order **4, 5, 2, 3, 1**:
-
-**Step 1 — `calc(4)`:** leaf. `left=0 right=0`, `dia` stays `0`, height `1`.
-
-![step 1](images/walkthrough-1.svg)
-
-**Step 2 — `calc(5)`:** leaf. `dia` stays `0`, height `1`.
-
-![step 2](images/walkthrough-2.svg)
-
-**Step 3 — `calc(2)`:** `left=1 right=1` → `dia=max(0,2)=2`, height `2`.
-
-![step 3](images/walkthrough-3.svg)
-
-**Step 4 — `calc(3)`:** leaf. `dia` stays `2` (unchanged), height `1`.
-
-![step 4](images/walkthrough-4.svg)
-
-**Step 5 — `calc(1)`:** `left=2 right=1` → `dia=max(2,3)=3` (final), height
-`3`. That's the path `4 → 2 → 1 → 3` (or `5 → 2 → 1 → 3`).
-
-![step 5](images/walkthrough-5.svg)
-
-`diameterOfBinaryTree` returns `dia = 3`, matching the expected output.
-
-Time is `O(n)`, every node gets visited once. Space is `O(h)` for the
-recursion stack, `h` being the tree's height: worst case `O(n)` if the tree
-is basically a straight line, `O(log n)` if it's balanced.
+Full walkthrough with step-by-step diagrams: https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/SOLUTION.md

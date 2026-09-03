@@ -169,6 +169,23 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return cli.FetchQuestion(in.Slug)
 
+	case "post-discord":
+		var in struct {
+			RepoRoot  string `json:"repoRoot"`
+			QueuePath string `json:"queuePath"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		// The webhook URL is a bearer credential for the channel, so it
+		// comes from the environment rather than the JSON argument —
+		// argv is visible in process listings and gets echoed into logs.
+		webhookURL := os.Getenv("DISCORD_WEBHOOK_URL")
+		if webhookURL == "" {
+			return nil, fmt.Errorf("DISCORD_WEBHOOK_URL is not set")
+		}
+		return cli.PostDiscord(in.RepoRoot, in.QueuePath, webhookURL)
+
 	default:
 		return nil, fmt.Errorf("unknown command %q", cmd)
 	}

@@ -4,7 +4,110 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"time"
 )
+
+func TestMarkPostedSetsOnlyThatDestination(t *testing.T) {
+	q := &Queue{Entries: []Entry{{Number: 104, Day: 1}, {Number: 108, Day: 2}}}
+	at := time.Date(2026, 9, 3, 9, 0, 0, 0, time.UTC)
+
+	if !q.MarkPosted(104, DestinationDiscord, at) {
+		t.Fatal("MarkPosted(104) = false, want true")
+	}
+	got := q.Entries[0].PostedAt[DestinationDiscord]
+	if got == nil || *got != "2026-09-03T09:00:00Z" {
+		t.Errorf("PostedAt[discord] = %v, want 2026-09-03T09:00:00Z", got)
+	}
+	if q.Entries[0].PostedAt[DestinationLinkedInMain] != nil {
+		t.Error("marking discord must not touch other destinations")
+	}
+	if len(q.Entries[1].PostedAt) != 0 {
+		t.Errorf("other entries must be untouched, got %v", q.Entries[1].PostedAt)
+	}
+	if q.MarkPosted(999, DestinationDiscord, at) {
+		t.Error("MarkPosted for an unknown number = true, want false")
+	}
+}
+
+func TestIsPosted(t *testing.T) {
+	ts := "2026-09-03T09:00:00Z"
+	e := Entry{PostedAt: map[string]*string{
+		DestinationDiscord:      &ts,
+		DestinationLinkedInMain: nil,
+	}}
+	if !e.IsPosted(DestinationDiscord) {
+		t.Error("IsPosted(discord) = false, want true")
+	}
+	if e.IsPosted(DestinationLinkedInMain) {
+		t.Error("IsPosted(linkedin_main_account) = true (explicit null), want false")
+	}
+	if e.IsPosted(DestinationLinkedInGroup) {
+		t.Error("IsPosted for an absent key = true, want false")
+	}
+	if (Entry{}).IsPosted(DestinationDiscord) {
+		t.Error("IsPosted on a nil map = true, want false")
+	}
+}
+
+func TestLoadNormalizesLegacyPostedAt(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "queue.yaml")
+	legacy := `next_day: 3
+entries:
+    - day: 1
+      number: 104
+      title: Maximum Depth of Binary Tree
+      difficulty: easy
+      folder: easy_problems/101_200/maximum_depth_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: null
+    - day: 2
+      number: 108
+      title: Convert Sorted Array to Binary Search Tree
+      difficulty: easy
+      folder: easy_problems/101_200/convert_sorted_array_to_binary_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at: 2026-09-01T10:00:00Z
+`
+	if err := os.WriteFile(path, []byte(legacy), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	q, err := Load(path)
+	if err != nil {
+		t.Fatalf("Load: %v", err)
+	}
+	if q.Entries[0].IsPosted(DestinationDiscord) {
+		t.Error("legacy posted_at: null should mean not posted anywhere")
+	}
+	// A legacy bare timestamp predates per-destination tracking; it can only
+	// have meant the one destination that existed, so it maps to discord.
+	if !q.Entries[1].IsPosted(DestinationDiscord) {
+		t.Error("legacy bare timestamp should normalize to a discord timestamp")
+	}
+}
+
+func TestSaveLoadRoundTripPreservesDestinations(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "queue.yaml")
+	q := &Queue{NextDay: 1}
+	q.Append(Entry{Number: 104, Title: "Maximum Depth of Binary Tree", Difficulty: "easy", Folder: "f", Batch: "binary tree"})
+	q.MarkPosted(104, DestinationDiscord, time.Date(2026, 9, 3, 9, 0, 0, 0, time.UTC))
+	if err := q.Save(path); err != nil {
+		t.Fatalf("Save: %v", err)
+	}
+
+	loaded, err := Load(path)
+	if err != nil {
+		t.Fatalf("Load: %v", err)
+	}
+	if !loaded.Entries[0].IsPosted(DestinationDiscord) {
+		t.Error("discord timestamp lost in round trip")
+	}
+	if loaded.Entries[0].IsPosted(DestinationLinkedInMain) {
+		t.Error("linkedin must still be unposted after round trip")
+	}
+}
 
 func TestLoadMissingFileReturnsEmptyQueue(t *testing.T) {
 	q, err := Load(filepath.Join(t.TempDir(), "queue.yaml"))

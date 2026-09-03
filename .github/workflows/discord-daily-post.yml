@@ -1,0 +1,50 @@
+name: Discord daily post
+
+# Posts one queued challenge entry per day to Discord, oldest first.
+# workflow_dispatch is here so the first run (and any retry after a
+# failure) can be triggered by hand without waiting for the cron.
+on:
+  schedule:
+    # 03:30 UTC = 09:00 IST
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+# Needed to push the queue.yaml update back to the repo.
+permissions:
+  contents: write
+
+concurrency:
+  # Never let two runs post at once — that would send the same day twice.
+  group: discord-daily-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Post the next queued day to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          go run ./challenge/cmd/leetcodectl post-discord \
+            '{"repoRoot":".","queuePath":"challenge/queue.yaml"}' | tee result.json
+
+      - name: Commit the queue update
+        run: |
+          if git diff --quiet challenge/queue.yaml; then
+            echo "Queue unchanged (nothing was posted) — nothing to commit."
+            exit 0
+          fi
+          day=$(python3 -c "import json;print(json.load(open('result.json')).get('day',''))")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add challenge/queue.yaml
+          git commit -m "chore(challenge): mark Day ${day} posted to Discord"
+          git push

@@ -7,8 +7,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	"leetcode_solutions/challenge/internal/companies"
+	"leetcode_solutions/challenge/internal/discordpost"
 	"leetcode_solutions/challenge/internal/gitmap"
 	"leetcode_solutions/challenge/internal/hero"
 	"leetcode_solutions/challenge/internal/leetcode"
@@ -142,4 +144,68 @@ func FetchList(listURL, difficulty string) ([]leetcode.Problem, error) {
 // pass-through, see FetchList's note.
 func FetchQuestion(slug string) (leetcode.Question, error) {
 	return leetcode.NewClient().FetchQuestionContent(slug)
+}
+
+// PostDiscordResult reports what a post-discord run did. Posted is false
+// on an idle day, when every queued entry has already gone to Discord.
+type PostDiscordResult struct {
+	Posted   bool   `json:"posted"`
+	Day      int    `json:"day,omitempty"`
+	Number   int    `json:"number,omitempty"`
+	Title    string `json:"title,omitempty"`
+	PostedAt string `json:"postedAt,omitempty"`
+	Message  string `json:"message"`
+}
+
+// PostDiscord posts the oldest queue entry not yet sent to Discord, then
+// records the timestamp against that entry's discord destination.
+//
+// The queue is only written after Discord accepts the message, so a
+// failed post leaves the day unclaimed and the next run retries it
+// rather than skipping ahead — the day sequence is the whole point of
+// the queue.
+func PostDiscord(repoRoot, queuePath, webhookURL string) (PostDiscordResult, error) {
+	q, err := queue.Load(queuePath)
+	if err != nil {
+		return PostDiscordResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+	}
+
+	entry, ok := discordpost.SelectNext(q, queue.DestinationDiscord)
+	if !ok {
+		return PostDiscordResult{Posted: false, Message: "nothing to post: every queued entry is already on Discord"}, nil
+	}
+
+	contentPath := filepath.Join(repoRoot, entry.Folder, "POST_DISCORD.md")
+	content, err := os.ReadFile(contentPath)
+	if err != nil {
+		return PostDiscordResult{}, fmt.Errorf("day %d (%s): reading POST_DISCORD.md: %w", entry.Day, entry.Title, err)
+	}
+
+	// The hero image is best-effort: a day whose screenshot failed during
+	// content generation should still be able to go out as text.
+	heroPath := filepath.Join(repoRoot, entry.Folder, "HERO.png")
+	if _, statErr := os.Stat(heroPath); statErr != nil {
+		heroPath = ""
+	}
+
+	if err := discordpost.Post(webhookURL, string(content), heroPath); err != nil {
+		return PostDiscordResult{}, fmt.Errorf("day %d (%s): %w", entry.Day, entry.Title, err)
+	}
+
+	postedAt := time.Now().UTC()
+	if !q.MarkPosted(entry.Number, queue.DestinationDiscord, postedAt) {
+		return PostDiscordResult{}, fmt.Errorf("posted day %d but could not find entry %d to mark it", entry.Day, entry.Number)
+	}
+	if err := q.Save(queuePath); err != nil {
+		return PostDiscordResult{}, fmt.Errorf("posted day %d but saving the queue failed: %w", entry.Day, err)
+	}
+
+	return PostDiscordResult{
+		Posted:   true,
+		Day:      entry.Day,
+		Number:   entry.Number,
+		Title:    entry.Title,
+		PostedAt: postedAt.Format(time.RFC3339),
+		Message:  fmt.Sprintf("posted day %d to Discord", entry.Day),
+	}, nil
 }

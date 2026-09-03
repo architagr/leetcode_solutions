@@ -1,9 +1,14 @@
 package cli
 
 import (
+	"io"
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+	"time"
 
 	"leetcode_solutions/challenge/internal/gitmap"
 	"leetcode_solutions/challenge/internal/hero"
@@ -154,4 +159,127 @@ func TestHeroRenderHTML(t *testing.T) {
 
 func heroDataFixture() hero.Data {
 	return hero.Data{Day: 1, Title: "Two Sum"}
+}
+
+func TestPostDiscordPostsOldestUnpostedAndMarksIt(t *testing.T) {
+	repoRoot := t.TempDir()
+	folder := "easy_problems/101_200/two_sum"
+	if err := os.MkdirAll(filepath.Join(repoRoot, folder), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoRoot, folder, "POST_DISCORD.md"), []byte("day one message"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoRoot, folder, "HERO.png"), []byte("fake-png"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 1, Title: "Two Sum", Difficulty: "easy", Folder: folder, Batch: "arrays"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	var gotBody string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		b, _ := io.ReadAll(r.Body)
+		gotBody = string(b)
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	res, err := PostDiscord(repoRoot, queuePath, server.URL)
+	if err != nil {
+		t.Fatalf("PostDiscord: %v", err)
+	}
+	if !res.Posted || res.Day != 1 || res.Number != 1 {
+		t.Errorf("result = %+v, want a posted day 1 / number 1", res)
+	}
+	if !strings.Contains(gotBody, "day one message") {
+		t.Errorf("webhook body missing the message: %s", gotBody)
+	}
+
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reloaded.Entries[0].IsPosted(queue.DestinationDiscord) {
+		t.Error("entry should be marked posted to discord after a successful post")
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationLinkedInMain) {
+		t.Error("posting to discord must not mark linkedin")
+	}
+}
+
+func TestPostDiscordNothingToPostIsNotAnError(t *testing.T) {
+	repoRoot := t.TempDir()
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 2, Entries: []queue.Entry{{Day: 1, Number: 1, Folder: "f"}}}
+	q.MarkPosted(1, queue.DestinationDiscord, time.Now())
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	res, err := PostDiscord(repoRoot, queuePath, "http://example.invalid")
+	if err != nil {
+		t.Fatalf("an idle day must not be an error: %v", err)
+	}
+	if res.Posted {
+		t.Errorf("result = %+v, want Posted false", res)
+	}
+}
+
+func TestPostDiscordFailedPostLeavesQueueUnchanged(t *testing.T) {
+	repoRoot := t.TempDir()
+	folder := "easy_problems/101_200/two_sum"
+	if err := os.MkdirAll(filepath.Join(repoRoot, folder), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoRoot, folder, "POST_DISCORD.md"), []byte("msg"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoRoot, folder, "HERO.png"), []byte("png"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 1, Folder: folder})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+	}))
+	defer server.Close()
+
+	if _, err := PostDiscord(repoRoot, queuePath, server.URL); err == nil {
+		t.Fatal("a failed webhook must be an error")
+	}
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationDiscord) {
+		t.Error("a failed post must not mark the entry, so the day can be retried")
+	}
+}
+
+func TestPostDiscordMissingContentFileIsAnError(t *testing.T) {
+	repoRoot := t.TempDir()
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 1, Folder: "easy_problems/101_200/gone"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+
+	_, err := PostDiscord(repoRoot, queuePath, "http://example.invalid")
+	if err == nil {
+		t.Fatal("a missing POST_DISCORD.md must be an error, not a skip to the next day")
+	}
+	if !strings.Contains(err.Error(), "POST_DISCORD.md") {
+		t.Errorf("error should name the missing file, got: %v", err)
+	}
 }
