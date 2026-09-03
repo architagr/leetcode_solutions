@@ -2,10 +2,11 @@
 **Binary Tree Postorder Traversal** (Easy)
 🔗 https://leetcode.com/problems/binary-tree-postorder-traversal/
 
-**Intuition:** Postorder means "children before parent" — recurse left, recurse
-right, *then* append the current node. The recursion itself guarantees every
-descendant is already recorded before a node appends its own value, so there's
-no extra state to track.
+**Intuition:** postorder means children before parent: recurse left, recurse
+right, then append the current node. The recursion guarantees every
+descendant is already recorded before a node appends its own value, so
+there's no extra state to track. Nice part is you don't manage any of that
+yourself, the recursion just does it right by construction.
 
 ![Example 1](images/1.png "Example1")
 
@@ -45,9 +46,10 @@ func traversal(A *TreeNode, arr []int) []int {
 
 ![Step 3: node 1's left (nil) and right (2) are both resolved, so it appends itself last](images/walkthrough-3.svg)
 
-O(n) time, O(h) space for the recursion stack (h = tree height) plus O(n) for the
-output slice.
+O(n) time, O(h) space for the recursion stack (h = tree height) plus O(n) for
+the output slice.
 
-**Follow up:** LeetCode also asks for an iterative version — typically done with
-one stack, pushing nodes and *prepending* their values (building the reverse of
-a "root, right, left" traversal).
+**Follow up:** LeetCode also wants an iterative version. Typical fix is one
+stack, pushing nodes and prepending their values instead of appending, which
+builds the reverse of a root-right-left traversal and flips it into postorder
+for free.

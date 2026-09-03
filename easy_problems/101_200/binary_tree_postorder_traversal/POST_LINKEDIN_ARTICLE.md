@@ -11,24 +11,23 @@ values — left subtree, then right subtree, then the node itself.
 
 ### The intuition
 
-"Postorder" just names the order in which a node gets recorded relative to its
-children: **left subtree, then right subtree, then the node itself**. So a node's
-value is only ever appended to the result *after* everything underneath it has
-already been appended — a node is always the last thing written among itself and
-its descendants.
+"Postorder" is just naming the order a node gets recorded in, relative to its
+children: left subtree, then right subtree, then the node itself. So a node's
+value only lands in the result after everything under it does. It's always the
+last thing written among itself and its descendants.
 
-That ordering falls out naturally from a simple recursive shape: recurse into the
-left child, recurse into the right child, then append the current node's value.
-There's no need to track any extra state (like "have I visited this node's
-children yet") — the recursion itself guarantees the children are fully processed,
-and their values are already sitting in the result slice, before the current
-node's `append` ever runs.
+What I like about this one is how little bookkeeping it needs. The whole thing
+falls out of a plain recursive shape: recurse left, recurse right, then append
+the current node. No flag for "have I visited this node's children yet," no
+manual stack management. The recursion itself guarantees both children are
+fully processed, and their values are already sitting in the result slice,
+before the current node's `append` ever runs.
 
-The only base case is an empty subtree (`nil`), which simply contributes nothing
-and returns the result slice unchanged — that's what stops the recursion from
-following `nil` children and is also why leaves resolve immediately: both of a
-leaf's recursive calls hit this base case right away, so the very next line
-appends the leaf's own value.
+The only base case is an empty subtree (`nil`). It contributes nothing and
+hands back the result slice unchanged. That's what stops recursion at missing
+children, and it's also why leaves resolve in one step: both of a leaf's
+recursive calls hit that base case immediately, so the very next line appends
+the leaf's own value.
 
 ### The solution
 
@@ -52,9 +51,9 @@ func traversal(A *TreeNode, arr []int) []int {
 }
 ```
 
-`PostorderTraversal` just seeds an empty slice and hands it off to `traversal`,
-which does the real work and threads the growing result slice through every
-recursive call: recurse left, recurse right, then append the current node last.
+`PostorderTraversal` seeds an empty slice and hands it to `traversal`, which
+does the actual work. It threads the growing result slice through every
+recursive call: left, then right, then the current node last.
 
 Walking `traversal(1, [])` on `root = [1,null,2,3]` (`1`'s left child is `nil`,
 its right child is `2`, and `2`'s left child is `3`), expected output `[3,2,1]`:
@@ -79,13 +78,19 @@ its right child is `2`, and `2`'s left child is `3`), expected output `[3,2,1]`:
 
 `PostorderTraversal` returns `[3, 2, 1]`. ✓
 
-**Complexity:** O(n) time — every node is visited exactly once. O(h) space for the
-recursion stack, where h is the tree's height (O(log n) balanced, O(n) skewed),
-plus O(n) for the output slice itself.
+Time complexity is O(n), since every node gets visited exactly once. Space is
+O(h) for the recursion stack, where h is the tree's height (O(log n) balanced,
+O(n) if it degenerates into a line), plus O(n) for the output slice.
 
-**Follow up worth thinking about:** LeetCode asks whether you can do this
-iteratively instead of recursively — a common approach is a single stack that
-pushes nodes and prepends (rather than appends) their values, effectively building
-the reverse of a "root, right, left" traversal.
+One thing worth chewing on: LeetCode also asks for an iterative version. The
+common trick is a single stack that pushes nodes and prepends their values
+instead of appending — you're essentially building the reverse of a
+root-right-left traversal and letting the prepend flip it into postorder.
 
 Full code: `easy_problems/101_200/binary_tree_postorder_traversal/` in the repo.
+
+#DSA #LeetCode #BinaryTree #Recursion #Golang #100DaysOfCode #CodingInterview
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
