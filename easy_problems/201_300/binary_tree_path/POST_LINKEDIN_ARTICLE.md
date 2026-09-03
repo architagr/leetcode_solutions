@@ -6,22 +6,23 @@
 
 ### The problem
 
-Given the root of a binary tree, return all root-to-leaf paths in any order. A leaf is
+Given the root of a binary tree, return every root-to-leaf path in any order. A leaf is
 a node with no children.
 
 ### The intuition
 
-Every root-to-leaf path is just a sequence of node values from the top of the tree down
-to some leaf. The natural way to enumerate all of them is a **DFS from the root**,
-carrying along the "path so far" as you descend, and recording that path the moment you
-hit a leaf.
+A root-to-leaf path is nothing more than the values you pass through on the way down
+from the top to some leaf. So the plan is plain DFS from the root: carry the path built
+so far as you descend, and the moment you land on a leaf, that path is done and worth
+keeping.
 
-There's a small wrinkle: the root itself needs special handling, since the path string
-starts as just the root's value with no arrow before it, while every node after that
-gets appended as `"->value"`. That's why this solution has two functions instead of
-one: `binaryTreePaths` seeds the path with the root's value and kicks off the recursion
-into its children, while a helper handles every node after the root, where the `"->"`
-separator is always needed.
+The part that actually needed thought is the root. Every node after it gets appended to
+the path as `"->value"`, but the root has nothing before it, no arrow, just its own
+value sitting alone. Rather than shove an `if this is the root` check into one big
+recursive function, I split it into two: `binaryTreePaths` seeds the path with the
+root's value and starts the recursion on its children, and the helper (named `foo`,
+which in hindsight I could have called something more useful) handles everything below
+the root, where the `"->"` separator always applies.
 
 ### The solution
 
@@ -65,16 +66,22 @@ Walking it through the example tree from the problem statement, `root = [1,2,3,n
 
   ![Walkthrough step 1: current = "1", result = []](images/walkthrough-1.svg "Step 1")
 - `foo(2, "1", ...)`: `current = "1->2"`. Node `2` has a right child, so recurse into `5`.
-- `foo(5, "1->2", ...)`: `current = "1->2->5"`. Leaf — append `"1->2->5"`.
+- `foo(5, "1->2", ...)`: `current = "1->2->5"`. Leaf. Append `"1->2->5"`.
 
   ![Walkthrough step 2: current = "1->2->5", result = ["1->2->5"]](images/walkthrough-2.svg "Step 2")
-- `foo(3, "1", ...)`: `current = "1->3"`. Leaf — append `"1->3"`.
+- `foo(3, "1", ...)`: `current = "1->3"`. Leaf. Append `"1->3"`.
 
   ![Walkthrough step 3: current = "1->3", result = ["1->2->5", "1->3"]](images/walkthrough-3.svg "Step 3")
 - Final result: `["1->2->5", "1->3"]`.
 
-**Complexity:** O(n²) worst case (building each path string copies the prefix so far;
-across a skewed tree the total work is O(n²)), closer to O(n log n) for a balanced tree.
-O(n) space for the recursion stack plus the output.
+Complexity: O(n²) in the worst case, because building each path string means copying
+the prefix so far, and on a skewed tree that copying adds up fast. On a balanced tree
+it's closer to O(n log n). Space is O(n) for the recursion stack plus the output.
 
 Full code: `easy_problems/201_300/binary_tree_path/` in the repo.
+
+#DSA #LeetCode #BinaryTree #DFS #Golang #100DaysOfCode #CodingInterview
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

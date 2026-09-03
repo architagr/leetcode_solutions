@@ -2,11 +2,12 @@
 **Binary Tree Paths** (Easy)
 🔗 https://leetcode.com/problems/binary-tree-paths/
 
-**Intuition:** DFS from the root, carrying the path-so-far as a string, recording it
-when you hit a leaf. Root needs special handling — it's the only node with no `"->"`
-before its value.
+**Intuition**
+DFS from the root, building the path as a string while you go, and locking it in the
+moment you hit a leaf. The root is the fiddly bit: it's the only node that doesn't get
+an arrow before its value, so it needs handling separate from everything below it.
 
-**Full solution:**
+**Full solution**
 ```go
 func binaryTreePaths(root *TreeNode) []string {
 	current := fmt.Sprint(root.Val)
@@ -46,12 +47,13 @@ func foo(node *TreeNode, current string, result *[]string) {
 
   ![Walkthrough step 1: current = "1", result = []](images/walkthrough-1.svg "Step 1")
 - `foo(2,"1")` → `"1->2"`, recurse into `5`
-- `foo(5,"1->2")` → `"1->2->5"`, leaf → append
+- `foo(5,"1->2")` → `"1->2->5"`, leaf, append
 
   ![Walkthrough step 2: current = "1->2->5", result = ["1->2->5"]](images/walkthrough-2.svg "Step 2")
-- `foo(3,"1")` → `"1->3"`, leaf → append
+- `foo(3,"1")` → `"1->3"`, leaf, append
 
   ![Walkthrough step 3: current = "1->3", result = ["1->2->5", "1->3"]](images/walkthrough-3.svg "Step 3")
-- **result:** `["1->2->5", "1->3"]` ✓
+- result: `["1->2->5", "1->3"]`, matches the expected output.
 
-O(n²) worst case (skewed tree), O(n log n) balanced.
+O(n²) worst case on a skewed tree, closer to O(n log n) once the tree is balanced. Not
+a case I'd worry about in practice, most trees you actually deal with aren't skewed.
