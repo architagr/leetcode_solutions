@@ -4,10 +4,12 @@
 <https://leetcode.com/problems/kth-largest-element-in-a-stream/>
 
 We only ever need to know the kth largest value seen so far, not the full sorted order
-of everything — so we only need to track the **top k scores**. Among those top k, the
-kth largest is exactly the **smallest** one. That reduces the problem to "maintain a
-bounded set of k values, read/replace its minimum fast" — a **min-heap** capped at size
-`k` does exactly that in `O(log k)` per operation.
+of everything. So we only need to track the top k scores. Among those top k, the kth
+largest is exactly the smallest one, which turns the problem into: maintain a bounded
+set of k values, and read or replace its minimum fast. A **min-heap** capped at size
+`k` does exactly that in `O(log k)` per operation. Once that clicks, the code for both
+the constructor and `Add` basically writes itself, they're the same eviction check
+applied in two places.
 
 **The code (`min.go`):**
 
@@ -115,33 +117,33 @@ func (this *KthLargest) Add(val int) int {
 **Walkthrough**, tracing the example `KthLargest(3, [4, 5, 8, 2])` then
 `add(3), add(5), add(10), add(9), add(4)`:
 
-`Constructor` pushes the first `k=3` elements (`4, 5, 8`) unconditionally, filling the
-heap to `{4, 5, 8}`, root `4`. The remaining element `2` is tested against the root:
-`4 < 2`? No — rejected.
+`Constructor` pushes the first `k=3` elements (`4, 5, 8`) with no checks, filling the
+heap to `{4, 5, 8}`, root `4`. The remaining element `2` gets tested against the root:
+`4 < 2`? No, rejected.
 
 ![Step 1: Constructor fills the heap with 4, 5, 8; rejects 2](images/walkthrough-1.svg)
 
-`Add(3)`: root `4`. `4 < 3`? No — rejected, heap unchanged, returns `4`.
+`Add(3)`: root `4`. `4 < 3`? No, rejected, heap unchanged, returns `4`.
 
 ![Step 2: Add(3) is rejected, heap unchanged, returns 4](images/walkthrough-2.svg)
 
-`Add(5)`: root `4`. `4 < 5`? Yes — pop `4`, push `5`. Heap `{5, 5, 8}`, returns `5`.
+`Add(5)`: root `4`. `4 < 5`? Yes, pop `4`, push `5`. Heap `{5, 5, 8}`, returns `5`.
 
 ![Step 3: Add(5) pops 4, pushes 5, returns 5](images/walkthrough-3.svg)
 
-`Add(10)`: root `5`. `5 < 10`? Yes — pop `5`, push `10`. Heap `{5, 8, 10}`, returns `5`.
+`Add(10)`: root `5`. `5 < 10`? Yes, pop `5`, push `10`. Heap `{5, 8, 10}`, returns `5`.
 
 ![Step 4: Add(10) pops 5, pushes 10, returns 5](images/walkthrough-4.svg)
 
-`Add(9)`: root `5`. `5 < 9`? Yes — pop `5`, push `9`. Heap `{8, 9, 10}`, returns `8`.
+`Add(9)`: root `5`. `5 < 9`? Yes, pop `5`, push `9`. Heap `{8, 9, 10}`, returns `8`.
 
 ![Step 5: Add(9) pops 5, pushes 9, returns 8](images/walkthrough-5.svg)
 
-`Add(4)`: root `8`. `8 < 4`? No — rejected, heap unchanged, returns `8`.
+`Add(4)`: root `8`. `8 < 4`? No, rejected, heap unchanged, returns `8`.
 
 ![Step 6: Add(4) is rejected, heap unchanged, returns 8](images/walkthrough-6.svg)
 
-Final returns: `[4, 5, 5, 8, 8]` — matches the expected output.
+Final returns: `[4, 5, 5, 8, 8]`, matches the expected output.
 
 **Complexity:** `O(n log k)` for the constructor, `O(log k)` per `Add` call, `O(k)`
-space — the heap never grows past size `k`.
+space. The heap never grows past size `k`.

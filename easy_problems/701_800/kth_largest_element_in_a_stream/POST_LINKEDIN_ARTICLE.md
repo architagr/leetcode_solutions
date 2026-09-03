@@ -4,11 +4,10 @@
 
 [LeetCode 703 — Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/) · Difficulty: Easy
 
-Imagine a university admissions office watching test scores roll in from applicants in
-real time. After every single score submitted, they need to instantly know: what's the
-`kth` highest score so far? That's the shape of today's problem — design a class that
-tracks a running stream of numbers and, after every insertion, reports the kth largest
-value seen so far.
+Picture an admissions office watching test scores come in one at a time, needing to
+know after every single one what the kth highest score is so far. That's the whole
+problem: build a class that watches a stream of numbers and reports the kth largest
+value after every insertion.
 
 ```
 KthLargest(int k, int[] nums)  // initialize with k and a starting stream of scores
@@ -35,49 +34,46 @@ kthLargest.add(4);  // return 8
 
 ## The intuition
 
-The naive approach — keep every score seen so far, re-sort the whole collection every
-time `add` is called, and read off the kth element — works, but it's wasteful. With up
-to `10^4` calls to `add`, doing `O(n log n)` work on every single one adds up fast.
+The obvious approach is to keep every score you've seen, re-sort the whole collection
+on every `add` call, and read off the kth element. It works, but it's wasteful: up to
+`10^4` calls to `add`, each one re-sorting from scratch, adds up fast.
 
-Here's the reframe that unlocks an efficient solution: we never actually need to know
-the full sorted order of every score we've ever seen. We only ever need to answer one
-narrow question — **what is the kth largest value right now?** That means we only need
-to track the **top k scores**, nothing else. Everything below the top k is irrelevant to
-every future query, forever (a smaller score can never become the kth largest as long as
-at least k values above it exist).
+Here's what actually matters: we never need the full sorted order of everything we've
+seen. We only ever have to answer one question, what's the kth largest value right now,
+and that means we only ever need to track the top k scores. Everything below that
+cutoff is dead weight for every future query, because a score outside the top k can't
+become the kth largest while k values above it still exist.
 
-And here's the key trick: among just those top k scores, the kth largest one is exactly
-the **smallest** of the group — the "weakest link" holding onto a spot in the top k. So
-the whole problem reduces to: efficiently maintain a bounded set of (at most) k values,
-and be able to read and replace its minimum quickly. That is *precisely* what a
-**min-heap** is built for.
+Now the trick: among those top k scores, the kth largest is exactly the smallest one,
+the weakest link still holding a spot in the group. So the problem shrinks down to
+maintaining a bounded set of k values where you can read and swap out the minimum
+quickly. A min-heap does exactly that, and honestly this is one of my favorite easy
+problems for that reason: the naive fix is obvious, but the efficient one only shows up
+once you notice you're solving a much smaller problem than the one you were handed.
 
-The strategy in plain terms:
-- Keep a min-heap holding at most `k` elements — the k largest scores seen so far.
-- When a new value shows up:
-  - If the heap isn't full yet (fewer than `k` elements), the new value is automatically
-    part of the current top-k — just push it in.
-  - Otherwise, compare it against the heap's root (the smallest of the current top-k).
-    If the new value beats the root, the root gets evicted and the new value takes its
-    place. If not, the new value doesn't crack the top-k, and the heap is left alone.
-- After every `add`, the min-heap's root — its smallest element — is by construction the
-  kth largest value seen across the whole stream, because the heap holds exactly the
-  top-k values, and the smallest among them sits in the kth position once you sort
-  everything in descending order.
+Here's the strategy:
+- Keep a min-heap that holds at most `k` elements: the k largest scores seen so far.
+- When a new value shows up and the heap isn't full yet (fewer than `k` elements), it's
+  automatically part of the top-k, so just push it in.
+- If the heap is already full, compare the new value against the root (the smallest of
+  the current top-k). If it beats the root, the root gets evicted and the new value
+  takes its place. If not, it doesn't crack the top-k and the heap is left alone.
+- After every `add`, the root is the kth largest value seen across the whole stream.
+  The heap holds exactly the top-k values, and the smallest of those sits in the kth
+  position once you sort everything in descending order.
 
-The constructor does the exact same thing, just seeded with a batch of values instead of
-one at a time: fill the heap with the first `k` elements of `nums` unconditionally, then
-run every remaining element through the same "does it beat the current top-k's weakest
-member?" test.
+The constructor does the same thing, just seeded with a batch instead of one value at a
+time: fill the heap with the first `k` elements of `nums` with no checks, then run
+everything else through the same eviction test.
 
-**Complexity:** `O(log k)` per `add` call (a bounded heap push/pop), `O(n log k)` for the
-constructor over an initial array of length `n`, and `O(k)` space — the heap never grows
+Time is `O(log k)` per `add` call (a bounded heap push/pop), and `O(n log k)` for the
+constructor over an initial array of length `n`. Space is `O(k)`: the heap never grows
 past size `k` no matter how long the stream runs.
 
 ## The solution, walked through
 
-The implementation lives in `min.go`, built on Go's `container/heap` interface applied
-to a `minHeap []int`.
+The implementation lives in `min.go`. It's built on Go's `container/heap` interface,
+wrapped around a plain `minHeap []int`.
 
 ### The `minHeap` type
 
@@ -98,12 +94,13 @@ func (h *minHeap) Pop() any {
 }
 ```
 
-`Less(i, j int) bool { return (*mHeap)[i] < (*mHeap)[j] }` is the line that makes this a
-**min-heap** rather than a max-heap: the smallest value always sorts to the front, so
-`(*obj)[0]` is always the current minimum. `Push` and `Pop` follow the standard
-`container/heap` contract — `Push` appends to the end and `heap.Push` sifts it up to
-restore the heap invariant; `Pop` returns whatever `heap.Pop` has already swapped to the
-end of the slice (the sift-down happens first, then this just removes the element).
+That one line, `Less(i, j int) bool { return (*mHeap)[i] < (*mHeap)[j] }`, is what makes
+this a min-heap instead of a max-heap. Flip the `<` to `>` and you've built the wrong
+data structure entirely. The smallest value always sorts to the front, so `(*obj)[0]` is
+always the current minimum. `Push` and `Pop` follow the standard `container/heap`
+contract: `Push` appends to the end and `heap.Push` sifts it up to restore the
+invariant, and `Pop` just removes whatever `heap.Pop` has already swapped to the end of
+the slice after doing the sift-down.
 
 ### `Constructor(k int, nums []int) KthLargest`
 
@@ -133,16 +130,17 @@ func Constructor(k int, nums []int) KthLargest {
 }
 ```
 
-`limit` caps the initial unconditional fill at `k` — or fewer, since the constraints
-allow `len(nums) < k`. The first loop pushes those first `limit` elements without any
-comparison, since the heap isn't full yet. The second loop runs every *remaining*
-element in `nums` through the same eviction test `Add` uses: if it beats the heap's
-current minimum, the minimum is popped out and the new value takes its place; otherwise
-nothing happens.
+`limit` caps the initial fill at `k`, or fewer, since the constraints allow
+`len(nums) < k` (easy to miss on a first read). The first loop pushes those first
+`limit` elements with no comparison at all, since the heap isn't full yet. The second
+loop runs every remaining element in `nums` through the same eviction test `Add` uses:
+if it beats the heap's current minimum, the minimum gets popped and the new value takes
+its place. Otherwise, nothing happens.
 
-Tracing it against the example — `Constructor(3, [4, 5, 8, 2])`: `limit = 3`, so `4`,
-`5`, `8` get pushed unconditionally, filling the heap to `{4, 5, 8}` with root `4`. Then
-`i = 3`, `nums[3] = 2`: is `root(4) < 2`? No — `2` is rejected, heap stays `{4, 5, 8}`.
+Tracing it against the example, `Constructor(3, [4, 5, 8, 2])`: `limit = 3`, so `4`,
+`5`, `8` get pushed with no checks, filling the heap to `{4, 5, 8}` with root `4`. Then
+`i = 3`, `nums[3] = 2`. Is `root(4) < 2`? No, so `2` gets rejected and the heap stays
+`{4, 5, 8}`.
 
 ![Step 1: Constructor fills the heap with 4, 5, 8; rejects 2](images/walkthrough-1.svg)
 
@@ -162,53 +160,57 @@ func (this *KthLargest) Add(val int) int {
 }
 ```
 
-Two branches:
-- **Heap not yet full** (`this.h.Len() < this.k`): fewer than `k` values have been seen
-  overall, so anything new is automatically part of the top-k — push it in directly.
-- **Heap already at capacity `k`**: compare `val` against the root, the current weakest
-  member of the top-k. If `val` beats it, pop the root and push `val` in its place. If
-  `val` doesn't beat the root, leave the heap untouched.
+There are two cases. If the heap isn't at capacity yet (`this.h.Len() < this.k`), fewer
+than `k` values have been seen overall, so anything new is automatically in the top-k,
+push it in directly. If the heap is already full, compare `val` against the root, the
+current weakest member of the top-k. Beat it, and the root gets popped and `val` takes
+its place. Don't beat it, and the heap stays untouched.
 
-Either way, the function returns `(*this.h)[0]` — the root, which is always the kth
-largest value seen so far by construction.
+Either way, the function returns `(*this.h)[0]`, the root, which by construction is
+always the kth largest value seen so far.
 
 Since the heap is already full for the rest of the example (`Len() == k == 3`), every
 remaining call takes the comparison branch:
 
-**`Add(3)`**: root is `4`. Is `4 < 3`? No — rejected, heap stays `{4, 5, 8}`, returns
+**`Add(3)`**: root is `4`. Is `4 < 3`? No, rejected. Heap stays `{4, 5, 8}`, returns
 `4`.
 
 ![Step 2: Add(3) is rejected, heap unchanged, returns 4](images/walkthrough-2.svg)
 
-**`Add(5)`**: root is `4`. Is `4 < 5`? Yes — pop `4`, push `5`. Heap becomes
+**`Add(5)`**: root is `4`. Is `4 < 5`? Yes, pop `4`, push `5`. Heap becomes
 `{5, 5, 8}` with root `5`, returns `5`.
 
 ![Step 3: Add(5) pops 4, pushes 5, returns 5](images/walkthrough-3.svg)
 
-**`Add(10)`**: root is `5`. Is `5 < 10`? Yes — pop that `5`, push `10`. Heap becomes
+**`Add(10)`**: root is `5`. Is `5 < 10`? Yes, pop that `5`, push `10`. Heap becomes
 `{5, 8, 10}` with root `5` (the *other* `5` already in the heap), returns `5`.
 
 ![Step 4: Add(10) pops 5, pushes 10, returns 5](images/walkthrough-4.svg)
 
-**`Add(9)`**: root is `5`. Is `5 < 9`? Yes — pop `5`, push `9`. Heap becomes
+**`Add(9)`**: root is `5`. Is `5 < 9`? Yes, pop `5`, push `9`. Heap becomes
 `{8, 9, 10}` with root `8`, returns `8`.
 
 ![Step 5: Add(9) pops 5, pushes 9, returns 8](images/walkthrough-5.svg)
 
-**`Add(4)`**: root is `8`. Is `8 < 4`? No — rejected, heap stays `{8, 9, 10}`, returns
+**`Add(4)`**: root is `8`. Is `8 < 4`? No, rejected. Heap stays `{8, 9, 10}`, returns
 `8`.
 
 ![Step 6: Add(4) is rejected, heap unchanged, returns 8](images/walkthrough-6.svg)
 
-Final sequence of returns: `[4, 5, 5, 8, 8]` — exactly the expected output.
+Final sequence of returns: `[4, 5, 5, 8, 8]`, matching the expected output.
 
 ### Complexity
 
-- **Time:** `O(n log k)` for the constructor, `O(log k)` per `Add` call.
-- **Space:** `O(k)` — the heap never holds more than `k` elements, regardless of how
-  long the stream runs.
+Time is `O(n log k)` for the constructor and `O(log k)` per `Add` call. Space is
+`O(k)`: the heap never holds more than `k` elements no matter how long the stream runs.
 
 ---
 
 *Part of the 365 Days of LeetCode Challenge. Follow along for daily problem
 breakdowns.*
+
+#DSA #LeetCode #100DaysOfCode #Heap #DataStructures #Golang #CodingInterview #Programming
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
