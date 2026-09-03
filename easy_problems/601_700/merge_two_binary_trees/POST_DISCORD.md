@@ -2,10 +2,10 @@
 **Merge Two Binary Trees** (Easy)
 🔗 https://leetcode.com/problems/merge-two-binary-trees/
 
-**Intuition:** At every pair of positions, sum the values if both trees have a node
-there; otherwise just reuse whichever tree's subtree is non-nil as-is — no need to
-build new nodes for the non-overlapping parts. New nodes only get allocated where both
-sides actually overlap.
+**Intuition:** Sum the values when both trees have a node at that position, otherwise
+just hand back whichever subtree is actually there. That's the whole trick, no
+building anything new for the parts that don't overlap. New nodes only show up where
+both sides genuinely overlap.
 
 ![Example 1](images/1.jpg "Example1")
 
@@ -35,7 +35,7 @@ func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
 **Walkthrough** on `root1 = [1,3,2,5]`, `root2 = [2,1,3,null,4,null,7]` (expected
 `[3,4,5,5,4,null,7]`):
 
-- `mergeTrees(1, 2)` → both non-nil → new node `1+2 = 3`, children pending
+- `mergeTrees(1, 2)` → both non-nil → new node `1+2 = 3`, children still pending
 
 ![Step 1: merged root created as 1+2=3, children still pending](images/walkthrough-1.svg)
 
@@ -44,12 +44,12 @@ func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
 
 ![Step 2: left subtree resolved — 3+1=4, reusing 5 from root1 and 4 from root2 as leaves](images/walkthrough-2.svg)
 
-- `mergeTrees(2, 3)` → new node `2+3 = 5`, no left child (both nil), reusing `7`
-  (root2) as right child
+- `mergeTrees(2, 3)` → new node `2+3 = 5`, no left child since both sides are nil,
+  reusing `7` (root2) as the right child
 
 ![Step 3: right subtree resolved — 2+3=5, right child reuses 7 from root2, no left child — merge complete](images/walkthrough-3.svg)
 
-Final merged tree: `[3,4,5,5,4,null,7]` ✓
+Final merged tree: `[3,4,5,5,4,null,7]`, matches expected.
 
-O(min(m, n)) time and space — recursion stops descending as soon as either side goes
-`nil`.
+O(min(m, n)) time and space. Recursion just stops going deeper the moment either side
+hits `nil`.
