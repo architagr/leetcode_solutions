@@ -8,15 +8,15 @@ type TreeNode struct {
 }
 
 func bstToGst(root *TreeNode) *TreeNode {
-	foo(root, 0)
+	parse(root, 0)
 	return root
 }
 
-func foo(node *TreeNode, parentSum int) int {
+func parse(node *TreeNode, parentSum int) int {
 	if node == nil {
 		return parentSum + 0
 	}
-	right := foo(node.Right, parentSum)
+	right := parse(node.Right, parentSum)
 	node.Val += right
-	return foo(node.Left, node.Val)
+	return parse(node.Left, node.Val)
 }
