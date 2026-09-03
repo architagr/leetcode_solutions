@@ -6,36 +6,37 @@
 
 ### The problem
 
-You're given two binary trees, `original` and `cloned` — `cloned` is guaranteed to be an
-exact structural copy of `original`, same shape and same values, just different node
-objects sitting in memory. You're also given `target`, a reference to a specific node
-*inside* `original`. The task: return a reference to the corresponding node inside
-`cloned` — without mutating either tree or `target`.
+You get two binary trees, `original` and `cloned`. `cloned` is guaranteed to be an exact
+structural copy: same shape, same values, just different node objects living in memory.
+You're also handed `target`, a reference to one specific node inside `original`. The job
+is to hand back the matching node inside `cloned`, without touching either tree or
+`target` itself.
 
 ### The intuition
 
-The detail that makes this problem tractable is easy to skim past: `cloned` isn't just
-*a* copy, it's a **structurally identical** one. Same shape, same values, node for node.
-That guarantee means you never have to search `cloned` on its own, trying to somehow
-recognize `target`'s position independently. Instead, you can walk both trees **in
-lockstep** — one step down `original`, the matching step down `cloned`, in the very same
-recursive call — and the two pointers will always be looking at "the same" logical
-position in the tree, just in two different objects.
+The detail that makes this one easy is buried in the setup and easy to skim past:
+`cloned` is a structurally identical copy of `original`. Same shape, same values, node
+for node. Once that lands, you stop thinking about searching `cloned` on its own and
+trying to recognize where `target` sits inside it. Instead you walk both trees at the
+same time, one step down `original` and the matching step down `cloned` inside a single
+recursive call, and the two pointers are always looking at the same logical spot in the
+tree, just in two different objects.
 
-At each paired position, the question is simply: *is this the node?* Compare values. If
-they match, the `cloned`-side pointer is standing exactly where `target` stands in
-`original`, so it's the answer — return it immediately, no further searching needed.
+At each paired position the question is just: is this the node? Compare values. If they
+match, the `cloned`-side pointer is sitting exactly where `target` sits in `original`, so
+that's the answer and the search stops right there.
 
-If it's not a match, recurse left in *both* trees together first. If that search turns
-up something, propagate it straight back up the call stack. Otherwise, recurse right in
-both trees together, and return whatever that finds instead. Because `cloned` mirrors
-`original` node-for-node, the base case only needs to check one tree running out of
-nodes — wherever `original` ends, `cloned` ends too, at exactly the same moment.
+If it's not a match, recurse left in both trees together first. Anything that search
+finds gets passed straight back up the call stack. If it comes back empty, recurse right
+in both trees together and return whatever that finds instead. Because `cloned` mirrors
+`original` node for node, the base case only has to check one tree running out of nodes;
+wherever `original` ends, `cloned` ends at exactly the same moment.
 
-It's a plain DFS/pre-order traversal underneath. The only twist is that it's a **paired**
-traversal over two trees at once — which is what lets the search work purely by
-structure and value, with zero extra bookkeeping (no hash maps, no path recording,
-nothing) needed to line the two trees up.
+Underneath, it's just a DFS pre-order traversal. The only twist is that it's a paired
+traversal over two trees at once, and that's the whole trick: no hash maps, no
+bookkeeping to line the two trees up, just two pointers moving together. I like this one
+because the part of the problem that looks hard, matching a node's identity across two
+separate trees, turns out not to be a real problem once you notice the copy guarantee.
 
 ### The solution
 
@@ -102,3 +103,9 @@ stack, where h is the tree's height (O(log n) for a balanced tree, O(n) for a co
 skewed one).
 
 Full code: `easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #DFS #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
