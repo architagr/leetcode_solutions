@@ -6,32 +6,31 @@
 
 ### The problem
 
-Given the root of a binary tree, return the preorder traversal of its nodes'
-values — visit each node before either of its subtrees.
+Given the root of a binary tree, return the values in preorder: each node
+before either of its subtrees.
 
 ### The intuition
 
-"Preorder" just names the order in which the three things at each node get
-visited: the node **itself** first, then its **left** subtree, then its **right**
-subtree (root → left → right). That ordering is the entire problem — there's no
-searching, comparing, or bookkeeping beyond "visit this node, then recurse left,
-then recurse right."
+"Preorder" tells you everything up front: visit the node first, then the left
+subtree, then the right one. Root, left, right. There's no searching or
+comparing hidden anywhere in this problem, just that one ordering rule applied
+at every node.
 
-The natural way to express that is recursion that mirrors the definition
-directly: a helper function visits a node by appending its value, then calls
-itself on `Left`, then calls itself on `Right`. The recursion's call stack does
-the traversal's bookkeeping for free — there's no need for an explicit stack,
-since the position in the recursive calls already encodes "where am I in the
-tree, and what's left to visit."
+Recursion is the obvious tool here because it mirrors the definition almost
+word for word. A helper function visits a node by appending its value, then
+calls itself on `Left`, then calls itself on `Right`. You don't need an
+explicit stack for this — the call stack already tracks where you are in the
+tree and what's left to visit. That's the part I actually like about tree
+recursion: the bookkeeping is free, you just have to trust it's happening.
 
-The one wrinkle in Go specifically is that `append` can reallocate the
-underlying array, so the slice being built has to be threaded through as both an
-argument and a return value — each recursive call returns the (possibly grown)
-slice so the caller picks up wherever the callee left off, rather than each call
-silently mutating a slice the caller no longer has a valid reference to.
+The thing that trips people up in Go specifically is `append`. It can
+reallocate the underlying array, so you can't just mutate a slice and expect
+the caller to see the change. You have to thread it through as both a
+parameter and a return value, and every recursive call has to capture what
+comes back rather than assume it happened by reference.
 
-The base case is the empty subtree (`nil`): visiting nothing contributes
-nothing, so the accumulated slice is simply handed back unchanged.
+The base case is the empty subtree. Visit nothing, contribute nothing, hand
+the slice back exactly as it came in.
 
 ### The solution
 
@@ -61,28 +60,39 @@ func traversal(A *TreeNode, arr []int) []int {
 }
 ```
 
-Walking it through `[1,null,2,3]` (node `1` has no left child, right child `2`;
-`2` has left child `3`; expected output `[1,2,3]`):
+Here's the trace on `[1,null,2,3]`: node `1` has no left child, its right
+child is `2`, and `2` has a left child `3`. Expected output is `[1,2,3]`.
 
-- `traversal(1)` appends `1` → `arr = [1]`.
+`traversal(1)` appends `1`, so `arr = [1]`.
 
 ![Step 1: visit root 1, arr becomes [1]](images/walkthrough-1.svg)
 
-- `1.Left` is `nil` — immediate base case, no change. `1.Right` is `2`, so
-  `traversal(2)` appends `2` → `arr = [1,2]`.
+`1.Left` is `nil`, so that call hits the base case immediately and does
+nothing. `1.Right` is `2`, so `traversal(2)` appends `2` and `arr` becomes
+`[1,2]`.
 
 ![Step 2: 1.Left is nil, visit 2, arr becomes [1,2]](images/walkthrough-2.svg)
 
-- `2.Left` is `3`, so `traversal(3)` appends `3` → `arr = [1,2,3]`.
+`2.Left` is `3`, so `traversal(3)` appends `3`. `arr` is now `[1,2,3]`.
 
 ![Step 3: visit 3 via 2.Left, arr becomes [1,2,3]](images/walkthrough-3.svg)
 
-- `3` has no children — both its calls hit the base case. `[1,2,3]` unwinds back
-  through `3`, `2` (whose `Right` is also `nil`), and `1`, all the way out. ✓
+`3` has no children, so both of its calls hit the base case and return
+without touching anything. The `[1,2,3]` slice unwinds back up through `3`,
+then `2` (whose `Right` is also `nil`), then `1`, and out. That's the whole
+trace.
 
 ![Step 4: 3's children are nil, unwind to return [1,2,3]](images/walkthrough-4.svg)
 
-**Complexity:** O(n) time — every node visited once, O(1) work each. O(h) space
-for the recursion stack (h = tree height), plus O(n) for the output slice.
+O(n) time, since every node gets visited once and does O(1) work. O(h) space
+for the recursion stack, where h is the tree's height, plus O(n) for the
+output slice itself.
 
-Full code: `easy_problems/101_200/binary_tree_preorder_traversal/` in the repo.
+The code lives at `easy_problems/101_200/binary_tree_preorder_traversal/` in
+the repo.
+
+#LeetCode #100DaysOfCode #CodingInterview #Algorithms #BinaryTree #Recursion #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

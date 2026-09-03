@@ -3,9 +3,12 @@
 **Binary Tree Preorder Traversal** (Easy)
 🔗 https://leetcode.com/problems/binary-tree-preorder-traversal/
 
-"Preorder" is the whole spec: visit the node itself, then its left subtree, then
-its right subtree. Recursion mirrors that definition directly — the trick in Go
-is threading the output slice through as both argument and return value, since
-`append` can reallocate its backing array.
+Preorder just means root before left before right, and that's the entire
+spec, no searching or comparing involved. Recursion mirrors it almost one to
+one: visit, then recurse left, then recurse right. The only real gotcha is
+Go-specific — `append` can reallocate its backing array, so the output slice
+has to come back as a return value instead of getting mutated in place.
 
 Full breakdown in today's newsletter article ⬇️
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #Algorithms #BinaryTree #Recursion

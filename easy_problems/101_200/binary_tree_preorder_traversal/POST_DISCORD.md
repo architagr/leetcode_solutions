@@ -2,15 +2,15 @@
 **Binary Tree Preorder Traversal** (Easy)
 🔗 https://leetcode.com/problems/binary-tree-preorder-traversal/
 
-**Intuition:** "Preorder" names the order directly — visit the node itself,
-then its left subtree, then its right subtree. Recursion mirrors that
-definition: visit, recurse left, recurse right. The Go-specific wrinkle is
-threading the output slice through as both argument and return value, since
-`append` can reallocate its backing array.
+Preorder is root first, then left subtree, then right subtree, full stop.
+Recursion mirrors that directly: visit, recurse left, recurse right. The part
+that's actually fiddly is Go-specific — `append` can reallocate its backing
+array, so the output slice has to be threaded through as both an argument and
+a return value, not just mutated in place and trusted to update.
 
 ![Example 1](images/1.png "Example1")
 
-**Full solution:**
+Full code:
 ```go
 func PreorderTraversal(root *TreeNode) []int {
 	arr := make([]int, 0)
@@ -35,22 +35,25 @@ func traversal(A *TreeNode, arr []int) []int {
 }
 ```
 
-**Walkthrough** on `[1,null,2,3]` (expected `[1,2,3]`):
-- `traversal(1)` appends `1` → `arr = [1]`
+Trace on `[1,null,2,3]` (expected output `[1,2,3]`):
+
+`traversal(1)` appends `1`, so `arr = [1]`.
 
 ![Step 1: visit root 1, arr becomes [1]](images/walkthrough-1.svg)
 
-- `1.Left` is nil (base case); `1.Right` is `2` → `traversal(2)` appends `2` →
-  `arr = [1,2]`
+`1.Left` is nil, that's the base case. `1.Right` is `2`, so `traversal(2)`
+appends `2` and `arr` becomes `[1,2]`.
 
 ![Step 2: 1.Left is nil, visit 2, arr becomes [1,2]](images/walkthrough-2.svg)
 
-- `2.Left` is `3` → `traversal(3)` appends `3` → `arr = [1,2,3]`
+`2.Left` is `3`, so `traversal(3)` appends `3`. Now `arr = [1,2,3]`.
 
 ![Step 3: visit 3 via 2.Left, arr becomes [1,2,3]](images/walkthrough-3.svg)
 
-- `3` has no children → unwind all the way back to the top → return `[1,2,3]` ✓
+`3` has no children, so it hits the base case on both sides and unwinds all
+the way back up through `2` and `1`. Final result: `[1,2,3]`.
 
 ![Step 4: 3's children are nil, unwind to return [1,2,3]](images/walkthrough-4.svg)
 
-O(n) time, O(h) space for recursion (plus O(n) for the output slice).
+O(n) time, O(h) space for the recursion stack, plus O(n) for the output
+slice.
