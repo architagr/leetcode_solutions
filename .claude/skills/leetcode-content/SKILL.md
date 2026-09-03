@@ -229,6 +229,13 @@ rewrite it.
       the end of the run, and continue with the rest of the pipeline; don't block the batch
       on it.
 
+      `challenge/hero_template.html` already has the CodeStreak Daily logo baked in (as a
+      base64 `<img>`, sourced originally from `/Users/architagarwal/CodeStreak Daily/codestreak_logo.png`)
+      alongside the LeetCode badge and author photo — every hero rendered from this template
+      is automatically branded, nothing extra to do per-question. This content series
+      publishes under the CodeStreak Daily newsletter specifically; the weekly golang
+      journal is a separate, unrelated newsletter and its logo should NOT be added here.
+
    k. Write `<folder>/POST_LINKEDIN_ARTICLE.md`: the long-form piece, styled as a
       LinkedIn Newsletter/Article edition. Header "365 Days of LeetCode Challenge — Day
       <day>/365", question title + LeetCode link, the FULL intuition write-up (based on
@@ -236,7 +243,21 @@ rewrite it.
       the FULL solution walkthrough with the real code (based on SOLUTION.md), and the
       companies list if `COMPANIES.md` was written. This is the actual content — the
       short post below just points people at it. Follow the "Writing style" section
-      above. End with a line of 5-8 hashtags (see hashtags note below step m).
+      above. End with a line of 5-8 hashtags (see hashtags note below step m), followed by
+      the AI-disclosure line (see below) as the very last thing in the file.
+
+      **AI disclosure (POST_LINKEDIN_ARTICLE.md only, after the hashtags):**
+      ```
+      ---
+
+      *Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the
+      code and problem statement.*
+      ```
+      This is deliberate, not a hedge against the "Writing style" work above — the two
+      aren't in tension. The prose should still read like a person wrote it; this line is
+      just an honest, low-key credit line, not a disclaimer plastered over the top. It
+      goes ONLY in the long-form article, not in POST_LINKEDIN.md (the short teaser) or
+      POST_DISCORD.md.
 
    l. Write `<folder>/POST_LINKEDIN.md`: a SHORT teaser/share post for the article above.
       Header "365 Days of LeetCode Challenge — Day <day>/365", question title + LeetCode
