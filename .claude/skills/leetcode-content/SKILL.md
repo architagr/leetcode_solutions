@@ -269,13 +269,45 @@ rewrite it.
       Follow the "Writing style" section above. End with a line of 5-8 hashtags (see
       hashtags note below).
 
-   m. Write `<folder>/POST_DISCORD.md`: header "365 Days of LeetCode Challenge — Day
-      <day>/365", a 2-3 line intuition summary, then the ENTIRE solution — the real code
-      in a fenced code block plus its walkthrough — using Discord markdown (`**bold**`,
-      `` ``` `` code fences for the code block). Unlike the LinkedIn split, Discord gets
-      the full content directly in one post; there's no separate "article" for Discord.
-      Follow the "Writing style" section above. No hashtag line here — hashtags are a
-      LinkedIn convention, not a Discord one.
+   m. Write `<folder>/POST_DISCORD.md`. **This file IS the exact Discord message** — the
+      poster subsystem posts its bytes verbatim, with no parsing, trimming or
+      transformation. Whatever is in this file is what lands in the channel, so it has to
+      satisfy Discord's own limits:
+
+      - **Hard cap: keep the whole file under 1900 characters.** Discord rejects a message
+        body over 2000, and the poster fails loudly rather than truncating mid-sentence.
+        Check the actual byte count before you finish (`wc -c <folder>/POST_DISCORD.md`).
+      - **No SVG embeds, and no image references at all.** Discord only previews
+        PNG/JPG/GIF/WEBP, so the `walkthrough-<n>.svg` diagrams cannot render there. Don't
+        reference them — the poster attaches `HERO.png` itself, and the walkthrough link
+        (below) is how people reach the diagrams. Markdown image syntax in this file just
+        shows up as raw noise in the channel.
+      - **The code block usually won't be the whole file.** Include the core function(s)
+        only — drop the `TreeNode` struct boilerplate, imports, and inline comments, which
+        the reader can get from the repo. If even the core function would bust the budget
+        (some solutions are 2000+ characters on their own), drop the code block entirely
+        and let the walkthrough link carry it. Never ship a file over the cap "because the
+        code needed it".
+
+      Structure, in order:
+      ```
+      **365 Days of LeetCode Challenge — Day <day>/365**
+      **<title>** (<difficulty>)
+      🔗 <leetcode url>
+
+      <2-3 line intuition, per the Writing style section>
+
+      ```go
+      <core function(s), or omit this block if it doesn't fit>
+      ```
+
+      Full walkthrough with step-by-step diagrams: <github blob url to that folder's SOLUTION.md>
+      ```
+
+      The GitHub link is what replaces the old "full content inline" approach — it points
+      at `https://github.com/architagr/leetcode_solutions/blob/main/<folder>/SOLUTION.md`,
+      where the SVG walkthrough diagrams do render. Follow the "Writing style" section
+      above. No hashtag line here — hashtags are a LinkedIn convention, not a Discord one.
 
       **Hashtags (POST_LINKEDIN_ARTICLE.md and POST_LINKEDIN.md only):** a single line of
       5-8 hashtags at the very end, mixing a few general ones (from e.g. `#DSA #LeetCode
