@@ -6,33 +6,30 @@
 
 ### The problem
 
-Given the root of a binary search tree (BST) that may contain duplicate values, return
-all the mode(s) — the value(s) that occur most frequently. If there's a tie, return all
-of them, in any order.
+You're given the root of a binary search tree that's allowed to have duplicate values,
+and you need to return the mode: whichever value (or values) show up most often. If
+there's a tie, all of the tied values come back, in any order.
 
 ### The intuition
 
-The "BST" in the name is a bit of a red herring for the approach used here. A mode is
-just "whichever value shows up most often," and the most direct way to answer that is to
-count how many times every value appears, then read off whichever value(s) hit the
-highest count. That's a frequency-table problem, and it works exactly the same whether
-the tree happens to be sorted or not.
+The "BST" in the name had me expecting to need the sorted order somehow, but the
+plainest fix ignores it completely. A mode is just whichever value shows up most, and
+the direct way to find that is to count every value's occurrences and read off whoever's
+on top. That's a frequency-table problem. It doesn't care whether the tree is sorted at
+all, and it would work the exact same way on any binary tree.
 
-So the approach splits into two clean phases:
+So I split it into two passes. First, walk the whole tree once and build a map from
+value to how many times it showed up. Left and right order doesn't matter here; every
+node just bumps its own counter. Second, once every count is known, scan the map for the
+highest count, then scan it again to collect every value that hits that count. That
+second scan is what makes ties work correctly: if two values are equally frequent, both
+come back instead of whichever one the map happened to hand you first.
 
-1. **Tally every value.** Walk the whole tree once and build a `map[int]int` from value
-   → occurrence count. This ignores left/right ordering entirely — every node just
-   increments its own value's counter.
-2. **Find the max, then collect the winners.** Once every value's count is known, scan
-   the map for the highest count, then scan it again to collect every value that hits
-   that count — handling ties naturally, since more than one value can be equally
-   frequent.
-
-The BST property (`left <= node <= right`) would actually let you solve this with an
-in-order traversal and O(1) extra space, by comparing each value to the one right before
-it in sorted order — that's exactly what the problem's follow-up question is hinting at.
-This implementation trades that space savings for simplicity: a plain hashmap tally is
-easy to reason about and get right, at the cost of O(n) extra space for the map.
+The BST property (`left <= node <= right`) does let you solve this in O(1) extra space,
+with an in-order traversal that compares each value to the one right before it in sorted
+order (that's what the problem's follow-up question is nudging you toward). I went with
+the hashmap version instead. It costs O(n) extra space for the map, but there's a lot
+less to get wrong, and for an easy problem that trade felt like the right one.
 
 ### The solution
 
@@ -82,36 +79,44 @@ func getCnt(root *TreeNode, data map[int]int) map[int]int {
 }
 ```
 
-Walking it through `root = [1,null,2,2]` — node `1` at the root with no left child, its
-right child is a `2`, and that `2`'s left child is another `2` (expected output `[2]`):
+Here's what happens on `root = [1,null,2,2]`: node `1` sits at the root with no left
+child, its right child is a `2`, and that `2` has its own left child, another `2`.
+Expected output is `[2]`.
 
-**Phase 1 — `getCnt` tallies every value:**
+**Phase 1: `getCnt` tallies every value**
 
-- `getCnt(1, data)`: `data[1]++` → `data = {1: 1}`.
+- `getCnt(1, data)` fires first: `data[1]++` sets `data = {1: 1}`.
 
 ![Step 1: getCnt visits the root, data becomes {1: 1}](images/walkthrough-1.svg)
 
-- `1.Left` is `nil`, so that branch returns immediately. `getCnt(2a, data)` (the right
-  child of `1`): `data[2]++` → `data = {1: 1, 2: 1}`.
+- `1.Left` is `nil`, so that branch returns immediately without touching anything.
+  `getCnt(2a, data)`, the right child of `1`, bumps its own key: `data[2]++` gives
+  `data = {1: 1, 2: 1}`.
 
 ![Step 2: getCnt visits 1's right child, data becomes {1: 1, 2: 1}](images/walkthrough-2.svg)
 
-- `getCnt(2b, data)` (the left child of `2a`): `data[2]++` again →
-  `data = {1: 1, 2: 2}`. `2b` has no children, so recursion bottoms out.
+- `getCnt(2b, data)`, the left child of `2a`, increments the same key again:
+  `data = {1: 1, 2: 2}`. `2b` has no children, so recursion just unwinds from here.
 
 ![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](images/walkthrough-3.svg)
 
-**Phase 2 — `findMode` finds the max, then collects the ties:**
+**Phase 2: `findMode` finds the max, then collects the ties**
 
 - First pass over `data`: the highest count seen is `cnt = 2`.
-- Second pass over `data`: only key `2` has `v == cnt`, so `res = [2]`.
+- Second pass over `data`: only key `2` matches, so `res = [2]`.
 
 ![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](images/walkthrough-4.svg)
 
-`return res` hands back `[2]`. ✓
+`return res` hands back `[2]`, which matches what the problem expects.
 
-**Complexity:** O(n) time — `getCnt` visits every node once, and each scan over `data`
-in `findMode` is O(n) in the worst case. O(n) space for the frequency map, plus O(h) for
-the recursion stack, where h is the tree's height.
+**Complexity:** O(n) time. `getCnt` visits every node once, and each scan over `data` in
+`findMode` costs O(n) in the worst case too. Space is O(n) for the frequency map, plus
+O(h) for the recursion stack, where h is the tree's height.
 
-Full code: `easy_problems/501_600/find_mode_in_binary_search_tree/` in the repo.
+Full code lives at `easy_problems/501_600/find_mode_in_binary_search_tree/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #Programming #BinarySearchTree #HashMap #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

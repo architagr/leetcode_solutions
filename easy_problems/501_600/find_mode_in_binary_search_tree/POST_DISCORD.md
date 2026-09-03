@@ -2,10 +2,10 @@
 **Find Mode in Binary Search Tree** (Easy)
 🔗 https://leetcode.com/problems/find-mode-in-binary-search-tree/
 
-**Intuition:** The "BST" part is a bit of a red herring here — the simplest approach
-ignores the ordering entirely and just tallies how many times every value occurs in a
-hashmap, then reads off whichever value(s) hit the highest count (handling ties, since
-there can be more than one mode).
+**Intuition:** The "BST" part is kind of beside the point here. The simplest approach
+ignores the ordering completely, tallies how many times every value shows up in a
+hashmap, then reads off whichever value (or values) hit the highest count. Ties get
+handled for free, since the second pass just grabs everything matching the max.
 
 ![Example 1](images/1.jpg "Example1")
 
@@ -54,8 +54,8 @@ func getCnt(root *TreeNode, data map[int]int) map[int]int {
 }
 ```
 
-**Walkthrough** on `[1,null,2,2]` (`1` at the root, right child `2`, that `2`'s left
-child another `2`; expected `[2]`):
+**Walkthrough** on `[1,null,2,2]`: `1` sits at the root, its right child is `2`, and
+that `2`'s left child is another `2`. Expected output is `[2]`.
 
 - `getCnt(1, data)` → `data = {1: 1}`
 
@@ -69,8 +69,9 @@ child another `2`; expected `[2]`):
 
 ![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](images/walkthrough-3.svg)
 
-- `findMode` scans for the max (`cnt = 2`), then collects every key matching it → `[2]`
+- `findMode` scans for the max (`cnt = 2`), then grabs every key that matches it →
+  `[2]`
 
 ![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](images/walkthrough-4.svg)
 
-O(n) time, O(n) space for the map (plus O(h) recursion stack).
+O(n) time, O(n) space for the map, plus O(h) for the recursion stack.
