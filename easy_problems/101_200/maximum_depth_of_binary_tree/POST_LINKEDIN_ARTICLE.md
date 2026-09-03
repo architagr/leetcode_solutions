@@ -6,32 +6,33 @@
 
 ### The problem
 
-Given the root of a binary tree, return its maximum depth — the number of nodes along
-the longest path from the root down to the farthest leaf.
+Given the root of a binary tree, find its maximum depth: the node count along the
+longest path from the root down to the farthest leaf.
 
 ### The intuition
 
-The "depth" of a binary tree is just its number of levels. If you could see the whole
-tree drawn out, the answer is the number of rows before the tree runs out of nodes.
+Depth here just means level count. Draw the tree on paper and count the rows before
+you run out of nodes, and that's your answer.
 
-The natural way to count rows is a **level-order (breadth-first) traversal**: visit all
-nodes at depth 1, then all nodes at depth 2, then depth 3, and so on, counting how many
-full rounds you complete before there's nothing left to visit.
+BFS is the obvious tool for counting rows: visit everything at depth 1, then everything
+at depth 2, then depth 3, and keep a tally of how many full rounds you get through
+before the queue runs dry.
 
-A BFS naturally processes nodes queue-by-queue, but a plain queue doesn't tell you
-*where one level ends and the next begins* — you'd just see a flat stream of nodes. The
-trick used here is to push a `nil` "sentinel" value right after the root, marking the
-end of the current level. Every time you pop a `nil` off the queue, you know you've
-just finished a full level: increment the depth counter, and (if there are still real
-nodes left in the queue) push a fresh `nil` sentinel to mark the end of the *next*
-level.
+The annoying part of a plain BFS is that the queue has no idea where one level ends and
+the next one starts. You just get a flat stream of nodes with no boundary markers. The
+fix I used here is a `nil` sentinel: push one into the queue right after the root.
+Popping a `nil` means a level just finished, so bump the depth counter, and if there's
+still real work left in the queue, drop in a fresh sentinel to mark the end of the next
+one.
 
-This turns "how many levels are there" into "how many sentinels did I pop", which is
-easy to track with a single counter and no extra bookkeeping about level sizes.
+That turns "how many levels does this tree have" into "how many sentinels did I pop,"
+and a single int handles the bookkeeping. No level-size tracking, no nested `for i := 0,
+size := len(queue); i < size; i++` loop like you see in a lot of BFS depth solutions.
+Just pop, check if it's nil, and move on.
 
 ### The solution
 
-Here's the tree from LeetCode's own example, which we'll trace below:
+Here's LeetCode's own example tree, which we'll trace below:
 
 ![Example tree](tmp-tree.jpg)
 
@@ -76,7 +77,7 @@ func maxDepth(root *TreeNode) int {
 }
 ```
 
-Walking it through `[3,9,20,null,null,15,7]` (expected depth `3`):
+Tracing it on `[3,9,20,null,null,15,7]` (expected depth `3`):
 - Queue starts `[3, nil]`. Pop `3` (real): push its children `9, 20` → queue `[nil, 9, 20]`.
 - Pop `nil` (level 1 done, `max=1`): queue not empty, push new sentinel → `[9, 20, nil]`.
 
@@ -90,11 +91,18 @@ Walking it through `[3,9,20,null,null,15,7]` (expected depth `3`):
 
 - Pop `15`, then `7` (both leaves) → `[nil]`.
 - Pop `nil` (level 3 done, `max=3`): queue empty, no new sentinel.
-- Return `max = 3`. ✓
+- Return `max = 3`, which matches.
 
   ![Level 3 complete: all nodes visited, max=3, loop ends](images/walkthrough-3.svg)
 
-**Complexity:** O(n) time — every node is enqueued/dequeued once. O(n) space in the
-worst case for the queue (a very wide, shallow tree).
+Runtime is O(n): every node gets enqueued and dequeued exactly once. Space is O(n) too
+in the worst case, since a very wide, shallow tree can have close to half its nodes
+sitting in the queue at the same time.
 
 Full code + tests: `easy_problems/101_200/maximum_depth_of_binary_tree/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #BinaryTree #BFS #Golang #CodingInterview #Algorithms
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

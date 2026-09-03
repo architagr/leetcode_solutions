@@ -2,9 +2,10 @@
 **Maximum Depth of Binary Tree** (Easy)
 🔗 https://leetcode.com/problems/maximum-depth-of-binary-tree/
 
-**Intuition:** Count tree levels via BFS. Push a `nil` sentinel after the root to mark
-"end of level" — popping it means a level's done, so bump the depth counter and push a
-fresh sentinel if there's more tree left.
+**Intuition:** count tree levels with BFS. Push a `nil` sentinel right after the root
+to mark "end of level." Popping it means a level just finished, so bump the depth
+counter and push a fresh sentinel if there's more tree left to walk. Beats tracking
+level sizes with a nested loop.
 
 Here's LeetCode's own example tree, which we'll trace below:
 
@@ -66,8 +67,9 @@ func maxDepth(root *TreeNode) int {
 
 - pop `15`, `7` (leaves) → `[nil]`
 - pop `nil` → level 3 done (`max=3`), queue empty, stop
-- **return 3** ✓
+- return 3, matches
 
 ![Level 3 complete: all nodes visited, max=3, loop ends](images/walkthrough-3.svg)
 
-O(n) time, O(n) worst-case space (wide, shallow tree).
+O(n) time, O(n) worst-case space for a wide, shallow tree where the queue can hold
+close to half the nodes at once.
