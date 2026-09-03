@@ -2,9 +2,10 @@
 **Convert Sorted Array to Binary Search Tree** (Easy)
 🔗 https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
 
-**Intuition:** Since the array's sorted, the middle element always has smaller values
-to its left and larger to its right. Pick it as root, recurse on both halves — the
-tree comes out balanced for free, no rebalancing needed.
+**Intuition:** since the array's sorted, the middle element always has smaller values
+to its left and larger to its right. Pick it as root, recurse on both halves, and the
+tree comes out balanced with no extra work. Kind of a nice freebie for an easy-rated
+problem.
 
 LeetCode's example for `[-10,-3,0,5,9]`:
 
@@ -43,7 +44,7 @@ func SortedArrayToBST(nums []int) *TreeNode {
 - right: `SortedArrayToBST([5,9])` → root `9`, left child `5`
 
   ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.svg)
-- **final tree:** `0` with left subtree `-3(-10)`, right subtree `9(5)` — matches
-  `[0,-3,9,-10,null,5]` ✓
+- **final tree:** `0` with left subtree `-3(-10)`, right subtree `9(5)`, matching
+  `[0,-3,9,-10,null,5]`.
 
-O(n) time, O(log n) recursion depth.
+O(n) time, since every element becomes one node. Recursion runs about O(log n) deep.

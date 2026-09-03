@@ -11,30 +11,30 @@ Given an integer array `nums` sorted in ascending order, convert it to a
 
 ### The intuition
 
-A height-balanced BST needs roughly equal numbers of elements on the left and right of
-every node. Since the input array is already **sorted**, that balance falls out almost
-for free: if you always pick the **middle element** of a sorted slice as a node's value,
-everything to its left is smaller (goes in the left subtree) and everything to its
-right is larger (goes in the right subtree) — and both halves are roughly the same
-size.
+A height-balanced BST needs the left and right side of every node to hold roughly the
+same number of elements. The array being **sorted** does most of that work for you:
+pick the **middle element** as a node's value, and everything smaller lands in the
+left subtree, everything bigger lands in the right, no comparisons required. What I
+like about this one is that you never touch a rotation or a balance factor anywhere in
+the code. The input handed you the split before you wrote a single line.
 
 So the approach is a straightforward divide-and-conquer:
 - Pick the middle element of the current slice as the root of this subtree.
 - Recurse on the left half to build the left subtree.
 - Recurse on the right half to build the right subtree.
-- An empty slice means "no subtree here" (`nil`).
+- An empty slice means there's no subtree here, so return `nil`.
 
-Because the recursion always splits the array roughly in half at each step, the
-resulting tree is automatically balanced — no rebalancing needed afterward.
+Because the recursion halves the array at every step, the tree comes out balanced by
+construction. There's nothing to fix up afterward.
 
 ### The solution
 
-LeetCode's own example illustrates the target shape for `nums = [-10,-3,0,5,9]`:
+LeetCode's own example shows the target shape for `nums = [-10,-3,0,5,9]`:
 
 ![Example 1](images/1.jpg "Example1")
 
-The trace below builds the alternate accepted shape `[0,-3,9,-10,null,5]`, shown in
-LeetCode's own alternative diagram:
+The trace below builds a different but equally valid shape, `[0,-3,9,-10,null,5]`,
+shown in LeetCode's alternative diagram:
 
 ![Alternative valid answer](images/2.jpg "Example1 alternative")
 
@@ -57,19 +57,25 @@ func SortedArrayToBST(nums []int) *TreeNode {
 ```
 
 Walking it through `nums = [-10,-3,0,5,9]`:
-- `mid = 2`, `root.Val = 0`.
+- `mid = 2`, so the root is `0`.
 
   ![Step 1: mid=2, root=0](images/walkthrough-1.svg)
-- Left: `SortedArrayToBST([-10,-3])` → root `-3` with left child `-10`.
+- The left half, `[-10,-3]`, becomes root `-3` with left child `-10`.
 
   ![Step 2: left half [-10,-3], mid=1, root=-3](images/walkthrough-2.svg)
-- Right: `SortedArrayToBST([5,9])` → root `9` with left child `5`.
+- The right half, `[5,9]`, becomes root `9` with left child `5`.
 
   ![Step 3: right half [5,9], mid=1, root=9](images/walkthrough-3.svg)
-- Final tree: `0` with left subtree `-3`(`-10`) and right subtree `9`(`5`) — matching
-  the example's accepted output shape `[0,-3,9,-10,null,5]`.
+- Put it together and you get `0` with left subtree `-3(-10)` and right subtree
+  `9(5)`. That's the same shape as the alternate accepted output `[0,-3,9,-10,null,5]`.
 
-**Complexity:** O(n) time — each element becomes exactly one node. O(log n) recursion
-depth plus O(n) for the output tree.
+**Complexity:** O(n) time, since every element becomes exactly one node. Recursion
+depth runs about O(log n), plus O(n) for the output tree itself.
 
 Full code: `easy_problems/101_200/convert_sorted_array_to_binary_search_tree/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #BinarySearchTree #Recursion #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
