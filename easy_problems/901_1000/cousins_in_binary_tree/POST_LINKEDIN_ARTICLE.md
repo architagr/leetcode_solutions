@@ -7,26 +7,27 @@
 ### The problem
 
 Given the root of a binary tree with unique values and two target values `x` and `y`,
-return `true` if the nodes holding those values are **cousins** — same depth, different
-parents — or `false` otherwise. The root is at depth `0`.
+return `true` if the nodes holding those values are **cousins**: same depth, different
+parents. Otherwise, `false`. The root sits at depth `0`.
 
 ### The intuition
 
-Being cousins is really two separate facts that both have to hold: same **depth**, and
-different **parents**. So the natural plan is to compute both facts for `x`, compute
-both facts for `y`, and compare.
+Cousins comes down to two separate facts that both have to be true: same depth,
+different parents. Once I saw that, the plan wrote itself: work out both facts for `x`,
+work out both facts for `y`, then compare them.
 
-Depth is easy — just count levels on the way down. Parent is the trickier one, because a
-plain binary tree has no parent pointers, and building a whole
-`map[*TreeNode]*TreeNode` just to answer one yes/no question feels like overkill. The
-problem's guarantee that every node has a **unique value** is the way out: a node's own
-`Val` can stand in for its identity, so instead of handing back a pointer to the parent,
-a helper can hand back the *parent's value* and compare those directly.
+Depth is the easy half, just count levels on the way down. Parent is where it gets
+interesting. A plain binary tree gives you no parent pointers, and building a whole
+`map[*TreeNode]*TreeNode` just to answer one yes-or-no question felt like using a
+hammer on a thumbtack. The way out is the problem's guarantee that every value is
+unique: a node's own `Val` can stand in for its identity, so instead of handing back a
+pointer to the parent, a helper can hand back the *parent's value* and compare those
+directly.
 
-That helper walks the tree checking each node's children *before* descending into them —
-that's the moment it's looking at a potential match from the parent's own vantage point,
-so it can capture the child's value as `parent` right then. Call it once for `x`, once
-for `y`, then check: same depth, different parent.
+So the helper checks each child's value before it ever recurses into that child.
+That's the one spot in the whole walk where you're looking at a potential match from
+the parent's own vantage point, so you can grab the child's value as `parent` right
+there. Call it once for `x`, once for `y`, check same depth and different parent, done.
 
 ### The solution
 
@@ -123,3 +124,9 @@ depth under different parents, exactly the definition of cousins.
   balanced, O(n) worst case for a skewed tree.
 
 Full code: `easy_problems/901_1000/cousins_in_binary_tree/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #DFS #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
