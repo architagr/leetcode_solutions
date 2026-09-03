@@ -11,23 +11,24 @@ between the values of any two different nodes in the tree.
 
 ### The intuition
 
-The key BST property to lean on: an **in-order traversal of a BST visits nodes in
-strictly increasing sorted order**. That's not a coincidence — it's the definition of
-a BST (left subtree < node < right subtree), applied recursively.
+The whole trick rides on one BST fact: walk the tree in-order (left, node, right) and
+the values come out in sorted order. That's not a clever discovery so much as just
+what the BST rule means once you apply it recursively at every node: left subtree
+smaller, right subtree bigger, all the way down.
 
-Once you know the values come out sorted, the rest is a classic fact about sorted
-arrays: the minimum absolute difference between *any* two elements always occurs
-between two **adjacent** elements in sorted order. You never need to compare a value
-against every other value in the tree — comparing it only to its immediate
-predecessor is enough, because any non-adjacent pair's gap is at least as large as the
-smallest adjacent gap between them.
+Once you know you're dealing with sorted values, an old fact about sorted arrays does
+the rest of the work for you: the smallest gap between any two values always sits
+between two neighbors. You don't need to check a value against every other value in
+the tree. Checking it against whatever came right before it is enough, because any gap
+between two non-neighbors can only be as large or larger than the smallest neighboring
+gap between them.
 
-So the algorithm becomes: do an in-order traversal, and as each node is visited,
-compare its value to the value of the *previous* node visited (its in-order
-predecessor) — not the previous one pushed onto a stack, and not its parent. Track the
-smallest such gap seen so far, and that's the answer. This turns an O(n²) all-pairs
-comparison into a single O(n) sweep, at the cost of remembering just one extra value
-(the previous node) as you go.
+So the algorithm mostly falls out on its own. Traverse in-order, and at each node
+compare its value to the value of whichever node was visited right before it, its
+in-order predecessor, not the parent, not whatever happens to be sitting on a stack.
+Keep the smallest gap seen so far and that's your answer. What I like about this one
+is how it turns an O(n²) all-pairs comparison into a single O(n) pass, and the only
+cost is remembering one extra pointer as you go.
 
 ### The solution
 
@@ -73,7 +74,7 @@ func getMinimumDifference(root *TreeNode) int {
 Walking it through `root = [4,2,6,1,3]`, whose in-order sequence is `1, 2, 3, 4, 6`
 (expected output `1`):
 
-- Descend all the way left to node `1`. `prev` is still `nil`, so the comparison is
+- Descend all the way left to node `1`. `prev` is still `nil`, so the comparison gets
   skipped, and `prev` becomes `1`.
 
   ![Step 1: descend to leftmost node 1, prev initialized](images/walkthrough-1.svg)
@@ -82,28 +83,37 @@ Walking it through `root = [4,2,6,1,3]`, whose in-order sequence is `1, 2, 3, 4,
 
   ![Step 2: at node 2, diff 2-1=1, res becomes 1](images/walkthrough-2.svg)
 
-- At node `3`: `prev` is `2`, so `res = min(1, 3-2) = 1` (unchanged), then `prev`
+- At node `3`: `prev` is `2`, so `res = min(1, 3-2) = 1` (no change), then `prev`
   becomes `3`.
 
   ![Step 3: at node 3, diff 3-2=1, res stays 1](images/walkthrough-3.svg)
 
-- Back up at the root, node `4`: `prev` is `3`, so `res = min(1, 4-3) = 1`
-  (unchanged), then `prev` becomes `4`.
+- Back up at the root, node `4`: `prev` is `3`, so `res = min(1, 4-3) = 1` (no change),
+  then `prev` becomes `4`.
 
   ![Step 4: back at root 4, diff 4-3=1, res stays 1](images/walkthrough-4.svg)
 
-- At node `6`: `prev` is `4`, so `res = min(1, 6-4) = min(1, 2) = 1` (unchanged), then
+- At node `6`: `prev` is `4`, so `res = min(1, 6-4) = min(1, 2) = 1` (no change), then
   `prev` becomes `6`. Traversal ends.
 
   ![Step 5: at node 6, diff 6-4=2, res stays 1 — final answer](images/walkthrough-5.svg)
 
 `getMinimumDifference` returns `res = 1`. ✓
 
-Notice the algorithm never explicitly sorts anything — the BST's in-order property
-does that for free, so each node only ever needs to be compared against the single
-node visited immediately before it.
+Nothing in here explicitly sorts anything. The BST's in-order property does that job
+for free, so each node only ever has to be checked against the one node that came
+right before it. That's the part I find satisfying about this problem, the sorting is
+basically hiding in plain sight in the traversal order and you don't have to go
+looking for it.
 
-**Complexity:** O(n) time — every node visited once. O(h) space for the recursion
-stack, where h is the tree height (O(log n) balanced, O(n) skewed).
+This runs in O(n) time since every node gets visited exactly once, and O(h) space for
+the recursion stack, where h is the tree's height. That's O(log n) for a balanced
+tree, O(n) if the tree is a straight line.
 
 Full code: `easy_problems/501_600/minimum_absolute_difference_in_bst/` in the repo.
+
+#LeetCode #100DaysOfCode #DSA #CodingInterview #BinarySearchTree #InOrderTraversal #Golang
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
