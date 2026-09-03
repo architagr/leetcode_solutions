@@ -11,35 +11,34 @@ elements in the tree add up to `k`, or `false` otherwise.
 
 ### The intuition
 
-Strip away the "BST" label for a moment and this is just the classic **Two Sum**
-problem: find two elements that add up to `k`. The one-pass array solution keeps a
-hash set of values seen so far and, for each new value `v`, checks whether `k - v`
-is already in the set. If it is, the matching pair has been found; otherwise `v` (or
-its complement) gets recorded for a future match.
+Take away the "BST" part and this is just Two Sum. The one-pass array version keeps
+a hash set of values seen so far, and for each new value `v` checks whether `k - v`
+is already in the set. If it is, you've got your pair. If not, you record `v` (or
+its complement) and move on.
 
-This solution ports that exact idea onto a tree by walking it with plain recursion
-(preorder: visit the node, then its left subtree, then its right subtree) instead of
-iterating an array. The one twist is *what* gets stored: instead of recording each
-visited value directly, the recursive helper stores that value's **complement**,
-`k - root.Val`, in a shared map. Then, for every new node, it checks whether the
-node's *own* value is already sitting in the map as someone else's complement. If it
-is, some earlier node `A` previously computed `k - A.Val == root.Val`, which
-rearranges to `A.Val + root.Val == k` — exactly the pair being searched for.
+This solution runs that same idea over a tree instead of an array, walking it
+preorder: visit the node, then the left subtree, then the right. The twist is what
+gets stored. Instead of remembering each value directly, the recursive helper stores
+that value's complement, `k - root.Val`, in a shared map. Then for every new node it
+checks whether the node's own value is already sitting in the map as someone else's
+complement. If it is, some earlier node `A` computed `k - A.Val == root.Val`, which
+rearranges to `A.Val + root.Val == k`. That's the pair.
 
-Because the map is a single object passed down through every recursive call (maps
-are reference types in Go), a match can be found across *any* two nodes in the tree
-— the complement recorded while visiting one branch is still visible when a
-completely different branch is visited later.
+The map gets passed down through every recursive call instead of getting recreated,
+and since Go maps are reference types, every call is reading and writing the same
+underlying storage. That's what lets a match surface between two branches that have
+nothing to do with each other. The complement recorded while visiting one branch is
+still sitting there when the walk reaches a totally different branch later on.
 
-Worth calling out: this approach completely ignores the fact that the tree is a
-**binary search tree**. A plain hash-set two-sum check works on any binary tree,
-sorted or not — the BST ordering isn't used anywhere. That's a valid, simpler choice
-than an in-order-traversal-plus-two-pointer approach that *does* exploit the
-ordering, but it trades away the ability to do the search with O(h) extra space
-instead of O(n).
+What I like about this one: it flat out ignores that the tree is a binary search
+tree. The ordering never gets used, anywhere. A plain hash-set two-sum check works
+just as well on an unsorted binary tree. It's a simpler approach than the
+in-order-traversal-plus-two-pointer trick that actually exploits the ordering, at
+the cost of O(n) space instead of O(h).
 
-**Complexity:** O(n) time — every node visited once. O(n) space for the hash map in
-the worst case, plus O(h) for the recursion stack, where `h` is the tree's height.
+**Complexity:** O(n) time, since every node gets visited once. O(n) space for the
+hash map in the worst case, plus O(h) for the recursion stack, where `h` is the
+tree's height.
 
 ### The solution
 
@@ -84,43 +83,47 @@ func find(root *TreeNode, k int, hashMap map[int]bool) bool {
 
 Walking it through `root = [5,3,6,2,4,null,7]`, `k = 9` (expected `true`):
 
-- **At node `5` (root).** The map is empty, so `5` isn't in it. Store the complement
+- At node `5`, the root. The map is empty, so `5` isn't in it. Store the complement
   it needs: `map[9-5] = map[4] = true`.
 
   ![Step 1: at root 5, map is empty, store complement 4](images/walkthrough-1.svg)
 
-- **Recurse left, into `3`.** `3` isn't in `{4}`. Store `map[9-3] = map[6] = true`.
+- Recurse left into `3`. Not in `{4}`. Store `map[9-3] = map[6] = true`.
 
   ![Step 2: at node 3, store complement 6](images/walkthrough-2.svg)
 
-  - **Recurse left, into `2` (a leaf).** `2` isn't in `{4, 6}`. Store
-    `map[9-2] = map[7] = true`. Both children are `nil`, so `find(2, ...)` returns
-    `false`.
+  - Recurse left into `2`, a leaf. Not in `{4, 6}`. Store `map[9-2] = map[7] = true`.
+    Both children are `nil`, so `find(2, ...)` returns `false`.
 
     ![Step 3: at leaf 2, store complement 7, returns false](images/walkthrough-3.svg)
 
-  - **Recurse right, into `4`.** `4` **is already in the map** (`{4, 6, 7}`) — it was
-    stored two levels up, while visiting `5`. `find(4, ...)` returns `true`
-    immediately, without recursing into `4`'s (nil) children. This is the actual pair:
-    `5 + 4 = 9`.
+  - Recurse right into `4`. This one's already sitting in the map (`{4, 6, 7}`),
+    stored two levels up while visiting `5`. `find(4, ...)` returns `true` right
+    away, no need to look at `4`'s (nil) children. That's the actual pair: `5 + 4 = 9`.
 
     ![Step 4: at node 4, 4 is already in the map -> match, returns true](images/walkthrough-4.svg)
 
-- **Recurse right, into `6`.** Because `left` and `right` are computed as two
-  separate statements at the root, `find(6, ...)` still runs even though the left
-  subtree already produced `true`. `6` **is also already in the map** (stored while
-  visiting `3`, since `9 - 3 = 6`) — another valid pair, `3 + 6 = 9`. `find(6, ...)`
-  returns `true` immediately, so `6`'s own right child `7` is never visited at all.
+- Recurse right into `6`. `left` and `right` are two separate statements at the
+  root, not a short-circuited `||`, so `find(6, ...)` runs anyway even though the
+  left subtree already found a match. Turns out `6` is also already in the map
+  (stored while visiting `3`, since `9 - 3 = 6`), a second valid pair: `3 + 6 = 9`.
+  `find(6, ...)` returns `true` immediately, so `7`, `6`'s own right child, never
+  gets visited.
 
   ![Step 5: at node 6, 6 is already in the map -> also a match, 7 is never visited](images/walkthrough-5.svg)
 
-- Back at the root: `left = true`, `right = true` → `return left || right` → `true`.
-  ✓ Matches the expected output.
+- Back at the root: `left = true`, `right = true`, so `return left || right` gives
+  `true`. Matches what the problem expects.
 
-This also shows why `findTarget([5,3,6,2,4,null,7], 28)` (the problem's second
-example) comes back `false`: the preorder walk visits every node — `5, 3, 2, 4, 6,
-7` — storing each one's complement (`23, 25, 26, 24, 22, 21`), and none of those six
-complements ever equals a node value that's visited afterward, so the match check
-never succeeds.
+Same walk explains why `findTarget([5,3,6,2,4,null,7], 28)` (the problem's second
+example) comes back `false`: the preorder walk hits every node (`5, 3, 2, 4, 6, 7`),
+storing each one's complement (`23, 25, 26, 24, 22, 21`), and none of those six ever
+equals a value the walk reaches afterward, so the match check never fires.
 
 Full code: `easy_problems/601_700/two_sum_iv_input_is_a_bst/` in the repo.
+
+#DSA #LeetCode #100DaysOfCode #BinarySearchTree #HashSet #Golang #CodingInterview #Algorithms
+
+---
+
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

@@ -3,11 +3,12 @@
 🔗 https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
 
 **Intuition:** Strip away the "BST" label and this is plain Two Sum. Walk the tree
-preorder, keeping a hash map of the **complements** each visited node still needs
-(`k - node.Val`). For every new node, check if its own value is already sitting in
-the map — if so, some earlier node's value plus this one's equals `k`. The map is
-shared across the whole recursion, so a match can be found between totally
-unrelated branches, not just siblings.
+preorder, keeping a hash map of the complements each node still needs
+(`k - node.Val`). For every new node, check whether its own value is already
+sitting in the map. If so, some earlier node's value plus this one equals `k`.
+The map is shared across the whole recursion, so a match can show up between
+totally unrelated branches, not just siblings, which is the part I find genuinely
+neat about this approach.
 
 ![Example 1](images/1.jpg "Example1")
 
@@ -51,28 +52,29 @@ func find(root *TreeNode, k int, hashMap map[int]bool) bool {
 
 **Walkthrough** on `[5,3,6,2,4,null,7]`, `k = 9` (expected `true`):
 
-- At `5` (root): map is empty → not found → store `k-5=4`
+- At `5` (root): map is empty, not found, store `k-5=4`
 
 ![Step 1: at root 5, map is empty, store complement 4](images/walkthrough-1.svg)
 
-- At `3`: not found → store `k-3=6`
+- At `3`: not found, store `k-3=6`
 
 ![Step 2: at node 3, store complement 6](images/walkthrough-2.svg)
 
-- At `2` (leaf): not found → store `k-2=7` → returns `false`
+- At `2` (leaf): not found, store `k-2=7`, returns `false`
 
 ![Step 3: at leaf 2, store complement 7, returns false](images/walkthrough-3.svg)
 
-- At `4`: **found** (`4` stored by `5`) → `5+4=9` → returns `true`
+- At `4`: found (`4` was stored by `5`), so `5+4=9`, returns `true`
 
 ![Step 4: at node 4, 4 is already in the map -> match, returns true](images/walkthrough-4.svg)
 
-- At `6`: right subtree still runs even though left already found `true` (no
-  short-circuit) → **found** (`6` stored by `3`) → `3+6=9` → also `true`, and `7`
-  is never visited
+- At `6`: right subtree still runs even though left already found `true`, no
+  short-circuit here, and `6` was stored by `3` so it's found too: `3+6=9`, also
+  `true`, and `7` never gets visited
 
 ![Step 5: at node 6, 6 is already in the map -> also a match, 7 is never visited](images/walkthrough-5.svg)
 
 `true || true` → **true** ✓
 
-O(n) time, O(n) space for the map + O(h) for the recursion stack.
+O(n) time, O(n) space for the map plus O(h) for the recursion stack. Simple trick,
+and it never even looks at the fact that this is a BST.
