@@ -30,7 +30,7 @@ No specific output expected — just confirming `go` is on PATH and the module r
 - Create: `challenge/internal/slugutil/slugutil.go`
 - Test: `challenge/internal/slugutil/slugutil_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package slugutil
@@ -67,12 +67,12 @@ func TestRangeBucket(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/slugutil/...`
 Expected: FAIL — `undefined: FolderName` (package doesn't exist yet)
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 ```go
 // Package slugutil converts LeetCode question slugs and numbers into this
@@ -102,12 +102,12 @@ func RangeBucket(number int) string {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `go test ./challenge/internal/slugutil/...`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add challenge/internal/slugutil
@@ -122,7 +122,7 @@ git commit -m "feat(challenge): add slugutil package for slug/range math"
 - Create: `challenge/internal/queue/queue.go`
 - Test: `challenge/internal/queue/queue_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package queue
@@ -198,12 +198,12 @@ func TestSaveLoadRoundTrip(t *testing.T) {
 
 (`NextDay` is 3, not 2, because `Append` increments it — `Queue{NextDay: 2}` + one `Append` = `NextDay: 3`, consistent with `TestAppendAssignsDayAndIncrements` above.)
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/queue/...`
 Expected: FAIL — package doesn't exist yet
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 ```go
 // Package queue manages challenge/queue.yaml, the ordered, resumable
@@ -295,12 +295,12 @@ func (q *Queue) Append(e Entry) int {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `go test ./challenge/internal/queue/...`
 Expected: PASS
 
-- [ ] **Step 5: Add yaml.v3 as a direct dependency and commit**
+- [x] **Step 5: Add yaml.v3 as a direct dependency and commit**
 
 ```bash
 go mod tidy
@@ -318,7 +318,7 @@ git commit -m "feat(challenge): add queue package for challenge/queue.yaml"
 - Create: `challenge/companies_dataset.md`
 - Test: `challenge/internal/companies/companies_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package companies
@@ -358,12 +358,12 @@ func TestLoadAndLookup(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/companies/...`
 Expected: FAIL — package doesn't exist yet
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 ```go
 // Package companies looks up which companies are known to have asked a
@@ -409,12 +409,12 @@ func (d Dataset) Lookup(number int) []string {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `go test ./challenge/internal/companies/...`
 Expected: PASS
 
-- [ ] **Step 5: Seed the vendored dataset file and its refresh notes**
+- [x] **Step 5: Seed the vendored dataset file and its refresh notes**
 
 `challenge/companies_dataset.json`:
 ```json
@@ -437,7 +437,7 @@ content-gen agent's `COMPANIES.md` output is best-effort: if a question
 number has no entry here, that file is simply not generated.
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add challenge/internal/companies challenge/companies_dataset.json challenge/companies_dataset.md
@@ -452,7 +452,7 @@ git commit -m "feat(challenge): add companies lookup package and vendored datase
 - Create: `challenge/internal/gitmap/gitmap.go`
 - Test: `challenge/internal/gitmap/gitmap_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package gitmap
@@ -587,12 +587,12 @@ func TestLoadMissingFile(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/gitmap/...`
 Expected: FAIL — package doesn't exist yet
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 ```go
 // Package gitmap builds and maintains a LeetCode question number →
@@ -721,12 +721,12 @@ func folderForCommit(repoDir, sha string) (string, bool) {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `go test ./challenge/internal/gitmap/...`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add challenge/internal/gitmap
@@ -741,7 +741,7 @@ git commit -m "feat(challenge): add gitmap package to derive number->folder from
 - Create: `challenge/internal/resolver/resolver.go`
 - Test: `challenge/internal/resolver/resolver_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package resolver
@@ -823,12 +823,12 @@ func TestFuzzyFind(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/resolver/...`
 Expected: FAIL — package doesn't exist yet
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 ```go
 // Package resolver locates where (if anywhere) an already-solved
@@ -923,12 +923,12 @@ func FuzzyFind(repoRoot, slug string) (Location, bool) {
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `go test ./challenge/internal/resolver/...`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add challenge/internal/resolver
@@ -943,7 +943,7 @@ git commit -m "feat(challenge): add resolver package to locate solved questions 
 - Create: `challenge/internal/reorg/reorg.go`
 - Test: `challenge/internal/reorg/reorg_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package reorg
@@ -1027,12 +1027,12 @@ func TestMoveNoOpWhenAlreadyCanonical(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/reorg/...`
 Expected: FAIL — package doesn't exist yet
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 ```go
 // Package reorg relocates an already-solved question's folder from a
@@ -1077,12 +1077,12 @@ func Move(repoRoot, fromPath, difficulty string, number int, slug string) (strin
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `go test ./challenge/internal/reorg/...`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add challenge/internal/reorg
@@ -1097,7 +1097,7 @@ git commit -m "feat(challenge): add reorg package to git-mv solutions into canon
 - Create: `challenge/internal/leetcode/leetcode.go`
 - Test: `challenge/internal/leetcode/leetcode_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package leetcode
@@ -1179,12 +1179,12 @@ func TestFetchQuestionContent(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/leetcode/...`
 Expected: FAIL — package doesn't exist yet
 
-- [ ] **Step 3: Write minimal implementation**
+- [x] **Step 3: Write minimal implementation**
 
 ```go
 // Package leetcode is a minimal client for LeetCode's public (unofficial,
@@ -1352,12 +1352,12 @@ func (c *Client) doGraphQL(query string, variables map[string]any, out any) erro
 }
 ```
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `go test ./challenge/internal/leetcode/...`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add challenge/internal/leetcode
@@ -1373,7 +1373,7 @@ git commit -m "feat(challenge): add leetcode GraphQL client for problem list + q
 - Create: `challenge/hero_template.html`
 - Test: `challenge/internal/hero/hero_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package hero
@@ -1420,12 +1420,12 @@ func TestRenderHTMLRealTemplate(t *testing.T) {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/hero/...`
 Expected: FAIL — package and template file don't exist yet
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 ```go
 // Package hero renders the "365 Days of LeetCode Challenge" hero image
@@ -1481,7 +1481,7 @@ func Screenshot(htmlPath, outPath string) error {
 }
 ```
 
-- [ ] **Step 4: Write the hero template**
+- [x] **Step 4: Write the hero template**
 
 `challenge/hero_template.html`:
 ```html
@@ -1527,12 +1527,12 @@ func Screenshot(htmlPath, outPath string) error {
 
 Note: the badge is a stylized "LC" mark rather than a reproduction of LeetCode's actual logo artwork, to avoid vendoring a third-party trademarked image asset. Swap in the real logo file later if desired by adding an `<img>` tag pointing at a vendored asset.
 
-- [ ] **Step 5: Run tests to verify they pass**
+- [x] **Step 5: Run tests to verify they pass**
 
 Run: `go test ./challenge/internal/hero/...`
 Expected: PASS
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add challenge/internal/hero challenge/hero_template.html
@@ -1547,7 +1547,7 @@ git commit -m "feat(challenge): add hero package and hero-image HTML template"
 - Create: `challenge/internal/cli/cli.go`
 - Test: `challenge/internal/cli/cli_test.go`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 ```go
 package cli
@@ -1671,7 +1671,7 @@ func heroDataFixture() (d struct {
 }
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `go test ./challenge/internal/cli/...`
 Expected: FAIL — package doesn't exist yet, and the anonymous struct fixture won't match `hero.Data`'s type
@@ -1686,7 +1686,7 @@ func heroDataFixture() hero.Data {
 
 (add `"leetcode_solutions/challenge/internal/hero"` to the test file's imports)
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 ```go
 // Package cli holds the orchestration logic behind each leetcodectl
@@ -1834,12 +1834,12 @@ func FetchQuestion(slug string) (leetcode.Question, error) {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `go test ./challenge/internal/cli/...`
 Expected: PASS
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add challenge/internal/cli
@@ -1853,7 +1853,7 @@ git commit -m "feat(challenge): add cli package orchestrating resolve/reorg/queu
 **Files:**
 - Create: `challenge/cmd/leetcodectl/main.go`
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 ```go
 // Command leetcodectl is the deterministic-logic half of the
@@ -2038,12 +2038,12 @@ func fail(err error) {
 }
 ```
 
-- [ ] **Step 2: Build it**
+- [x] **Step 2: Build it**
 
 Run: `go build -o /tmp/leetcodectl ./challenge/cmd/leetcodectl`
 Expected: no output, exit code 0
 
-- [ ] **Step 3: Manually verify a couple of subcommands end-to-end**
+- [x] **Step 3: Manually verify a couple of subcommands end-to-end**
 
 Run: `/tmp/leetcodectl resolve '{"repoRoot":".","mapPath":"challenge/number_folder_map.yaml","number":965,"difficulty":"easy","slug":"univalued-binary-tree"}'`
 Expected (note `canonical: true` — the `omitempty` tag only drops it when `false`):
@@ -2059,7 +2059,7 @@ Expected (note `canonical: true` — the `omitempty` tag only drops it when `fal
 Run: `/tmp/leetcodectl queue-has '{"queuePath":"challenge/queue.yaml","number":1}'`
 Expected: `{"has": false}` (queue.yaml doesn't exist yet — created in Task 11)
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add challenge/cmd/leetcodectl
@@ -2074,7 +2074,7 @@ git commit -m "feat(challenge): add leetcodectl CLI binary wiring cli package to
 - Create: `challenge/queue.yaml`
 - Create: `challenge/number_folder_map.yaml`
 
-- [ ] **Step 1: Create the empty queue**
+- [x] **Step 1: Create the empty queue**
 
 `challenge/queue.yaml`:
 ```yaml
@@ -2082,7 +2082,7 @@ next_day: 1
 entries: []
 ```
 
-- [ ] **Step 2: Create the empty git-history cache**
+- [x] **Step 2: Create the empty git-history cache**
 
 `challenge/number_folder_map.yaml`:
 ```yaml
@@ -2090,7 +2090,7 @@ last_scanned_commit: ""
 map: {}
 ```
 
-- [ ] **Step 3: Verify `leetcodectl` reads them correctly**
+- [x] **Step 3: Verify `leetcodectl` reads them correctly**
 
 Run: `/tmp/leetcodectl queue-has '{"queuePath":"challenge/queue.yaml","number":1}'`
 Expected: `{"has": false}`
@@ -2098,7 +2098,7 @@ Expected: `{"has": false}`
 Run: `/tmp/leetcodectl gitmap-update '{"repoRoot":".","mapPath":"challenge/number_folder_map.yaml"}'`
 Expected: JSON with `"updated"` equal to however many `Type(Number) Title`-style commits exist in this repo's history, and a non-empty `"newestCommit"`.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add challenge/queue.yaml challenge/number_folder_map.yaml
@@ -2112,7 +2112,7 @@ git commit -m "feat(challenge): seed empty queue.yaml and number_folder_map.yaml
 **Files:**
 - Create: `.claude/skills/leetcode-content/SKILL.md`
 
-- [ ] **Step 1: Write the skill**
+- [x] **Step 1: Write the skill**
 
 `.claude/skills/leetcode-content/SKILL.md`:
 ```markdown
@@ -2313,7 +2313,7 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
   are skipped, so partial batches (e.g. "10 of 30 done this week") resume cleanly.
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add .claude/skills/leetcode-content/SKILL.md
@@ -2327,7 +2327,7 @@ git commit -m "feat: add /leetcode-content skill orchestrating the content-gen p
 **Files:**
 - Create: `challenge/README.md`
 
-- [ ] **Step 1: Write the docs**
+- [x] **Step 1: Write the docs**
 
 `challenge/README.md`:
 ```markdown
@@ -2367,7 +2367,7 @@ go test ./challenge/...
 ```
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add challenge/README.md
