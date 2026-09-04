@@ -29,7 +29,7 @@ func RenderHTML(templatePath string, data Data) (string, error) {
 		return "", err
 	}
 	var buf bytes.Buffer
-	if err := tmpl.Execute(&buf, data); err != nil {
+	if err := tmpl.Execute(&buf, view{Data: data, Palette: PaletteFor(data.Day)}); err != nil {
 		return "", err
 	}
 	return buf.String(), nil
@@ -53,4 +53,59 @@ func Screenshot(htmlPath, outPath string) error {
 		return fmt.Errorf("playwright screenshot: %w: %s", err, out)
 	}
 	return nil
+}
+
+// Palette is one hero card's background gradient.
+//
+// Only the background varies between days. The brand marks — the
+// LeetCode-orange accent, the logo badge, the newsletter mark, the
+// author avatar, the type and the layout — are fixed in the template,
+// so a reader recognises the series at a glance while still seeing that
+// today's post is a new one.
+type Palette struct {
+	Name string
+	From string
+	To   string
+}
+
+// Palettes are the backgrounds a hero card rotates through, all dark
+// enough that white text and the #ffa116 accent clear WCAG AA on both
+// gradient stops (enforced by TestPalettesKeepBrandTextReadable).
+//
+// Hues stay away from the orange/yellow/brown end: the accent has to
+// stay obviously the accent, and an orange-on-brown card would blunt the
+// one colour doing the branding.
+var Palettes = []Palette{
+	{Name: "midnight", From: "#1a1a2e", To: "#16213e"},
+	{Name: "ocean", From: "#0b1e33", To: "#14406b"},
+	{Name: "teal", From: "#0d2427", To: "#12414a"},
+	{Name: "forest", From: "#102419", To: "#17402c"},
+	{Name: "plum", From: "#241429", To: "#3f2050"},
+	{Name: "wine", From: "#2b1220", To: "#4a1c33"},
+	{Name: "slate", From: "#1b2027", To: "#2d3743"},
+	{Name: "indigo", From: "#191634", To: "#2b2270"},
+}
+
+// PaletteFor picks the background for a given challenge day.
+//
+// It rotates rather than picking at random: random can repeat two days
+// running, which is the exact confusion this is meant to remove, and it
+// would make re-rendering a day produce a different image than the one
+// already posted. Rotating guarantees len(Palettes) distinct days in a
+// row and is reproducible.
+func PaletteFor(day int) Palette {
+	i := (day - 1) % len(Palettes)
+	if i < 0 {
+		i += len(Palettes)
+	}
+	return Palettes[i]
+}
+
+// view is what the template actually renders against: the caller's Data
+// plus the palette derived from it. Deriving it here rather than asking
+// callers to pass it means no caller can forget and render a card with
+// no background.
+type view struct {
+	Data
+	Palette Palette
 }

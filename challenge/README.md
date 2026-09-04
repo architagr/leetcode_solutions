@@ -18,7 +18,16 @@ Design doc: `docs/superpowers/specs/2026-08-30-leetcode-content-gen-agent-design
 - `companies_dataset.json` / `companies_dataset.md` — vendored, manually-refreshed
   company-tag data (see `companies_dataset.md` for how to refresh it).
 - `hero_template.html` — the HTML template rendered + screenshotted into each post's
-  `HERO.png`.
+  `HERO.png` by `leetcodectl hero-generate`. The intermediate HTML goes to a temp file and
+  is deleted, so `HERO.png` is the only hero artifact in a solution folder.
+
+  The card's background gradient rotates through `hero.Palettes` (eight dark themes) by
+  day, so two posts in a row don't read as the same post sent twice. It's derived from the
+  day rather than drawn at random: random can repeat back-to-back, and re-rendering a day
+  would then produce a different image than the one already published. Everything that
+  does the branding — the `#ffa116` accent, the logos, the type, the layout — is fixed
+  across every palette, and `TestPalettesKeepBrandTextReadable` holds each one to WCAG AA
+  contrast for the card's text, so a new palette can't quietly make a card unreadable.
 
 ## One-time setup
 

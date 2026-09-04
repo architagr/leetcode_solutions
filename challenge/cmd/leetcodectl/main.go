@@ -138,6 +138,17 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return map[string]string{"outPath": in.OutPath}, nil
 
+	case "hero-generate":
+		var in struct {
+			TemplatePath string    `json:"templatePath"`
+			OutPath      string    `json:"outPath"`
+			Data         hero.Data `json:"data"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		return cli.HeroGenerate(in.TemplatePath, in.Data, in.OutPath)
+
 	case "hero-screenshot":
 		var in struct {
 			HTMLPath string `json:"htmlPath"`

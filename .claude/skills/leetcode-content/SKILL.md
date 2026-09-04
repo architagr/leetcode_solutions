@@ -96,7 +96,7 @@ rewrite it.
 3. **For each problem, in that sorted order:**
 
    If any `leetcodectl` call in this loop (other than the two failure modes explicitly
-   handled below — unresolved `resolve`, failed `hero-screenshot`) exits non-zero or
+   handled below — unresolved `resolve`, failed `hero-generate`) exits non-zero or
    returns unparseable output: stop processing THIS problem only, note it in the
    end-of-run summary with the error message, and continue to the next problem in the
    list. Never let one problem's failure abort the whole batch, and never silently
@@ -107,7 +107,7 @@ rewrite it.
    is the point of no return.** Once it succeeds, `queue-has` will report this number as
    already queued on every future run — there is no "un-append" operation. So a failure
    in any of steps (j) through (n) — hero rendering (other than the already-handled
-   `hero-screenshot` case, which is non-fatal by design), writing the post drafts, or the
+   `hero-generate` case, which is non-fatal by design), writing the post drafts, or the
    final `git commit` — leaves a permanently "claimed" queue entry with incomplete or
    missing content, which a future re-run will silently skip forever rather than retry.
    If this happens: do NOT treat it as a normal per-problem skip. Call it out prominently
@@ -189,16 +189,20 @@ rewrite it.
         focused (one state snapshot, not the whole trace) — a reader should be able to see
         at a glance what changed since the previous step.
 
-      **Every walkthrough SVG must be exported to PNG**, same basename, beside it:
+      **Every walkthrough SVG must be exported to PNG**, same basename, into the folder's
+      `images/` directory — and the SVG itself must not be left there. Draw the SVGs in a
+      temp directory, convert, then delete them:
       ```bash
       rsvg-convert -w 1200 --keep-aspect-ratio -b white \
-        -o <folder>/images/walkthrough-<n>.png <folder>/images/walkthrough-<n>.svg
+        -o <folder>/images/walkthrough-<n>.png /tmp/walkthrough-<n>.svg
       ```
       **Reference the `.png` everywhere — SOLUTION.md, POST_LINKEDIN_ARTICLE.md, all of
       it. Never embed the `.svg`.** LinkedIn's article editor rejects SVG uploads outright,
       and an SVG that's subtly malformed fails silently as a broken image rather than
-      erroring, which is how a batch of them once shipped broken. The SVG stays in the
-      folder as the editable source; the PNG is what every document points at.
+      erroring, which is how a batch of them once shipped broken. Since nothing references
+      the SVG, keeping it in the solution folder only adds a second copy of every diagram
+      for readers to trip over — the PNG is the artifact. (The trade: a diagram that needs
+      changing later gets redrawn rather than edited.)
 
       After exporting, confirm nothing is cut off at the edges — text that overflows the
       `viewBox` gets clipped mid-sentence in both formats:
@@ -215,10 +219,10 @@ rewrite it.
       convert to PNG. Use a single hyphen or an en dash for a parenthetical instead. After
       writing the SVGs, verify every one parses before moving on:
       ```bash
-      python3 -c "import xml.etree.ElementTree as ET,glob,sys; [ET.parse(f) for f in glob.glob('<folder>/images/*.svg')]" && echo "all SVGs valid"
+      python3 -c "import xml.etree.ElementTree as ET,glob,sys; [ET.parse(f) for f in glob.glob('/tmp/walkthrough-*.svg')]" && echo "all SVGs valid"
       ```
 
-      Reuse the same example images and walkthrough SVGs in the LinkedIn article (k) and
+      Reuse the same example images and walkthrough PNGs in the LinkedIn article (k) and
       Discord post (m) too — both carry the full solution walkthrough, so both should be
       visual for the same reasons, not just SOLUTION.md.
 
@@ -250,13 +254,21 @@ rewrite it.
 
    j. Render and screenshot the hero image, using the real `day` from step (i):
       ```bash
-      /tmp/leetcodectl hero-render-html '{"templatePath":"challenge/hero_template.html","outPath":"<folder>/HERO.html","data":{"Day":<day>,"Total":365,"Topic":"<list-name>","Difficulty":"<difficulty>","Title":"<title>"}}'
-      /tmp/leetcodectl hero-screenshot '{"htmlPath":"<folder>/HERO.html","outPath":"<folder>/HERO.png"}'
+      /tmp/leetcodectl hero-generate '{"templatePath":"challenge/hero_template.html","outPath":"<folder>/HERO.png","data":{"Day":<day>,"Total":365,"Topic":"<list-name>","Difficulty":"<difficulty>","Title":"<title>"}}'
       ```
-      If `hero-screenshot` fails (e.g. Playwright/Chromium isn't installed — see
-      `challenge/README.md`), leave `HERO.html` in place, note the failure to the user at
-      the end of the run, and continue with the rest of the pipeline; don't block the batch
-      on it.
+      `hero-generate` renders the HTML to a temp file, screenshots it, and deletes it.
+      **`HERO.png` is the only hero artifact that belongs in a solution folder** — never
+      write `HERO.html` there. If the command fails (e.g. Playwright/Chromium isn't
+      installed — see `challenge/README.md`), it keeps the rendered HTML in the temp dir
+      and names that path in the error; report the failure to the user at the end of the
+      run and continue with the rest of the pipeline, don't block the batch on it.
+
+      The card's background colour comes from `hero.PaletteFor(day)`, which rotates through
+      eight dark gradients so consecutive days don't look like the same post re-sent. It's
+      derived from the day, not random, so re-rendering a day reproduces its image. Every
+      other element — the orange accent, the logos, the type, the layout — is fixed, and
+      that's the branding; don't vary it per day. Adding a palette means adding it to
+      `hero.Palettes`, where a test enforces WCAG AA contrast for the card's text.
 
       `challenge/hero_template.html` already has the CodeStreak Daily logo baked in (as a
       base64 `<img>`, sourced originally from `/Users/architagarwal/CodeStreak Daily/codestreak_logo.png`)

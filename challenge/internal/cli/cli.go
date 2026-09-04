@@ -120,6 +120,54 @@ func CompaniesLookup(datasetPath string, number int) ([]string, error) {
 	return ds.Lookup(number), nil
 }
 
+// screenshot is a seam so tests can exercise HeroGenerate's file
+// handling without a real browser. Production always uses the real one.
+var screenshot = hero.Screenshot
+
+// HeroGenerateResult reports where the hero image landed.
+type HeroGenerateResult struct {
+	OutPath string `json:"outPath"`
+	Palette string `json:"palette"`
+}
+
+// HeroGenerate renders the hero template and screenshots it to outPath
+// in one step, rendering the intermediate HTML to a temp file rather
+// than next to the PNG.
+//
+// A solution folder is read by people browsing the repo, and a 65KB
+// HTML file full of base64 logos next to the image it produced is noise:
+// once the PNG exists the HTML has no readers. On failure the HTML is
+// kept and named in the error, since it's the only way to debug what the
+// browser was given — but in the temp dir, not the solution folder.
+func HeroGenerate(templatePath string, data hero.Data, outPath string) (HeroGenerateResult, error) {
+	html, err := hero.RenderHTML(templatePath, data)
+	if err != nil {
+		return HeroGenerateResult{}, fmt.Errorf("rendering hero HTML: %w", err)
+	}
+
+	tmp, err := os.CreateTemp("", fmt.Sprintf("hero-day-%d-*.html", data.Day))
+	if err != nil {
+		return HeroGenerateResult{}, fmt.Errorf("creating temp hero HTML: %w", err)
+	}
+	tmpPath := tmp.Name()
+	if _, err := tmp.WriteString(html); err != nil {
+		tmp.Close()
+		os.Remove(tmpPath)
+		return HeroGenerateResult{}, fmt.Errorf("writing temp hero HTML: %w", err)
+	}
+	if err := tmp.Close(); err != nil {
+		os.Remove(tmpPath)
+		return HeroGenerateResult{}, fmt.Errorf("closing temp hero HTML: %w", err)
+	}
+
+	if err := screenshot(tmpPath, outPath); err != nil {
+		return HeroGenerateResult{}, fmt.Errorf("screenshotting hero (rendered HTML kept at %s): %w", tmpPath, err)
+	}
+	os.Remove(tmpPath)
+
+	return HeroGenerateResult{OutPath: outPath, Palette: hero.PaletteFor(data.Day).Name}, nil
+}
+
 // HeroRenderHTML renders the hero template with data and writes it to
 // outPath.
 func HeroRenderHTML(templatePath string, data hero.Data, outPath string) error {

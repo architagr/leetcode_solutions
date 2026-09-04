@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -527,4 +528,98 @@ func TestPostDiscordAllowSameDayOverridesTheGuard(t *testing.T) {
 	if !res.Posted || res.Day != 2 {
 		t.Errorf("result = %+v, want the guard overridden and day 2 posted", res)
 	}
+}
+
+func TestHeroGenerateLeavesNoHTMLBehind(t *testing.T) {
+	folder := t.TempDir()
+	tmplPath := filepath.Join(t.TempDir(), "t.html")
+	if err := os.WriteFile(tmplPath, []byte(`Day {{.Day}} {{.Palette.Name}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	outPath := filepath.Join(folder, "HERO.png")
+
+	var gotHTML string
+	restore := stubScreenshot(func(htmlPath, out string) error {
+		// The HTML must still exist while the browser needs it.
+		b, err := os.ReadFile(htmlPath)
+		if err != nil {
+			return err
+		}
+		gotHTML = string(b)
+		return os.WriteFile(out, []byte("fake-png"), 0o644)
+	})
+	defer restore()
+
+	res, err := HeroGenerate(tmplPath, hero.Data{Day: 5, Title: "Balanced Binary Tree"}, outPath)
+	if err != nil {
+		t.Fatalf("HeroGenerate: %v", err)
+	}
+	if res.OutPath != outPath {
+		t.Errorf("OutPath = %q, want %q", res.OutPath, outPath)
+	}
+	if want := "Day 5 " + hero.PaletteFor(5).Name; gotHTML != want {
+		t.Errorf("screenshotted HTML = %q, want %q", gotHTML, want)
+	}
+	if _, err := os.Stat(outPath); err != nil {
+		t.Errorf("PNG not written: %v", err)
+	}
+
+	entries, err := os.ReadDir(folder)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, e := range entries {
+		if strings.HasSuffix(e.Name(), ".html") {
+			t.Errorf("%s left behind in the solution folder; only HERO.png belongs there", e.Name())
+		}
+	}
+}
+
+func TestHeroGenerateKeepsTheHTMLWhenTheScreenshotFails(t *testing.T) {
+	folder := t.TempDir()
+	tmplPath := filepath.Join(t.TempDir(), "t.html")
+	if err := os.WriteFile(tmplPath, []byte(`Day {{.Day}}`), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	restore := stubScreenshot(func(htmlPath, out string) error {
+		return fmt.Errorf("playwright is not installed")
+	})
+	defer restore()
+
+	_, err := HeroGenerate(tmplPath, hero.Data{Day: 5}, filepath.Join(folder, "HERO.png"))
+	if err == nil {
+		t.Fatal("HeroGenerate: err = nil, want the screenshot failure")
+	}
+	// The rendered HTML is the only way to debug a screenshot failure, so
+	// it survives — but outside the solution folder, which stays clean.
+	kept := heroHTMLPathFromError(t, err)
+	if _, statErr := os.Stat(kept); statErr != nil {
+		t.Errorf("HTML kept for debugging is missing: %v", statErr)
+	}
+	if strings.HasPrefix(kept, folder) {
+		t.Errorf("kept HTML %q is inside the solution folder", kept)
+	}
+}
+
+// heroHTMLPathFromError pulls the retained HTML path out of the error
+// message, which is the only place a caller learns about it.
+func heroHTMLPathFromError(t *testing.T, err error) string {
+	t.Helper()
+	for _, field := range strings.Fields(err.Error()) {
+		field = strings.TrimRight(field, "):,.")
+		if strings.HasSuffix(field, ".html") {
+			return field
+		}
+	}
+	t.Fatalf("error %q names no .html file to debug with", err)
+	return ""
+}
+
+// stubScreenshot swaps in a fake browser for one test and returns the
+// restore func.
+func stubScreenshot(fn func(htmlPath, outPath string) error) func() {
+	prev := screenshot
+	screenshot = fn
+	return func() { screenshot = prev }
 }
