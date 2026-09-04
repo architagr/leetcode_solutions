@@ -56,7 +56,7 @@ place to post means adding a key to `queue.KnownDestinations`; no migration need
 
 ### Discord — automatic
 
-`.github/workflows/discord-daily-post.yml` runs daily at 03:30 UTC (09:00 IST) and posts
+`.github/workflows/discord-daily-post.yml` runs daily at 03:22 UTC (08:52 IST) and posts
 the oldest entry not yet on Discord, attaching that day's `HERO.png`. The message body is
 the day's `POST_DISCORD.md`, sent verbatim — that file is written to be exactly what lands
 in the channel, so it must stay under Discord's 2000-character limit and must not
@@ -69,6 +69,14 @@ relying on the cron.
 
 The queue is only written after Discord accepts the message, so a failed run leaves the
 day unclaimed and the next run retries it instead of skipping ahead.
+
+GitHub's scheduled runs are best-effort — the 03:30 UTC slot once fired at 08:09 UTC — so
+the workflow carries four hourly crons on an odd minute (03:22, 04:22, 05:22, 06:22 UTC)
+rather than one. Doubling up is prevented in code, not by luck: a run that finds a day
+already posted to Discord on the same UTC calendar day exits without posting, so whichever
+cron lands first sends the day and the rest are no-ops. To post a second day on purpose
+(catching up after a missed day), run the workflow by hand with the `force` input, or pass
+`"force":true` locally.
 
 Run it locally against a real or fake webhook:
 

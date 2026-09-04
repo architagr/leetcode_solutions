@@ -1,13 +1,28 @@
 name: Discord daily post
 
 # Posts one queued challenge entry per day to Discord, oldest first.
-# workflow_dispatch is here so the first run (and any retry after a
-# failure) can be triggered by hand without waiting for the cron.
+#
+# GitHub's scheduled runs are best-effort and are queued hardest on round
+# times, so a single cron at :30 has drifted by hours (2026-09-04 fired at
+# 08:09 UTC for an 03:30 slot). Two defences: the crons sit on an odd
+# minute away from the top of the hour, and there are several of them
+# acting as retries. Posting is guarded server-side by the same-day check
+# in PostDiscord, so whichever cron lands first posts and the rest are
+# no-ops — extra crons can only make the post earlier, never double it.
 on:
   schedule:
-    # 03:30 UTC = 09:00 IST
-    - cron: "30 3 * * *"
+    # 03:22 UTC = 08:52 IST — the intended slot.
+    - cron: "22 3 * * *"
+    # Retries, in case GitHub delays or drops the one above.
+    - cron: "22 4 * * *"
+    - cron: "22 5 * * *"
+    - cron: "22 6 * * *"
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Post even if a day already went out today (manual catch-up)"
+        type: boolean
+        default: false
 
 # Needed to push the queue.yaml update back to the repo.
 permissions:
@@ -32,9 +47,10 @@ jobs:
       - name: Post the next queued day to Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          FORCE: ${{ inputs.force && 'true' || 'false' }}
         run: |
           go run ./challenge/cmd/leetcodectl post-discord \
-            '{"repoRoot":".","queuePath":"challenge/queue.yaml"}' | tee result.json
+            "{\"repoRoot\":\".\",\"queuePath\":\"challenge/queue.yaml\",\"force\":${FORCE}}" | tee result.json
 
       - name: Commit the queue update
         run: |
@@ -47,4 +63,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add challenge/queue.yaml
           git commit -m "chore(challenge): mark Day ${day} posted to Discord"
-          git push
+          # main can have moved on since checkout (a manual commit, an
+          # earlier run). Rebase onto it rather than failing the run and
+          # leaving the queue marked locally but not in the repo.
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "push attempt ${attempt} failed; retrying"
+            sleep 5
+          done
+          echo "could not push the queue update after 3 attempts" >&2
+          exit 1

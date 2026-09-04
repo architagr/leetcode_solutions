@@ -174,6 +174,9 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		var in struct {
 			RepoRoot  string `json:"repoRoot"`
 			QueuePath string `json:"queuePath"`
+			// Force posts even though a day already went out today. The
+			// daily cron leaves it off; it's for a manual catch-up.
+			Force bool `json:"force"`
 		}
 		if err := json.Unmarshal(payload, &in); err != nil {
 			return nil, err
@@ -185,7 +188,11 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		if webhookURL == "" {
 			return nil, fmt.Errorf("DISCORD_WEBHOOK_URL is not set")
 		}
-		return cli.PostDiscord(in.RepoRoot, in.QueuePath, webhookURL)
+		var opts []cli.PostOption
+		if in.Force {
+			opts = append(opts, cli.AllowSameDay())
+		}
+		return cli.PostDiscord(in.RepoRoot, in.QueuePath, webhookURL, opts...)
 
 	case "linkedin-batch":
 		var in struct {

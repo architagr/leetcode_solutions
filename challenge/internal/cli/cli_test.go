@@ -441,3 +441,90 @@ func TestMarkPostedRejectsUnknownDestination(t *testing.T) {
 		t.Fatal("an unknown destination should be rejected, not silently written")
 	}
 }
+
+// postDiscordFixture writes a repo with two queued days, day 1 already on
+// Discord at postedAt, and returns the repo root and queue path.
+func postDiscordFixture(t *testing.T, postedAt time.Time) (repoRoot, queuePath string) {
+	t.Helper()
+	repoRoot = t.TempDir()
+	for _, folder := range []string{"p/one", "p/two"} {
+		if err := os.MkdirAll(filepath.Join(repoRoot, folder), 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(repoRoot, folder, "POST_DISCORD.md"), []byte("msg "+folder), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	queuePath = filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 1, Folder: "p/one"})
+	q.Append(queue.Entry{Number: 2, Folder: "p/two"})
+	q.MarkPosted(1, queue.DestinationDiscord, postedAt)
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+	return repoRoot, queuePath
+}
+
+func TestPostDiscordSkipsWhenADayAlreadyWentOutToday(t *testing.T) {
+	repoRoot, queuePath := postDiscordFixture(t, time.Now().UTC())
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		t.Error("a second run the same day must not call the webhook")
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	res, err := PostDiscord(repoRoot, queuePath, server.URL)
+	if err != nil {
+		t.Fatalf("a same-day rerun must not be an error: %v", err)
+	}
+	if res.Posted {
+		t.Errorf("result = %+v, want Posted false", res)
+	}
+	if !strings.Contains(res.Message, "already") {
+		t.Errorf("message = %q, want it to explain the skip", res.Message)
+	}
+
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.Entries[1].IsPosted(queue.DestinationDiscord) {
+		t.Error("day 2 must stay unposted after a skipped run")
+	}
+}
+
+func TestPostDiscordPostsAgainOnTheNextDay(t *testing.T) {
+	repoRoot, queuePath := postDiscordFixture(t, time.Now().UTC().AddDate(0, 0, -1))
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	res, err := PostDiscord(repoRoot, queuePath, server.URL)
+	if err != nil {
+		t.Fatalf("PostDiscord: %v", err)
+	}
+	if !res.Posted || res.Day != 2 {
+		t.Errorf("result = %+v, want a posted day 2", res)
+	}
+}
+
+func TestPostDiscordAllowSameDayOverridesTheGuard(t *testing.T) {
+	repoRoot, queuePath := postDiscordFixture(t, time.Now().UTC())
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusNoContent)
+	}))
+	defer server.Close()
+
+	res, err := PostDiscord(repoRoot, queuePath, server.URL, AllowSameDay())
+	if err != nil {
+		t.Fatalf("PostDiscord: %v", err)
+	}
+	if !res.Posted || res.Day != 2 {
+		t.Errorf("result = %+v, want the guard overridden and day 2 posted", res)
+	}
+}

@@ -147,6 +147,21 @@ func FetchQuestion(slug string) (leetcode.Question, error) {
 	return leetcode.NewClient().FetchQuestionContent(slug)
 }
 
+// PostOption tweaks a post-discord run. The zero set of options is the
+// scheduled behaviour; every option here exists for a hand-run override.
+type PostOption func(*postConfig)
+
+type postConfig struct {
+	allowSameDay bool
+}
+
+// AllowSameDay lets a run post even though a day already went out today.
+// Only for a deliberate manual catch-up after a missed day — the daily
+// cron must never pass it.
+func AllowSameDay() PostOption {
+	return func(c *postConfig) { c.allowSameDay = true }
+}
+
 // PostDiscordResult reports what a post-discord run did. Posted is false
 // on an idle day, when every queued entry has already gone to Discord.
 type PostDiscordResult struct {
@@ -165,10 +180,32 @@ type PostDiscordResult struct {
 // failed post leaves the day unclaimed and the next run retries it
 // rather than skipping ahead — the day sequence is the whole point of
 // the queue.
-func PostDiscord(repoRoot, queuePath, webhookURL string) (PostDiscordResult, error) {
+func PostDiscord(repoRoot, queuePath, webhookURL string, opts ...PostOption) (PostDiscordResult, error) {
+	var cfg postConfig
+	for _, opt := range opts {
+		opt(&cfg)
+	}
+
 	q, err := queue.Load(queuePath)
 	if err != nil {
 		return PostDiscordResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+	}
+
+	// One post a day is the whole shape of the challenge, so a run that
+	// finds today's day already sent is a no-op rather than the next day
+	// going out early. Without this, a cron GitHub delayed past midnight
+	// and then fired again on schedule would burn two days in one day.
+	if !cfg.allowSameDay {
+		if already, ok := discordpost.PostedOn(q, queue.DestinationDiscord, time.Now()); ok {
+			return PostDiscordResult{
+				Posted: false,
+				Day:    already.Day,
+				Number: already.Number,
+				Title:  already.Title,
+				Message: fmt.Sprintf("nothing to post: day %d already went to Discord today (%s)",
+					already.Day, *already.PostedAt[queue.DestinationDiscord]),
+			}, nil
+		}
 	}
 
 	entry, ok := discordpost.SelectNext(q, queue.DestinationDiscord)
