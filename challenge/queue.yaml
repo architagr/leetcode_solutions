@@ -21,9 +21,9 @@ entries:
       status: content_ready
       posted_at:
         discord: "2026-09-04T05:31:13Z"
-        linkedin_company_page: null
-        linkedin_group: null
-        linkedin_main_account: null
+        linkedin_company_page: "2026-09-04T17:37:08Z"
+        linkedin_group: "2026-09-04T17:37:08Z"
+        linkedin_main_account: "2026-09-04T17:37:06Z"
     - day: 3
       number: 257
       title: Binary Tree Paths
@@ -32,7 +32,7 @@ entries:
       batch: binary tree
       status: content_ready
       posted_at:
-        discord: "2026-09-04T08:09:30Z"
+        discord: "2026-09-05T08:09:30Z"
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
