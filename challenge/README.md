@@ -29,6 +29,20 @@ Design doc: `docs/superpowers/specs/2026-08-30-leetcode-content-gen-agent-design
   across every palette, and `TestPalettesKeepBrandTextReadable` holds each one to WCAG AA
   contrast for the card's text, so a new palette can't quietly make a card unreadable.
 
+## Commit messages
+
+Commits here carry no AI attribution: no `Co-Authored-By: Claude ...` trailer, no
+"Generated with Claude Code" line, no 🤖. The work publishes under Archit Agarwal's name on
+his own channels, and the commit log is part of that.
+
+`.githooks/commit-msg` enforces it — a message mentioning Claude, Anthropic or "generated
+with" fails the commit. It's versioned rather than left in `.git/hooks` so it can be
+reviewed and travels with the repo, but Git won't wire it up on a fresh clone by itself:
+
+```bash
+git config core.hooksPath .githooks    # once per clone
+```
+
 ## One-time setup
 
 ```bash
