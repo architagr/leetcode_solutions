@@ -39,12 +39,6 @@ func parse(node *TreeNode, parentSum int) int {
 3. Add that sum to current node's value
 4. Continue to left subtree with updated sum
 
-## Execution Example
-
-**Step 1:** Start traversal at root - process right subtree first to accumulate sums from larger values
-
-![Step 1: Reverse in-order traversal](images/walkthrough-1038.png)
-
 ## Complexity
 
 - **Time:** O(n) — visit each node once

@@ -41,12 +41,6 @@ func rev(l, r *TreeNode, d int) {
 4. Recurse: pass left.Right and right.Left (swapped to maintain mirror)
 5. Base case: stop when l == nil
 
-## Execution Example
-
-**Step 1:** Compare nodes at mirrored positions, swap values at odd levels (level 1 is odd for the children of root)
-
-![Step 1: Mirrored node comparison](images/walkthrough-2415.png)
-
 ## Complexity
 
 - **Time:** O(n) — visit each node once

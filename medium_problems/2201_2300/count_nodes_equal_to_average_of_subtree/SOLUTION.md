@@ -47,12 +47,6 @@ func averageOfSubtree(root *TreeNode) int {
 5. Check if node.val equals sum/count (integer division)
 6. Return sum and count for parent to use
 
-## Execution Example
-
-**Step 1:** Start at root - compute subtree sums and counts bottom-up using post-order traversal
-
-![Step 1: Post-order traversal](images/walkthrough-2265.png)
-
 ## Complexity
 
 - **Time:** O(n) — visit each node once
