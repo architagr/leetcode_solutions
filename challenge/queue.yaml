@@ -1,4 +1,4 @@
-next_day: 29
+next_day: 30
 entries:
     - day: 1
       number: 104
@@ -329,6 +329,18 @@ entries:
       title: Evaluate Boolean Binary Tree
       difficulty: easy
       folder: easy_problems/2301_2400/evaluate_boolean_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 29
+      number: 222
+      title: Count Complete Tree Nodes
+      difficulty: medium
+      folder: medium_problems/201_300/count_complete_tree_nodes
       batch: binary tree
       status: content_ready
       posted_at:

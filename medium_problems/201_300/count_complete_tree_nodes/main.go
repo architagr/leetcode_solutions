@@ -12,7 +12,9 @@ func countNodes(root *TreeNode) int {
 		return 0
 	}
 
+	// Count nodes in both subtrees
 	rightCount := countNodes(root.Right)
 	leftCount := countNodes(root.Left)
+	// Include the root itself
 	return rightCount + leftCount + 1
 }
