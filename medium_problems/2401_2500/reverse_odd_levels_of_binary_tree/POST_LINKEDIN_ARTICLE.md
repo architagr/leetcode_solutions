@@ -24,6 +24,10 @@ Key: don't rearrange the tree structure, just swap node values.
 
 ## Solution Walkthrough
 
+### Diagram
+
+![Reverse Odd Levels](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/images/walkthrough-2415.png?raw=true)
+
 ### Approach: Level-Wise Recursion with Mirroring
 
 Traverse the tree level-by-level, comparing nodes at mirrored positions. For odd levels, swap their values.

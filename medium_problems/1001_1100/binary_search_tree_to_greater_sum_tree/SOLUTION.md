@@ -4,6 +4,10 @@
 
 To convert each node, add the sum of all greater nodes to it. We achieve this using reverse in-order traversal (right-to-left), maintaining a running cumulative sum.
 
+## Diagram
+
+![BST to Greater Sum Tree](images/walkthrough-1038.png)
+
 ## Code
 
 ```go

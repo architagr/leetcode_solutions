@@ -26,6 +26,10 @@ func countNodes(root *TreeNode) int {
 3. Add 1 for the current node
 4. Return the total
 
+## Walkthrough
+
+![Count Complete Tree Nodes Diagram](images/walkthrough-222.png)
+
 ## Example Trace
 
 For the tree `[1,2,3,4,5,6]`:

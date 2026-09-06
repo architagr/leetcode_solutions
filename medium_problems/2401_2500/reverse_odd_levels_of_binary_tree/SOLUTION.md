@@ -4,6 +4,10 @@
 
 Traverse the tree level-by-level, comparing nodes at mirrored positions. For odd levels, swap their values.
 
+## Diagram
+
+![Reverse Odd Levels](images/walkthrough-2415.png)
+
 ## Code
 
 ```go

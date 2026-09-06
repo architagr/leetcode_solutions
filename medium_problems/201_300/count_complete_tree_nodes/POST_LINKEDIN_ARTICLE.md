@@ -34,6 +34,10 @@ The current implementation uses the simple O(n) approach, which is correct and s
 
 ## Solution Walkthrough
 
+### Diagram
+
+![Count Complete Tree Nodes Diagram](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-222.png?raw=true)
+
 ### Approach: Recursive Traversal
 
 To count nodes in a tree, count the nodes in the right subtree, count the nodes in the left subtree, and add 1 for the root.

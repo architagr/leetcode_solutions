@@ -24,6 +24,10 @@ This works because in a BST, the right subtree has all values greater than the c
 
 ## Solution Walkthrough
 
+### Diagram
+
+![BST to Greater Sum Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/walkthrough-1038.png?raw=true)
+
 ### Approach: Reverse In-Order Traversal with Running Sum
 
 To convert each node, add the sum of all greater nodes to it. We achieve this using reverse in-order traversal (right-to-left), maintaining a running cumulative sum.

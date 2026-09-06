@@ -24,6 +24,10 @@ The key: process children first, so by the time we're at a node, we already know
 
 ## Solution Walkthrough
 
+### Diagram
+
+![Count Nodes Equal to Average](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/images/walkthrough-2265.png?raw=true)
+
 ### Approach: Post-Order Traversal with Sum and Count
 
 To count nodes equal to their subtree's average, compute each subtree's sum and count. A recursive function returns both values, allowing us to check each node.
