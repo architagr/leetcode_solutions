@@ -1,4 +1,4 @@
-next_day: 30
+next_day: 33
 entries:
     - day: 1
       number: 104
@@ -341,6 +341,42 @@ entries:
       title: Count Complete Tree Nodes
       difficulty: medium
       folder: medium_problems/201_300/count_complete_tree_nodes
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 30
+      number: 1038
+      title: Binary Search Tree to Greater Sum Tree
+      difficulty: medium
+      folder: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 31
+      number: 2265
+      title: Count Nodes Equal to Average of Subtree
+      difficulty: medium
+      folder: medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 32
+      number: 2415
+      title: Reverse Odd Levels of Binary Tree
+      difficulty: medium
+      folder: medium_problems/2401_2500/reverse_odd_levels_of_binary_tree
       batch: binary tree
       status: content_ready
       posted_at:
