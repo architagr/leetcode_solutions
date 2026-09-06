@@ -1,5 +1,7 @@
 # Solution Walkthrough
 
+The implementation uses reverse in-order traversal with a running sum to convert each node.
+
 ## Approach: Reverse In-Order Traversal with Running Sum
 
 To convert each node, add the sum of all greater nodes to it. We achieve this using reverse in-order traversal (right-to-left), maintaining a running cumulative sum.
@@ -29,14 +31,23 @@ func parse(node *TreeNode, parentSum int) int {
 }
 ```
 
-**Traversal order:** Right → Node → Left (reverse in-order)
+**Key insight:** Visit nodes right-to-left (largest to smallest). When we visit a node, add the accumulated sum from all greater nodes.
 
-1. Recursively traverse to the rightmost node
-2. On the way back, accumulate the current node's value into a running sum
-3. Add that sum to each node we visit
-4. Continue to the left subtree with the updated sum
+**Algorithm:**
+1. Recursively traverse to rightmost node
+2. On return, accumulate node's value into running sum
+3. Add that sum to current node's value
+4. Continue to left subtree with updated sum
+
+## Execution Example
+
+**Step 1:** Start traversal at root - process right subtree first to accumulate sums from larger values
+
+![Step 1: Reverse in-order traversal](images/walkthrough-1038.png)
 
 ## Complexity
 
 - **Time:** O(n) — visit each node once
-- **Space:** O(h) — recursion depth
+- **Space:** O(h) — recursion stack depth (where h is height)
+
+Note: This is O(log n) space for balanced BSTs, O(n) for skewed trees.

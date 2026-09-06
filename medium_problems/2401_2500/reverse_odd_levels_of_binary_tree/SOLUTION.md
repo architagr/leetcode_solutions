@@ -1,5 +1,7 @@
 # Solution Walkthrough
 
+The implementation compares nodes at mirrored positions recursively, swapping their values at odd levels only.
+
 ## Approach: Level-Wise Recursion with Mirroring
 
 Traverse the tree level-by-level, comparing nodes at mirrored positions. For odd levels, swap their values.
@@ -24,19 +26,30 @@ func rev(l, r *TreeNode, d int) {
     if d%2 == 1 {
         l.Val, r.Val = r.Val, l.Val
     }
-    // Recurse into children, swapping the pointers to maintain mirror
+    // Recurse into children, swapping pointers to maintain mirror
     rev(l.Left, r.Right, d+1)
     rev(l.Right, r.Left, d+1)
 }
 ```
 
+**Key insight:** Perfect binary tree nodes at mirrored positions are at the same level. Swap values at odd levels only, maintain mirror relationship by swapping child pointers.
+
 **Algorithm:**
-1. Start with the left and right children of root (level 1)
-2. If the level is odd, swap their values
-3. Recurse: pass left.Left and right.Right (continuing the mirror)
-4. Recurse: pass left.Right and right.Left (swapped to maintain mirror relationship)
+1. Start with left and right children of root (level 1)
+2. If level is odd, swap their values
+3. Recurse: pass left.Left and right.Right (continuing mirror)
+4. Recurse: pass left.Right and right.Left (swapped to maintain mirror)
+5. Base case: stop when l == nil
+
+## Execution Example
+
+**Step 1:** Compare nodes at mirrored positions, swap values at odd levels (level 1 is odd for the children of root)
+
+![Step 1: Mirrored node comparison](images/walkthrough-2415.png)
 
 ## Complexity
 
 - **Time:** O(n) — visit each node once
-- **Space:** O(h) — recursion depth
+- **Space:** O(h) — recursion stack depth (where h is height)
+
+Note: Perfect binary tree has height log(n), so space is O(log n).
