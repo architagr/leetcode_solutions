@@ -222,13 +222,8 @@ Before marking a problem complete, verify:
         prose — reference the local `images/<n>.<ext>` path. Don't regenerate an example
         that LeetCode's own statement already illustrates well.
       - **Never use ASCII art trees or diagrams.** Use visual images only (example images + walkthrough diagrams).
-      - For the parts of the walkthrough LeetCode doesn't illustrate — the data structure's
-        state as the algorithm progresses (stack/queue contents, tree pointers, DP table
-        fill order, etc.) — create walkthrough diagrams (as PNG, not ASCII), saved to
-        `<folder>/images/walkthrough-<n>.png` (1-based, in step order), and embed each
-        inline at the point in SOLUTION.md that narrates that step. Keep each diagram small and
-        focused (one state snapshot, not the whole trace) — a reader should be able to see
-        at a glance what changed since the previous step.
+      - **Do NOT create walkthrough diagrams that are just ASCII art trees rendered as images** — that wastes tokens and space. Create diagrams ONLY if they show actual algorithm progression (state changes, data structure contents evolving, etc.) that cannot be explained clearly in prose. For tree problems, reference the LeetCode example image instead.
+      - For tree/graph traversal algorithms where the visual state change is essential (e.g., level-by-level order, stack/queue contents changing), create proper walkthrough diagrams showing algorithm progression, saved to `<folder>/images/walkthrough-<n>.png` (1-based, in step order). Keep each diagram small and focused (one state snapshot) — reader should see at a glance what changed since previous step.
 
       **Every walkthrough SVG must be exported to PNG**, same basename, into the folder's
       `images/` directory — and the SVG itself must not be left there. Draw the SVGs in a
