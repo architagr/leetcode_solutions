@@ -1,4 +1,4 @@
-last_scanned_commit: 2ec24b38c265fc4909978e3d41582a251af5b95c
+last_scanned_commit: aca6f6fda7b7121b0cba47b33d6af9b8f2aec003
 map:
     55: google_questions/dynamic_programming/jump_game
     80: google_questions/array_strings/remove_duplicates_from_sorted_array_ii
@@ -36,6 +36,7 @@ map:
     993: easy_problems/901_1000/cousions_in_binary_tree
     1022: easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers
     1031: medium_problems/1001_1100/maximum_sum_of_two_non_overlapping_subarrays
+    1038: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
     1052: medium_problems/1001_1100/grumpy_bookstore_owner
     1208: medium_problems/1201_1300/get_equal_substrings_within_budget
     1248: medium_problems/1201_1300/count_number_of_nice_subarrays
@@ -55,9 +56,11 @@ map:
     2024: medium_problems/2001_2100/maximize_the_confusion_of_an_exam
     2134: medium_problems/2101_2200/minimum_swaps_to_group_all_1s_together_ii
     2256: medium_problems/2201_2300/minimum_average_difference
+    2265: medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree
     2269: easy_problems/2201_2300/find_the_k_beauty_of_a_number
     2331: easy_problems/2301_2400/evaluate_boolean_binary_tree
     2379: easy_problems/2301_2400/minimum_recolors_to_get_k_consecutive_black_blocks
+    2415: medium_problems/2401_2500/reverse_odd_levels_of_binary_tree
     2460: easy_problems/2401_2500/apply_operation_to_an_array
     2461: medium_problems/2401_2500/maximum_sum_of_distinct_subarrays_with_length_k
     2485: easy_problems/2401_2500/find-the-pivot-integer
