@@ -12,6 +12,9 @@ Note: The average of n elements is the sum of the n elements divided by n and ro
 ## Examples
 
 **Example 1:**
+
+![Example tree](images/example.jpg)
+
 ```
 Input: root = [4,8,5,0,1,null,6]
 Output: 5
