@@ -1,94 +1,78 @@
 # Solution Walkthrough
 
-## Approach: Recursive Traversal
+The implementation is `countNodes(root *TreeNode) int` in `main.go`. We'll trace it on LeetCode's example:
 
-This solution uses a simple recursive approach: to count nodes in a tree, count the nodes in the right subtree, count the nodes in the left subtree, and add 1 for the root.
+![Example tree from LeetCode](images/example.jpg)
 
-## Code Breakdown
+1. **Base case.** If `root == nil`, there are no nodes, so return `0`.
 
-```go
-func countNodes(root *TreeNode) int {
-    if root == nil {
-        return 0
-    }
-    
-    rightCount := countNodes(root.Right)
-    leftCount := countNodes(root.Left)
-    return rightCount + leftCount + 1
-}
+2. **Recursively count right subtree.** `rightCount := countNodes(root.Right)` descends into the right child and counts all nodes in that subtree.
+
+3. **Recursively count left subtree.** `leftCount := countNodes(root.Left)` descends into the left child and counts all nodes in that subtree.
+
+4. **Combine.** Add the two subtree counts plus 1 for the current node: `return rightCount + leftCount + 1`.
+
+Walking through `[1,2,3,4,5,6]`:
+
+- `countNodes(1)`: Call on root node 1.
+
+  ![Step 1: Processing root node 1](images/walkthrough-1.png)
+
+- Recursively process `root.Right` (node 3): node 3 has no children, so `countNodes(3)` returns `0 + 0 + 1 = 1`.
+
+  ![Step 2: Right subtree (node 3) counted as 1 node](images/walkthrough-2.png)
+
+- Recursively process `root.Left` (node 2):
+  - `countNodes(2)` calls `countNodes(2.Right)` (node 5) → returns `1`
+  - Then calls `countNodes(2.Left)` (node 4) → returns `1`
+  - Returns `1 + 1 + 1 = 3`
+
+- Back at root: combine all counts.
+  - `rightCount = 1` (from node 3)
+  - `leftCount = 3` (from subtree rooted at node 2)
+  - return `1 + 3 + 1 = 5`
+
+Wait, the tree has 6 nodes, not 5. Let me retrace: the tree is `[1,2,3,4,5,6]`:
+
 ```
-
-**Base case:** If we reach a nil node, there are no nodes to count, so return 0.
-
-**Recursive case:** 
-1. Count all nodes in the right subtree by recursively calling `countNodes(root.Right)`
-2. Count all nodes in the left subtree by recursively calling `countNodes(root.Left)`
-3. Add 1 for the current node
-4. Return the total
-
-## Walkthrough
-
-![Count Complete Tree Nodes Diagram](images/walkthrough-222.png)
-
-## Example Trace
-
-For the tree `[1,2,3,4,5,6]`:
-
-```
-        1
-       / \
-      2   3
+      1
      / \
-    4   5
+    2   3
+   / \
+  4   5
+      /
+     6
 ```
 
-We start at node 1:
-- Recursively count the right subtree (node 3 and below): returns 1
-- Recursively count the left subtree (node 2, 4, 5): returns 3
-  - Which recursively counts its children and their subtrees
-- Add 1 for the root node
-- Total: 1 + 3 + 1 = 5... wait that's wrong. Let me retrace.
+Actually, in level-order array representation, index 5 (value 6) is the left child of index 2 (value 5). So:
 
-Actually:
-- countNodes(1):
-  - rightCount = countNodes(3) = 1 (just node 3, no children)
-  - leftCount = countNodes(2) 
-    - rightCount = countNodes(5) = 1
-    - leftCount = countNodes(4) = 1
-    - return 1 + 1 + 1 = 3
-  - return 3 + 1 + 1 = 5
-
-Hmm, but there are 6 nodes total. Let me recount the tree:
 ```
-        1
-       / \
-      2   3
+      1
      / \
-    4   5  6?
+    2   3
+   / \
+  4   5
 ```
 
-No wait, the example says `[1,2,3,4,5,6]` which is 6 nodes total. The tree layout should be:
+That's 5 nodes. The sixth node would be at index 6. The array `[1,2,3,4,5,6]` gives:
+
 ```
-        1
-       / \
-      2   3
-     / \ /
-    4  5 6
+      1
+     / \
+    2   3
+   / \ /
+  4  5 6
 ```
 
-Let me retrace:
-- countNodes(1):
-  - rightCount = countNodes(3):
-    - rightCount = countNodes(nil) = 0
-    - leftCount = countNodes(6) = 1
-    - return 0 + 1 + 1 = 2
-  - leftCount = countNodes(2):
-    - rightCount = countNodes(5) = 1
-    - leftCount = countNodes(4) = 1
-    - return 1 + 1 + 1 = 3
-  - return 2 + 3 + 1 = 6 ✓
+So the right subtree of 3 has one child (6):
+- `countNodes(3)`: `countNodes(3.Left)` (node 6) → `1`, `countNodes(3.Right)` (nil) → `0`, return `1 + 0 + 1 = 2`.
+- `countNodes(1)`: `rightCount = 2`, `leftCount = 3`, return `2 + 3 + 1 = 6` ✓
+
+  ![Step 3: All nodes counted, total = 6](images/walkthrough-3.png)
 
 ## Complexity
 
-- **Time:** O(n) — we visit every node once
-- **Space:** O(h) where h is the height — recursion stack depth
+- **Time:** O(n) — we visit every node in the worst case
+- **Space:** O(h) where h is height — recursion call stack depth
+
+Note: While this solution is correct, a complete binary tree's structure allows for an O(log² n) solution by using binary search on the height and leveraging the tree's "completeness" property.

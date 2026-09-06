@@ -34,9 +34,9 @@ The current implementation uses the simple O(n) approach, which is correct and s
 
 ## Solution Walkthrough
 
-### Diagram
+Trace through LeetCode's example `[1,2,3,4,5,6]`:
 
-![Count Complete Tree Nodes Diagram](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-222.png?raw=true)
+![Example tree from LeetCode](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/example.jpg?raw=true)
 
 ### Approach: Recursive Traversal
 
@@ -68,23 +68,20 @@ func countNodes(root *TreeNode) int {
 
 ### Example Trace
 
-For the tree `[1,2,3,4,5,6]`:
+Walking through `[1,2,3,4,5,6]`:
 
-```
-        1
-       / \
-      2   3
-     / \ /
-    4  5 6
-```
+1. Start at node 1 (root):
 
-We start at node 1:
-- countNodes(1) calls countNodes(3) and countNodes(2)
-- countNodes(3) calls countNodes(6) and countNodes(nil):
-  - rightCount = 0, leftCount = 1, return 2
-- countNodes(2) calls countNodes(5) and countNodes(4):
-  - rightCount = 1, leftCount = 1, return 3
-- Total: 2 + 3 + 1 = 6 ✓
+   ![Step 1: Processing root node 1](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-1.png?raw=true)
+
+2. Process right subtree (node 3): has one left child (node 6), so count is 2:
+
+   ![Step 2: Right subtree counted as 2 nodes](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-2.png?raw=true)
+
+3. Process left subtree (node 2): has two children (4, 5), so count is 3.
+   Final: rightCount=2, leftCount=3, return 2+3+1=6 ✓
+
+   ![Step 3: All nodes counted, total = 6](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-3.png?raw=true)
 
 ### Complexity
 
