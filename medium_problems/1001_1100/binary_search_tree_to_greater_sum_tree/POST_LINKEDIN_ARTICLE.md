@@ -26,7 +26,7 @@ This works because in a BST, the right subtree has all values greater than the c
 
 ### Diagram
 
-![BST to Greater Sum Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/walkthrough-1038.png?raw=true)
+![BST to Greater Sum Tree](images/walkthrough-1038.png)
 
 ### Approach: Reverse In-Order Traversal with Running Sum
 

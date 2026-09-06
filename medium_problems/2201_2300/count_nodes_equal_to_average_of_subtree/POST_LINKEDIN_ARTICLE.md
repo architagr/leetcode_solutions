@@ -26,7 +26,7 @@ The key: process children first, so by the time we're at a node, we already know
 
 ### Diagram
 
-![Count Nodes Equal to Average](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/images/walkthrough-2265.png?raw=true)
+![Count Nodes Equal to Average](images/walkthrough-2265.png)
 
 ### Approach: Post-Order Traversal with Sum and Count
 
