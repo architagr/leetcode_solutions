@@ -36,7 +36,7 @@ The current implementation uses the simple O(n) approach, which is correct and s
 
 Trace through LeetCode's example `[1,2,3,4,5,6]`:
 
-![Example tree from LeetCode](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/example.jpg?raw=true)
+![Example tree from LeetCode](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/201_300/count_complete_tree_nodes/images/example.jpg)
 
 ### Approach: Recursive Traversal
 
@@ -72,16 +72,16 @@ Walking through `[1,2,3,4,5,6]`:
 
 1. Start at node 1 (root):
 
-   ![Step 1: Processing root node 1](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-1.png?raw=true)
+   ![Step 1: Processing root node 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-1.png)
 
 2. Process right subtree (node 3): has one left child (node 6), so count is 2:
 
-   ![Step 2: Right subtree counted as 2 nodes](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-2.png?raw=true)
+   ![Step 2: Right subtree counted as 2 nodes](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-2.png)
 
 3. Process left subtree (node 2): has two children (4, 5), so count is 3.
    Final: rightCount=2, leftCount=3, return 2+3+1=6 ✓
 
-   ![Step 3: All nodes counted, total = 6](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-3.png?raw=true)
+   ![Step 3: All nodes counted, total = 6](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/201_300/count_complete_tree_nodes/images/walkthrough-3.png)
 
 ### Complexity
 
