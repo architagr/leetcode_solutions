@@ -20,7 +20,9 @@
   .day { font-size: 96px; font-weight: 800; margin: 24px 0 0 0; }
   .day small { font-size: 40px; font-weight: 500; color: #cccccc; }
   .meta { font-size: 28px; color: #ffa116; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .title { font-size: 48px; font-weight: 700; line-height: 1.2; }
+  /* Capped so a long title wraps instead of running under the absolutely
+     positioned .author block, whose left edge sits at roughly x=958. */
+  .title { font-size: 48px; font-weight: 700; line-height: 1.2; max-width: 840px; overflow-wrap: break-word; }
   .author {
     position: absolute; bottom: 64px; right: 64px;
     display: flex; align-items: center; gap: 12px;
