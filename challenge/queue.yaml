@@ -32,10 +32,10 @@ entries:
       batch: binary tree
       status: content_ready
       posted_at:
-        discord: "2026-09-05T08:09:30Z"
+        discord: "2026-09-04T08:09:30Z"
         linkedin_company_page: null
         linkedin_group: null
-        linkedin_main_account: null
+        linkedin_main_account: "2026-09-05T08:09:30Z"
     - day: 4
       number: 404
       title: Sum of Left Leaves
@@ -45,9 +45,9 @@ entries:
       status: content_ready
       posted_at:
         discord: null
-        linkedin_company_page: null
-        linkedin_group: null
-        linkedin_main_account: null
+        linkedin_company_page: "2026-09-06T07:24:42Z"
+        linkedin_group: "2026-09-06T07:24:42Z"
+        linkedin_main_account: "2026-09-06T07:24:40Z"
     - day: 5
       number: 110
       title: Balanced Binary Tree
