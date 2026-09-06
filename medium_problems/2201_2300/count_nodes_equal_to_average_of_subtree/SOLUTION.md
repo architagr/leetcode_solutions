@@ -6,10 +6,6 @@ The implementation uses post-order traversal to compute each subtree's sum and c
 
 To count nodes equal to their subtree's average, compute each subtree's sum and count. A recursive function returns both values, allowing us to check each node.
 
-## Diagram
-
-![Count Nodes Equal to Average](images/walkthrough-2265.png)
-
 ## Code
 
 ```go
