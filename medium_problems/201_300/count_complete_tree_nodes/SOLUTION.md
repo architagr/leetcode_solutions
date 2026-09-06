@@ -16,38 +16,19 @@ The implementation is `countNodes(root *TreeNode) int` in `main.go`. We'll trace
 
 ## Execution Trace
 
-Walking through `[1,2,3,4,5,6]` which forms:
+Walking through `[1,2,3,4,5,6]`:
 
-```
-      1
-     / \
-    2   3
-   / \ /
-  4  5 6
-```
-
-Step 1: `countNodes(1)` - start at root
+**Step 1:** `countNodes(1)` - start at root
 
 ![Step 1: Processing root node 1](images/walkthrough-1.png)
 
-Step 2: Process right subtree `countNodes(3)`:
-- Node 3 has left child (6) and no right child
-- `countNodes(3.Left)` (node 6) → `1`
-- `countNodes(3.Right)` (nil) → `0`
-- Returns `1 + 0 + 1 = 2`
+**Step 2:** Process right subtree `countNodes(3)` - node 3 has left child (6), returns `2`
 
-![Step 2: Right subtree (node 3 with child 6) counted as 2 nodes](images/walkthrough-2.png)
+![Step 2: Right subtree counted as 2 nodes](images/walkthrough-2.png)
 
-Step 3: Process left subtree `countNodes(2)`:
-- Node 2 has two children (4, 5)
-- `countNodes(2.Right)` (node 5) → `1`
-- `countNodes(2.Left)` (node 4) → `1`
-- Returns `1 + 1 + 1 = 3`
+**Step 3:** Process left subtree `countNodes(2)` - has two children (4, 5), returns `3`
 
-Step 4: Combine at root:
-- `rightCount = 2` (from node 3 subtree)
-- `leftCount = 3` (from node 2 subtree)
-- Return `2 + 3 + 1 = 6` ✓
+**Step 4:** Combine at root: rightCount=2, leftCount=3, return `2 + 3 + 1 = 6` ✓
 
 ![Step 3: All nodes counted, total = 6](images/walkthrough-3.png)
 
