@@ -79,6 +79,41 @@ ask whether it sounds like a specific person who solved this problem talking abo
 like a generic summary that could've been written about any problem. If it's the latter,
 rewrite it.
 
+## Quality Validation Checklist
+
+Before marking a problem complete, verify:
+
+**Solution Walkthrough (step f)**
+- [ ] Walkthrough trace is accurate end-to-end (manually verify)
+- [ ] Each step's output is correct
+- [ ] No ASCII art trees in SOLUTION.md (use LeetCode example image + walkthrough diagrams only)
+- [ ] All image references use local paths: `images/filename.png` (not GitHub URLs)
+- [ ] Code in main.go correctly implements the described algorithm
+- [ ] Variable names in code match walkthrough description
+
+**Images & Diagrams**
+- [ ] Example images downloaded from LeetCode (if present in problem statement)
+- [ ] Walkthrough diagrams show algorithm progression at key steps
+- [ ] All `.svg` converted to `.png` and SVG files deleted (PNG only in repo)
+- [ ] Image paths consistent across SOLUTION.md and POST_LINKEDIN_ARTICLE.md (both use `images/`)
+- [ ] No `?raw=true` or GitHub blob URLs in markdown files
+
+**Complexity Analysis (step e/f)**
+- [ ] Time complexity is accurate for this specific algorithm
+- [ ] Space complexity is accurate (includes recursion stack, temp data structures)
+- [ ] Complexity matches code, not theoretical best-case
+
+**Code Comments (step g)**
+- [ ] Comments added only at non-obvious steps
+- [ ] No logic changes to main.go
+- [ ] Comments explain WHY, not WHAT
+
+**Content Files**
+- [ ] No conflicting or incorrect information (no mixed right/wrong diagrams)
+- [ ] All references use local image paths (no external URLs in SOLUTION.md, POST_LINKEDIN_ARTICLE.md)
+- [ ] No AI tell vocabulary ("leverage", "harness", "dive into", etc.)
+- [ ] No generic sentence patterns ("It's not just X, it's Y", etc.)
+
 ## Steps
 
 1. **Refresh the git-history cache, and commit the refresh immediately, unconditionally —
@@ -186,11 +221,12 @@ rewrite it.
         `<folder>/images/`, reuse them here instead of re-describing the example input in
         prose — reference the local `images/<n>.<ext>` path. Don't regenerate an example
         that LeetCode's own statement already illustrates well.
+      - **Never use ASCII art trees or diagrams.** Use visual images only (example images + walkthrough diagrams).
       - For the parts of the walkthrough LeetCode doesn't illustrate — the data structure's
         state as the algorithm progresses (stack/queue contents, tree pointers, DP table
-        fill order, etc.) — draw it yourself as one SVG per meaningful step, saved to
-        `<folder>/images/walkthrough-<n>.svg` (1-based, in step order), and embed each
-        inline at the point in SOLUTION.md that narrates that step. Keep each SVG small and
+        fill order, etc.) — create walkthrough diagrams (as PNG, not ASCII), saved to
+        `<folder>/images/walkthrough-<n>.png` (1-based, in step order), and embed each
+        inline at the point in SOLUTION.md that narrates that step. Keep each diagram small and
         focused (one state snapshot, not the whole trace) — a reader should be able to see
         at a glance what changed since the previous step.
 
