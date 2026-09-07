@@ -1,717 +1,614 @@
 next_day: 52
 entries:
-- day: 1
-  number: 104
-  title: Maximum Depth of Binary Tree
-  difficulty: easy
-  folder: easy_problems/101_200/maximum_depth_of_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: '2026-09-03T06:16:03Z'
-    linkedin_company_page: '2026-09-03T06:57:14Z'
-    linkedin_group: '2026-09-03T06:57:14Z'
-    linkedin_main_account: '2026-09-03T06:57:12Z'
-  builds_on: []
-- day: 2
-  number: 108
-  title: Convert Sorted Array to Binary Search Tree
-  difficulty: easy
-  folder: easy_problems/101_200/convert_sorted_array_to_binary_search_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: '2026-09-04T05:31:13Z'
-    linkedin_company_page: '2026-09-04T17:37:08Z'
-    linkedin_group: '2026-09-04T17:37:08Z'
-    linkedin_main_account: '2026-09-04T17:37:06Z'
-  builds_on: []
-- day: 3
-  number: 257
-  title: Binary Tree Paths
-  difficulty: easy
-  folder: easy_problems/201_300/binary_tree_path
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: '2026-09-04T08:09:30Z'
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: '2026-09-05T08:09:30Z'
-  builds_on: []
-- day: 4
-  number: 404
-  title: Sum of Left Leaves
-  difficulty: easy
-  folder: easy_problems/401_500/sum_of_left_leaves
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: '2026-09-06T07:31:53Z'
-    linkedin_company_page: '2026-09-06T07:24:42Z'
-    linkedin_group: '2026-09-06T07:24:42Z'
-    linkedin_main_account: '2026-09-06T07:24:40Z'
-  builds_on: []
-- day: 5
-  number: 110
-  title: Balanced Binary Tree
-  difficulty: easy
-  folder: easy_problems/101_200/balanced_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 104
-- day: 6
-  number: 222
-  title: Count Complete Tree Nodes
-  difficulty: medium
-  folder: medium_problems/201_300/count_complete_tree_nodes
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 104
-  - 110
-- day: 7
-  number: 111
-  title: Minimum Depth of Binary Tree
-  difficulty: easy
-  folder: easy_problems/101_200/minimum_depth_of_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 104
-- day: 8
-  number: 144
-  title: Binary Tree Preorder Traversal
-  difficulty: easy
-  folder: easy_problems/101_200/binary_tree_preorder_traversal
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on: []
-- day: 9
-  number: 145
-  title: Binary Tree Postorder Traversal
-  difficulty: easy
-  folder: easy_problems/101_200/binary_tree_postorder_traversal
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 144
-- day: 10
-  number: 114
-  title: Flatten Binary Tree to Linked List
-  difficulty: medium
-  folder: medium_problems/101_200/flatten_binary_tree_to_linked_list
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 144
-- day: 11
-  number: 112
-  title: Path Sum
-  difficulty: easy
-  folder: easy_problems/101_200/path_sum
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 257
-- day: 12
-  number: 1022
-  title: Sum of Root To Leaf Binary Numbers
-  difficulty: easy
-  folder: easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 112
-  - 257
-- day: 13
-  number: 606
-  title: Construct String from Binary Tree
-  difficulty: medium
-  folder: medium_problems/601_700/construct_string_from_binary_tree
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 257
-  - 144
-- day: 14
-  number: 637
-  title: Average of Levels in Binary Tree
-  difficulty: easy
-  folder: easy_problems/601_700/average_of_levels_in_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on: []
-- day: 15
-  number: 102
-  title: Binary Tree Level Order Traversal
-  difficulty: medium
-  folder: medium_problems/101_200/binary_tree_level_order_traversal
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 637
-- day: 16
-  number: 103
-  title: Binary Tree Zigzag Level Order Traversal
-  difficulty: medium
-  folder: medium_problems/101_200/binary_tree_zigzag_level_order_traversal
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 102
-- day: 17
-  number: 965
-  title: Univalued Binary Tree
-  difficulty: easy
-  folder: easy_problems/901_1000/univalued_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on: []
-- day: 18
-  number: 993
-  title: Cousins in Binary Tree
-  difficulty: easy
-  folder: easy_problems/901_1000/cousins_in_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 637
-- day: 19
-  number: 199
-  title: Binary Tree Right Side View
-  difficulty: medium
-  folder: medium_problems/101_200/binary_tree_right_side_view
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 102
-- day: 20
-  number: 1161
-  title: Maximum Level Sum of a Binary Tree
-  difficulty: medium
-  folder: medium_problems/1101_1200/maximum_level_sum_of_a_binary_tree
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 102
-  - 637
-- day: 21
-  number: 543
-  title: Diameter of Binary Tree
-  difficulty: easy
-  folder: easy_problems/501_600/diameter_of_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 104
-- day: 22
-  number: 563
-  title: Binary Tree Tilt
-  difficulty: easy
-  folder: easy_problems/501_600/binary_tree_tilt
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 543
-- day: 23
-  number: 2265
-  title: Count Nodes Equal to Average of Subtree
-  difficulty: medium
-  folder: medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 543
-  - 563
-- day: 24
-  number: 366
-  title: Find Leaves of Binary Tree
-  difficulty: medium
-  folder: medium_problems/301_400/find_leaves_of_binary_tree
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 104
-  - 543
-- day: 25
-  number: 124
-  title: Binary Tree Maximum Path Sum
-  difficulty: hard
-  folder: hard_problems/101_200/binary_tree_maximum_path_sum
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 543
-- day: 26
-  number: 700
-  title: Search in a Binary Search Tree
-  difficulty: easy
-  folder: easy_problems/601_700/search_in_a_binary_search_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 108
-- day: 27
-  number: 235
-  title: Lowest Common Ancestor of a Binary Search Tree
-  difficulty: medium
-  folder: medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 700
-- day: 28
-  number: 236
-  title: Lowest Common Ancestor of a Binary Tree
-  difficulty: medium
-  folder: medium_problems/201_300/lowest_common_ancestor_of_a_binary_tree
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 235
-- day: 29
-  number: 501
-  title: Find Mode in Binary Search Tree
-  difficulty: easy
-  folder: easy_problems/501_600/find_mode_in_binary_search_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on: []
-- day: 30
-  number: 530
-  title: Minimum Absolute Difference in BST
-  difficulty: easy
-  folder: easy_problems/501_600/minimum_absolute_difference_in_bst
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 501
-- day: 31
-  number: 783
-  title: Minimum Distance Between BST Nodes
-  difficulty: easy
-  folder: easy_problems/701_800/minimum_distance_between_bst_nodes
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 530
-- day: 32
-  number: 98
-  title: Validate Binary Search Tree
-  difficulty: medium
-  folder: medium_problems/1_100/validate_binary_search_tree
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 501
-  - 530
-- day: 33
-  number: 173
-  title: Binary Search Tree Iterator
-  difficulty: medium
-  folder: medium_problems/101_200/binary_search_tree_iterator
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 501
-  - 530
-- day: 34
-  number: 272
-  title: Closest Binary Search Tree Value II
-  difficulty: hard
-  folder: hard_problems/201_300/closest_binary_search_tree_value_ii
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 173
-- day: 35
-  number: 897
-  title: Increasing Order Search Tree
-  difficulty: easy
-  folder: easy_problems/801_900/increasing_order_search_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 501
-- day: 36
-  number: 1038
-  title: Binary Search Tree to Greater Sum Tree
-  difficulty: medium
-  folder: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 530
-  - 783
-- day: 37
-  number: 653
-  title: Two Sum IV - Input is a BST
-  difficulty: easy
-  folder: easy_problems/601_700/two_sum_iv_input_is_a_bst
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 700
-- day: 38
-  number: 703
-  title: Kth Largest Element in a Stream
-  difficulty: easy
-  folder: easy_problems/701_800/kth_largest_element_in_a_stream
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 700
-- day: 39
-  number: 450
-  title: Delete Node in a BST
-  difficulty: medium
-  folder: medium_problems/401_500/delete_node_in_a_bst
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 700
-  - 98
-- day: 40
-  number: 617
-  title: Merge Two Binary Trees
-  difficulty: easy
-  folder: easy_problems/601_700/merge_two_binary_trees
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on: []
-- day: 41
-  number: 1379
-  title: Find a Corresponding Node of a Binary Tree in a Clone of That Tree
-  difficulty: easy
-  folder: easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 617
-- day: 42
-  number: 572
-  title: Subtree of Another Tree
-  difficulty: easy
-  folder: easy_problems/501_600/subtree_of_another_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 617
-- day: 43
-  number: 2331
-  title: Evaluate Boolean Binary Tree
-  difficulty: easy
-  folder: easy_problems/2301_2400/evaluate_boolean_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 145
-- day: 44
-  number: 814
-  title: Binary Tree Pruning
-  difficulty: medium
-  folder: medium_problems/801_900/binary_tree_pruning
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 145
-  - 2331
-- day: 45
-  number: 2415
-  title: Reverse Odd Levels of Binary Tree
-  difficulty: medium
-  folder: medium_problems/2401_2500/reverse_odd_levels_of_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 102
-- day: 46
-  number: 872
-  title: Leaf-Similar Trees
-  difficulty: easy
-  folder: easy_problems/801_900/leaf_similar_trees
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 257
-- day: 47
-  number: 314
-  title: Binary Tree Vertical Order Traversal
-  difficulty: medium
-  folder: medium_problems/301_400/binary_tree_vertical_order_traversal
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 102
-- day: 48
-  number: 671
-  title: Second Minimum Node In a Binary Tree
-  difficulty: easy
-  folder: easy_problems/601_700/second_minimum_node_in_a_binary_tree
-  batch: binary tree
-  status: content_ready
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on: []
-- day: 49
-  number: 156
-  title: Binary Tree Upside Down
-  difficulty: medium
-  folder: medium_problems/101_200/binary_tree_upside_down
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on: []
-- day: 50
-  number: 116
-  title: Populating Next Right Pointers in Each Node
-  difficulty: medium
-  folder: medium_problems/101_200/populating_next_right_pointers_in_each_node
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 102
-- day: 51
-  number: 1302
-  title: Deepest Leaves Sum
-  difficulty: medium
-  folder: medium_problems/1301_1400/deepest_leaves_sum
-  batch: binary tree
-  status: pending_content
-  posted_at:
-    discord: null
-    linkedin_company_page: null
-    linkedin_group: null
-    linkedin_main_account: null
-  builds_on:
-  - 104
-  - 637
+    - day: 1
+      number: 104
+      title: Maximum Depth of Binary Tree
+      difficulty: easy
+      folder: easy_problems/101_200/maximum_depth_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: "2026-09-03T06:16:03Z"
+        linkedin_company_page: "2026-09-03T06:57:14Z"
+        linkedin_group: "2026-09-03T06:57:14Z"
+        linkedin_main_account: "2026-09-03T06:57:12Z"
+    - day: 2
+      number: 108
+      title: Convert Sorted Array to Binary Search Tree
+      difficulty: easy
+      folder: easy_problems/101_200/convert_sorted_array_to_binary_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: "2026-09-04T05:31:13Z"
+        linkedin_company_page: "2026-09-04T17:37:08Z"
+        linkedin_group: "2026-09-04T17:37:08Z"
+        linkedin_main_account: "2026-09-04T17:37:06Z"
+    - day: 3
+      number: 257
+      title: Binary Tree Paths
+      difficulty: easy
+      folder: easy_problems/201_300/binary_tree_path
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: "2026-09-04T08:09:30Z"
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: "2026-09-05T08:09:30Z"
+    - day: 4
+      number: 404
+      title: Sum of Left Leaves
+      difficulty: easy
+      folder: easy_problems/401_500/sum_of_left_leaves
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: "2026-09-06T07:31:53Z"
+        linkedin_company_page: "2026-09-06T07:24:42Z"
+        linkedin_group: "2026-09-06T07:24:42Z"
+        linkedin_main_account: "2026-09-06T07:24:40Z"
+    - day: 5
+      number: 110
+      title: Balanced Binary Tree
+      difficulty: easy
+      folder: easy_problems/101_200/balanced_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: "2026-09-07T04:15:21Z"
+        linkedin_group: "2026-09-07T04:15:21Z"
+        linkedin_main_account: "2026-09-07T04:15:21Z"
+    - day: 6
+      number: 222
+      title: Count Complete Tree Nodes
+      difficulty: medium
+      folder: medium_problems/201_300/count_complete_tree_nodes
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 7
+      number: 111
+      title: Minimum Depth of Binary Tree
+      difficulty: easy
+      folder: easy_problems/101_200/minimum_depth_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 8
+      number: 144
+      title: Binary Tree Preorder Traversal
+      difficulty: easy
+      folder: easy_problems/101_200/binary_tree_preorder_traversal
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 9
+      number: 145
+      title: Binary Tree Postorder Traversal
+      difficulty: easy
+      folder: easy_problems/101_200/binary_tree_postorder_traversal
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 10
+      number: 114
+      title: Flatten Binary Tree to Linked List
+      difficulty: medium
+      folder: medium_problems/101_200/flatten_binary_tree_to_linked_list
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 11
+      number: 112
+      title: Path Sum
+      difficulty: easy
+      folder: easy_problems/101_200/path_sum
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 12
+      number: 1022
+      title: Sum of Root To Leaf Binary Numbers
+      difficulty: easy
+      folder: easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 13
+      number: 606
+      title: Construct String from Binary Tree
+      difficulty: medium
+      folder: medium_problems/601_700/construct_string_from_binary_tree
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 14
+      number: 637
+      title: Average of Levels in Binary Tree
+      difficulty: easy
+      folder: easy_problems/601_700/average_of_levels_in_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 15
+      number: 102
+      title: Binary Tree Level Order Traversal
+      difficulty: medium
+      folder: medium_problems/101_200/binary_tree_level_order_traversal
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 16
+      number: 103
+      title: Binary Tree Zigzag Level Order Traversal
+      difficulty: medium
+      folder: medium_problems/101_200/binary_tree_zigzag_level_order_traversal
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 17
+      number: 965
+      title: Univalued Binary Tree
+      difficulty: easy
+      folder: easy_problems/901_1000/univalued_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 18
+      number: 993
+      title: Cousins in Binary Tree
+      difficulty: easy
+      folder: easy_problems/901_1000/cousins_in_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 19
+      number: 199
+      title: Binary Tree Right Side View
+      difficulty: medium
+      folder: medium_problems/101_200/binary_tree_right_side_view
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 20
+      number: 1161
+      title: Maximum Level Sum of a Binary Tree
+      difficulty: medium
+      folder: medium_problems/1101_1200/maximum_level_sum_of_a_binary_tree
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 21
+      number: 543
+      title: Diameter of Binary Tree
+      difficulty: easy
+      folder: easy_problems/501_600/diameter_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 22
+      number: 563
+      title: Binary Tree Tilt
+      difficulty: easy
+      folder: easy_problems/501_600/binary_tree_tilt
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 23
+      number: 2265
+      title: Count Nodes Equal to Average of Subtree
+      difficulty: medium
+      folder: medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 24
+      number: 366
+      title: Find Leaves of Binary Tree
+      difficulty: medium
+      folder: medium_problems/301_400/find_leaves_of_binary_tree
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 25
+      number: 124
+      title: Binary Tree Maximum Path Sum
+      difficulty: hard
+      folder: hard_problems/101_200/binary_tree_maximum_path_sum
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 26
+      number: 700
+      title: Search in a Binary Search Tree
+      difficulty: easy
+      folder: easy_problems/601_700/search_in_a_binary_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 27
+      number: 235
+      title: Lowest Common Ancestor of a Binary Search Tree
+      difficulty: medium
+      folder: medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 28
+      number: 236
+      title: Lowest Common Ancestor of a Binary Tree
+      difficulty: medium
+      folder: medium_problems/201_300/lowest_common_ancestor_of_a_binary_tree
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 29
+      number: 501
+      title: Find Mode in Binary Search Tree
+      difficulty: easy
+      folder: easy_problems/501_600/find_mode_in_binary_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 30
+      number: 530
+      title: Minimum Absolute Difference in BST
+      difficulty: easy
+      folder: easy_problems/501_600/minimum_absolute_difference_in_bst
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 31
+      number: 783
+      title: Minimum Distance Between BST Nodes
+      difficulty: easy
+      folder: easy_problems/701_800/minimum_distance_between_bst_nodes
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 32
+      number: 98
+      title: Validate Binary Search Tree
+      difficulty: medium
+      folder: medium_problems/1_100/validate_binary_search_tree
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 33
+      number: 173
+      title: Binary Search Tree Iterator
+      difficulty: medium
+      folder: medium_problems/101_200/binary_search_tree_iterator
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 34
+      number: 272
+      title: Closest Binary Search Tree Value II
+      difficulty: hard
+      folder: hard_problems/201_300/closest_binary_search_tree_value_ii
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 35
+      number: 897
+      title: Increasing Order Search Tree
+      difficulty: easy
+      folder: easy_problems/801_900/increasing_order_search_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 36
+      number: 1038
+      title: Binary Search Tree to Greater Sum Tree
+      difficulty: medium
+      folder: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 37
+      number: 653
+      title: Two Sum IV - Input is a BST
+      difficulty: easy
+      folder: easy_problems/601_700/two_sum_iv_input_is_a_bst
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 38
+      number: 703
+      title: Kth Largest Element in a Stream
+      difficulty: easy
+      folder: easy_problems/701_800/kth_largest_element_in_a_stream
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 39
+      number: 450
+      title: Delete Node in a BST
+      difficulty: medium
+      folder: medium_problems/401_500/delete_node_in_a_bst
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 40
+      number: 617
+      title: Merge Two Binary Trees
+      difficulty: easy
+      folder: easy_problems/601_700/merge_two_binary_trees
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 41
+      number: 1379
+      title: Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+      difficulty: easy
+      folder: easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 42
+      number: 572
+      title: Subtree of Another Tree
+      difficulty: easy
+      folder: easy_problems/501_600/subtree_of_another_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 43
+      number: 2331
+      title: Evaluate Boolean Binary Tree
+      difficulty: easy
+      folder: easy_problems/2301_2400/evaluate_boolean_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 44
+      number: 814
+      title: Binary Tree Pruning
+      difficulty: medium
+      folder: medium_problems/801_900/binary_tree_pruning
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 45
+      number: 2415
+      title: Reverse Odd Levels of Binary Tree
+      difficulty: medium
+      folder: medium_problems/2401_2500/reverse_odd_levels_of_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 46
+      number: 872
+      title: Leaf-Similar Trees
+      difficulty: easy
+      folder: easy_problems/801_900/leaf_similar_trees
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 47
+      number: 314
+      title: Binary Tree Vertical Order Traversal
+      difficulty: medium
+      folder: medium_problems/301_400/binary_tree_vertical_order_traversal
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 48
+      number: 671
+      title: Second Minimum Node In a Binary Tree
+      difficulty: easy
+      folder: easy_problems/601_700/second_minimum_node_in_a_binary_tree
+      batch: binary tree
+      status: content_ready
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 49
+      number: 156
+      title: Binary Tree Upside Down
+      difficulty: medium
+      folder: medium_problems/101_200/binary_tree_upside_down
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 50
+      number: 116
+      title: Populating Next Right Pointers in Each Node
+      difficulty: medium
+      folder: medium_problems/101_200/populating_next_right_pointers_in_each_node
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+    - day: 51
+      number: 1302
+      title: Deepest Leaves Sum
+      difficulty: medium
+      folder: medium_problems/1301_1400/deepest_leaves_sum
+      batch: binary tree
+      status: pending_content
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
