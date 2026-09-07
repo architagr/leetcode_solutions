@@ -1,4 +1,4 @@
-## 365 Days of LeetCode Challenge — Day 22/365
+## 365 Days of LeetCode Challenge — Day 46/365
 
 # Leaf-Similar Trees
 

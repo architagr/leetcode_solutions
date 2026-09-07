@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 13/365**
+**365 Days of LeetCode Challenge — Day 22/365**
 **Binary Tree Tilt** (Easy)
 🔗 https://leetcode.com/problems/binary-tree-tilt/
 

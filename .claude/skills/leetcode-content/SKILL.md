@@ -108,11 +108,84 @@ Before marking a problem complete, verify:
 - [ ] No logic changes to main.go
 - [ ] Comments explain WHY, not WHAT
 
+**Queue and chaining**
+- [ ] `builds_on` set, and every entry in it is on an EARLIER day (no forward references)
+- [ ] "Builds on" section in INTUITION.md and the LinkedIn article uses full GitHub URLs
+- [ ] Each link says what that earlier problem gives you, not just "related problem"
+- [ ] Queue is not a long single-difficulty run (see "Queue ordering")
+- [ ] `Day <n>/365` in every post matches this folder's queue entry
+- [ ] No frozen (already-posted) entry had its day changed
+
 **Content Files**
 - [ ] No conflicting or incorrect information (no mixed right/wrong diagrams)
 - [ ] All references use local image paths (no external URLs in SOLUTION.md, POST_LINKEDIN_ARTICLE.md)
 - [ ] No AI tell vocabulary ("leverage", "harness", "dive into", etc.)
 - [ ] No generic sentence patterns ("It's not just X, it's Y", etc.)
+
+## Queue ordering — mix easy with medium and hard
+
+**Never let the queue become a long run of one difficulty.** Publishing 28 consecutive
+easies on a single topic loses the audience well before the mediums arrive, and dumping
+the mediums at the end means nobody who followed the easy run ever sees them.
+
+Target shape: **3-4 easy, then 1-2 medium or hard, repeating.** A reader finishing a month
+should have cleared a real mix and feel ready for mediums on that topic, not just have
+done thirty warm-ups.
+
+Two rules constrain where a question can go:
+
+1. **A question must come after everything in its `builds_on` list.** That is the whole
+   point of the chain — the medium lands while the technique from its prerequisites is
+   still fresh. Verify this before writing the queue; a medium scheduled before its
+   prerequisite is a worse bug than a bad ratio, because the write-up will link forward
+   to a day the reader has not reached.
+2. **An entry whose `posted_at` has any non-null timestamp is frozen.** Its day number is
+   already public on LinkedIn and Discord. Renumber around it, never through it.
+
+When the ratio and the prerequisites conflict, prerequisites win. Expect the tail of a
+batch to drift medium-heavy as the easies run out, which is fine and arguably right.
+
+**Reordering an existing queue** (as opposed to appending to a well-shaped one) is a
+bigger operation than it looks, because the day number is copied into published-facing
+artifacts. Renumbering day N to day M means all of:
+
+- rewrite `Day <N>/365` and `![Day <N>](HERO.png)` in `POST_LINKEDIN.md`,
+  `POST_DISCORD.md` and `POST_LINKEDIN_ARTICLE.md`
+- re-render `HERO.png` with the new day (the card has the number printed on it)
+- fix any `[Day <N>: <title>](...)` cross-reference in *other* questions' files that
+  points at this folder
+
+Audit that last one across the whole repo rather than per-folder, since the stale link
+lives in the referring question, not the moved one. After reordering, re-check that every
+`Day <n>/365` in a folder matches that folder's queue entry, and that every cross-ref day
+matches the queue entry of the folder it links to.
+
+## Problem chaining — `builds_on`
+
+Each queue entry carries `builds_on`, a list of earlier LeetCode numbers whose technique
+this question reuses. It turns the series into a chain: a reader arriving at a medium gets
+pointed back at the easies that taught the pieces.
+
+Pick prerequisites by **technique actually reused**, not by superficial topic overlap. Two
+or three is usually right, and zero is a perfectly good answer for a question that
+introduces something new. Some worked examples from the binary-tree batch:
+
+| Question | `builds_on` | Why |
+|---|---|---|
+| 222 Count Complete Tree Nodes | 104, 110 | height recursion, plus bottom-up returning more than one fact |
+| 102 Level Order Traversal | 637 | 637 is the gentle introduction to BFS by level |
+| 103 Zigzag Level Order | 102 | same traversal, one twist on top |
+| 2265 Count Nodes Equal to Average | 543, 563 | both are bottom-up "return a pair up the tree" |
+| 124 Max Path Sum (hard) | 543 | diameter is the same split-at-a-node shape |
+| 236 LCA of a Binary Tree | 235 | the BST version first, then drop the ordering guarantee |
+| 450 Delete Node in a BST | 700, 98 | search to find the node, validity to know what may move |
+
+Two things to keep honest:
+
+- **Only list problems already in the queue on an earlier day.** A forward reference is
+  broken for every reader following along in order.
+- **Say what the earlier problem gives you.** "Related problem" is filler; "bottom-up
+  returning more than one fact" is the sentence that makes the chain worth reading.
 
 ## Steps
 
@@ -132,6 +205,11 @@ Before marking a problem complete, verify:
    /tmp/leetcodectl fetch-list '{"url":"<the URL>","difficulty":"<the difficulty value parsed out of --filter, e.g. --filter difficulty=easy -> \"easy\">"}'
    ```
    Sort the returned problems by `Number` ascending.
+
+   As of 2026-09, LeetCode's GraphQL rejects the difficulty filter outright:
+   `Variable "$filter" got invalid value {"difficulty": "MEDIUM"}. In field "difficulty":
+   Unknown field.` Until `fetch-list` is updated for the new schema, omit `difficulty`
+   from the payload and filter the returned array yourself on its `Difficulty` field.
 
 3. **For each problem, in that sorted order:**
 
@@ -210,6 +288,27 @@ Before marking a problem complete, verify:
       complexity. Written for a reader who's seen the problem but not the solution.
       Follow the "Writing style" section above.
 
+      **Chain it to the earlier problems it builds on.** The queue entry carries a
+      `builds_on` list of problem numbers (see the "Problem chaining" section below).
+      For each one, look up its queue entry to get its day number, title and folder, and
+      add a short section near the top of INTUITION.md:
+
+      ```markdown
+      ## Builds on
+
+      - [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — the height recursion this reuses
+      - [Day 5: Balanced Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/balanced_binary_tree/) — bottom-up returning more than one fact
+      ```
+
+      Write a real reason after the em dash saying what that earlier problem gives you
+      here, not a generic "related problem" label. The point is that a reader following
+      the series in order recognises the technique instead of meeting it cold. If
+      `builds_on` is empty, skip the section entirely rather than inventing links.
+
+      Use full `https://github.com/architagr/leetcode_solutions/blob/main/<folder>/` URLs,
+      never relative paths — this section is copied into the LinkedIn article (step k),
+      where relative links are dead.
+
    f. Write `<folder>/SOLUTION.md`: a narrated walkthrough of the ACTUAL code in
       `main.go` — reference real function/variable names, explain each meaningful step
       in the order they appear in the code. This is not a generic solution write-up; it
@@ -276,8 +375,17 @@ Before marking a problem complete, verify:
    i. Append to the queue FIRST — this assigns and returns the authoritative Day number
       that every remaining step in this iteration needs (hero image, both post drafts):
       ```bash
-      /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>"}}'
+      /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>","builds_on":[<earlier problem numbers>]}}'
       ```
+      Set `builds_on` per the "Problem chaining" section below. It drives the "Builds on"
+      section in step (e) and the LinkedIn article, so fill it in at append time rather
+      than backfilling later.
+
+      **A plain append puts this question at the end of the queue, which is only right
+      when the queue is already in mixed order.** If you are adding a medium or hard to a
+      queue whose tail is a run of easies, read the "Queue ordering" section below first —
+      appending a batch of mediums onto the end is exactly the failure mode that section
+      exists to prevent.
       Use the returned `day` for steps (j)-(n) below. Do not try to predict or read
       `next_day` yourself before calling this — `queue-append` is the only source of
       truth for which day number a question gets, and calling it exactly once per
@@ -317,8 +425,9 @@ Before marking a problem complete, verify:
       LinkedIn Newsletter/Article edition. Header "365 Days of LeetCode Challenge — Day
       <day>/365", question title + LeetCode link, the FULL intuition write-up (based on
       INTUITION.md, expanded for a public audience who hasn't seen INTUITION.md itself),
-      the FULL solution walkthrough with the real code (based on SOLUTION.md), and the
-      companies list if `COMPANIES.md` was written. This is the actual content — the
+      the FULL solution walkthrough with the real code (based on SOLUTION.md), the
+      "Builds on" links from step (e) (full GitHub URLs, since relative paths are dead on
+      LinkedIn), and the companies list if `COMPANIES.md` was written. This is the actual content — the
       short post below just points people at it. Follow the "Writing style" section
       above. End with a line of 5-8 hashtags (see hashtags note below step m), followed by
       the AI-disclosure line (see below) as the very last thing in the file.

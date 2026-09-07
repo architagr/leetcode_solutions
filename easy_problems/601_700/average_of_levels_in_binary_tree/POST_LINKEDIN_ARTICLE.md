@@ -1,4 +1,4 @@
-## 365 Days of LeetCode Challenge — Day 16/365
+## 365 Days of LeetCode Challenge — Day 14/365
 
 # Average of Levels in Binary Tree
 

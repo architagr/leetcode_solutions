@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 7/365**
+**365 Days of LeetCode Challenge — Day 11/365**
 **Path Sum** (Easy)
 🔗 https://leetcode.com/problems/path-sum/
 

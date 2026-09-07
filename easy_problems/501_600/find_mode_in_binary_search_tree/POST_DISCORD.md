@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 10/365**
+**365 Days of LeetCode Challenge — Day 29/365**
 **Find Mode in Binary Search Tree** (Easy)
 🔗 https://leetcode.com/problems/find-mode-in-binary-search-tree/
 

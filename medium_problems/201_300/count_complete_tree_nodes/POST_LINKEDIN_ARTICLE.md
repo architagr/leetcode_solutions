@@ -1,4 +1,4 @@
-# 365 Days of LeetCode Challenge — Day 29/365
+# 365 Days of LeetCode Challenge — Day 6/365
 
 ## Count Complete Tree Nodes
 

@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 19/365**
+**365 Days of LeetCode Challenge — Day 26/365**
 **Search in a Binary Search Tree** (Easy)
 🔗 https://leetcode.com/problems/search-in-a-binary-search-tree/
 

@@ -1,4 +1,4 @@
-# 365 Days of LeetCode Challenge — Day 18/365
+# 365 Days of LeetCode Challenge — Day 48/365
 
 ## Second Minimum Node In a Binary Tree (Easy)
 

@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 23/365**
+**365 Days of LeetCode Challenge — Day 35/365**
 
 **Increasing Order Search Tree** (Easy)
 🔗 https://leetcode.com/problems/increasing-order-search-tree/

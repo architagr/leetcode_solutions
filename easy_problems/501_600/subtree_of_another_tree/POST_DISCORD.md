@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 14/365**
+**365 Days of LeetCode Challenge — Day 42/365**
 **Subtree of Another Tree** (Easy)
 🔗 https://leetcode.com/problems/subtree-of-another-tree/
 

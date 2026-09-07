@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 21/365**
+**365 Days of LeetCode Challenge — Day 31/365**
 **Minimum Distance Between BST Nodes** (Easy)
 🔗 https://leetcode.com/problems/minimum-distance-between-bst-nodes/
 

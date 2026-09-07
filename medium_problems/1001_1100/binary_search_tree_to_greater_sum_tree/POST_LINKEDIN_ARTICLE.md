@@ -1,10 +1,10 @@
-# 365 Days of LeetCode Challenge — Day 30/365
+# 365 Days of LeetCode Challenge — Day 36/365
 
 ## Binary Search Tree to Greater Sum Tree
 
 [LeetCode #1038](https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/) · Medium
 
-![Day 30](HERO.png)
+![Day 36](HERO.png)
 
 Given the root of a BST, convert it so that every key becomes the original key plus the sum of all keys greater than it.
 

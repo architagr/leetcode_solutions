@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 30/365**
+**365 Days of LeetCode Challenge — Day 36/365**
 **Binary Search Tree to Greater Sum Tree** (Medium)
 🔗 https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/
 

@@ -1,4 +1,4 @@
-## 365 Days of LeetCode Challenge — Day 15/365
+## 365 Days of LeetCode Challenge — Day 40/365
 
 # Merge Two Binary Trees
 

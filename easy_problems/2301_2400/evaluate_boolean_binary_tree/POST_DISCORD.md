@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 28/365**
+**365 Days of LeetCode Challenge — Day 43/365**
 **Evaluate Boolean Binary Tree** (Easy)
 🔗 https://leetcode.com/problems/evaluate-boolean-binary-tree/
 

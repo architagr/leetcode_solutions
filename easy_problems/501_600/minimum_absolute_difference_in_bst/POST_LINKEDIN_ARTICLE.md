@@ -1,4 +1,4 @@
-## 365 Days of LeetCode Challenge — Day 11/365
+## 365 Days of LeetCode Challenge — Day 30/365
 
 # Minimum Absolute Difference in BST
 

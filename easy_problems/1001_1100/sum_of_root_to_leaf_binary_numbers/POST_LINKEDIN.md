@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 26/365**
+**365 Days of LeetCode Challenge — Day 12/365**
 
 **Sum of Root To Leaf Binary Numbers** (Easy)
 🔗 https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/

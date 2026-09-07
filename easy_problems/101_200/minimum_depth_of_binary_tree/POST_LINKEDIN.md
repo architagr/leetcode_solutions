@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 6/365**
+**365 Days of LeetCode Challenge — Day 7/365**
 
 **Minimum Depth of Binary Tree** (Easy)
 🔗 https://leetcode.com/problems/minimum-depth-of-binary-tree/

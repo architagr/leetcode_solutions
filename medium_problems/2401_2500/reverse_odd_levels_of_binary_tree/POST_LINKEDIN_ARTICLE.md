@@ -1,10 +1,10 @@
-# 365 Days of LeetCode Challenge — Day 32/365
+# 365 Days of LeetCode Challenge — Day 45/365
 
 ## Reverse Odd Levels of Binary Tree
 
 [LeetCode #2415](https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/) · Medium
 
-![Day 32](HERO.png)
+![Day 45](HERO.png)
 
 Given the root of a perfect binary tree, reverse the node values at each odd level.
 
