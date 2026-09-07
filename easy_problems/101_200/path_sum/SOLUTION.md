@@ -7,17 +7,7 @@ current int) bool`.
 ![Example 1](images/1.jpg)
 
 We'll trace it on the example above, `root = [5,4,8,11,null,13,4,7,2,null,null,null,1]`,
-`targetSum = 22`. As a tree:
-
-```
-            5
-          /   \
-         4     8
-        /     / \
-      11     13  4
-      / \          \
-     7   2          1
-```
+`targetSum = 22`.
 
 1. **Entry point.** `hasPathSum` just calls `sum(root, targetSum, 0)` — `current` starts
    at `0`, since no value has been accumulated yet.

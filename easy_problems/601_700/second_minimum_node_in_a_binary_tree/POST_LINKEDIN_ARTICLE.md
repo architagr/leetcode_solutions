@@ -120,14 +120,6 @@ of threading it through return values. Not the prettiest pattern on its own, but
 
 `root = [2,2,5,null,null,5,7]` looks like this:
 
-```
-        2
-       / \
-      2   5
-         / \
-        5   7
-```
-
 Step 1: initialize. `min` gets pinned to `root.Val`, which is 2. `ans` starts at
 infinity, meaning no candidate yet.
 

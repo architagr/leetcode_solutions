@@ -85,14 +85,6 @@ function does anyway.
 Tracing it on `root = [1,2,3,null,4,null,5]`, `x = 5`, `y = 4` — LeetCode's example,
 which returns `true`:
 
-```
-        1
-       / \
-      2   3
-       \   \
-        4   5
-```
-
 Searching for `x = 5` first: `foo(1, 0, 5)` checks node `1` (no match), then descends
 left into `2`. Node `2` has no left child, and its right child `4` doesn't match `5`
 either, so it recurses one more level into `4`, which is a childless dead end —

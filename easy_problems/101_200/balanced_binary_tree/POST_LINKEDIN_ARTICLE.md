@@ -141,17 +141,8 @@ unwinds.
 
 The trace below follows Example 2, `root = [1,2,2,3,3,null,null,4,4]`, since it's the
 one that shows both the "everything's fine so far" path and the short-circuiting
-failure path in the same tree:
-
-```
-              1
-            /   \
-           2     2      <- right "2" is a leaf (both children null)
-          / \
-         3   3           <- right "3" is a leaf (both children null)
-        / \
-       4   4
-```
+failure path in the same tree. The root's right child (the "2") and that subtree's
+right "3" are both leaves, which is where the recursion bottoms out first.
 
 Because the code calls `validateTree(node.Right)` before `validateTree(node.Left)` at
 every level, the actual order of computation is:

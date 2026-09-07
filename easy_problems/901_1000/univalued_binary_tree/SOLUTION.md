@@ -7,14 +7,6 @@ The implementation is `isUnivalTree(root *TreeNode) bool` in `main.go`.
 We'll trace it on `root = [2,2,2,5,2]`, which LeetCode's own example shows returning
 `false`:
 
-```
-        2
-       / \
-      2   2
-     / \
-    5   2
-```
-
 1. **Base case.** `if root == nil { return true }` — an empty subtree is trivially
    uni-valued; there's nothing in it to disagree with the parent's value.
 

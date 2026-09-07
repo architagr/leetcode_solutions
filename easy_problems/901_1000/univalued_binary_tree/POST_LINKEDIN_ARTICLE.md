@@ -61,14 +61,6 @@ func isUnivalTree(root *TreeNode) bool {
 
 Walking it through `root = [2,2,2,5,2]` (expected `false`):
 
-```
-        2
-       / \
-      2   2
-     / \
-    5   2
-```
-
 `isUnivalTree(2)` on the root recurses left into node `A = 2` and right into node
 `B = 2` (a leaf). `isUnivalTree(A=2)` in turn recurses left into leaf `C = 5` and right
 into leaf `D = 2`. `C`, `D`, and `B` have no children, so all three just return `true`.

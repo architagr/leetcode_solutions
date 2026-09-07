@@ -53,16 +53,6 @@ func sum(root *TreeNode, target, current int) bool {
 
 Walking it through `root = [5,4,8,11,null,13,4,7,2,null,null,null,1]`, `targetSum = 22`:
 
-```
-            5
-          /   \
-         4     8
-        /     / \
-      11     13  4
-      / \          \
-     7   2          1
-```
-
 - `sum(5, 22, 0)`: `5` has two children, so it recurses left into `4` (`current=5`)
   and, only if that comes back `false`, would try right into `8`.
 - `sum(4, 22, 5)`: `4` has only a left child, so it descends into `11`

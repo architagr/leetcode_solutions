@@ -9,14 +9,6 @@ both in `main.go`.
 We'll trace it on `root = [1,2,3,null,4,null,5]`, `x = 5`, `y = 4` — LeetCode's own
 example shows this returns `true`:
 
-```
-        1
-       / \
-      2   3
-       \   \
-        4   5
-```
-
 1. **`isCousins` just delegates to `foo`, twice.**
    `depthX, parentX, _ := foo(root, 0, x)` and `depthY, parentY, _ := foo(root, 0, y)` —
    each call walks the tree from the root looking for one target value, and comes back

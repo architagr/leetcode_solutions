@@ -43,14 +43,6 @@ We'll trace the whole run against LeetCode's first example, `root = [2,2,5,null,
 
 !["Example 1"](smbt1.jpg "Example 1")
 
-```
-        2
-       / \
-      2   5
-         / \
-        5   7
-```
-
 **Step 1 — initialize.**
 
 <img src="images/walkthrough-1.png" alt="Step 1: initialize min and ans" width="360" />
