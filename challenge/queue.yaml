@@ -69,9 +69,9 @@ entries:
       status: content_ready
       posted_at:
         discord: null
-        linkedin_company_page: null
-        linkedin_group: null
-        linkedin_main_account: null
+        linkedin_company_page: "2026-09-08T04:12:21Z"
+        linkedin_group: "2026-09-08T04:12:21Z"
+        linkedin_main_account: "2026-09-08T04:12:21Z"
     - day: 7
       number: 111
       title: Minimum Depth of Binary Tree
