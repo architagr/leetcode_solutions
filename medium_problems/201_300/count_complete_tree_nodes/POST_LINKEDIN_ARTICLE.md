@@ -11,8 +11,8 @@
 
 If you haven't solved these yet, they build great intuition:
 
-- [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — understanding height/depth
-- [Day 5: Balanced Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/balanced_binary_tree/) — recognizing tree structure
+- [Day 1: Maximum Depth of Binary Tree](https://www.linkedin.com/pulse/365-days-leetcode-challenge-day-1365-archit-agarwal-tzfbe) — understanding height/depth
+- [Day 5: Balanced Binary Tree](https://www.linkedin.com/pulse/365-days-leetcode-challenge-day-5365-archit-agarwal-pjgoc) — recognizing tree structure
 
 ---
 
@@ -49,7 +49,7 @@ func countNodes(root *TreeNode) int {
     if root == nil {
         return 0
     }
-    
+
     // Count nodes in both subtrees
     rightCount := countNodes(root.Right)
     leftCount := countNodes(root.Left)
@@ -61,6 +61,7 @@ func countNodes(root *TreeNode) int {
 **Base case:** If we reach a nil node, there are no nodes to count, so return 0.
 
 **Recursive case:**
+
 1. Count all nodes in the right subtree by recursively calling `countNodes(root.Right)`
 2. Count all nodes in the left subtree by recursively calling `countNodes(root.Left)`
 3. Add 1 for the current node
@@ -94,4 +95,4 @@ Walking through `[1,2,3,4,5,6]`:
 
 ---
 
-*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*
+_Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement._
