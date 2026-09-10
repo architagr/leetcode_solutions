@@ -3,6 +3,7 @@ package queue
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 )
@@ -236,5 +237,40 @@ func TestMarkContentReadyIsIdempotent(t *testing.T) {
 	q.MarkContentReady(114)
 	if q.Entries[0].Status != StatusContentReady {
 		t.Errorf("status = %q, want %q", q.Entries[0].Status, StatusContentReady)
+	}
+}
+
+// builds_on has to round-trip through a save/load cycle. It did not
+// before this field existed: Unmarshal dropped the key and Marshal wrote
+// the file back without it, so every queue write deleted the chain.
+func TestBuildsOnSurvivesASaveLoadCycle(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "queue.yaml")
+	q := &Queue{NextDay: 3, Entries: []Entry{
+		{Day: 1, Number: 104, Status: StatusContentReady},
+		{Day: 2, Number: 222, Status: StatusContentReady, BuildsOn: []int{104, 110}},
+	}}
+	if err := q.Save(path); err != nil {
+		t.Fatal(err)
+	}
+
+	reloaded, err := Load(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := reloaded.Entries[1].BuildsOn
+	if len(got) != 2 || got[0] != 104 || got[1] != 110 {
+		t.Errorf("BuildsOn = %v, want [104 110]", got)
+	}
+	// An empty chain is a real answer for a question that introduces
+	// something new, and should not litter the file with empty keys.
+	if reloaded.Entries[0].BuildsOn != nil {
+		t.Errorf("BuildsOn = %v, want nil for an entry without a chain", reloaded.Entries[0].BuildsOn)
+	}
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if strings.Count(string(raw), "builds_on") != 1 {
+		t.Errorf("builds_on should appear once, for the entry that has one:\n%s", raw)
 	}
 }

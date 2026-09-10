@@ -35,14 +35,25 @@ const (
 // destination lives in PostedAt, keyed by destination, because one
 // status field can't describe N independent destinations.
 type Entry struct {
-	Day        int                `yaml:"day"`
-	Number     int                `yaml:"number"`
-	Title      string             `yaml:"title"`
-	Difficulty string             `yaml:"difficulty"`
-	Folder     string             `yaml:"folder"`
-	Batch      string             `yaml:"batch"`
-	Status     string             `yaml:"status"`
-	PostedAt   map[string]*string `yaml:"posted_at"`
+	Day        int    `yaml:"day"`
+	Number     int    `yaml:"number"`
+	Title      string `yaml:"title"`
+	Difficulty string `yaml:"difficulty"`
+	Folder     string `yaml:"folder"`
+	Batch      string `yaml:"batch"`
+	Status     string `yaml:"status"`
+	// BuildsOn lists earlier questions whose technique this one reuses,
+	// by LeetCode number. It drives the "Builds on" section in the
+	// write-ups, so a reader arriving at a medium is pointed back at the
+	// easies that taught the pieces.
+	//
+	// This field has to exist here for the values to survive at all.
+	// Without it yaml.Unmarshal drops the key on load and Marshal writes
+	// the file back without it, so every queue write silently deletes
+	// the whole chain - which is exactly what happened to the 51 entries
+	// added in 9292bce.
+	BuildsOn []int              `yaml:"builds_on,omitempty"`
+	PostedAt map[string]*string `yaml:"posted_at"`
 }
 
 // HasContent reports whether this entry's content has been generated.

@@ -63,6 +63,8 @@ entries:
       folder: easy_problems/101_200/balanced_binary_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 104
       posted_at:
         discord: "2026-09-07T04:16:03Z"
         linkedin_company_page: "2026-09-07T04:15:21Z"
@@ -77,6 +79,9 @@ entries:
       folder: medium_problems/201_300/count_complete_tree_nodes
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 104
+        - 110
       posted_at:
         discord: "2026-09-08T04:13:01Z"
         linkedin_company_page: "2026-09-08T04:12:21Z"
@@ -91,6 +96,8 @@ entries:
       folder: easy_problems/101_200/minimum_depth_of_binary_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 104
       posted_at:
         discord: "2026-09-09T05:19:08Z"
         linkedin_company_page: "2026-09-09T05:18:33Z"
@@ -119,6 +126,8 @@ entries:
       folder: easy_problems/101_200/binary_tree_postorder_traversal
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 144
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -133,6 +142,8 @@ entries:
       folder: medium_problems/101_200/flatten_binary_tree_to_linked_list
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 144
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -147,6 +158,8 @@ entries:
       folder: easy_problems/101_200/path_sum
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 257
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -161,6 +174,9 @@ entries:
       folder: easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 112
+        - 257
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -175,6 +191,9 @@ entries:
       folder: medium_problems/601_700/construct_string_from_binary_tree
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 257
+        - 144
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -203,6 +222,8 @@ entries:
       folder: medium_problems/101_200/binary_tree_level_order_traversal
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 637
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -217,6 +238,8 @@ entries:
       folder: medium_problems/101_200/binary_tree_zigzag_level_order_traversal
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 102
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -245,6 +268,8 @@ entries:
       folder: easy_problems/901_1000/cousins_in_binary_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 637
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -259,6 +284,8 @@ entries:
       folder: medium_problems/101_200/binary_tree_right_side_view
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 102
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -273,6 +300,9 @@ entries:
       folder: medium_problems/1101_1200/maximum_level_sum_of_a_binary_tree
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 102
+        - 637
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -287,6 +317,8 @@ entries:
       folder: easy_problems/501_600/diameter_of_binary_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 104
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -301,6 +333,8 @@ entries:
       folder: easy_problems/501_600/binary_tree_tilt
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 543
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -315,6 +349,9 @@ entries:
       folder: medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 543
+        - 563
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -329,6 +366,9 @@ entries:
       folder: medium_problems/301_400/find_leaves_of_binary_tree
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 104
+        - 543
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -343,6 +383,8 @@ entries:
       folder: hard_problems/101_200/binary_tree_maximum_path_sum
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 543
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -357,6 +399,8 @@ entries:
       folder: easy_problems/601_700/search_in_a_binary_search_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 108
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -371,6 +415,8 @@ entries:
       folder: medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 700
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -385,6 +431,8 @@ entries:
       folder: medium_problems/201_300/lowest_common_ancestor_of_a_binary_tree
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 235
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -413,6 +461,8 @@ entries:
       folder: easy_problems/501_600/minimum_absolute_difference_in_bst
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 501
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -427,6 +477,8 @@ entries:
       folder: easy_problems/701_800/minimum_distance_between_bst_nodes
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 530
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -441,6 +493,9 @@ entries:
       folder: medium_problems/1_100/validate_binary_search_tree
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 501
+        - 530
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -455,6 +510,9 @@ entries:
       folder: medium_problems/101_200/binary_search_tree_iterator
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 501
+        - 530
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -469,6 +527,8 @@ entries:
       folder: hard_problems/201_300/closest_binary_search_tree_value_ii
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 173
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -483,6 +543,8 @@ entries:
       folder: easy_problems/801_900/increasing_order_search_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 501
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -497,6 +559,9 @@ entries:
       folder: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 530
+        - 783
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -511,6 +576,8 @@ entries:
       folder: easy_problems/601_700/two_sum_iv_input_is_a_bst
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 700
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -525,6 +592,8 @@ entries:
       folder: easy_problems/701_800/kth_largest_element_in_a_stream
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 700
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -539,6 +608,9 @@ entries:
       folder: medium_problems/401_500/delete_node_in_a_bst
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 700
+        - 98
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -567,6 +639,8 @@ entries:
       folder: easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 617
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -581,6 +655,8 @@ entries:
       folder: easy_problems/501_600/subtree_of_another_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 617
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -595,6 +671,8 @@ entries:
       folder: easy_problems/2301_2400/evaluate_boolean_binary_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 145
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -609,6 +687,9 @@ entries:
       folder: medium_problems/801_900/binary_tree_pruning
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 145
+        - 2331
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -623,6 +704,8 @@ entries:
       folder: medium_problems/2401_2500/reverse_odd_levels_of_binary_tree
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 102
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -637,6 +720,8 @@ entries:
       folder: easy_problems/801_900/leaf_similar_trees
       batch: binary tree
       status: content_ready
+      builds_on:
+        - 257
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -651,6 +736,8 @@ entries:
       folder: medium_problems/301_400/binary_tree_vertical_order_traversal
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 102
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -693,6 +780,8 @@ entries:
       folder: medium_problems/101_200/populating_next_right_pointers_in_each_node
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 102
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -707,6 +796,9 @@ entries:
       folder: medium_problems/1301_1400/deepest_leaves_sum
       batch: binary tree
       status: pending_content
+      builds_on:
+        - 104
+        - 637
       posted_at:
         discord: null
         linkedin_company_page: null
