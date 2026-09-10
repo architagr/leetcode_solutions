@@ -93,7 +93,11 @@ Before marking a problem complete, verify:
 
 **Images & Diagrams**
 - [ ] Example images downloaded from LeetCode (if present in problem statement)
-- [ ] Walkthrough diagrams show algorithm progression at key steps
+- [ ] `images/walkthrough-*.png` exists — every solution has them, 3-6 of them
+- [ ] Each diagram shows state that actually changed, not the input redrawn
+- [ ] Diagrams match the house style (1200px, STEP n / N, blue done / orange current / grey pending)
+- [ ] The same diagrams appear in SOLUTION.md, POST_LINKEDIN_ARTICLE.md and POST_SUBSTACK.md
+- [ ] No image references in POST_DISCORD.md
 - [ ] All `.svg` converted to `.png` and SVG files deleted (PNG only in repo)
 - [ ] Image paths consistent across SOLUTION.md and POST_LINKEDIN_ARTICLE.md (both use `images/`)
 - [ ] No `?raw=true` or GitHub blob URLs in markdown files
@@ -315,14 +319,36 @@ Two things to keep honest:
       must describe this specific implementation. Follow the "Writing style" section
       above.
 
-      Make the walkthrough visual wherever a picture beats a paragraph:
-      - If step (d) downloaded example images (tree/graph/matrix diagrams) to
-        `<folder>/images/`, reuse them here instead of re-describing the example input in
-        prose — reference the local `images/<n>.<ext>` path. Don't regenerate an example
-        that LeetCode's own statement already illustrates well.
-      - **Never use ASCII art trees or diagrams.** Use visual images only (example images + walkthrough diagrams).
-      - **Do NOT create walkthrough diagrams that are just ASCII art trees rendered as images** — that wastes tokens and space. Create diagrams ONLY if they show actual algorithm progression (state changes, data structure contents evolving, etc.) that cannot be explained clearly in prose. For tree problems, reference the LeetCode example image instead.
-      - For tree/graph traversal algorithms where the visual state change is essential (e.g., level-by-level order, stack/queue contents changing), create proper walkthrough diagrams showing algorithm progression, saved to `<folder>/images/walkthrough-<n>.png` (1-based, in step order). Keep each diagram small and focused (one state snapshot) — reader should see at a glance what changed since previous step.
+      **Every solution gets walkthrough diagrams. This is not optional.** A solution
+      folder with no `images/walkthrough-*.png` is incomplete, in the same way one with no
+      SOLUTION.md would be. The whole series is a teaching series, and a reader following
+      a recursion through four levels needs to see the state at each level, not be asked
+      to hold it in their head.
+
+      Aim for 3-6 of them, saved to `<folder>/images/walkthrough-<n>.png` (1-based, in
+      step order). Each one is a single state snapshot, and a reader should see at a
+      glance what changed since the last.
+
+      What they must show is **algorithm progression** — the state that actually moves as
+      the code runs. The accumulator filling up, the queue draining, the pointers
+      relinking, which node is current and which are already done. A picture of the input
+      tree, redrawn five times with nothing changing, is not a walkthrough diagram.
+
+      - **Never use ASCII art, in any file, for anything.** Not in SOLUTION.md, not in a
+        post, and not rendered into a PNG and called a diagram. If a tree needs drawing,
+        draw it as an SVG and export it.
+      - If step (d) downloaded example images to `<folder>/images/`, use them for the
+        *input* rather than redrawing it — reference the local `images/<n>.<ext>` path.
+        Those illustrate the problem; the walkthrough diagrams illustrate the solution.
+        Both belong in the file, doing different jobs.
+
+      **House style, so the series looks like one series.** Match the existing diagrams
+      (see `easy_problems/101_200/binary_tree_preorder_traversal/images/`): 1200px wide,
+      white background, `STEP n / N` in grey monospace at the top left, and one line of
+      monospace caption along the bottom naming the state after this step (`arr = [1,2,3]`).
+      Nodes are circles, radius 45, dark `#2c3e50` stroke: blue `#3178c6` filled for done,
+      a thick orange `#e8890c` ring on white for the node being visited now, grey `#d3d3d3`
+      for not yet reached. Edges are `#8a9a9a`, 4px.
 
       **Every walkthrough SVG must be exported to PNG**, same basename, into the folder's
       `images/` directory — and the SVG itself must not be left there. Draw the SVGs in a
@@ -357,9 +383,22 @@ Two things to keep honest:
       python3 -c "import xml.etree.ElementTree as ET,glob,sys; [ET.parse(f) for f in glob.glob('/tmp/walkthrough-*.svg')]" && echo "all SVGs valid"
       ```
 
-      Reuse the same example images and walkthrough PNGs in the LinkedIn article (k) and
-      Discord post (m) too — both carry the full solution walkthrough, so both should be
-      visual for the same reasons, not just SOLUTION.md.
+      **The same example images and walkthrough PNGs go into the LinkedIn article (k) and
+      the Substack post (o), at the same points in the narrative.** All three files carry
+      the full walkthrough, so all three are visual for the same reason — SOLUTION.md is
+      not the only one a reader learns from, and an article that describes in prose what
+      the repo shows in pictures is the weaker copy of the two.
+
+      Reference them by their local `images/walkthrough-<n>.png` path in all three. The
+      images are attached by hand when a post is pasted into LinkedIn's or Substack's
+      editor, so the path is a pointer for the author rather than something the platform
+      resolves, and keeping all three files on the same paths means a renamed diagram is a
+      one-place edit.
+
+      **Not the Discord post.** Step (m) is explicit that POST_DISCORD.md carries no image
+      references at all — the poster attaches HERO.png itself and markdown image syntax
+      just lands as raw noise in the channel. The walkthrough link at the bottom of that
+      post is how Discord readers reach the diagrams.
 
    g. Edit `<folder>/main.go` in place to add inline `//` comments at non-obvious steps
       (loop invariants, why a particular data structure, edge cases handled). Do not

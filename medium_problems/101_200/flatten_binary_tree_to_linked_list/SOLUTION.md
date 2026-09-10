@@ -10,6 +10,8 @@ We'll trace it on the example above, `root = [1,2,5,3,4,null,6]`: node `1` has l
 `2` and right child `5`; `2` has children `3` and `4`; `5` has a right child `6`. The
 expected flattened order is `1, 2, 3, 4, 5, 6`.
 
+![Step 1: nothing collected yet](images/walkthrough-1.png)
+
 1. **The empty case, first.** `if root == nil { return }`. There's nothing to flatten and
    nothing to return, so this is the entire base case. It also means every line below can
    assume `root` is a real node — worth noting, because step 3 indexes `arr[0]` without
@@ -36,6 +38,15 @@ expected flattened order is `1, 2, 3, 4, 5, 6`.
    return value, this one hands down a pointer to the slice header so every call mutates
    the same one. Both work. The pointer version reads a little heavier at each call site.
 
+   Walking it: the root goes in first, then the whole left subtree before the right one
+   is touched at all.
+
+   ![Step 2: pre-order takes root then the left subtree, arr = [1,2,3]](images/walkthrough-2.png)
+
+   The right subtree finishes last, which is what puts `5` and `6` at the end.
+
+   ![Step 3: the right subtree finishes last, arr = [1,2,3,4,5,6]](images/walkthrough-3.png)
+
    After this call, `arr` holds values `[1, 2, 3, 4, 5, 6]`.
 
 3. **Reset the root.** `root.Val = arr[0].Val` and `temp.Left = nil`. The root keeps its
@@ -60,6 +71,8 @@ expected flattened order is `1, 2, 3, 4, 5, 6`.
    off `temp.Right`, clears `temp.Left`, and steps `temp` forward onto the node just
    created. So the chain is built front to back, and `temp` is always the tail.
 
+   ![Step 4: the root is reset and the loop attaches 2 then 3](images/walkthrough-4.png)
+
    Tracing it: `i=1` attaches a new node holding `2`; `i=2` attaches `3`; `i=3` attaches
    `4`; `i=4` attaches `5`; `i=5` attaches `6`. The result is
    `1 -> 2 -> 3 -> 4 -> 5 -> 6`, every link through `Right`, every `Left` nil.
@@ -70,6 +83,8 @@ expected flattened order is `1, 2, 3, 4, 5, 6`.
    `new(TreeNode)` zeroes it. So the line is never actually load-bearing. It's harmless,
    and it makes the loop body state its invariant explicitly — every node this loop leaves
    behind has a nil `Left` — rather than relying on the reader knowing what `new` does.
+
+![Step 5: the finished chain, the last Right nil from new(TreeNode)](images/walkthrough-5.png)
 
 5. **The last node.** The loop ends with `temp` pointing at the node holding `6`, whose
    `Right` was never assigned and is therefore nil from `new(TreeNode)`. That nil is the

@@ -84,8 +84,28 @@ func getPreOrderArray(root *TreeNode, arr *[]TreeNode) {
 ```
 
 Tracing `[1,2,5,3,4,null,6]`: node `1` has children `2` and `5`, `2` has children `3` and
-`4`, and `5` has a right child `6`. The traversal collects `[1, 2, 3, 4, 5, 6]`, and the
-loop chains those into `1 -> 2 -> 3 -> 4 -> 5 -> 6` with every link through `Right`.
+`4`, and `5` has a right child `6`.
+
+![Step 1: nothing collected yet](images/walkthrough-1.png)
+
+The traversal takes the root first, then the whole left subtree before the right one is
+touched at all.
+
+![Step 2: pre-order takes root then the left subtree, arr = [1,2,3]](images/walkthrough-2.png)
+
+The right subtree finishes last, which is what puts `5` and `6` at the end.
+
+![Step 3: the right subtree finishes last, arr = [1,2,3,4,5,6]](images/walkthrough-3.png)
+
+Then the rebuild. The root keeps its identity and gets `arr[0]`, and each iteration hangs
+a freshly allocated node off the tail.
+
+![Step 4: the root is reset and the loop attaches 2 then 3](images/walkthrough-4.png)
+
+The loop ends with the tail holding `6`, whose `Right` was never assigned and is nil from
+`new(TreeNode)` — the list terminates for free.
+
+![Step 5: the finished chain, the last Right nil from new(TreeNode)](images/walkthrough-5.png)
 
 Four details that aren't obvious from reading the description.
 
