@@ -141,7 +141,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/flatten_binary_tree_to_linked_list
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 144
       posted_at:
