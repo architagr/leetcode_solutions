@@ -195,3 +195,46 @@ func TestNextUnpostedReturnsOldestFirstUpToLimit(t *testing.T) {
 		t.Errorf("limit 0 should return nothing, got %d", len(none))
 	}
 }
+
+func TestMarkContentReadyFlipsOnlyThatEntry(t *testing.T) {
+	q := &Queue{Entries: []Entry{
+		{Number: 114, Day: 10, Status: "pending_content"},
+		{Number: 145, Day: 9, Status: "pending_content"},
+	}}
+
+	if !q.MarkContentReady(114) {
+		t.Fatal("MarkContentReady(114) = false, want true")
+	}
+	if q.Entries[0].Status != StatusContentReady {
+		t.Errorf("entry 114 status = %q, want %q", q.Entries[0].Status, StatusContentReady)
+	}
+	if q.Entries[1].Status != "pending_content" {
+		t.Errorf("entry 145 status = %q, want it untouched", q.Entries[1].Status)
+	}
+	if q.MarkContentReady(999) {
+		t.Error("MarkContentReady on an absent number = true, want false")
+	}
+}
+
+// A posted entry has already gone out; nothing about writing content
+// later should rewind that.
+func TestMarkContentReadyLeavesPostedEntriesAlone(t *testing.T) {
+	q := &Queue{Entries: []Entry{{Number: 104, Day: 1, Status: StatusPosted}}}
+	if !q.MarkContentReady(104) {
+		t.Fatal("MarkContentReady on a posted entry = false, want true")
+	}
+	if q.Entries[0].Status != StatusPosted {
+		t.Errorf("status = %q, want it left as %q", q.Entries[0].Status, StatusPosted)
+	}
+}
+
+// Running the same flip twice is how a re-run of a partly-finished batch
+// behaves, so it has to be harmless.
+func TestMarkContentReadyIsIdempotent(t *testing.T) {
+	q := &Queue{Entries: []Entry{{Number: 114, Day: 10, Status: "pending_content"}}}
+	q.MarkContentReady(114)
+	q.MarkContentReady(114)
+	if q.Entries[0].Status != StatusContentReady {
+		t.Errorf("status = %q, want %q", q.Entries[0].Status, StatusContentReady)
+	}
+}

@@ -1,4 +1,4 @@
-last_scanned_commit: aca6f6fda7b7121b0cba47b33d6af9b8f2aec003
+last_scanned_commit: 1d51534361dd68a58b5a34fd4c56b117893ddb47
 map:
     55: google_questions/dynamic_programming/jump_game
     80: google_questions/array_strings/remove_duplicates_from_sorted_array_ii
@@ -26,6 +26,7 @@ map:
     617: easy_problems/601_700/merge_two_binary_trees
     643: easy_problems/601_700/maximum_average_subarray_i
     653: easy_problems/601_700/two_sum_iv_input_is_a_bst
+    654: medium_problems/601_700/maximum_binary_tree
     703: easy_problems/701_800/kth_largest_element_in_a_stream
     783: easy_problems/701_800/minimum_distance_between_bst_nodes
     841: medium_problems/801_900/keys_and_rooms
@@ -40,6 +41,9 @@ map:
     1052: medium_problems/1001_1100/grumpy_bookstore_owner
     1208: medium_problems/1201_1300/get_equal_substrings_within_budget
     1248: medium_problems/1201_1300/count_number_of_nice_subarrays
+    1261: medium_problems/1201_1300/find_elements_in_a_contaminated_binary_tree
+    1302: medium_problems/1301_1400/deepest_leaves_sum
+    1315: medium_problems/1301_1400/sum_of_nodes_with_even_valued_grandparent
     1343: medium_problems/1301_1400/number_of_sub_arrays_of_size_k_and_average_greater_than_or_equal_to_threshold
     1358: medium_problems/1301_1400/number_of_substrings_containing_all_three_characters
     1379: easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_clone

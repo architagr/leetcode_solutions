@@ -317,6 +317,16 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return cli.SubstackBatch(in.RepoRoot, in.QueuePath, in.Count, in.OutPath)
 
+	case "mark-content-ready":
+		var in struct {
+			QueuePath string `json:"queuePath"`
+			Numbers   []int  `json:"numbers"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		return cli.MarkContentReady(in.QueuePath, in.Numbers)
+
 	case "mark-posted":
 		var in struct {
 			QueuePath   string `json:"queuePath"`

@@ -172,6 +172,30 @@ func (q *Queue) NextUnposted(destination string, limit int) []Entry {
 	return pending
 }
 
+// MarkContentReady flips the entry for number from pending_content to
+// content_ready, reporting whether such an entry was found.
+//
+// An entry can be queued before its content is written — that is how a
+// day number gets reserved so the queue's easy/medium interleaving can
+// be decided up front. Finishing that content later needs some way to
+// say so, and queue-append is not it: appending again would assign a
+// second day number to a question that already has one.
+//
+// Already-ready and already-posted entries are left alone rather than
+// rewritten, so running this twice is harmless.
+func (q *Queue) MarkContentReady(number int) bool {
+	for i := range q.Entries {
+		if q.Entries[i].Number != number {
+			continue
+		}
+		if q.Entries[i].Status != StatusPosted {
+			q.Entries[i].Status = StatusContentReady
+		}
+		return true
+	}
+	return false
+}
+
 // MarkPosted records that the entry for number went out to destination
 // at time at, leaving every other destination untouched. It reports
 // whether such an entry was found.

@@ -198,6 +198,51 @@ func FetchQuestion(slug string) (leetcode.Question, error) {
 	return leetcode.NewClient().FetchQuestionContent(slug)
 }
 
+// MarkContentReadyResult reports which entries were flipped to
+// content_ready and which numbers had no queue entry at all.
+type MarkContentReadyResult struct {
+	Marked  []int  `json:"marked"`
+	Missing []int  `json:"missing,omitempty"`
+	Message string `json:"message"`
+}
+
+// MarkContentReady flips queued entries from pending_content to
+// content_ready once their content has actually been written.
+//
+// Unlike MarkPosted this claims nothing outward-facing — it records a
+// fact about the working tree, which is why it is safe to run over a
+// whole batch at once. A number with no queue entry is reported rather
+// than appended: appending here would hand a second day number to a
+// question that may already have one.
+func MarkContentReady(queuePath string, numbers []int) (MarkContentReadyResult, error) {
+	if len(numbers) == 0 {
+		return MarkContentReadyResult{}, fmt.Errorf("no numbers given")
+	}
+	q, err := queue.Load(queuePath)
+	if err != nil {
+		return MarkContentReadyResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+	}
+
+	var marked, missing []int
+	for _, n := range numbers {
+		if q.MarkContentReady(n) {
+			marked = append(marked, n)
+		} else {
+			missing = append(missing, n)
+		}
+	}
+	if len(marked) > 0 {
+		if err := q.Save(queuePath); err != nil {
+			return MarkContentReadyResult{}, err
+		}
+	}
+	return MarkContentReadyResult{
+		Marked:  marked,
+		Missing: missing,
+		Message: fmt.Sprintf("marked %d entr(ies) content_ready", len(marked)),
+	}, nil
+}
+
 // PostOption tweaks a post-discord run. The zero set of options is the
 // scheduled behaviour; every option here exists for a hand-run override.
 type PostOption func(*postConfig)
