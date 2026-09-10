@@ -609,7 +609,7 @@ entries:
       difficulty: medium
       folder: medium_problems/401_500/delete_node_in_a_bst
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 700
         - 98

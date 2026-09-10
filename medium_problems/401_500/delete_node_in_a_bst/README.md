@@ -9,7 +9,7 @@ Basically, the deletion can be divided into two stages:
 
 #### Example 1:
 
-!["Example 1"](del_node_1.jpg)
+![Example 1](images/1.jpg)
 
 ```
 Input: root = [5,3,6,2,4,null,7], key = 3
@@ -19,7 +19,7 @@ One valid answer is [5,4,6,2,null,null,7], shown in the above BST.
 Please notice that another valid answer is [5,2,6,null,4,null,7] and it's also accepted.
 ```
 
-!["Example 1 supp"](del_node_supp.jpg)
+![Example 1, alternative valid answer](images/2.jpg)
 
 #### Example 2:
 
