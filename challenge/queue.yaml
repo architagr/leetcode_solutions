@@ -384,7 +384,7 @@ entries:
       difficulty: hard
       folder: hard_problems/101_200/binary_tree_maximum_path_sum
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 543
       posted_at:

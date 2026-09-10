@@ -8,7 +8,7 @@ Given the `root` of a binary tree, return the maximum **path sum** of any **non-
 
 #### Example 1:
 
-!["Example 1"](exx1.jpg)
+![Example 1](images/1.jpg)
 
 ```
 Input: root = [1,2,3]
@@ -18,7 +18,7 @@ Explanation: The optimal path is 2 -> 1 -> 3 with a path sum of 2 + 1 + 3 = 6.
 
 #### Example 2:
 
-!["Example 2"](exx2.jpg)
+![Example 2](images/2.jpg)
 
 ```
 Input: root = [-10,9,20,null,null,15,7]
