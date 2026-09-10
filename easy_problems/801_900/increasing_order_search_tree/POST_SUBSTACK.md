@@ -1,13 +1,20 @@
 ---
 meta_title: "A sorted linked list wearing TreeNode"
 meta_description: "The requested shape, no left child and one right child, is a linked list. In-order collects the nodes already sorted, then relinking is a flat second pass."
+tags: [golang, binary-search-tree, in-order, linked-list, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 35/365
 
 # Increasing Order Search Tree
 
-🔗 https://leetcode.com/problems/increasing-order-search-tree/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 35/365*
+
+🔗 [LeetCode #897](https://leetcode.com/problems/increasing-order-search-tree/) · Difficulty: Easy
+
+The output the problem describes sounds exotic until you say it plainly: every node has no left
+child and one right child. That's a singly linked list, built out of `TreeNode`s.
+
+Naming the shape correctly is most of the work, because it splits the problem into two things you
+already know how to do instead of one fiddly in-place rewire.
 
 ### The problem
 
@@ -15,7 +22,7 @@ Given the root of a binary search tree, rearrange the tree in-order so that the
 leftmost node becomes the new root, and every node has no left child and only one
 right child.
 
-![Example 1](images/1.jpg "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/1.jpg "Example1")
 
 ### The intuition
 
@@ -114,9 +121,9 @@ Let's trace `inOrder` on the smaller example from the statement, `root = [5,1,7]
 3-node BST with `5` at the top and children `1` and `7`. Small enough to draw every
 node explicitly.
 
-![Example 2](images/2.jpg "Example2")
+![Example 2](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/2.jpg "Example2")
 
-![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](images/walkthrough-1.png)
+![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/walkthrough-1.png)
 
 `inOrder(5)` recurses left and right before touching `5` itself. `inOrder(1)` has both
 children nil, so `left=[]` and `right=[]`; clearing `1.Left` and `1.Right` is a no-op
@@ -127,7 +134,7 @@ Back in `inOrder(5)`: `left=[1]`, `right=[7]`. Now `5.Left = nil` and `5.Right =
 detach `5` from its old children. `res = append([1], 5) = [1, 5]`, then
 `res = append([1,5], 7...) = [1, 5, 7]`.
 
-![Step 2: inOrder returns [1, 5, 7], all three nodes already detached from old children](images/walkthrough-2.png)
+![Step 2: inOrder returns [1, 5, 7], all three nodes already detached from old children](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/walkthrough-2.png)
 
 Back in `increasingBST`, `inorder = [1, 5, 7]`, and the relinking loop runs twice:
 `i=1` sets `inorder[0].Right = inorder[1]`, meaning `1.Right = 5`. `i=2` sets
@@ -135,7 +142,7 @@ Back in `increasingBST`, `inorder = [1, 5, 7]`, and the relinking loop runs twic
 `inorder[0]`, node `1`, now the root of a chain `1 → 5 → 7`, linked purely through
 `.Right`, matching the expected output `[1,null,5,null,7]`.
 
-![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](images/walkthrough-3.png)
+![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/walkthrough-3.png)
 
 The same two-phase approach scales directly to the bigger example above
 (`root = [5,3,6,2,4,null,8,1,null,null,null,7,9]`): `inOrder` collects all nine nodes
@@ -147,10 +154,14 @@ Complexity: O(n) time, every node visited once by `inOrder` and once by the reli
 loop. O(n) space for the `inorder` slice, plus O(h) for the recursion stack (h = tree
 height).
 
+---
+
+Trying to relink during the traversal is where this gets hard — you're mutating the pointers
+you're still navigating by. Collecting first and relinking second costs O(n) space and buys code
+you can actually read.
+
 Full code and the step-by-step walkthrough:
 [increasing_order_search_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/increasing_order_search_tree/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #BinarySearchTree #InOrderTraversal #Golang #CodingInterview #Algorithms
 
 ---
 

@@ -1,19 +1,25 @@
 ---
 meta_title: "Return a pair, not a number, and one pass is enough"
 meta_description: "A node decides nothing on the way down. Coming back up both children have reported, so returning sum and count together makes it a single pass."
+tags: [golang, binary-tree, recursion, postorder, leetcode]
 ---
 
-# 365 Days of LeetCode Challenge — Day 23/365
+# Count Nodes Equal to Average of Subtree
 
-## Count Nodes Equal to Average of Subtree
+*365 Days of LeetCode Challenge — Day 23/365*
 
-[LeetCode #2265](https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/) · Medium
+🔗 [LeetCode #2265](https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/) · Difficulty: Medium
 
-![Day 23](HERO.png)
+Every node needs the average of its own subtree, which means two numbers: a sum and a count.
+Computing them independently per node walks each subtree once per node — quadratic on a skewed
+tree.
+
+The way out isn't a cleverer traversal. It's noticing which direction the information has to
+travel, and letting the return value carry more than one thing.
 
 Given the root of a binary tree, count the nodes whose value equals the average of their own subtree, rounded down.
 
-![Example tree](images/1.png)
+![Example tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/images/1.png)
 
 ## Two numbers per node
 
@@ -85,7 +91,7 @@ Skip past that and you get a wrong answer. Node 5 in the example has sum 11 over
 
 The example, `root = [4,8,5,0,1,null,6]`:
 
-![Post-order sums and counts](images/walkthrough-1.png)
+![Post-order sums and counts](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/images/walkthrough-1.png)
 
 - **0**, a leaf: sum 0, count 1, average 0. Match.
 - **1**, a leaf: sum 1, count 1, average 1. Match.
@@ -106,12 +112,15 @@ Five matches. The top-level call returns `(24, 6)` and both are thrown away.
 
 The reusable idea here is returning a tuple from a traversal. The moment a node needs more than one fact about its subtree to make a decision, widen the return type rather than adding a second pass. Diameter, balanced-tree checks, and largest-BST-subtree all fall out of the same move.
 
+---
+
+Whenever a node's answer depends on its children's answers, the question to ask is what the
+recursive call should hand back. Widening the return from a number to a pair is usually cheaper
+than a second traversal, and it keeps everything in one pass.
+
 Full code and the step-by-step walkthrough:
 [count_nodes_equal_to_average_of_subtree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/SOLUTION.md)
 
-#DSA #LeetCode #BinaryTree #Recursion #DFS #Golang #CodingInterview
-
 ---
 
-*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the
-code and problem statement.*
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

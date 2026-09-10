@@ -116,8 +116,6 @@ division pass only runs once per level. Space is O(h) for the recursion stack (h
 tree height), plus O(L) for the `result`/`count` slices, where L (the number of
 levels) tops out at h + 1.
 
-Full code: `easy_problems/601_700/average_of_levels_in_binary_tree/` in the repo.
-
 ---
 
 The transferable idea: when accumulation is keyed by a property of the item rather than by when it

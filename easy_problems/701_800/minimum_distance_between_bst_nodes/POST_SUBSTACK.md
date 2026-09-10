@@ -1,13 +1,20 @@
 ---
 meta_title: "The same BST problem twice, under two numbers"
 meta_description: "783 and 530 are the same question. In-order gives sorted order and the smallest gap sits between adjacent values — worth deriving rather than recalling."
+tags: [golang, binary-search-tree, in-order, recursion, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 31/365
 
 # Minimum Distance Between BST Nodes
 
-🔗 https://leetcode.com/problems/minimum-distance-between-bst-nodes/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 31/365*
+
+🔗 [LeetCode #783](https://leetcode.com/problems/minimum-distance-between-bst-nodes/) · Difficulty: Easy
+
+This is Day 30's problem again. LeetCode carries it under two numbers — 530 and 783 — with the
+same constraints and the same answer.
+
+Rather than skip it, it's worth doing deliberately, because a repeat is the cheapest possible
+test of whether you learned the property or memorised the solution.
 
 ### The problem
 
@@ -37,7 +44,7 @@ telling you the order.
 
 ### The solution
 
-![Example 1](images/1.jpg "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/minimum_distance_between_bst_nodes/images/1.jpg "Example1")
 
 We'll trace it on `root = [4,2,6,1,3]` (expected `1`).
 
@@ -82,7 +89,7 @@ First, flatten the tree into a sorted list. `arr := inOrder(root)` walks left, n
 right, so on `[4,2,6,1,3]` it comes back as `[1, 2, 3, 4, 6]`. Already sorted, for free,
 because that's just what in-order traversal does to a BST.
 
-![Step 1: in-order traversal collects [1, 2, 3, 4, 6] from the tree](images/walkthrough-1.png)
+![Step 1: in-order traversal collects [1, 2, 3, 4, 6] from the tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/minimum_distance_between_bst_nodes/images/walkthrough-1.png)
 
 Then scan for the smallest neighboring gap. `minVal` starts at `math.MaxInt` so the
 first comparison always wins. The loop walks the sorted array one adjacent pair at a
@@ -90,12 +97,12 @@ time: `(1,2)`, `(2,3)`, `(3,4)`, `(4,6)`. It takes the absolute difference of ea
 and keeps the smallest. Since the answer can only live between adjacent values once
 everything is sorted, one linear pass covers it.
 
-![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](images/walkthrough-2.png)
+![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/minimum_distance_between_bst_nodes/images/walkthrough-2.png)
 
 Last, return the answer. Once the loop finishes, `minVal` is holding the smallest gap
 found across the whole sequence.
 
-![Step 3: minDiffInBST(root) returns 1](images/walkthrough-3.png)
+![Step 3: minDiffInBST(root) returns 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/minimum_distance_between_bst_nodes/images/walkthrough-3.png)
 
 One thing worth flagging: the traversal visits each of the `n` nodes once, but `inOrder`
 rebuilds and copies a slice at every recursive call through nested `append`s, so the
@@ -104,10 +111,14 @@ A version that appends into one shared accumulator slice would dodge that. The s
 afterward is a clean O(n). Space is O(n) for the collected values plus O(h) for the
 recursion stack, where `h` is the tree's height.
 
+---
+
+If the second attempt came out of the BST's in-order property rather than out of recall, the first
+one stuck. If it came out of recall, that's useful to know too — the property is the part that
+transfers to problems that aren't identical twins.
+
 Full code and the step-by-step walkthrough:
 [minimum_distance_between_bst_nodes](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/minimum_distance_between_bst_nodes/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #CodingInterview #Programming #BinarySearchTree #InOrderTraversal #Golang
 
 ---
 

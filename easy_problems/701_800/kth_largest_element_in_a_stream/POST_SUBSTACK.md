@@ -1,13 +1,20 @@
 ---
 meta_title: "You only need the top k, and its weakest member"
 meta_description: "The kth largest of a stream is the smallest of its top k. Keep a min-heap capped at k and every add is a log-k push, not a re-sort."
+tags: [golang, heap, priority-queue, streaming, leetcode]
 ---
 
-# 365 Days of LeetCode Challenge — Day 38/365
+# Kth Largest Element in a Stream
 
-## Kth Largest Element in a Stream
+*365 Days of LeetCode Challenge — Day 38/365*
 
-[LeetCode 703 — Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/) · Difficulty: Easy
+🔗 [LeetCode #703](https://leetcode.com/problems/kth-largest-element-in-a-stream/) · Difficulty: Easy
+
+Re-sorting the stream on every `add` is correct and it's what the problem invites. With ten
+thousand calls it's also doing enormous amounts of work to answer a very narrow question.
+
+The narrowing is the whole solution. You never need to know the full order — only one value, and
+only right now.
 
 Picture an admissions office watching test scores come in one at a time, needing to
 know after every single one what the kth highest score is so far. That's the whole
@@ -147,7 +154,7 @@ Tracing it against the example, `Constructor(3, [4, 5, 8, 2])`: `limit = 3`, so 
 `i = 3`, `nums[3] = 2`. Is `root(4) < 2`? No, so `2` gets rejected and the heap stays
 `{4, 5, 8}`.
 
-![Step 1: Constructor fills the heap with 4, 5, 8; rejects 2](images/walkthrough-1.png)
+![Step 1: Constructor fills the heap with 4, 5, 8; rejects 2](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/kth_largest_element_in_a_stream/images/walkthrough-1.png)
 
 ### `Add(val int) int`
 
@@ -180,27 +187,27 @@ remaining call takes the comparison branch:
 **`Add(3)`**: root is `4`. Is `4 < 3`? No, rejected. Heap stays `{4, 5, 8}`, returns
 `4`.
 
-![Step 2: Add(3) is rejected, heap unchanged, returns 4](images/walkthrough-2.png)
+![Step 2: Add(3) is rejected, heap unchanged, returns 4](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/kth_largest_element_in_a_stream/images/walkthrough-2.png)
 
 **`Add(5)`**: root is `4`. Is `4 < 5`? Yes, pop `4`, push `5`. Heap becomes
 `{5, 5, 8}` with root `5`, returns `5`.
 
-![Step 3: Add(5) pops 4, pushes 5, returns 5](images/walkthrough-3.png)
+![Step 3: Add(5) pops 4, pushes 5, returns 5](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/kth_largest_element_in_a_stream/images/walkthrough-3.png)
 
 **`Add(10)`**: root is `5`. Is `5 < 10`? Yes, pop that `5`, push `10`. Heap becomes
 `{5, 8, 10}` with root `5` (the *other* `5` already in the heap), returns `5`.
 
-![Step 4: Add(10) pops 5, pushes 10, returns 5](images/walkthrough-4.png)
+![Step 4: Add(10) pops 5, pushes 10, returns 5](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/kth_largest_element_in_a_stream/images/walkthrough-4.png)
 
 **`Add(9)`**: root is `5`. Is `5 < 9`? Yes, pop `5`, push `9`. Heap becomes
 `{8, 9, 10}` with root `8`, returns `8`.
 
-![Step 5: Add(9) pops 5, pushes 9, returns 8](images/walkthrough-5.png)
+![Step 5: Add(9) pops 5, pushes 9, returns 8](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/kth_largest_element_in_a_stream/images/walkthrough-5.png)
 
 **`Add(4)`**: root is `8`. Is `8 < 4`? No, rejected. Heap stays `{8, 9, 10}`, returns
 `8`.
 
-![Step 6: Add(4) is rejected, heap unchanged, returns 8](images/walkthrough-6.png)
+![Step 6: Add(4) is rejected, heap unchanged, returns 8](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/kth_largest_element_in_a_stream/images/walkthrough-6.png)
 
 Final sequence of returns: `[4, 5, 5, 8, 8]`, matching the expected output.
 
@@ -211,13 +218,12 @@ Time is `O(n log k)` for the constructor and `O(log k)` per `Add` call. Space is
 
 ---
 
-*Part of the 365 Days of LeetCode Challenge. Follow along for daily problem
-breakdowns.*
+"What is the least I need to keep?" is the question that turns this from O(n log n) per call into
+O(log k). The answer here is pleasing: the k largest values, and the thing you report is their
+weakest member.
 
 Full code and the step-by-step walkthrough:
 [kth_largest_element_in_a_stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #Heap #DataStructures #Golang #CodingInterview #Programming
 
 ---
 

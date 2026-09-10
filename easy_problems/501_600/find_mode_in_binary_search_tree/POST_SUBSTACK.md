@@ -1,13 +1,20 @@
 ---
 meta_title: "Find Mode in a BST: the BST part is a red herring"
 meta_description: "A mode is a frequency question, and a hashmap tally answers it on any binary tree. The constant-space in-order version is the follow-up."
+tags: [golang, binary-tree, hashmap, traversal, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 29/365
 
 # Find Mode in Binary Search Tree
 
-🔗 https://leetcode.com/problems/find-mode-in-binary-search-tree/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 29/365*
+
+🔗 [LeetCode #501](https://leetcode.com/problems/find-mode-in-binary-search-tree/) · Difficulty: Easy
+
+Not every property a problem hands you is one you have to use. This one is labelled BST, sits in a
+run of BST problems, and the straightforward solution ignores the ordering completely.
+
+That's a deliberate choice rather than an oversight, and it's worth being explicit about what it
+costs.
 
 ### The problem
 
@@ -38,7 +45,7 @@ less to get wrong, and for an easy problem that trade felt like the right one.
 
 ### The solution
 
-![Example 1](images/1.jpg "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/find_mode_in_binary_search_tree/images/1.jpg "Example1")
 
 ```go
 func findMode(root *TreeNode) []int {
@@ -92,25 +99,25 @@ Expected output is `[2]`.
 
 - `getCnt(1, data)` fires first: `data[1]++` sets `data = {1: 1}`.
 
-![Step 1: getCnt visits the root, data becomes {1: 1}](images/walkthrough-1.png)
+![Step 1: getCnt visits the root, data becomes {1: 1}](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/find_mode_in_binary_search_tree/images/walkthrough-1.png)
 
 - `1.Left` is `nil`, so that branch returns immediately without touching anything.
   `getCnt(2a, data)`, the right child of `1`, bumps its own key: `data[2]++` gives
   `data = {1: 1, 2: 1}`.
 
-![Step 2: getCnt visits 1's right child, data becomes {1: 1, 2: 1}](images/walkthrough-2.png)
+![Step 2: getCnt visits 1's right child, data becomes {1: 1, 2: 1}](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/find_mode_in_binary_search_tree/images/walkthrough-2.png)
 
 - `getCnt(2b, data)`, the left child of `2a`, increments the same key again:
   `data = {1: 1, 2: 2}`. `2b` has no children, so recursion just unwinds from here.
 
-![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](images/walkthrough-3.png)
+![Step 3: getCnt visits 2a's left child, data becomes {1: 1, 2: 2}](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/find_mode_in_binary_search_tree/images/walkthrough-3.png)
 
 **Phase 2: `findMode` finds the max, then collects the ties**
 
 - First pass over `data`: the highest count seen is `cnt = 2`.
 - Second pass over `data`: only key `2` matches, so `res = [2]`.
 
-![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](images/walkthrough-4.png)
+![Step 4: findMode scans for the max count, then collects every key matching it, producing [2]](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/find_mode_in_binary_search_tree/images/walkthrough-4.png)
 
 `return res` hands back `[2]`, which matches what the problem expects.
 
@@ -118,10 +125,15 @@ Expected output is `[2]`.
 `findMode` costs O(n) in the worst case too. Space is O(n) for the frequency map, plus
 O(h) for the recursion stack, where h is the tree's height.
 
+---
+
+The in-order version — compare each value to the previous one, track a running count, never
+allocate a map — is the follow-up the problem hints at, and it is genuinely better on space. This
+one trades that for a solution that's obvious on first read. Knowing which you wrote, and why, is
+the part that matters in an interview.
+
 Full code and the step-by-step walkthrough:
 [find_mode_in_binary_search_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #CodingInterview #Programming #BinarySearchTree #HashMap #Golang
 
 ---
 

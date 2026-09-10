@@ -120,8 +120,6 @@ leftright=1, rightleft=0, rightright=1). Expected answer: `22`.
 recursion stack, where h is the tree height (O(log n) if it's balanced, O(n) if it's a
 straight line down one side).
 
-Full code: `easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/` in the repo.
-
 ---
 
 This is a small instance of a habit worth having: when a traversal visits things in the same order

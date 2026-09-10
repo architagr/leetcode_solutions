@@ -1,13 +1,20 @@
 ---
 meta_title: "The tree is the expression, so evaluate it bottom-up"
 meta_description: "Leaves hold literals and internal nodes hold operators. A node cannot know its own value until both children report, which is exactly postorder."
+tags: [golang, binary-tree, recursion, postorder, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 43/365
 
 # Evaluate Boolean Binary Tree
 
-🔗 https://leetcode.com/problems/evaluate-boolean-binary-tree/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 43/365*
+
+🔗 [LeetCode #2331](https://leetcode.com/problems/evaluate-boolean-binary-tree/) · Difficulty: Easy
+
+Most tree problems use the tree as a container for data. This one uses it as a syntax tree, and
+naming that changes what the recursion is for: you're not traversing a structure, you're
+evaluating an expression.
+
+The guarantee that the tree is *full* is doing quiet work here, and it's worth seeing why.
 
 ### The problem
 
@@ -36,7 +43,7 @@ leaf, `1` is `True` while anything else (`0`) is `False`.
 
 ### The solution
 
-![Example 1](images/1.png "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/1.png "Example1")
 
 ```go
 const (
@@ -68,27 +75,31 @@ Walking it through `root = [2,1,3,null,null,0,1]` (root is `OR`, its left child 
   child (`1`) returns `True`; `AND`'s left child (`0`) returns `False`; `AND`'s right
   child (`1`) returns `True`.
 
-![Step 1: leaves hit the base case, root.Val == TRUE decides each](images/walkthrough-1.png)
+![Step 1: leaves hit the base case, root.Val == TRUE decides each](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/walkthrough-1.png)
 
 - Back at the `AND` node: `left = False`, `right = True`. `root.Val` isn't `OR`, so it
   falls to `left && right`, which comes out `False && True = False`.
 
-![Step 2: AND node combines left && right = False && True = False](images/walkthrough-2.png)
+![Step 2: AND node combines left && right = False && True = False](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/walkthrough-2.png)
 
 - Back at the `root` (`OR`) node: `left = True` (its own left child), `right = False`
   (the just-resolved `AND` subtree). `root.Val == OR`, so `left || right` gives
   `True || False = True`. Checks out.
 
-![Step 3: root OR combines left || right = True || False = True](images/walkthrough-3.png)
+![Step 3: root OR combines left || right = True || False = True](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/walkthrough-3.png)
 
 **Complexity:** O(n) time, since every node gets visited and evaluated exactly once.
 O(h) space for the recursion stack, where h is the tree's height: O(log n) if it's
 balanced, O(n) if it's basically a straight line.
 
+---
+
+Every node has either zero children or two, so a node is either a literal or an operator with
+exactly two operands — never an operator missing one. That's what lets the base case be "this is a
+leaf, return its value" with no defensive checks around it.
+
 Full code and the step-by-step walkthrough:
 [evaluate_boolean_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview #Programming
 
 ---
 

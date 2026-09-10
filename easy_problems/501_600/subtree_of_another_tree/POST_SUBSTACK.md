@@ -1,13 +1,20 @@
 ---
 meta_title: "Subtree of Another Tree is Same Tree, tried everywhere"
 meta_description: "Two problems stacked: are two trees identical, and does any node in the big tree answer yes to that. Seeing the split is most of the work."
+tags: [golang, binary-tree, recursion, dfs, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 42/365
 
 # Subtree of Another Tree
 
-🔗 https://leetcode.com/problems/subtree-of-another-tree/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 42/365*
+
+🔗 [LeetCode #572](https://leetcode.com/problems/subtree-of-another-tree/) · Difficulty: Easy
+
+This one gets much easier the moment you stop treating it as one problem. It's a known problem
+used as a subroutine inside a scan.
+
+Both halves are things you've already written. The only real work is recognising that they are
+the halves.
 
 ### The problem
 
@@ -35,7 +42,7 @@ being tiny.
 
 ### The solution
 
-![Example 1](images/1.jpg "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/subtree_of_another_tree/images/1.jpg "Example1")
 
 ```go
 func isSubtree(root *TreeNode, subRoot *TreeNode) bool {
@@ -71,28 +78,32 @@ Here's the trace on `root = [3,4,5,1,2]`, `subRoot = [4,1,2]` (expected `true`):
 `isSubtree(root=3, subRoot=4)` hits a value mismatch right away: `3 != 4`. So it skips
 `equalBinaryTree` entirely and just recurses into both children.
 
-![Step 1: node 3 vs subRoot's 4 — values differ, skip equalBinaryTree, recurse into 4 and 5](images/walkthrough-1.png)
+![Step 1: node 3 vs subRoot's 4 — values differ, skip equalBinaryTree, recurse into 4 and 5](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/subtree_of_another_tree/images/walkthrough-1.png)
 
 Recursing left lands on `isSubtree(root=4, subRoot=4)`. Values match this time, so
 `equalBinaryTree` finally gets to run.
 
-![Step 2: node 4 vs subRoot's 4 — values match, call equalBinaryTree](images/walkthrough-2.png)
+![Step 2: node 4 vs subRoot's 4 — values match, call equalBinaryTree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/subtree_of_another_tree/images/walkthrough-2.png)
 
 `equalBinaryTree` walks both trees in lockstep: `4` matches `4`, then `1` matches `1`
 and `2` matches `2` on each side. Every pair lines up, so it returns `true`, and
 `isSubtree` returns `true` right away. Because `||` short-circuits, node `5` never even
 gets checked. The left branch already settled it.
 
-![Step 3: equalBinaryTree walks 4/1/2 against 4/1/2 in lockstep — all match, isSubtree returns true, node 5 never checked](images/walkthrough-3.png)
+![Step 3: equalBinaryTree walks 4/1/2 against 4/1/2 in lockstep — all match, isSubtree returns true, node 5 never checked](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/subtree_of_another_tree/images/walkthrough-3.png)
 
 Worst case this runs in O(m·n) time, where `m` is the node count of `root` and `n` is
 the node count of `subRoot`: up to `m` candidate anchors, each one costing up to `n`
 work inside `equalBinaryTree`. Space is O(h1 + h2) for the two recursion stacks.
 
+---
+
+Decomposing into a known problem plus a scan over anchors is a pattern worth reaching for
+whenever a question contains "somewhere in." It also tells you the complexity immediately:
+however expensive the inner check is, times the number of anchors.
+
 Full code and the step-by-step walkthrough:
 [subtree_of_another_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/subtree_of_another_tree/SOLUTION.md)
-
-#LeetCode #100DaysOfCode #Algorithms #CodingInterview #BinaryTree #Recursion #Golang
 
 ---
 

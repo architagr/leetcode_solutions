@@ -1,13 +1,20 @@
 ---
 meta_title: "Binary tree tilt: compute each subtree sum exactly once"
 meta_description: "Tilt needs whole-subtree sums, not child values. Re-summing per node is quadratic; postorder returns each sum on the way up so it is computed once."
+tags: [golang, binary-tree, recursion, postorder, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 22/365
 
 # Binary Tree Tilt
 
-🔗 https://leetcode.com/problems/binary-tree-tilt/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 22/365*
+
+🔗 [LeetCode #563](https://leetcode.com/problems/binary-tree-tilt/) · Difficulty: Easy
+
+The definition is easy to misread. A node's tilt is the difference between its two *subtree* sums
+— everything underneath it, not just its two child values.
+
+Read correctly, the naive version is quadratic: every node re-sums its subtrees from scratch, and
+the deepest sums get recomputed over and over on the way up. The fix is the traversal order.
 
 ### The problem
 
@@ -37,7 +44,7 @@ first read.
 
 ### The solution
 
-![Example 2](images/2.jpg "Example2")
+![Example 2](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/binary_tree_tilt/images/2.jpg "Example2")
 
 ```go
 func findTilt(root *TreeNode) int {
@@ -84,31 +91,35 @@ Tracing it through `root = [4,2,9,3,5,null,7]` (expected `15`):
 - `sum(2)` recurses into leaves `3` and `5`: `l=0, r=0` for each, `*res += |0-0| = 0`,
   each returns its own value.
 
-  ![Step 1: leaves 3, 5, 7 are base cases — each returns its own Val, tilt+=0](images/walkthrough-1.png)
+  ![Step 1: leaves 3, 5, 7 are base cases — each returns its own Val, tilt+=0](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/binary_tree_tilt/images/walkthrough-1.png)
 
 - Back in `sum(2)`: `l=3, r=5`. `*res += |3-5| = 2` (running total `2`). Returns
   `3 + 5 + 2 = 10`.
 
-  ![Step 2: node 2 resolves — l=3, r=5, tilt+=2, returns 10](images/walkthrough-2.png)
+  ![Step 2: node 2 resolves — l=3, r=5, tilt+=2, returns 10](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/binary_tree_tilt/images/walkthrough-2.png)
 
 - `sum(9)`: no left child so `l=0`; `sum(7)` (a leaf) gives `r=7`.
   `*res += |0-7| = 7` (running total `9`). Returns `0 + 7 + 9 = 16`.
 
-  ![Step 3: node 9 resolves — l=0 (no left child), r=7, tilt+=7, returns 16](images/walkthrough-3.png)
+  ![Step 3: node 9 resolves — l=0 (no left child), r=7, tilt+=7, returns 16](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/binary_tree_tilt/images/walkthrough-3.png)
 
 - Back in `sum(4)` (the root): `l=10, r=16`. `*res += |10-16| = 6` (running total
   `15`). Returns `10 + 16 + 4 = 30`. `findTilt` returns `res = 15`. ✓
 
-  ![Step 4: node 4 resolves — l=10, r=16, tilt+=6, res=15](images/walkthrough-4.png)
+  ![Step 4: node 4 resolves — l=10, r=16, tilt+=6, res=15](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/binary_tree_tilt/images/walkthrough-4.png)
 
 **Complexity:** O(n) time, since every node is visited exactly once and each one
 does O(1) work. O(h) space for the recursion stack, where h is the tree's height:
 O(log n) if it's balanced, O(n) if it's basically a straight line.
 
+---
+
+Two jobs in one call — accumulate a side effect, return a value the parent needs — is a shape
+worth recognising. It's what lets a single postorder pass answer a question that looked like it
+needed one pass per node.
+
 Full code and the step-by-step walkthrough:
 [binary_tree_tilt](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/binary_tree_tilt/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview
 
 ---
 

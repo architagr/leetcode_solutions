@@ -1,13 +1,21 @@
 ---
 meta_title: "Leaf-similar trees: compare sequences, not shapes"
 meta_description: "The question is only whether two leaf sequences match left to right. Shape is irrelevant, and a left-before-right DFS produces that sequence for free."
+tags: [golang, binary-tree, dfs, recursion, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 46/365
 
 # Leaf-Similar Trees
 
-🔗 https://leetcode.com/problems/leaf-similar-trees/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 46/365*
+
+🔗 [LeetCode #872](https://leetcode.com/problems/leaf-similar-trees/) · Difficulty: Easy
+
+It's tempting to start comparing the two trees against each other, node by node, and that's more
+work than the question asks for.
+
+Nothing about shape matters. Two completely different-looking trees are leaf-similar if they read
+off the same leaves in the same order, so the trees can be reduced to sequences before any
+comparison happens.
 
 ### The problem
 
@@ -16,7 +24,7 @@ values, and that's the tree's **leaf value sequence**. Two trees are *leaf-simil
 if their leaf value sequences match, even when the trees themselves look nothing
 alike.
 
-![Example tree](images/1.png "Example tree")
+![Example tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/leaf_similar_trees/images/1.png "Example tree")
 
 For the tree above, the leaf value sequence is `(6, 7, 4, 9, 8)`.
 
@@ -75,30 +83,34 @@ func leafs(node *TreeNode) []int {
 Walking it through Example 1 — `root1 = [3,5,1,6,2,9,8,null,null,7,4]`,
 `root2 = [3,5,1,6,7,4,2,null,null,null,null,null,null,9,8]` (expected `true`):
 
-![Example 1](images/2.jpg "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/leaf_similar_trees/images/2.jpg "Example1")
 
 - `leafs(root1)` collects `6`, `7`, `4` from the left subtree, then `9`, `8` from the
   right subtree.
 
-![Step 1: root1's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-1.png "Step 1")
+![Step 1: root1's leaves collected left-to-right → (6, 7, 4, 9, 8)](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/leaf_similar_trees/images/walkthrough-1.png "Step 1")
 
 - `leafs(root2)` has a completely different shape, but it comes back with the same
   values in the same order: `6`, `7`, `4`, `9`, `8`.
 
-![Step 2: root2's leaves collected left-to-right → (6, 7, 4, 9, 8)](images/walkthrough-2.png "Step 2")
+![Step 2: root2's leaves collected left-to-right → (6, 7, 4, 9, 8)](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/leaf_similar_trees/images/walkthrough-2.png "Step 2")
 
 - Same length, same value at every index, so `leafSimilar` returns `true`.
 
-![Step 3: comparing the two leaf sequences element by element → true](images/walkthrough-3.png "Step 3")
+![Step 3: comparing the two leaf sequences element by element → true](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/leaf_similar_trees/images/walkthrough-3.png "Step 3")
 
 **Complexity:** O(n + m) time, since every node of both trees gets visited exactly
 once. O(n + m) space for the two leaf slices, plus O(h1 + h2) for the recursion
 stacks (each tree's height).
 
+---
+
+Reducing each input to the thing actually being compared, before comparing, is the general move.
+Here it turns a tree-versus-tree problem into a slice-versus-slice one, and slices are much easier
+to be confident about.
+
 Full code and the step-by-step walkthrough:
 [leaf_similar_trees](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/leaf_similar_trees/SOLUTION.md)
-
-#DSA #LeetCode #BinaryTree #DFS #Golang #100DaysOfCode #CodingInterview
 
 ---
 

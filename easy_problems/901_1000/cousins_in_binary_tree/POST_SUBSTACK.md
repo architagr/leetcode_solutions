@@ -129,8 +129,6 @@ depth under different parents, exactly the definition of cousins.
 - Space: O(h) for the recursion stack per call, where h is the tree's height — O(log n)
   balanced, O(n) worst case for a skewed tree.
 
-Full code: `easy_problems/901_1000/cousins_in_binary_tree/` in the repo.
-
 ---
 
 Worth re-reading problem constraints for this specific reason. "All values are unique" and "values

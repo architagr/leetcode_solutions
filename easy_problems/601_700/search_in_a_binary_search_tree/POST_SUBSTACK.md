@@ -1,13 +1,21 @@
 ---
 meta_title: "In a BST a comparison is a direction, not a verdict"
 meta_description: "Comparing the target against a node does not just say match or no match. It says which half of the remaining tree the answer could still be hiding in."
+tags: [golang, binary-search-tree, recursion, search, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 26/365
 
 # Search in a Binary Search Tree
 
-🔗 https://leetcode.com/problems/search-in-a-binary-search-tree/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 26/365*
+
+🔗 [LeetCode #700](https://leetcode.com/problems/search-in-a-binary-search-tree/) · Difficulty: Easy
+
+Searching a plain binary tree means checking both children and being ready to backtrack, because
+a value could be anywhere. Searching a BST doesn't, and the reason is worth stating precisely
+rather than just remembering.
+
+A comparison against a node isn't a verdict on that node. It's a statement about an entire
+subtree.
 
 ### The problem
 
@@ -74,12 +82,12 @@ Output: [2,1,3]
 - `searchBST(4, val=2)`: `4 > 2` → recurse left into `2`. The right subtree (`7`) is
   eliminated in this single comparison, never even visited.
 
-  ![Step 1: at node 4, 4 > 2, recurse left, right subtree eliminated](images/walkthrough-1.png)
+  ![Step 1: at node 4, 4 > 2, recurse left, right subtree eliminated](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/search_in_a_binary_search_tree/images/walkthrough-1.png)
 
 - `searchBST(2, val=2)`: `2 == 2` → `return root` hands back node `2` with its `Left`
   (`1`) and `Right` (`3`) still attached, giving the expected `[2,1,3]`.
 
-  ![Step 2: at node 2, match found, returns subtree [2,1,3]](images/walkthrough-2.png)
+  ![Step 2: at node 2, match found, returns subtree [2,1,3]](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/search_in_a_binary_search_tree/images/walkthrough-2.png)
 
 **Example 2: value not found**
 
@@ -93,13 +101,13 @@ Output: []
 - `searchBST(4, val=5)`: `4 < 5` → recurse right into `7`. This time the *left* subtree
   (`2,1,3`) is the one eliminated.
 
-  ![Step 3: at node 4, 4 < 5, recurse right, left subtree eliminated](images/walkthrough-3.png)
+  ![Step 3: at node 4, 4 < 5, recurse right, left subtree eliminated](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/search_in_a_binary_search_tree/images/walkthrough-3.png)
 
 - `searchBST(7, val=5)`: `7 > 5` → recurse left into `7.Left`, which is `nil`. That call
   hits the base case immediately and returns `nil`, which propagates straight back up as
   the final answer.
 
-  ![Step 4: at node 7, 7 > 5, recurse left into nil, base case returns nil](images/walkthrough-4.png)
+  ![Step 4: at node 7, 7 > 5, recurse left into nil, base case returns nil](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/search_in_a_binary_search_tree/images/walkthrough-4.png)
 
 Both traces have the same shape: one comparison per level, one subtree thrown away per
 comparison, nothing ever revisited. That's the part I find satisfying about tracing it by
@@ -109,10 +117,14 @@ half.
 **Complexity:** O(h) time and O(h) space, where h is the tree's height. For a balanced
 BST that's O(log n); a completely skewed tree degrades to O(n).
 
+---
+
+This is the property every other BST problem in this batch leans on. Worth holding in its explicit
+form — a comparison eliminates a subtree — because that's what tells you when a tree problem is
+really a search problem.
+
 Full code and the step-by-step walkthrough:
 [search_in_a_binary_search_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #CodingInterview #BinarySearchTree #Golang #Algorithms
 
 ---
 

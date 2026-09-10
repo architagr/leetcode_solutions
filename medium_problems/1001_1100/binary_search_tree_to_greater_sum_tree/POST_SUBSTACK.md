@@ -1,19 +1,25 @@
 ---
 meta_title: "Walk the BST backwards and there is nothing to search"
 meta_description: "Every node becomes itself plus every greater key. Traverse right, node, left and the greater keys are already visited, so a running sum replaces it."
+tags: [golang, binary-search-tree, in-order, recursion, leetcode]
 ---
 
-# 365 Days of LeetCode Challenge — Day 36/365
+# Binary Search Tree to Greater Sum Tree
 
-## Binary Search Tree to Greater Sum Tree
+*365 Days of LeetCode Challenge — Day 36/365*
 
-[LeetCode #1038](https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/) · Medium
+🔗 [LeetCode #1038](https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/) · Difficulty: Medium
 
-![Day 36](HERO.png)
+"Every node becomes itself plus the sum of all greater keys" sounds like it needs a search per
+node. It doesn't, and the reason is a one-word change to a traversal you already know.
+
+In-order on a BST gives ascending order. Reverse the two recursive calls and it gives descending
+order instead — and descending order is exactly the order in which everything greater is already
+behind you.
 
 Given the root of a BST, convert it so that every key becomes the original key plus the sum of all keys greater than it.
 
-![Example tree](images/1.png)
+![Example tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/1.png)
 
 ## The trap in the problem statement
 
@@ -68,7 +74,7 @@ Get that ordering wrong and every value drifts by one subtree's worth. The outpu
 
 Take the BST `[4,1,6,0,2,5,7]`:
 
-![Visit order and the running sum](images/walkthrough-1.png)
+![Visit order and the running sum](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/walkthrough-1.png)
 
 The badges show the order `parse` reaches each node: 7, 6, 5, 4, 2, 1, 0. Strictly descending.
 
@@ -82,7 +88,7 @@ The badges show the order `parse` reaches each node: 7, 6, 5, 4, 2, 1, 0. Strict
 
 The result:
 
-![The converted tree](images/walkthrough-2.png)
+![The converted tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/walkthrough-2.png)
 
 Spot-check node 5. The keys above it are 6 and 7, and 5 + 6 + 7 = 18. Node 7 never moves, because nothing in the tree is bigger.
 
@@ -98,12 +104,15 @@ This is the same problem as [538: Convert BST to Greater Tree](https://leetcode.
 
 The general lesson is the one that keeps coming up with BSTs: when a problem mentions ordering, the traversal order is usually the answer. Reversing in-order costs nothing and turns a search into a running total.
 
+---
+
+Reversing a traversal to change what has already been seen is a small trick with a lot of reach.
+Any problem phrased as "for each element, something about all the larger ones" is worth testing
+against it.
+
 Full code and the step-by-step walkthrough:
 [binary_search_tree_to_greater_sum_tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/SOLUTION.md)
 
-#DSA #LeetCode #BinarySearchTree #Recursion #Golang #CodingInterview #Algorithms
-
 ---
 
-*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the
-code and problem statement.*
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

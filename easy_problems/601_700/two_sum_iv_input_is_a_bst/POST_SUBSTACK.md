@@ -1,13 +1,20 @@
 ---
 meta_title: "Two Sum on a tree: store the complement, not the value"
 meta_description: "Strip the BST label and this is classic Two Sum. Store each node's complement rather than its value and every later node checks itself in one lookup."
+tags: [golang, binary-search-tree, hashmap, two-pointers, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 37/365
 
 # Two Sum IV - Input is a BST
 
-🔗 https://leetcode.com/problems/two-sum-iv-input-is-a-bst/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 37/365*
+
+🔗 [LeetCode #653](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/) · Difficulty: Easy
+
+The BST framing invites a clever tree solution. The straightforward one ignores the ordering
+entirely and ports the classic array Two Sum onto a traversal.
+
+The only interesting decision is what goes into the hash set, and the non-obvious choice makes
+the check at each node a single lookup with no arithmetic.
 
 ### The problem
 
@@ -47,7 +54,7 @@ tree's height.
 
 ### The solution
 
-![Example 1](images/1.jpg "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/images/1.jpg "Example1")
 
 ```go
 func findTarget(root *TreeNode, k int) bool {
@@ -91,22 +98,22 @@ Walking it through `root = [5,3,6,2,4,null,7]`, `k = 9` (expected `true`):
 - At node `5`, the root. The map is empty, so `5` isn't in it. Store the complement
   it needs: `map[9-5] = map[4] = true`.
 
-  ![Step 1: at root 5, map is empty, store complement 4](images/walkthrough-1.png)
+  ![Step 1: at root 5, map is empty, store complement 4](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/images/walkthrough-1.png)
 
 - Recurse left into `3`. Not in `{4}`. Store `map[9-3] = map[6] = true`.
 
-  ![Step 2: at node 3, store complement 6](images/walkthrough-2.png)
+  ![Step 2: at node 3, store complement 6](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/images/walkthrough-2.png)
 
   - Recurse left into `2`, a leaf. Not in `{4, 6}`. Store `map[9-2] = map[7] = true`.
     Both children are `nil`, so `find(2, ...)` returns `false`.
 
-    ![Step 3: at leaf 2, store complement 7, returns false](images/walkthrough-3.png)
+    ![Step 3: at leaf 2, store complement 7, returns false](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/images/walkthrough-3.png)
 
   - Recurse right into `4`. This one's already sitting in the map (`{4, 6, 7}`),
     stored two levels up while visiting `5`. `find(4, ...)` returns `true` right
     away, no need to look at `4`'s (nil) children. That's the actual pair: `5 + 4 = 9`.
 
-    ![Step 4: at node 4, 4 is already in the map -> match, returns true](images/walkthrough-4.png)
+    ![Step 4: at node 4, 4 is already in the map -> match, returns true](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/images/walkthrough-4.png)
 
 - Recurse right into `6`. `left` and `right` are two separate statements at the
   root, not a short-circuited `||`, so `find(6, ...)` runs anyway even though the
@@ -115,7 +122,7 @@ Walking it through `root = [5,3,6,2,4,null,7]`, `k = 9` (expected `true`):
   `find(6, ...)` returns `true` immediately, so `7`, `6`'s own right child, never
   gets visited.
 
-  ![Step 5: at node 6, 6 is already in the map -> also a match, 7 is never visited](images/walkthrough-5.png)
+  ![Step 5: at node 6, 6 is already in the map -> also a match, 7 is never visited](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/images/walkthrough-5.png)
 
 - Back at the root: `left = true`, `right = true`, so `return left || right` gives
   `true`. Matches what the problem expects.
@@ -125,10 +132,14 @@ example) comes back `false`: the preorder walk hits every node (`5, 3, 2, 4, 6, 
 storing each one's complement (`23, 25, 26, 24, 22, 21`), and none of those six ever
 equals a value the walk reaches afterward, so the match check never fires.
 
+---
+
+Storing the complement instead of the value is a small inversion that shows up well beyond this
+problem. It moves the arithmetic to write time, where you're doing it once per element anyway,
+and leaves the read a plain membership test.
+
 Full code and the step-by-step walkthrough:
 [two_sum_iv_input_is_a_bst](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #BinarySearchTree #HashSet #Golang #CodingInterview #Algorithms
 
 ---
 

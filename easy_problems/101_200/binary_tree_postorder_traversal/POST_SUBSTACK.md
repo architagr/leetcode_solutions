@@ -102,8 +102,6 @@ common trick is a single stack that pushes nodes and prepends their values
 instead of appending — you're essentially building the reverse of a
 root-right-left traversal and letting the prepend flip it into postorder.
 
-Full code: `easy_problems/101_200/binary_tree_postorder_traversal/` in the repo.
-
 ---
 
 The pattern to carry forward isn't the traversal, it's the guarantee. Any time a node's work

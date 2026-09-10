@@ -1,3 +1,8 @@
+---
+meta_title: "The root is already the minimum, so stop searching for it"
+meta_description: "Every parent holds the smaller of its children, so the minimum propagates to the root. Half the problem is solved before the first line of code."
+---
+
 # 365 Days of LeetCode Challenge — Day 48/365
 
 ## Second Minimum Node In a Binary Tree (Easy)

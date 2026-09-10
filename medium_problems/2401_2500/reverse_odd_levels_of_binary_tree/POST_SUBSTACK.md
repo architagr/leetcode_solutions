@@ -1,19 +1,25 @@
 ---
 meta_title: "Reversing a level is swapping its mirror pairs"
 meta_description: "BFS allocates a slice per level and the widest holds half the tree. Restated as swapping mirror pairs, the same job needs no extra storage at all."
+tags: [golang, binary-tree, recursion, dfs, leetcode]
 ---
 
-# 365 Days of LeetCode Challenge — Day 45/365
+# Reverse Odd Levels of Binary Tree
 
-## Reverse Odd Levels of Binary Tree
+*365 Days of LeetCode Challenge — Day 45/365*
 
-[LeetCode #2415](https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/) · Medium
+🔗 [LeetCode #2415](https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/) · Difficulty: Medium
 
-![Day 45](HERO.png)
+The BFS solution is the one that comes to mind and it's perfectly reasonable — collect a level,
+reverse it, write the values back.
+
+It also allocates a slice per level, and in a perfect tree the widest level holds half the nodes.
+Getting rid of that isn't a micro-optimisation; it comes from restating what "reverse a level"
+actually means.
 
 Given the root of a perfect binary tree, reverse the node values at each odd level.
 
-![Example tree](images/1.png)
+![Example tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/images/1.png)
 
 ## The answer everyone reaches for first
 
@@ -59,7 +65,7 @@ Checking only `l == nil` is enough. The tree is perfect, so `l` and `r` are alwa
 
 Given a mirror pair, their four children have to be regrouped into two mirror pairs, and the grouping is not the obvious one:
 
-![How the child pairs are formed](images/walkthrough-2.png)
+![How the child pairs are formed](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/images/walkthrough-2.png)
 
 Node 4 is the leftmost of the four and node 7 is the rightmost, so those mirror each other: `rev(l.Left, r.Right, d+1)`. Nodes 5 and 6 are the middle two: `rev(l.Right, r.Left, d+1)`.
 
@@ -69,7 +75,7 @@ The second call crosses. Pair left-with-left and right-with-right instead and no
 
 A four-level perfect tree numbered 1 to 15, so every position is distinguishable:
 
-![Mirror pairs on each odd level](images/walkthrough-1.png)
+![Mirror pairs on each odd level](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/images/walkthrough-1.png)
 
 `rev(2, 3, d=1)` is odd, so 2 and 3 swap. Level 1 becomes `[3, 2]`, reversed.
 
@@ -93,12 +99,16 @@ Only values move. No pointers are rewired, which is legitimate because the probl
 
 The transferable idea is the reframing: "reverse this level" became "swap every mirror pair", and a mirror pair is a thing recursion can produce for free. Symmetric-tree and mirror-image problems tend to yield to the same move.
 
+---
+
+The perfect-tree guarantee is what makes the pair descent safe: every node genuinely has a
+mirror partner, and both sides of a pair descend in lockstep. Take that guarantee away and this
+approach breaks, which is a good reminder to check which constraint a clever solution is
+standing on.
+
 Full code and the step-by-step walkthrough:
 [reverse_odd_levels_of_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/SOLUTION.md)
 
-#DSA #LeetCode #BinaryTree #Recursion #DFS #Golang #Algorithms
-
 ---
 
-*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the
-code and problem statement.*
+*Solution and code by Archit Agarwal. Write-up drafted with AI assistance from the code and problem statement.*

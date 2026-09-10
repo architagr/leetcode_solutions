@@ -94,8 +94,6 @@ without ever looking at half the tree.
 **Complexity:** O(n) time, every node is visited at most once (fewer, whenever `||`
 short-circuits). O(h) space for the recursion stack, where h is the tree's height.
 
-Full code: `easy_problems/101_200/path_sum/` in the repo.
-
 ---
 
 The general lesson is about reading the constraint before reaching for the recursion. "Root-to-leaf"

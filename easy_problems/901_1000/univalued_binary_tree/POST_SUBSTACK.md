@@ -106,8 +106,6 @@ knows are wrong.
 for the recursion stack, where h is the tree's height, so O(log n) if the tree's
 balanced and O(n) if it's basically a linked list.
 
-Full code: `easy_problems/901_1000/univalued_binary_tree/` in the repo.
-
 ---
 
 Local conditions that compose into a global one are worth spotting: they usually mean less state

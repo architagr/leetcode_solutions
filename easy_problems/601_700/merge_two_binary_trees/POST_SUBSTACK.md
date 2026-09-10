@@ -1,13 +1,21 @@
 ---
 meta_title: "Merging trees: the interesting case is the missing one"
 meta_description: "Adding two values is trivial. The real decision is what happens when one side is nil, and the answer is to hand back the other subtree whole."
+tags: [golang, binary-tree, recursion, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 40/365
 
 # Merge Two Binary Trees
 
-🔗 https://leetcode.com/problems/merge-two-binary-trees/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 40/365*
+
+🔗 [LeetCode #617](https://leetcode.com/problems/merge-two-binary-trees/) · Difficulty: Easy
+
+The combine step in this one is addition, which is as easy as a combine step gets. That's a hint
+that the difficulty is somewhere else.
+
+It's in the missing case. At any position, either both trees have a node, or exactly one does,
+and the second situation is where a merge either does something clever or does a lot of pointless
+work.
 
 ### The problem
 
@@ -38,7 +46,7 @@ the right pair to build those subtrees, then wire the results in as `Left`/`Righ
 
 ### The solution
 
-![Example 1](images/1.jpg "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/merge_two_binary_trees/images/1.jpg "Example1")
 
 ```go
 func mergeTrees(root1 *TreeNode, root2 *TreeNode) *TreeNode {
@@ -68,19 +76,19 @@ Tracing it through `root1 = [1,3,2,5]`, `root2 = [2,1,3,null,4,null,7]` (expecte
 - `mergeTrees(1, 2)`: both non-nil, so a new node `1+2 = 3`. Its children aren't
   merged yet.
 
-  ![Step 1: merged root created as 1+2=3, children still pending](images/walkthrough-1.png)
+  ![Step 1: merged root created as 1+2=3, children still pending](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/merge_two_binary_trees/images/walkthrough-1.png)
 
   - `root.Left = mergeTrees(3, 1)`: both non-nil, new node `3+1 = 4`. Its own
     children come straight from base cases: `mergeTrees(5, nil)` hands back root1's
     `5` untouched, and `mergeTrees(nil, 4)` hands back root2's `4` untouched.
 
-    ![Step 2: left subtree resolved — 3+1=4, reusing 5 from root1 and 4 from root2 as leaves](images/walkthrough-2.png)
+    ![Step 2: left subtree resolved — 3+1=4, reusing 5 from root1 and 4 from root2 as leaves](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/merge_two_binary_trees/images/walkthrough-2.png)
 
   - `root.Right = mergeTrees(2, 3)`: both non-nil, new node `2+3 = 5`. Left child
     comes from `mergeTrees(nil, nil)`, which is just nil, so no left child at all.
     Right child comes from `mergeTrees(nil, 7)`, root2's `7` untouched.
 
-    ![Step 3: right subtree resolved — 2+3=5, right child reuses 7 from root2, no left child — merge complete](images/walkthrough-3.png)
+    ![Step 3: right subtree resolved — 2+3=5, right child reuses 7 from root2, no left child — merge complete](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/merge_two_binary_trees/images/walkthrough-3.png)
 
 - Back at the root, `root.Left = 4` and `root.Right = 5` get wired in, giving the
   final merged tree `[3,4,5,5,4,null,7]`, which matches what's expected.
@@ -90,10 +98,14 @@ the two input trees. The recursion only goes as deep as both trees still have a 
 at that position; the moment either side hits `nil`, that branch stops right there, no
 matter how much tree is still sitting on the other side.
 
+---
+
+Returning an existing subtree instead of copying it is the move worth keeping. It's correct
+whenever the result doesn't need to be independent of the inputs — and when it does, that's a
+decision you want to have made on purpose rather than by default.
+
 Full code and the step-by-step walkthrough:
 [merge_two_binary_trees](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/merge_two_binary_trees/SOLUTION.md)
-
-#DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview #Algorithms
 
 ---
 
