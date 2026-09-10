@@ -1,13 +1,21 @@
 ---
 meta_title: "Univalued trees: compare to the parent, not the root"
 meta_description: "If every parent-child edge matches, transitivity makes the whole tree match. No node needs to be told what the root's value was."
+tags: [golang, binary-tree, recursion, dsa, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 17/365
 
 # Univalued Binary Tree
 
-🔗 https://leetcode.com/problems/univalued-binary-tree/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 17/365*
+
+🔗 [LeetCode #965](https://leetcode.com/problems/univalued-binary-tree/) · Difficulty: Easy
+
+The instinct is to grab the root's value, then walk the tree checking every node against it —
+threading that value down through every call, or closing over it.
+
+You don't need to. A node only has to agree with its parent. If that holds on every edge, then by
+transitivity every value in the tree equals the root's, and if it fails anywhere the answer is
+already no. The root's value never has to travel.
 
 ### The problem
 
@@ -15,7 +23,7 @@ A binary tree is **uni-valued** if every node in the tree has the same value. Gi
 the `root` of a binary tree, return `true` if the tree is uni-valued, or `false`
 otherwise.
 
-![Example 1](images/1.png "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/univalued_binary_tree/images/1.png "Example1")
 
 ### The intuition
 
@@ -36,7 +44,7 @@ case.
 
 ### The solution
 
-![Example 2](images/2.png "Example2")
+![Example 2](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/univalued_binary_tree/images/2.png "Example2")
 
 ```go
 func isUnivalTree(root *TreeNode) bool {
@@ -72,13 +80,13 @@ into leaf `D = 2`. `C`, `D`, and `B` have no children, so all three just return 
 Worth noticing: `isUnivalTree(C=5)` has no idea `5` doesn't match its parent's value.
 Checking against the parent isn't its job. It's the parent's.
 
-![Step 1: 5, 2, and 2 bottom out as leaves, each returning true](images/walkthrough-1.png)
+![Step 1: 5, 2, and 2 bottom out as leaves, each returning true](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/univalued_binary_tree/images/walkthrough-1.png)
 
 Back in `isUnivalTree(A=2)`: `left = isUnivalTree(C) && C.Val == A.Val` works out to
 `true && (5 == 2)`, so `left = false`. `right = isUnivalTree(D) && D.Val == A.Val` is
 `true && (2 == 2)`, so `right = true`. The call returns `left && right = false`.
 
-![Step 2: at node A (value 2), left child 5 mismatches, left becomes false](images/walkthrough-2.png)
+![Step 2: at node A (value 2), left child 5 mismatches, left becomes false](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/univalued_binary_tree/images/walkthrough-2.png)
 
 Back at the root: `left = isUnivalTree(A) && A.Val == root.Val` is
 `false && (2 == 2)`. The `&&` already sees `false` on the left, so it short-circuits,
@@ -87,7 +95,7 @@ and `left = false` no matter what the value comparison would have said.
 `right = true`. The root returns `left && right = false`, matching what the problem
 expects.
 
-![Step 3: at the root, the left subtree already resolved to false, so the whole tree is false](images/walkthrough-3.png)
+![Step 3: at the root, the left subtree already resolved to false, so the whole tree is false](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/univalued_binary_tree/images/walkthrough-3.png)
 
 What I like about this trace: the mismatch (`5` sitting under a `2`) gets caught two
 levels down, at node `A`, and then just rides upward as `false` through every
@@ -100,7 +108,14 @@ balanced and O(n) if it's basically a linked list.
 
 Full code: `easy_problems/901_1000/univalued_binary_tree/` in the repo.
 
-#DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #Recursion #Golang
+---
+
+Local conditions that compose into a global one are worth spotting: they usually mean less state
+threaded through the recursion, and a base case that writes itself. An empty subtree is trivially
+uni-valued — there's nothing in it to disagree.
+
+Full code and the step-by-step walkthrough:
+[univalued_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/901_1000/univalued_binary_tree/SOLUTION.md)
 
 ---
 

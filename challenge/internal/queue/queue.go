@@ -45,6 +45,19 @@ type Entry struct {
 	PostedAt   map[string]*string `yaml:"posted_at"`
 }
 
+// HasContent reports whether this entry's content has been generated.
+//
+// An entry is queued the moment its day number is assigned, which can be
+// well before anything is written for it, so the queue routinely holds
+// days with no POST_*.md on disk at all. Selecting one of those is not a
+// missing-file edge case, it is the normal state of a day that has not
+// been written yet — and it used to take the whole run down with it,
+// because a day queued but unwritten sits in front of every written day
+// behind it and every selection found it first.
+func (e Entry) HasContent() bool {
+	return e.Status == StatusContentReady || e.Status == StatusPosted
+}
+
 // IsPosted reports whether this entry has already gone out to
 // destination. An absent key and an explicit null both mean "not yet".
 func (e Entry) IsPosted(destination string) bool {
@@ -148,7 +161,7 @@ func (q *Queue) NextUnposted(destination string, limit int) []Entry {
 	}
 	pending := make([]Entry, 0, len(q.Entries))
 	for _, e := range q.Entries {
-		if !e.IsPosted(destination) {
+		if !e.IsPosted(destination) && e.HasContent() {
 			pending = append(pending, e)
 		}
 	}

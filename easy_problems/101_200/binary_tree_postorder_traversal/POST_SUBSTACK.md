@@ -1,13 +1,23 @@
 ---
 meta_title: "Postorder traversal: why the node comes last"
 meta_description: "Left, right, then the node. The recursion already guarantees every child is recorded before its parent, so no extra bookkeeping is needed."
+tags: [golang, binary-tree, recursion, dsa, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 9/365
 
 # Binary Tree Postorder Traversal
 
-🔗 https://leetcode.com/problems/binary-tree-postorder-traversal/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 9/365*
+
+🔗 [LeetCode #145](https://leetcode.com/problems/binary-tree-postorder-traversal/) · Difficulty: Easy
+
+Yesterday was preorder. Today is the same three lines with one swap, and the swap is the entire
+problem: the node gets recorded *after* both of its subtrees instead of before.
+
+That sounds like a trivia difference, and for the code it nearly is. What makes it worth its own
+edition is what the ordering buys you. In postorder, a node is always the last thing written among
+itself and everything beneath it — which is exactly the property you need whenever a parent's answer
+depends on its children's answers being finished first. Deleting a tree, evaluating an expression
+tree, computing subtree sizes: all postorder, for this reason.
 
 ### The problem
 
@@ -36,7 +46,7 @@ the leaf's own value.
 
 ### The solution
 
-![Example 1](images/1.png "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/binary_tree_postorder_traversal/images/1.png "Example1")
 
 ```go
 func PostorderTraversal(root *TreeNode) []int {
@@ -69,17 +79,17 @@ its right child is `2`, and `2`'s left child is `3`), expected output `[3,2,1]`:
     - `traversal(3, [])` has both children `nil`, so it bottoms out immediately
       and appends its own value → `arr = [3]`.
 
-    ![Step 1: node 3 is a leaf — both children hit the nil base case, so it appends itself first](images/walkthrough-1.png)
+    ![Step 1: node 3 is a leaf — both children hit the nil base case, so it appends itself first](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/binary_tree_postorder_traversal/images/walkthrough-1.png)
 
   - Back in `traversal(2, [])`: left came back `[3]`, right (`nil`) adds
     nothing. Both sides done → appends `2` → `arr = [3, 2]`.
 
-    ![Step 2: node 2's left (3) and right (nil) are both resolved, so it appends itself next](images/walkthrough-2.png)
+    ![Step 2: node 2's left (3) and right (nil) are both resolved, so it appends itself next](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/binary_tree_postorder_traversal/images/walkthrough-2.png)
 
 - Back in `traversal(1, [])`: left (`nil`) contributed nothing, right came back
   `[3, 2]`. Both sides done → appends `1` → `arr = [3, 2, 1]`.
 
-  ![Step 3: node 1's left (nil) and right (2) are both resolved, so it appends itself last](images/walkthrough-3.png)
+  ![Step 3: node 1's left (nil) and right (2) are both resolved, so it appends itself last](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/binary_tree_postorder_traversal/images/walkthrough-3.png)
 
 `PostorderTraversal` returns `[3, 2, 1]`. ✓
 
@@ -94,7 +104,13 @@ root-right-left traversal and letting the prepend flip it into postorder.
 
 Full code: `easy_problems/101_200/binary_tree_postorder_traversal/` in the repo.
 
-#DSA #LeetCode #BinaryTree #Recursion #Golang #100DaysOfCode #CodingInterview
+---
+
+The pattern to carry forward isn't the traversal, it's the guarantee. Any time a node's work
+depends on its children being done, postorder is the shape that gives you that for free.
+
+Full code and the step-by-step walkthrough:
+[binary_tree_postorder_traversal](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_postorder_traversal/SOLUTION.md)
 
 ---
 

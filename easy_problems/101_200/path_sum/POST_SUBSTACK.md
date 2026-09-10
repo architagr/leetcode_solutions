@@ -1,13 +1,22 @@
 ---
 meta_title: "Path Sum: the leaf check that catches people out"
 meta_description: "A node with only a left child is not a leaf. Carry the total down, compare once at the bottom, and test both sides before you decide you are there."
+tags: [golang, binary-tree, recursion, dsa, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 11/365
 
 # Path Sum
 
-🔗 https://leetcode.com/problems/path-sum/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 11/365*
+
+🔗 [LeetCode #112](https://leetcode.com/problems/path-sum/) · Difficulty: Easy
+
+This one looks like it should take two minutes, and it does — unless you get the leaf test wrong,
+which is easy to do and produces a solution that passes the obvious examples and fails on a skewed
+tree.
+
+The constraint doing all the work is *root-to-leaf*. Not "any path," not "any prefix." A running
+total that happens to equal the target halfway down does not count, which rules out the tempting
+shortcut of checking at every node and returning early.
 
 ### The problem
 
@@ -35,7 +44,7 @@ condition.
 
 ### The solution
 
-![Example 1](images/1.jpg)
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/path_sum/images/1.jpg)
 
 ```go
 func hasPathSum(root *TreeNode, targetSum int) bool {
@@ -65,29 +74,36 @@ Walking it through `root = [5,4,8,11,null,13,4,7,2,null,null,null,1]`, `targetSu
 - `sum(11, 22, 9)`: `11` has two children, so it tries both `7` and `2`, each
   arriving with `current=20`.
 
-![Step 1: current sum descends 5 -> 4 -> 11, current becomes 9](images/walkthrough-1.png)
+![Step 1: current sum descends 5 -> 4 -> 11, current becomes 9](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/path_sum/images/walkthrough-1.png)
 
 - `sum(7, 22, 20)`: `7` is a leaf. `22 == 7+20` (`27`)? No, so `false`.
 
-![Step 2: at leaf 7, 22 != 27, returns false](images/walkthrough-2.png)
+![Step 2: at leaf 7, 22 != 27, returns false](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/path_sum/images/walkthrough-2.png)
 
 - `sum(2, 22, 20)`: `2` is a leaf. `22 == 2+20` (`22`)? Yes, so `true`.
 
-![Step 3: at leaf 2, 22 == 22, returns true](images/walkthrough-3.png)
+![Step 3: at leaf 2, 22 == 22, returns true](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/path_sum/images/walkthrough-3.png)
 
 `true` bubbles back up through `11`, then `4`, then `5`. Because Go's `||`
 short-circuits, `sum(8, 22, 5)`, the entire right subtree (`13`, `4`, `1`), never
 runs at all. That's the part I like about this solution: `hasPathSum` returns `true`
 without ever looking at half the tree.
 
-![Step 4: true bubbles up 2 -> 11 -> 4 -> 5, right subtree never visited](images/walkthrough-4.png)
+![Step 4: true bubbles up 2 -> 11 -> 4 -> 5, right subtree never visited](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/path_sum/images/walkthrough-4.png)
 
 **Complexity:** O(n) time, every node is visited at most once (fewer, whenever `||`
 short-circuits). O(h) space for the recursion stack, where h is the tree's height.
 
 Full code: `easy_problems/101_200/path_sum/` in the repo.
 
-#DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #DFS #Golang
+---
+
+The general lesson is about reading the constraint before reaching for the recursion. "Root-to-leaf"
+decides both where the comparison happens and what counts as the bottom, and getting the second one
+wrong is invisible until the tree leans one way.
+
+Full code and the step-by-step walkthrough:
+[path_sum](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/path_sum/SOLUTION.md)
 
 ---
 

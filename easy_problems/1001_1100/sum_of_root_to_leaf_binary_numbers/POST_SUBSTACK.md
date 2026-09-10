@@ -1,13 +1,21 @@
 ---
 meta_title: "Build the binary number as you walk down the tree"
 meta_description: "Each root-to-leaf path spells a binary number most-significant-bit first — the order the recursion already descends. So build it on the way down."
+tags: [golang, binary-tree, recursion, bit-manipulation, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 12/365
 
 # Sum of Root To Leaf Binary Numbers
 
-🔗 https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 12/365*
+
+🔗 [LeetCode #1022](https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/) · Difficulty: Easy
+
+There's an obvious way to solve this: collect the bits along each path into a slice, and when you
+hit a leaf, convert that slice to a number.
+
+It works. It's also doing the same job twice, because the recursion has already visited those bits
+in exactly the order a binary number is written — most significant first. Once you notice that, the
+slice disappears and the conversion disappears with it.
 
 ### The problem
 
@@ -40,7 +48,7 @@ subtrees.
 Here's the code. Once the shift-and-add idea clicks, the whole thing is maybe five
 lines that matter.
 
-![Example 1](images/1.png "Example1")
+![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/images/1.png "Example1")
 
 ```go
 func sumRootToLeaf(root *TreeNode) int {
@@ -86,27 +94,27 @@ leftright=1, rightleft=0, rightright=1). Expected answer: `22`.
   - `sum(left=0, 1)`: `currentSum = 10b = 2`. Still not a leaf, keep going.
     - `sum(leftleft=0, 2)`: `currentSum = 100b = 4`. That's a leaf, so it returns `4`.
 
-    ![Step 1: first path root → 0 → 0 reaches a leaf, currentSum = 100b = 4](images/walkthrough-1.png)
+    ![Step 1: first path root → 0 → 0 reaches a leaf, currentSum = 100b = 4](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/images/walkthrough-1.png)
 
     - `sum(leftright=1, 2)`: `currentSum = 101b = 5`. Leaf, returns `5`.
       `leftSum = 4 + 5 = 9`.
 
-    ![Step 2: second path root → 0 → 1 reaches a leaf, currentSum = 101b = 5, left subtree total so far = 9](images/walkthrough-2.png)
+    ![Step 2: second path root → 0 → 1 reaches a leaf, currentSum = 101b = 5, left subtree total so far = 9](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/images/walkthrough-2.png)
 
   - `sum(right=1, 1)`: `currentSum = 11b = 3`. Not a leaf, recurse further.
     - `sum(rightleft=0, 3)`: `currentSum = 110b = 6`. Leaf, returns `6`.
 
-    ![Step 3: third path root → 1 → 0 reaches a leaf, currentSum = 110b = 6; left subtree already totals 9](images/walkthrough-3.png)
+    ![Step 3: third path root → 1 → 0 reaches a leaf, currentSum = 110b = 6; left subtree already totals 9](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/images/walkthrough-3.png)
 
     - `sum(rightright=1, 3)`: `currentSum = 111b = 7`. Leaf, returns `7`.
       `rightSum = 6 + 7 = 13`.
 
-    ![Step 4: fourth path root → 1 → 1 reaches a leaf, currentSum = 111b = 7; all four leaves now computed](images/walkthrough-4.png)
+    ![Step 4: fourth path root → 1 → 1 reaches a leaf, currentSum = 111b = 7; all four leaves now computed](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/images/walkthrough-4.png)
 
   - Back at the top: `leftSum = 9`, `rightSum = 13`, so the total returned is
     `9 + 13 = 22`, which matches.
 
-  ![Step 5: recursion unwinds, leftSum=9 and rightSum=13 bubble up to root, total = 22](images/walkthrough-5.png)
+  ![Step 5: recursion unwinds, leftSum=9 and rightSum=13 bubble up to root, total = 22](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/images/walkthrough-5.png)
 
 **Complexity:** O(n) time, since every node is visited exactly once. O(h) space for the
 recursion stack, where h is the tree height (O(log n) if it's balanced, O(n) if it's a
@@ -114,7 +122,14 @@ straight line down one side).
 
 Full code: `easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/` in the repo.
 
-#LeetCode #100DaysOfCode #DSA #CodingInterview #Programming #BinaryTree #DFS #Golang
+---
+
+This is a small instance of a habit worth having: when a traversal visits things in the same order
+you'd process them anyway, the intermediate collection is usually removable. The traversal order
+*is* the algorithm.
+
+Full code and the step-by-step walkthrough:
+[sum_of_root_to_leaf_binary_numbers](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/SOLUTION.md)
 
 ---
 

@@ -16,6 +16,16 @@ func SelectNext(q *Queue, destination string) (entry Entry, ok bool) {
 		if e.IsPosted(destination) {
 			continue
 		}
+		// A day whose content has not been written yet is skipped rather
+		// than selected and failed on. It stays unposted, so it goes out
+		// on a later run once it has been written — out of day order by
+		// then, which is the lesser of the two problems. Selecting it
+		// would stall the destination completely: it sits in front of
+		// every written day behind it, so every subsequent run would
+		// pick the same unwritten day and fail again.
+		if !e.HasContent() {
+			continue
+		}
 		// Entries are ordered by day in practice, but selection must not
 		// depend on file order — a hand-edited queue shouldn't change
 		// which day goes out next.

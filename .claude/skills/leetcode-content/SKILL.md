@@ -431,8 +431,8 @@ Two things to keep honest:
       so it is worth getting right here rather than in the composer:
       ```
       ---
-      meta_title: <=60 chars
-      meta_description: <=155 chars
+      meta_title: "<=60 chars"
+      meta_description: "<=155 chars"
       ---
       ```
       - `meta_title` is NOT the article's H1. The H1 is read in context, with the hero
@@ -448,6 +448,10 @@ Two things to keep honest:
         in both places, so the only lever available is the one both posts already use:
         link back to the repo prominently in the body.
       - Count characters, not bytes — an em dash is one character of the budget.
+      - **Always wrap both values in double quotes.** A good meta title very often contains
+        a colon ("Postorder traversal: why the node comes last"), and an unquoted colon is
+        a YAML mapping separator — the file then fails to parse and takes the whole batch
+        down, not just that day.
 
       After the front matter, the article proper: header "365 Days of LeetCode Challenge — Day
       <day>/365", question title + LeetCode link, the FULL intuition write-up (based on

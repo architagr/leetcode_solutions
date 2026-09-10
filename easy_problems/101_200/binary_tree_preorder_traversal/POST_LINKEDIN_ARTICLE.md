@@ -1,6 +1,6 @@
 ---
-meta_title: Why preorder traversal in Go needs a return value
-meta_description: The recursion is three lines. The catch is append — it can reallocate, so the slice must be threaded through as parameter and return.
+meta_title: "Why preorder traversal in Go needs a return value"
+meta_description: "The recursion is three lines. The catch is append — it can reallocate, so the slice must be threaded through as parameter and return."
 ---
 
 ## 365 Days of LeetCode Challenge — Day 8/365

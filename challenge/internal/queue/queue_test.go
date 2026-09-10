@@ -174,10 +174,10 @@ func TestSaveLoadRoundTrip(t *testing.T) {
 func TestNextUnpostedReturnsOldestFirstUpToLimit(t *testing.T) {
 	posted := "2026-09-01T09:00:00Z"
 	q := &Queue{Entries: []Entry{
-		{Day: 3, Number: 257},
-		{Day: 1, Number: 104, PostedAt: map[string]*string{DestinationLinkedInMain: &posted}},
-		{Day: 2, Number: 108},
-		{Day: 4, Number: 404},
+		{Day: 3, Number: 257, Status: StatusContentReady},
+		{Day: 1, Number: 104, Status: StatusContentReady, PostedAt: map[string]*string{DestinationLinkedInMain: &posted}},
+		{Day: 2, Number: 108, Status: StatusContentReady},
+		{Day: 4, Number: 404, Status: StatusContentReady},
 	}}
 
 	got := q.NextUnposted(DestinationLinkedInMain, 2)

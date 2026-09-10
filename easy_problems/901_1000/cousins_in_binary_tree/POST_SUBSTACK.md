@@ -1,13 +1,22 @@
 ---
 meta_title: "Finding cousins without parent pointers"
 meta_description: "Same depth, different parents. A binary tree has no parent pointers, but unique node values mean a parent's value works perfectly well as its identity."
+tags: [golang, binary-tree, dfs, recursion, leetcode]
 ---
-
-## 365 Days of LeetCode Challenge — Day 18/365
 
 # Cousins in Binary Tree
 
-🔗 https://leetcode.com/problems/cousins-in-binary-tree/ · Difficulty: Easy
+*365 Days of LeetCode Challenge — Day 18/365*
+
+🔗 [LeetCode #993](https://leetcode.com/problems/cousins-in-binary-tree/) · Difficulty: Easy
+
+Two nodes are cousins when they sit at the same depth under different parents. Two facts per node,
+and the second one is awkward: a standard binary tree node points at its children, never at its
+parent.
+
+The usual reflex is to build a `map[*TreeNode]*TreeNode` on the way down. That works and it's a
+lot of machinery for a single comparison. The problem hands you a cheaper answer in its
+constraints, and it's the kind of detail that's easy to skim past.
 
 ### The problem
 
@@ -36,7 +45,7 @@ there. Call it once for `x`, once for `y`, check same depth and different parent
 
 ### The solution
 
-![Example 2](images/2.png "Example2")
+![Example 2](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/cousins_in_binary_tree/images/2.png "Example2")
 
 ```go
 func isCousins(root *TreeNode, x int, y int) bool {
@@ -98,7 +107,7 @@ back empty, the root call moves on to its right child, `3`. `3` doesn't match `5
 directly, but `3.Right` *is* `5` — a direct child match — so that call returns
 `(depth=2, parent=3, found=true)` immediately, no further recursion needed.
 
-![Step 1: searching for x=5 — the miss down through node 2 and leaf 4 backtracks, then 5 is found as node 3's right child at depth 2](images/walkthrough-1.png)
+![Step 1: searching for x=5 — the miss down through node 2 and leaf 4 backtracks, then 5 is found as node 3's right child at depth 2](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/cousins_in_binary_tree/images/walkthrough-1.png)
 
 Searching for `y = 4`: `foo(1, 0, 4)` again checks node `1`, descends left into `2`, and
 this time `2.Right` *is* `4` — a direct hit on the very first recursive call, no
@@ -106,13 +115,13 @@ backtracking required. That returns `(depth=2, parent=2, found=true)`, and becau
 `found` is `true`, the root call's `if found { return }` fires right away — node `3`'s
 entire subtree is never even visited.
 
-![Step 2: searching for y=4 — found directly as node 2's right child at depth 2, so the right subtree is never visited](images/walkthrough-2.png)
+![Step 2: searching for y=4 — found directly as node 2's right child at depth 2, so the right subtree is never visited](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/cousins_in_binary_tree/images/walkthrough-2.png)
 
 Back in `isCousins`: `depthX == depthY` → `2 == 2` → `true`. `parentX != parentY` → `3
 != 2` → `true`. Both hold, so the function returns `true` — `5` and `4` sit at the same
 depth under different parents, exactly the definition of cousins.
 
-![Step 3: comparing the two results — same depth (2 and 2), different parents (3 and 2) — cousins](images/walkthrough-3.png)
+![Step 3: comparing the two results — same depth (2 and 2), different parents (3 and 2) — cousins](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/901_1000/cousins_in_binary_tree/images/walkthrough-3.png)
 
 **Complexity:**
 - Time: O(n) — `foo` runs twice, and each call visits at most every node once (fewer,
@@ -122,7 +131,14 @@ depth under different parents, exactly the definition of cousins.
 
 Full code: `easy_problems/901_1000/cousins_in_binary_tree/` in the repo.
 
-#DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #DFS #Golang
+---
+
+Worth re-reading problem constraints for this specific reason. "All values are unique" and "values
+are at least 1" look like boilerplate, and here they're what removes an entire data structure and
+what makes a zero sentinel safe.
+
+Full code and the step-by-step walkthrough:
+[cousins_in_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/901_1000/cousins_in_binary_tree/SOLUTION.md)
 
 ---
 
