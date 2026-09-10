@@ -1,6 +1,6 @@
 ---
 meta_title: "Max Path Sum: every node computes two different things"
-meta_description: "As the top of a path a node uses both children; as a link in an ancestor's path it uses one. Only one can be the return value, and picking wrong is the bug."
+meta_description: "As the top of a path a node uses both children; as a link in an ancestor's path, one. Only one can be the return value, and picking wrong is the bug."
 tags: [golang, binary-tree, recursion, postorder, leetcode]
 ---
 

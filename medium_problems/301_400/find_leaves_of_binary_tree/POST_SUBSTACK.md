@@ -1,6 +1,6 @@
 ---
 meta_title: "Find Leaves is a height problem wearing a process"
-meta_description: "Simulating the stripping costs a traversal per round. A node's round is its height, the distance down to its deepest leaf, and one post-order pass finds it."
+meta_description: "Simulating the stripping costs a traversal per round. A node's round is its height, the distance to its deepest leaf, and one post-order pass finds it."
 tags: [golang, binary-tree, recursion, postorder, leetcode]
 ---
 
