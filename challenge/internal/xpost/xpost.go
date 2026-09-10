@@ -31,6 +31,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -42,13 +43,41 @@ import (
 // basic API tiers. X Premium raises the ceiling for long posts, but the
 // API path for those is a separate field and a separate approval, so the
 // tooling holds every day to the limit that always works.
-//
-// X counts most characters as one, but weights CJK at two and collapses
-// every URL to a fixed 23 characters regardless of real length. Counting
-// runes is therefore an approximation — deliberately a conservative one
-// for this content, since a post here is ASCII prose plus one long
-// GitHub URL that X will shorten to well under what we charged for it.
 const MaxPostChars = 280
+
+// URLChars is what a link costs, whatever its real length. X rewrites
+// every URL through its t.co shortener and charges this fixed weight.
+//
+// It matters more here than it looks. A deep link into a solution folder
+// runs past 120 characters; counting those in full would spend nearly
+// half the budget on a link X itself charges 23 for, and the posts would
+// be visibly worse for no reason.
+const URLChars = 23
+
+// urlPattern finds the links in a post so PostLength can charge them the
+// t.co weight. It matches the shape these posts actually use — a bare
+// http(s) URL delimited by whitespace — rather than trying to be a
+// general URL recogniser. X's own rules are broader (it also linkifies
+// bare domains like example.com), so this can over-count, never under.
+var urlPattern = regexp.MustCompile(`https?://[^\s]+`)
+
+// PostLength returns what X will charge for text.
+//
+// Every character is one unit and every URL is URLChars, which covers
+// this content: ASCII prose plus a GitHub link. X also weights CJK and
+// emoji ranges at two units each, which this does not implement — so a
+// post written in Japanese would be under-counted here and rejected by
+// the API instead. That is a real limitation rather than a hidden one:
+// it fails at the network with a clear error rather than publishing
+// something malformed, and the series is written in English.
+func PostLength(text string) int {
+	total := utf8.RuneCountInString(text)
+	for _, match := range urlPattern.FindAllString(text, -1) {
+		total -= utf8.RuneCountInString(match)
+		total += URLChars
+	}
+	return total
+}
 
 // httpClient is a package-level client so a slow or hung X API doesn't
 // wedge a scheduled run forever. Media upload gets the longer timeout of
@@ -103,8 +132,8 @@ func ValidatePost(text string) error {
 	if strings.TrimSpace(text) == "" {
 		return fmt.Errorf("post text is empty")
 	}
-	if n := utf8.RuneCountInString(text); n > MaxPostChars {
-		return fmt.Errorf("post is %d characters, over X's %d limit", n, MaxPostChars)
+	if n := PostLength(text); n > MaxPostChars {
+		return fmt.Errorf("post is %d characters as X counts them, over its %d limit", n, MaxPostChars)
 	}
 	return nil
 }

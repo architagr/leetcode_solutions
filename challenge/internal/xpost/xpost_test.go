@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"unicode/utf8"
 )
 
 func testCreds() Credentials {
@@ -107,6 +108,44 @@ func TestEncodeIsRFC3986NotQueryEscape(t *testing.T) {
 	// url.QueryEscape would render the space as + and escape the tilde.
 	if got, want := encode("a b~c"), "a%20b~c"; got != want {
 		t.Errorf("encode(%q) = %q, want %q", "a b~c", got, want)
+	}
+}
+
+// A link costs 23 whatever its length, and the deep links these posts
+// carry run past 120 characters — counting those in full would spend
+// half the budget on something X charges 23 for.
+func TestPostLengthChargesLinksTheTcoWeight(t *testing.T) {
+	const link = "https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_preorder_traversal/SOLUTION.md"
+	if len(link) <= URLChars {
+		t.Fatal("test precondition: the link should be longer than the weight X charges for it")
+	}
+
+	if got, want := PostLength(link), URLChars; got != want {
+		t.Errorf("PostLength(a bare link) = %d, want %d", got, want)
+	}
+	if got, want := PostLength("see "+link), len("see ")+URLChars; got != want {
+		t.Errorf("PostLength(prose + link) = %d, want %d", got, want)
+	}
+	if got, want := PostLength(link+" and "+link), 2*URLChars+len(" and "); got != want {
+		t.Errorf("PostLength(two links) = %d, want %d", got, want)
+	}
+	if got, want := PostLength("no links here"), 13; got != want {
+		t.Errorf("PostLength(no links) = %d, want %d", got, want)
+	}
+}
+
+// The post that motivated this: real prose plus a real deep link, over
+// the limit counted naively and comfortably inside it counted as X does.
+func TestValidatePostAcceptsAPostThatOnlyFitsWithLinkWeighting(t *testing.T) {
+	post := "Day 8/365 · Binary Tree Preorder Traversal (Easy)\n\n" +
+		strings.Repeat("a", 130) +
+		"\n\nhttps://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_preorder_traversal/SOLUTION.md"
+
+	if utf8.RuneCountInString(post) <= MaxPostChars {
+		t.Fatal("test precondition: the post should be over the limit when counted naively")
+	}
+	if err := ValidatePost(post); err != nil {
+		t.Errorf("a post that fits once links are weighted must be accepted, got %v", err)
 	}
 }
 
