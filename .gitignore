@@ -16,3 +16,9 @@
 
 # Git worktrees used for isolated feature work
 .worktrees/
+
+# Local credential scratch files — never commit these
+x.com
+*.secrets
+.env
+.env.*
