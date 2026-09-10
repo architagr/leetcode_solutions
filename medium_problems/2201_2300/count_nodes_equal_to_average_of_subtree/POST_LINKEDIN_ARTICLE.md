@@ -101,6 +101,9 @@ Five matches. The top-level call returns `(24, 6)` and both are thrown away.
 
 The reusable idea here is returning a tuple from a traversal. The moment a node needs more than one fact about its subtree to make a decision, widen the return type rather than adding a second pass. Diameter, balanced-tree checks, and largest-BST-subtree all fall out of the same move.
 
+Full code and the step-by-step walkthrough:
+[count_nodes_equal_to_average_of_subtree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/SOLUTION.md)
+
 #DSA #LeetCode #BinaryTree #Recursion #DFS #Golang #CodingInterview
 
 ---

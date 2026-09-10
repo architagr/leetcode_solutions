@@ -113,7 +113,8 @@ Expected output is `[2]`.
 `findMode` costs O(n) in the worst case too. Space is O(n) for the frequency map, plus
 O(h) for the recursion stack, where h is the tree's height.
 
-Full code lives at `easy_problems/501_600/find_mode_in_binary_search_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[find_mode_in_binary_search_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #CodingInterview #Programming #BinarySearchTree #HashMap #Golang
 

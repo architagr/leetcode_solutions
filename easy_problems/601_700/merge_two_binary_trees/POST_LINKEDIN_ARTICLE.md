@@ -85,7 +85,8 @@ the two input trees. The recursion only goes as deep as both trees still have a 
 at that position; the moment either side hits `nil`, that branch stops right there, no
 matter how much tree is still sitting on the other side.
 
-Full code: `easy_problems/601_700/merge_two_binary_trees/` in the repo.
+Full code and the step-by-step walkthrough:
+[merge_two_binary_trees](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/merge_two_binary_trees/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview #Algorithms
 

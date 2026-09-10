@@ -93,6 +93,9 @@ This is the same problem as [538: Convert BST to Greater Tree](https://leetcode.
 
 The general lesson is the one that keeps coming up with BSTs: when a problem mentions ordering, the traversal order is usually the answer. Reversing in-order costs nothing and turns a search into a running total.
 
+Full code and the step-by-step walkthrough:
+[binary_search_tree_to_greater_sum_tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/SOLUTION.md)
+
 #DSA #LeetCode #BinarySearchTree #Recursion #Golang #CodingInterview #Algorithms
 
 ---

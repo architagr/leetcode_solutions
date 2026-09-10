@@ -112,7 +112,8 @@ leftright=1, rightleft=0, rightright=1). Expected answer: `22`.
 recursion stack, where h is the tree height (O(log n) if it's balanced, O(n) if it's a
 straight line down one side).
 
-Full code: `easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/` in the repo.
+Full code and the step-by-step walkthrough:
+[sum_of_root_to_leaf_binary_numbers](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers/SOLUTION.md)
 
 #LeetCode #100DaysOfCode #DSA #CodingInterview #Programming #BinaryTree #DFS #Golang
 

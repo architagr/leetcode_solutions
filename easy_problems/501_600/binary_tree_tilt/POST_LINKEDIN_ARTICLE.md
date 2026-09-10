@@ -100,7 +100,8 @@ Tracing it through `root = [4,2,9,3,5,null,7]` (expected `15`):
 does O(1) work. O(h) space for the recursion stack, where h is the tree's height:
 O(log n) if it's balanced, O(n) if it's basically a straight line.
 
-Full code: `easy_problems/501_600/binary_tree_tilt/` in the repo.
+Full code and the step-by-step walkthrough:
+[binary_tree_tilt](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/binary_tree_tilt/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview
 

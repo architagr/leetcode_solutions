@@ -110,7 +110,8 @@ This runs in O(n) time since every node gets visited exactly once, and O(h) spac
 the recursion stack, where h is the tree's height. That's O(log n) for a balanced
 tree, O(n) if the tree is a straight line.
 
-Full code: `easy_problems/501_600/minimum_absolute_difference_in_bst/` in the repo.
+Full code and the step-by-step walkthrough:
+[minimum_absolute_difference_in_bst](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/minimum_absolute_difference_in_bst/SOLUTION.md)
 
 #LeetCode #100DaysOfCode #DSA #CodingInterview #BinarySearchTree #InOrderTraversal #Golang
 

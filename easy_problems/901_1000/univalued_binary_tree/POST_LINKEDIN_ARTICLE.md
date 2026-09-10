@@ -98,7 +98,8 @@ knows are wrong.
 for the recursion stack, where h is the tree's height, so O(log n) if the tree's
 balanced and O(n) if it's basically a linked list.
 
-Full code: `easy_problems/901_1000/univalued_binary_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[univalued_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/901_1000/univalued_binary_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #Recursion #Golang
 

@@ -165,6 +165,9 @@ collect-everything-and-sort into a single DFS pass with early termination. Next 
 problem statement includes a weird structural rule like this one, it's worth asking what
 it lets you skip, not just what it guarantees.
 
+Full code and the step-by-step walkthrough:
+[second_minimum_node_in_a_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/second_minimum_node_in_a_binary_tree/SOLUTION.md)
+
 #DSA #LeetCode #100DaysOfCode #BinaryTree #DFS #Golang #CodingInterview
 
 ---

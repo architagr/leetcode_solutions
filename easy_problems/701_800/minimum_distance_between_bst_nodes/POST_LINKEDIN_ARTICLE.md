@@ -99,7 +99,8 @@ A version that appends into one shared accumulator slice would dodge that. The s
 afterward is a clean O(n). Space is O(n) for the collected values plus O(h) for the
 recursion stack, where `h` is the tree's height.
 
-Full code: `easy_problems/701_800/minimum_distance_between_bst_nodes/` in the repo.
+Full code and the step-by-step walkthrough:
+[minimum_distance_between_bst_nodes](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/minimum_distance_between_bst_nodes/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #CodingInterview #Programming #BinarySearchTree #InOrderTraversal #Golang
 

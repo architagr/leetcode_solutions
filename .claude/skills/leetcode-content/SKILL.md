@@ -460,8 +460,21 @@ Two things to keep honest:
       "Builds on" links from step (e) (full GitHub URLs, since relative paths are dead on
       LinkedIn), and the companies list if `COMPANIES.md` was written. This is the actual content — the
       short post below just points people at it. Follow the "Writing style" section
-      above. End with a line of 5-8 hashtags (see hashtags note below step m), followed by
-      the AI-disclosure line (see below) as the very last thing in the file.
+      above.
+
+      **End the body with the walkthrough link, in exactly this form:**
+      ```
+      Full code and the step-by-step walkthrough:
+      [<folder basename>](https://github.com/architagr/leetcode_solutions/blob/main/<folder>/SOLUTION.md)
+      ```
+      A bare backticked repo path — `Full code: easy_problems/101_200/path_sum/ in the
+      repo.` — is what this used to say, and it is dead text on LinkedIn: nothing there
+      turns a path into a link, so a reader who wants the code has to go and search for it.
+      The link goes to `SOLUTION.md` rather than the folder because that is the page with
+      the walkthrough diagrams on it. Same block, same wording, as `POST_SUBSTACK.md`.
+
+      Then a line of 5-8 hashtags (see hashtags note below step m), and the AI-disclosure
+      line (see below) as the very last thing in the file.
 
       **AI disclosure (POST_LINKEDIN_ARTICLE.md only, after the hashtags):**
       ```

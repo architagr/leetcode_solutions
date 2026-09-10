@@ -88,6 +88,9 @@ Only values move. No pointers are rewired, which is legitimate because the probl
 
 The transferable idea is the reframing: "reverse this level" became "swap every mirror pair", and a mirror pair is a thing recursion can produce for free. Symmetric-tree and mirror-image problems tend to yield to the same move.
 
+Full code and the step-by-step walkthrough:
+[reverse_odd_levels_of_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/SOLUTION.md)
+
 #DSA #LeetCode #BinaryTree #Recursion #DFS #Golang #Algorithms
 
 ---

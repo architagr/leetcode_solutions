@@ -80,7 +80,8 @@ Walking it through `root = [2,1,3,null,null,0,1]` (root is `OR`, its left child 
 O(h) space for the recursion stack, where h is the tree's height: O(log n) if it's
 balanced, O(n) if it's basically a straight line.
 
-Full code: `easy_problems/2301_2400/evaluate_boolean_binary_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[evaluate_boolean_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #BinaryTree #Recursion #Golang #CodingInterview #Programming
 

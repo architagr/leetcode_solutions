@@ -120,7 +120,8 @@ depth under different parents, exactly the definition of cousins.
 - Space: O(h) for the recursion stack per call, where h is the tree's height — O(log n)
   balanced, O(n) worst case for a skewed tree.
 
-Full code: `easy_problems/901_1000/cousins_in_binary_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[cousins_in_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/901_1000/cousins_in_binary_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #DFS #Golang
 

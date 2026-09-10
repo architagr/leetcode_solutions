@@ -85,7 +85,8 @@ without ever looking at half the tree.
 **Complexity:** O(n) time, every node is visited at most once (fewer, whenever `||`
 short-circuits). O(h) space for the recursion stack, where h is the tree's height.
 
-Full code: `easy_problems/101_200/path_sum/` in the repo.
+Full code and the step-by-step walkthrough:
+[path_sum](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/path_sum/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #DFS #Golang
 

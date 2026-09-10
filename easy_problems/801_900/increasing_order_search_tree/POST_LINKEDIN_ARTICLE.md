@@ -142,7 +142,8 @@ Complexity: O(n) time, every node visited once by `inOrder` and once by the reli
 loop. O(n) space for the `inorder` slice, plus O(h) for the recursion stack (h = tree
 height).
 
-Full code: `easy_problems/801_900/increasing_order_search_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[increasing_order_search_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/increasing_order_search_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #BinarySearchTree #InOrderTraversal #Golang #CodingInterview #Algorithms
 

@@ -209,6 +209,9 @@ Time is `O(n log k)` for the constructor and `O(log k)` per `Add` call. Space is
 *Part of the 365 Days of LeetCode Challenge. Follow along for daily problem
 breakdowns.*
 
+Full code and the step-by-step walkthrough:
+[kth_largest_element_in_a_stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/SOLUTION.md)
+
 #DSA #LeetCode #100DaysOfCode #Heap #DataStructures #Golang #CodingInterview #Programming
 
 ---

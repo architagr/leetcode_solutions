@@ -120,7 +120,8 @@ example) comes back `false`: the preorder walk hits every node (`5, 3, 2, 4, 6, 
 storing each one's complement (`23, 25, 26, 24, 22, 21`), and none of those six ever
 equals a value the walk reaches afterward, so the match check never fires.
 
-Full code: `easy_problems/601_700/two_sum_iv_input_is_a_bst/` in the repo.
+Full code and the step-by-step walkthrough:
+[two_sum_iv_input_is_a_bst](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/two_sum_iv_input_is_a_bst/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #BinarySearchTree #HashSet #Golang #CodingInterview #Algorithms
 

@@ -90,7 +90,8 @@ Walking it through Example 1 — `root1 = [3,5,1,6,2,9,8,null,null,7,4]`,
 once. O(n + m) space for the two leaf slices, plus O(h1 + h2) for the recursion
 stacks (each tree's height).
 
-Full code: `easy_problems/801_900/leaf_similar_trees/` in the repo.
+Full code and the step-by-step walkthrough:
+[leaf_similar_trees](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/leaf_similar_trees/SOLUTION.md)
 
 #DSA #LeetCode #BinaryTree #DFS #Golang #100DaysOfCode #CodingInterview
 

@@ -84,7 +84,8 @@ Worst case this runs in O(m·n) time, where `m` is the node count of `root` and 
 the node count of `subRoot`: up to `m` candidate anchors, each one costing up to `n`
 work inside `equalBinaryTree`. Space is O(h1 + h2) for the two recursion stacks.
 
-Full code lives at `easy_problems/501_600/subtree_of_another_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[subtree_of_another_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/subtree_of_another_tree/SOLUTION.md)
 
 #LeetCode #100DaysOfCode #Algorithms #CodingInterview #BinaryTree #Recursion #Golang
 

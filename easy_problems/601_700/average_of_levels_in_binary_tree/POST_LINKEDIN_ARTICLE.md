@@ -107,7 +107,8 @@ division pass only runs once per level. Space is O(h) for the recursion stack (h
 tree height), plus O(L) for the `result`/`count` slices, where L (the number of
 levels) tops out at h + 1.
 
-Full code: `easy_problems/601_700/average_of_levels_in_binary_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[average_of_levels_in_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #BinaryTree #DFS #Golang #CodingInterview #Algorithms
 

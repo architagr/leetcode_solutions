@@ -102,7 +102,8 @@ tree is degenerate) every node pair gets visited once. O(h) space for the recurs
 stack, where h is the tree's height (O(log n) for a balanced tree, O(n) for a completely
 skewed one).
 
-Full code: `easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #CodingInterview #BinaryTree #DFS #Golang
 

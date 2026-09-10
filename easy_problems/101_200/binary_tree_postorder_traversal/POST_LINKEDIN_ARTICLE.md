@@ -92,7 +92,8 @@ common trick is a single stack that pushes nodes and prepends their values
 instead of appending — you're essentially building the reverse of a
 root-right-left traversal and letting the prepend flip it into postorder.
 
-Full code: `easy_problems/101_200/binary_tree_postorder_traversal/` in the repo.
+Full code and the step-by-step walkthrough:
+[binary_tree_postorder_traversal](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_postorder_traversal/SOLUTION.md)
 
 #DSA #LeetCode #BinaryTree #Recursion #Golang #100DaysOfCode #CodingInterview
 

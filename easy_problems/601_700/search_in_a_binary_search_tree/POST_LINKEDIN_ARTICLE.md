@@ -104,7 +104,8 @@ half.
 **Complexity:** O(h) time and O(h) space, where h is the tree's height. For a balanced
 BST that's O(log n); a completely skewed tree degrades to O(n).
 
-Full code: `easy_problems/601_700/search_in_a_binary_search_tree/` in the repo.
+Full code and the step-by-step walkthrough:
+[search_in_a_binary_search_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/SOLUTION.md)
 
 #DSA #LeetCode #100DaysOfCode #CodingInterview #BinarySearchTree #Golang #Algorithms
 
