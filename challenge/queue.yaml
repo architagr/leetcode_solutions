@@ -432,7 +432,7 @@ entries:
       difficulty: medium
       folder: medium_problems/201_300/lowest_common_ancestor_of_a_binary_tree
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 235
       posted_at:
