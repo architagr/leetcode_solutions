@@ -1,4 +1,4 @@
-## Binary Saerch Tree Iterator
+## Binary Search Tree Iterator
 
 Implement the `BSTIterator` class that represents an iterator over the [in-order traversal](<https://en.wikipedia.org/wiki/Tree_traversal#In-order_(LNR)) of a binary search tree (BST):
 
@@ -11,7 +11,7 @@ Notice that by initializing the pointer to a non-existent smallest number, the f
 You may assume that `next()` calls will always be valid. That is, there will be at least a next number in the in-order traversal when `next()` is called.
 
 Example 1:
-!["Example 1"](bst-tree.png "Example 1")
+![Example 1](images/1.png)
 
 ```
 Input
