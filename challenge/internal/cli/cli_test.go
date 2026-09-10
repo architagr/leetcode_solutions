@@ -895,7 +895,6 @@ func batchFixture(t *testing.T, articleBody, substackBody string) (repoRoot, que
 const articleWithMeta = `---
 meta_title: A title that fits
 meta_description: A description that fits comfortably.
-canonical_url: https://github.com/architagr/leetcode_solutions
 ---
 
 # The article
@@ -926,7 +925,6 @@ func TestLinkedInBatchLiftsArticleMetaIntoItsOwnBlock(t *testing.T) {
 	for _, want := range []string{
 		"Meta title (17/60): A title that fits",
 		"Meta description (36/155): A description that fits comfortably.",
-		"Canonical URL: https://github.com/architagr/leetcode_solutions",
 		"# The article",
 	} {
 		if !strings.Contains(got, want) {
@@ -1036,5 +1034,52 @@ func TestBatchRejectsBrokenFrontMatter(t *testing.T) {
 	}
 	if !strings.Contains(err.Error(), "POST_LINKEDIN_ARTICLE.md") {
 		t.Errorf("error should name the file: %v", err)
+	}
+}
+
+func TestXBatchPreparesPostsForHandPosting(t *testing.T) {
+	repoRoot, queuePath, folder := xFixture(t)
+	outPath := filepath.Join(t.TempDir(), "x.md")
+
+	res, err := XBatch(repoRoot, queuePath, 7, outPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Days) != 1 || res.Days[0] != 1 {
+		t.Errorf("days = %v, want [1]", res.Days)
+	}
+	if !strings.Contains(res.MarkCommand, queue.DestinationX) {
+		t.Errorf("mark command should target x: %s", res.MarkCommand)
+	}
+
+	doc, err := os.ReadFile(outPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := string(doc)
+	if !strings.Contains(got, "day one on X") {
+		t.Errorf("x document is missing the post body:\n%s", got)
+	}
+	// Posting by hand means attaching the image by hand, so the document
+	// has to say which file.
+	if !strings.Contains(got, filepath.Join(folder, "HERO.png")) {
+		t.Errorf("x document should name the image to attach:\n%s", got)
+	}
+}
+
+// The same rule as every other batch: preparing claims nothing, because
+// a day marked but never posted is skipped forever.
+func TestXBatchDoesNotMarkTheQueue(t *testing.T) {
+	repoRoot, queuePath, _ := xFixture(t)
+
+	if _, err := XBatch(repoRoot, queuePath, 7, filepath.Join(t.TempDir(), "out.md")); err != nil {
+		t.Fatal(err)
+	}
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationX) {
+		t.Error("preparing a batch must not mark the day as posted")
 	}
 }

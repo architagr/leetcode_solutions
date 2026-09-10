@@ -433,7 +433,6 @@ Two things to keep honest:
       ---
       meta_title: <=60 chars
       meta_description: <=155 chars
-      canonical_url: https://github.com/architagr/leetcode_solutions/blob/main/<folder>/SOLUTION.md
       ---
       ```
       - `meta_title` is NOT the article's H1. The H1 is read in context, with the hero
@@ -443,9 +442,11 @@ Two things to keep honest:
       - `meta_description` is the blurb under that title. One sentence, the specific
         insight, not "In this article we explore...". Left empty, the platform excerpts
         the opening line, which is rarely the line you'd choose.
-      - `canonical_url` always points at the repo's `SOLUTION.md`. The same piece goes out
-        on LinkedIn and Substack, and without a canonical the two copies compete with each
-        other as duplicates; with one, both credit a single original.
+      - There is deliberately no canonical URL field. Neither platform lets a publisher
+        set one — LinkedIn's composer has no such field, and Substack treats its own domain
+        as canonical, exposing only an SEO title and subtitle. The same piece does go out
+        in both places, so the only lever available is the one both posts already use:
+        link back to the repo prominently in the body.
       - Count characters, not bytes — an em dash is one character of the budget.
 
       After the front matter, the article proper: header "365 Days of LeetCode Challenge — Day
@@ -569,11 +570,10 @@ Two things to keep honest:
       Daily Substack. Substack has no publishing API, so `leetcodectl substack-batch`
       prepares this for pasting by hand.
 
-      - **Open with the same front matter block as step (k)** — `meta_title`,
-        `meta_description`, `canonical_url` — and the same rules. `substack-batch` surfaces
-        them as publish settings and warns on gaps.
-      - **`canonical_url` is the same repo `SOLUTION.md` URL as the LinkedIn article's.**
-        That is the point of it: two copies of one piece, both crediting one original.
+      - **Open with the same front matter block as step (k)** — `meta_title` and
+        `meta_description` — and the same rules. `substack-batch` surfaces them as publish
+        settings and warns on gaps. Substack's SEO Options map onto them directly: its SEO
+        Title and SEO Subtitle are these two fields.
       - The body may reuse the article's structure and code, but rewrite the opening and
         closing paragraphs. Substack readers subscribed to a newsletter, not a feed —
         the piece can open slower and go deeper, and an opening line that reads as a

@@ -281,6 +281,24 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return cli.LinkedInBatch(in.RepoRoot, in.QueuePath, in.Destination, in.Count, in.OutPath)
 
+	case "x-batch":
+		var in struct {
+			RepoRoot  string `json:"repoRoot"`
+			QueuePath string `json:"queuePath"`
+			Count     int    `json:"count"`
+			OutPath   string `json:"outPath"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		if in.Count == 0 {
+			in.Count = 7
+		}
+		if in.OutPath == "" {
+			in.OutPath = fmt.Sprintf("/tmp/x-batch-%s.md", time.Now().Format("2006-01-02"))
+		}
+		return cli.XBatch(in.RepoRoot, in.QueuePath, in.Count, in.OutPath)
+
 	case "substack-batch":
 		var in struct {
 			RepoRoot  string `json:"repoRoot"`

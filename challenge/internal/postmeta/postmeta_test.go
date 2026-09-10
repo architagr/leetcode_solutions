@@ -9,7 +9,6 @@ func TestParseReadsFrontMatterAndBody(t *testing.T) {
 	m, body, err := Parse(`---
 meta_title: "Recover a contaminated tree without rebuilding it"
 meta_description: "The recovered values are 2i+1 and 2i+2, so the path to any target is its binary representation."
-canonical_url: https://github.com/architagr/leetcode_solutions
 ---
 
 # Day 9
@@ -24,9 +23,6 @@ The body starts here.
 	}
 	if !strings.HasPrefix(m.Description, "The recovered values are 2i+1") {
 		t.Errorf("Description = %q", m.Description)
-	}
-	if m.Canonical != "https://github.com/architagr/leetcode_solutions" {
-		t.Errorf("Canonical = %q", m.Canonical)
 	}
 	if !strings.HasPrefix(body, "# Day 9") {
 		t.Errorf("body = %q, want it to start at the heading", body)

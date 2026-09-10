@@ -110,8 +110,8 @@ entries:
         linkedin_company_page: "2026-09-10T08:55:13Z"
         linkedin_group: "2026-09-10T08:55:13Z"
         linkedin_main_account: "2026-09-10T08:55:13Z"
-        substack: "2026-09-10T11:22:39Z"
-        x: null
+        substack: "2026-09-10T12:02:43Z"
+        x: "2026-09-10T12:02:43Z"
     - day: 9
       number: 145
       title: Binary Tree Postorder Traversal

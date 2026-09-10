@@ -499,7 +499,6 @@ func prepareBatch(repoRoot, queuePath, destination, network, instructions string
 				fmt.Fprintf(&doc, "\n### %s — publish settings\n\n", sec.Heading)
 				fmt.Fprintf(&doc, "- Meta title (%d/%d): %s\n", utf8.RuneCountInString(meta.Title), postmeta.MaxTitleChars, orNotSet(meta.Title))
 				fmt.Fprintf(&doc, "- Meta description (%d/%d): %s\n", utf8.RuneCountInString(meta.Description), postmeta.MaxDescriptionChars, orNotSet(meta.Description))
-				fmt.Fprintf(&doc, "- Canonical URL: %s\n", orNotSet(meta.Canonical))
 				fmt.Fprintf(&doc, "- Tags: %s\n", orNotSet(strings.Join(meta.Tags, ", ")))
 				for _, w := range meta.Warnings() {
 					warnings = append(warnings, fmt.Sprintf("day %d (%s), %s: %s", e.Day, e.Title, sec.Filename, w))
@@ -554,6 +553,24 @@ func LinkedInBatch(repoRoot, queuePath, destination string, count int, outPath s
 		[]batchSection{
 			{Heading: "Short post", Filename: "POST_LINKEDIN.md"},
 			{Heading: "Newsletter article", Filename: "POST_LINKEDIN_ARTICLE.md", HasMeta: true},
+		}, count, outPath)
+}
+
+// XBatch writes the next count unposted days' X content to outPath as
+// one paste-ready file.
+//
+// X has working automation in this repo (post-x, and the workflow behind
+// it), and this exists anyway because posting through the API stopped
+// being free: X retired the free tier in February 2026, and a post
+// carrying a link — which every day's does — costs about thirteen times
+// a plain one. Preparing the posts for a hand-post keeps the series
+// going at no cost, and post-x stays ready for the day that trade looks
+// different.
+func XBatch(repoRoot, queuePath string, count int, outPath string) (BatchResult, error) {
+	return prepareBatch(repoRoot, queuePath, queue.DestinationX, "X",
+		"Post each of these by hand, attaching the day's HERO.png, then run the mark-posted command at the bottom for the days that actually went out.",
+		[]batchSection{
+			{Heading: "Post", Filename: "POST_X.md"},
 		}, count, outPath)
 }
 

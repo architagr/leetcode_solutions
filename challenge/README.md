@@ -233,8 +233,8 @@ claiming days that were never scheduled would skip them permanently. It prints t
 `linkedin_company_page` and `linkedin_group`.
 
 The batch file lifts each article's YAML front matter into its own "publish settings"
-block — meta title, meta description, canonical URL — because LinkedIn asks for those in
-separate fields at publish time rather than reading them off the article. Days whose
+block — meta title and meta description — because LinkedIn asks for those in separate
+fields at publish time rather than reading them off the article. Days whose
 metadata is missing or too long still prepare; the gaps come back in `warnings` and are
 listed at the bottom of the batch file. Articles written before the front matter existed
 have none, and that is fine.
@@ -260,7 +260,7 @@ go run ./challenge/cmd/leetcodectl mark-posted \
   '{"queuePath":"challenge/queue.yaml","destination":"substack","numbers":[104,108]}'
 ```
 
-The `canonical_url` in every day's front matter points at that day's `SOLUTION.md` in this
-repo, and the LinkedIn article's points at the same place. That is deliberate: the piece
-goes out in two places, and a shared canonical means the copies credit one original rather
-than competing as duplicates.
+There is no canonical URL field, because neither platform lets a publisher set one:
+LinkedIn's composer has none, and Substack treats its own domain as canonical while
+exposing only an SEO title and subtitle. The piece does go out in both places, so the only
+lever available is the one both posts use — a prominent link back to the repo in the body.

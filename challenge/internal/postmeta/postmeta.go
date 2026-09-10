@@ -36,6 +36,15 @@ const (
 )
 
 // Meta is the front matter block of a long-form post.
+//
+// There is deliberately no canonical URL field. Neither platform this
+// serves lets a publisher set one: LinkedIn's article composer has no
+// such field, and Substack treats its own domain as canonical and
+// exposes only an SEO title and subtitle. Carrying the value anyway
+// would have meant a front matter field that nothing could ever apply.
+// The duplicate-content problem it would have solved is handled the only
+// way these platforms allow — both copies link prominently back to the
+// repo in the body.
 type Meta struct {
 	// Title is the SEO/social-card headline. It is deliberately separate
 	// from the article's own H1: the H1 is written to be read in context,
@@ -43,12 +52,6 @@ type Meta struct {
 	Title string `yaml:"meta_title"`
 	// Description is the card and search-result blurb.
 	Description string `yaml:"meta_description"`
-	// Canonical is the URL this article should point search engines at
-	// when the same piece is published in more than one place. Cross
-	// posting an article to LinkedIn and Substack without one makes the
-	// two copies compete as duplicates; with one, the copies credit a
-	// single original.
-	Canonical string `yaml:"canonical_url,omitempty"`
 	// Tags are Substack's post tags, set in the publish dialog rather
 	// than written into the body. They are the reason a hashtag line
 	// does not belong in POST_SUBSTACK.md: Substack indexes these, and
@@ -59,7 +62,7 @@ type Meta struct {
 // IsZero reports whether no front matter fields were set at all, which
 // is how a file written before this feature existed reads.
 func (m Meta) IsZero() bool {
-	return m.Title == "" && m.Description == "" && m.Canonical == "" && len(m.Tags) == 0
+	return m.Title == "" && m.Description == "" && len(m.Tags) == 0
 }
 
 // Warnings describes anything about the metadata that will publish, but
