@@ -334,3 +334,68 @@ func TestPostMissingHeroFileIsAnError(t *testing.T) {
 		t.Fatal("a missing hero file must be an error, not a silent skip")
 	}
 }
+
+func redirectMe(t *testing.T, meURL string) {
+	t.Helper()
+	old := meEndpoint
+	meEndpoint = meURL
+	t.Cleanup(func() { meEndpoint = old })
+}
+
+func TestVerifyReportsTheAuthenticatedAccount(t *testing.T) {
+	var method, auth string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		method, auth = r.Method, r.Header.Get("Authorization")
+		io.WriteString(w, `{"data":{"id":"42","username":"architagr","name":"Archit Agarwal"}}`)
+	}))
+	defer srv.Close()
+	redirectMe(t, srv.URL)
+
+	acct, err := Verify(testCreds())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if acct.Username != "architagr" || acct.ID != "42" || acct.Name != "Archit Agarwal" {
+		t.Errorf("account = %+v, want the authenticated user", acct)
+	}
+	// Verify must never publish anything.
+	if method != http.MethodGet {
+		t.Errorf("method = %s, want GET — Verify must not write", method)
+	}
+	if !strings.HasPrefix(auth, "OAuth ") {
+		t.Errorf("Authorization = %q, want an OAuth 1.0a header", auth)
+	}
+}
+
+func TestVerifySurfacesBadCredentials(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusUnauthorized)
+		io.WriteString(w, `{"title":"Unauthorized"}`)
+	}))
+	defer srv.Close()
+	redirectMe(t, srv.URL)
+
+	_, err := Verify(testCreds())
+	if err == nil {
+		t.Fatal("a 401 must be an error")
+	}
+	if !strings.Contains(err.Error(), "Read and write") {
+		t.Errorf("a 401 during setup should point at the permission trap, got %v", err)
+	}
+}
+
+func TestVerifyChecksCredentialsBeforeCallingTheAPI(t *testing.T) {
+	called := false
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		called = true
+	}))
+	defer srv.Close()
+	redirectMe(t, srv.URL)
+
+	if _, err := Verify(Credentials{ConsumerKey: "ck"}); err == nil {
+		t.Error("incomplete credentials must be rejected")
+	}
+	if called {
+		t.Error("the API was called with incomplete credentials")
+	}
+}

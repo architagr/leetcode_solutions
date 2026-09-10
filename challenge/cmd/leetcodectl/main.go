@@ -206,6 +206,27 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return cli.PostDiscord(in.RepoRoot, in.QueuePath, webhookURL, opts...)
 
+	case "verify-x":
+		// Read-only: confirms the four OAuth values authenticate and
+		// reports which account they post as. Publishes nothing, so it
+		// is safe to run as often as setup needs.
+		creds := xpost.Credentials{
+			ConsumerKey:    os.Getenv("X_API_KEY"),
+			ConsumerSecret: os.Getenv("X_API_SECRET"),
+			AccessToken:    os.Getenv("X_ACCESS_TOKEN"),
+			AccessSecret:   os.Getenv("X_ACCESS_TOKEN_SECRET"),
+		}
+		acct, err := xpost.Verify(creds)
+		if err != nil {
+			return nil, err
+		}
+		return struct {
+			ID       string `json:"id"`
+			Username string `json:"username"`
+			Name     string `json:"name"`
+			Message  string `json:"message"`
+		}{acct.ID, acct.Username, acct.Name, fmt.Sprintf("credentials authenticate as @%s", acct.Username)}, nil
+
 	case "post-x":
 		var in struct {
 			RepoRoot  string `json:"repoRoot"`

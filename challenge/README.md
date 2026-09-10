@@ -159,7 +159,26 @@ project is separate and free at the tier this needs.
 4. Store them as repository secrets: `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`,
    `X_ACCESS_TOKEN_SECRET`. Set the handle as a repository *variable* `X_HANDLE` — it
    only builds the result URL, it authorises nothing.
-5. Trigger the workflow by hand once from the Actions tab before relying on the cron.
+5. Check them before trusting them. `verify-x` reads back the authenticated account and
+   publishes nothing:
+
+   ```bash
+   set -a; source ~/path/to/your/x-keys.env; set +a   # never inside this repo
+   go run ./challenge/cmd/leetcodectl verify-x
+   ```
+
+   A green `verify-x` and a 401 from `post-x` means one specific thing: the tokens were
+   generated before App permissions were set to Read and write. Only a write reveals that,
+   so regenerate the access token and secret and try again.
+6. Trigger the workflow by hand once from the Actions tab before relying on the cron.
+
+Only the OAuth 1.0a values are used. The Bearer Token is app-only auth and cannot post as
+you; the OAuth 2.0 client credentials drive a redirect flow whose access tokens expire every
+two hours, which is the wrong shape for an unattended daily job. OAuth 1.0a user tokens do
+not expire.
+
+Keep the keys out of this working tree. `.gitignore` covers `x.com`, `.env` and `*.secrets`,
+but the only durable answer is to keep the file somewhere else entirely and source it.
 
 Check the current free-tier write limit on the portal before assuming a day is safe; X
 has changed its tiers repeatedly. One post a day is ~30/month, which has historically sat

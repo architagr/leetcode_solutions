@@ -353,3 +353,66 @@ func newNonce() (string, error) {
 	}
 	return hex.EncodeToString(buf), nil
 }
+
+// meEndpoint is the one read endpoint this package touches, and only for
+// Verify. It is a var for the same reason the others are: tests.
+var meEndpoint = "https://api.x.com/2/users/me"
+
+// Account is who a set of credentials posts as.
+type Account struct {
+	ID       string
+	Username string
+	Name     string
+}
+
+// Verify confirms a set of credentials authenticates, and reports which
+// account they post as. It reads; it publishes nothing.
+//
+// This exists because the alternative way to test credentials is to
+// publish something and delete it, which spends a post from the monthly
+// budget, briefly puts a test message on a real timeline, and leaves a
+// deletion in the account's history. Reading back the authenticated user
+// answers the question that actually goes wrong in setup — wrong key,
+// wrong secret, tokens from the wrong app — without any of that.
+//
+// It cannot prove the tokens carry write permission: X only reveals that
+// when a write is attempted. Tokens generated before the app was set to
+// "Read and write" authenticate perfectly here and still fail to post,
+// so a green Verify plus a 401 on posting means exactly one thing —
+// regenerate the access token and secret.
+func Verify(creds Credentials) (Account, error) {
+	if err := creds.Validate(); err != nil {
+		return Account{}, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, meEndpoint, nil)
+	if err != nil {
+		return Account{}, fmt.Errorf("building request: %w", err)
+	}
+	if err := sign(req, creds); err != nil {
+		return Account{}, err
+	}
+
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return Account{}, fmt.Errorf("calling X: %w", err)
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(io.LimitReader(resp.Body, 8192))
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		return Account{}, apiError(resp, body)
+	}
+
+	var out struct {
+		Data struct {
+			ID       string `json:"id"`
+			Username string `json:"username"`
+			Name     string `json:"name"`
+		} `json:"data"`
+	}
+	if err := json.Unmarshal(body, &out); err != nil {
+		return Account{}, fmt.Errorf("X authenticated the request but its response did not parse: %w", err)
+	}
+	return Account{ID: out.Data.ID, Username: out.Data.Username, Name: out.Data.Name}, nil
+}
