@@ -284,7 +284,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/binary_tree_right_side_view
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 102
       posted_at:
