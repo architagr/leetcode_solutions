@@ -190,7 +190,7 @@ entries:
       difficulty: medium
       folder: medium_problems/601_700/construct_string_from_binary_tree
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 257
         - 144
