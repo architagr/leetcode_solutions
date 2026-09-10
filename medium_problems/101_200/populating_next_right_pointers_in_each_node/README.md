@@ -17,7 +17,7 @@ Initially, all next pointers are set to `NULL`.
 
 #### Example 1:
 
-!["Example 1"](116_sample.png)
+![Example 1](images/1.png)
 
 ```
 Input: root = [1,2,3,4,5,6,7]

@@ -783,9 +783,10 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/populating_next_right_pointers_in_each_node
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 102
+        - 103
       posted_at:
         discord: null
         linkedin_company_page: null

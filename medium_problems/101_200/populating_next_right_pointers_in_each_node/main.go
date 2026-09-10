@@ -26,6 +26,7 @@ func bfs(root *Node) {
 		return x
 	}
 	push(root)
+	// Level marker, as in Day 16: everything ahead of it is one level.
 	push(nil)
 	var prev *Node
 	current := root
@@ -33,14 +34,26 @@ func bfs(root *Node) {
 	for len(q) > 0 {
 		current = pop()
 		if current == nil {
+			// Guarded, or the final sentinel is re-pushed onto an empty
+			// queue and the loop spins forever.
 			if len(q) > 0 {
 				push(nil)
 			}
+			// current is nil here, so this resets prev. The next node
+			// popped is the RIGHTMOST of the new level and gets Next = nil,
+			// which is exactly the rule for it - reached by the general
+			// assignment below rather than by a special case.
 			prev = current
 			continue
 		}
+		// Because the walk goes right to left, the node to current's right
+		// is simply the node visited just before it. No lookahead, and
+		// nothing is written into a node already passed.
 		current.Next = prev
 		prev = current
+		// RIGHT before LEFT. This one inversion is the whole idea: it makes
+		// the BFS visit each level backwards, which is what turns "my next
+		// right node" into "the node I just visited".
 		if current.Right != nil {
 			push(current.Right)
 		}
