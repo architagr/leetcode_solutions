@@ -8,9 +8,18 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+// IsValidBst validates by the equivalence rather than the definition:
+// in-order traversal of a BST yields ascending values, and that runs both
+// ways - if the in-order sequence is sorted, the tree is a BST.
+//
+// This is why no ancestor bounds are threaded down. A node that violates a
+// distant ancestor lands in the wrong place in the sequence, so the linear
+// scan catches it without anyone comparing the two.
 func IsValidBst(root *TreeNode) bool {
 	arr := InorderTraversal(root)
 
+	// len(arr)-1 because pairs are compared. >= rather than > because the
+	// problem requires strictly less/greater, so duplicates are invalid.
 	for i := 0; i < len(arr)-1; i++ {
 		if arr[i] >= arr[i+1] {
 			return false
@@ -34,6 +43,15 @@ func inorderTraversal(A *TreeNode, arr []int) []int {
 	return arr
 }
 
+// IsValidBstApproch1 is the local definition implemented honestly, kept
+// for contrast rather than used. It compares each node against the max of
+// its whole left subtree and the min of its whole right subtree, which is
+// correct - but it re-scans those subtrees at every node, so it is O(n^2)
+// on a skewed tree.
+//
+// The version that is actually wrong is neither of these: comparing a node
+// against its two immediate children only. That accepts a tree where a
+// deep node violates an ancestor several levels up.
 func IsValidBstApproch1(root *TreeNode) bool {
 
 	if root == nil {

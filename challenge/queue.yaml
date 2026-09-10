@@ -494,7 +494,7 @@ entries:
       difficulty: medium
       folder: medium_problems/1_100/validate_binary_search_tree
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 501
         - 530
