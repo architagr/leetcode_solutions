@@ -1,0 +1,86 @@
+name: X daily post
+
+# Posts one queued challenge entry per day to X, oldest first.
+#
+# Same shape as the Discord workflow: several crons on an odd minute,
+# because GitHub's scheduled runs are best-effort and queue hardest on
+# round times. Doubling up is prevented in code by the same-day check in
+# PostX, so whichever cron lands first posts and the rest are no-ops.
+#
+# The slot is deliberately an hour after Discord's rather than alongside
+# it. Identical text hitting several networks in the same minute is the
+# pattern automated-behaviour heuristics look for, and each network gets
+# its own POST_*.md anyway, so there's nothing to gain from firing them
+# together.
+on:
+  schedule:
+    # 04:22 UTC = 09:52 IST — the intended slot.
+    - cron: "22 4 * * *"
+    # Retries, in case GitHub delays or drops the one above.
+    - cron: "22 5 * * *"
+    - cron: "22 6 * * *"
+    - cron: "22 7 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Post even if a day already went out today (manual catch-up)"
+        type: boolean
+        default: false
+
+# Needed to push the queue.yaml update back to the repo.
+permissions:
+  contents: write
+
+concurrency:
+  # Never let two runs post at once. On X this matters more than
+  # elsewhere: two near-identical posts seconds apart is exactly what the
+  # platform manipulation policy treats as automated abuse.
+  group: x-daily-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Post the next queued day to X
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          X_HANDLE: ${{ vars.X_HANDLE }}
+          FORCE: ${{ inputs.force && 'true' || 'false' }}
+        run: |
+          go run ./challenge/cmd/leetcodectl post-x \
+            "{\"repoRoot\":\".\",\"queuePath\":\"challenge/queue.yaml\",\"force\":${FORCE}}" | tee result.json
+
+      - name: Commit the queue update
+        run: |
+          if git diff --quiet challenge/queue.yaml; then
+            echo "Queue unchanged (nothing was posted) — nothing to commit."
+            exit 0
+          fi
+          day=$(python3 -c "import json;print(json.load(open('result.json')).get('day',''))")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add challenge/queue.yaml
+          git commit -m "chore(challenge): mark Day ${day} posted to X"
+          # main can have moved on since checkout (a manual commit, the
+          # Discord run an hour earlier). Rebase onto it rather than
+          # failing and leaving the queue marked locally but not in the repo.
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "push attempt ${attempt} failed; retrying"
+            sleep 5
+          done
+          echo "could not push the queue update after 3 attempts" >&2
+          exit 1

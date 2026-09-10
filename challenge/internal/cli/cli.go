@@ -9,15 +9,18 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"leetcode_solutions/challenge/internal/companies"
 	"leetcode_solutions/challenge/internal/discordpost"
 	"leetcode_solutions/challenge/internal/gitmap"
 	"leetcode_solutions/challenge/internal/hero"
 	"leetcode_solutions/challenge/internal/leetcode"
+	"leetcode_solutions/challenge/internal/postmeta"
 	"leetcode_solutions/challenge/internal/queue"
 	"leetcode_solutions/challenge/internal/reorg"
 	"leetcode_solutions/challenge/internal/resolver"
+	"leetcode_solutions/challenge/internal/xpost"
 )
 
 // ResolveResult is the outcome of trying to locate a solved question.
@@ -244,7 +247,7 @@ func PostDiscord(repoRoot, queuePath, webhookURL string, opts ...PostOption) (Po
 	// going out early. Without this, a cron GitHub delayed past midnight
 	// and then fired again on schedule would burn two days in one day.
 	if !cfg.allowSameDay {
-		if already, ok := discordpost.PostedOn(q, queue.DestinationDiscord, time.Now()); ok {
+		if already, ok := queue.PostedOn(q, queue.DestinationDiscord, time.Now()); ok {
 			return PostDiscordResult{
 				Posted: false,
 				Day:    already.Day,
@@ -256,7 +259,7 @@ func PostDiscord(repoRoot, queuePath, webhookURL string, opts ...PostOption) (Po
 		}
 	}
 
-	entry, ok := discordpost.SelectNext(q, queue.DestinationDiscord)
+	entry, ok := queue.SelectNext(q, queue.DestinationDiscord)
 	if !ok {
 		return PostDiscordResult{Posted: false, Message: "nothing to post: every queued entry is already on Discord"}, nil
 	}
@@ -296,56 +299,179 @@ func PostDiscord(repoRoot, queuePath, webhookURL string, opts ...PostOption) (Po
 	}, nil
 }
 
-// LinkedInBatchResult reports what a linkedin-batch run prepared.
-// MarkCommand is the exact follow-up command to run once the days have
-// actually been scheduled in LinkedIn.
-type LinkedInBatchResult struct {
-	Days        []int  `json:"days"`
-	Numbers     []int  `json:"numbers"`
-	OutPath     string `json:"outPath,omitempty"`
-	MarkCommand string `json:"markCommand,omitempty"`
-	Message     string `json:"message"`
+// postToX is a seam so tests can exercise PostX's queue and file
+// handling without reaching the real API. Production always uses the
+// real one.
+var postToX = xpost.Post
+
+// PostXResult reports what a post-x run did. Posted is false on an idle
+// day, when every queued entry has already gone to X. URL is a link to
+// the post that just went out, so a workflow log points at the result
+// rather than only claiming success.
+type PostXResult struct {
+	Posted   bool   `json:"posted"`
+	Day      int    `json:"day,omitempty"`
+	Number   int    `json:"number,omitempty"`
+	Title    string `json:"title,omitempty"`
+	PostedAt string `json:"postedAt,omitempty"`
+	URL      string `json:"url,omitempty"`
+	Message  string `json:"message"`
 }
 
-// LinkedInBatch writes the next count unposted days' LinkedIn content to
-// outPath as one paste-ready file, for scheduling by hand in LinkedIn's
-// own composer.
+// PostX posts the oldest queue entry not yet sent to X, then records the
+// timestamp against that entry's x destination.
 //
-// It deliberately does not mark anything: LinkedIn's scheduler is a
-// manual, partial process, and claiming days that never got scheduled
-// would skip them forever. Marking is the explicit follow-up in
-// MarkCommand, listing only what actually went out.
-func LinkedInBatch(repoRoot, queuePath, destination string, count int, outPath string) (LinkedInBatchResult, error) {
+// The shape mirrors PostDiscord deliberately, including the same-day
+// guard and the write-queue-only-after-the-network-accepts ordering: one
+// post a day is the whole shape of the challenge, and on X specifically
+// a retry loop that reposts the same text is not just untidy — near
+// duplicate posts in quick succession are what X's platform manipulation
+// policy treats as automated abuse.
+//
+// handle is the account the post lands on, used only to build URL. An
+// empty handle just means URL is omitted.
+func PostX(repoRoot, queuePath, handle string, creds xpost.Credentials, opts ...PostOption) (PostXResult, error) {
+	var cfg postConfig
+	for _, opt := range opts {
+		opt(&cfg)
+	}
+
+	// Credentials are checked before the queue is even read: a run with
+	// a missing secret should say so, not look like an idle day.
+	if err := creds.Validate(); err != nil {
+		return PostXResult{}, err
+	}
+
+	q, err := queue.Load(queuePath)
+	if err != nil {
+		return PostXResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+	}
+
+	if !cfg.allowSameDay {
+		if already, ok := queue.PostedOn(q, queue.DestinationX, time.Now()); ok {
+			return PostXResult{
+				Posted: false,
+				Day:    already.Day,
+				Number: already.Number,
+				Title:  already.Title,
+				Message: fmt.Sprintf("nothing to post: day %d already went to X today (%s)",
+					already.Day, *already.PostedAt[queue.DestinationX]),
+			}, nil
+		}
+	}
+
+	entry, ok := queue.SelectNext(q, queue.DestinationX)
+	if !ok {
+		return PostXResult{Posted: false, Message: "nothing to post: every queued entry is already on X"}, nil
+	}
+
+	contentPath := filepath.Join(repoRoot, entry.Folder, "POST_X.md")
+	content, err := os.ReadFile(contentPath)
+	if err != nil {
+		return PostXResult{}, fmt.Errorf("day %d (%s): reading POST_X.md: %w", entry.Day, entry.Title, err)
+	}
+
+	// The hero image is best-effort: a day whose screenshot failed during
+	// content generation should still be able to go out as text.
+	heroPath := filepath.Join(repoRoot, entry.Folder, "HERO.png")
+	if _, statErr := os.Stat(heroPath); statErr != nil {
+		heroPath = ""
+	}
+
+	postID, err := postToX(creds, strings.TrimSpace(string(content)), heroPath)
+	if err != nil {
+		return PostXResult{}, fmt.Errorf("day %d (%s): %w", entry.Day, entry.Title, err)
+	}
+
+	postedAt := time.Now().UTC()
+	if !q.MarkPosted(entry.Number, queue.DestinationX, postedAt) {
+		return PostXResult{}, fmt.Errorf("posted day %d but could not find entry %d to mark it", entry.Day, entry.Number)
+	}
+	if err := q.Save(queuePath); err != nil {
+		return PostXResult{}, fmt.Errorf("posted day %d but saving the queue failed: %w", entry.Day, err)
+	}
+
+	var postURL string
+	if handle != "" && postID != "" {
+		postURL = fmt.Sprintf("https://x.com/%s/status/%s", strings.TrimPrefix(handle, "@"), postID)
+	}
+
+	return PostXResult{
+		Posted:   true,
+		Day:      entry.Day,
+		Number:   entry.Number,
+		Title:    entry.Title,
+		PostedAt: postedAt.Format(time.RFC3339),
+		URL:      postURL,
+		Message:  fmt.Sprintf("posted day %d to X", entry.Day),
+	}, nil
+}
+
+// BatchResult reports what a batch run prepared. MarkCommand is the
+// exact follow-up command to run once the days have actually been
+// scheduled on the destination.
+//
+// Warnings names anything about the prepared days that will publish but
+// won't look right — an article missing its meta description, a title
+// that a search result will truncate. They are reported rather than
+// raised because a batch is prepared for a person who is about to look
+// at every day in it anyway.
+type BatchResult struct {
+	Days        []int    `json:"days"`
+	Numbers     []int    `json:"numbers"`
+	OutPath     string   `json:"outPath,omitempty"`
+	MarkCommand string   `json:"markCommand,omitempty"`
+	Warnings    []string `json:"warnings,omitempty"`
+	Message     string   `json:"message"`
+}
+
+// LinkedInBatchResult is the pre-Substack name for BatchResult, kept so
+// callers and the JSON shape don't change.
+type LinkedInBatchResult = BatchResult
+
+// batchSection is one file to include per day in a batch document,
+// under its own heading.
+//
+// HasMeta marks the file as long-form: its front matter is lifted out
+// and printed as its own block, because LinkedIn and Substack both ask
+// for the SEO title and description in separate fields at publish time
+// rather than reading them off the article.
+type batchSection struct {
+	Heading  string
+	Filename string
+	HasMeta  bool
+}
+
+// prepareBatch writes the next count unposted days for destination to
+// outPath as one paste-ready file.
+//
+// It deliberately does not mark anything: scheduling by hand is a
+// partial process, and claiming days that never got scheduled would skip
+// them forever. Marking is the explicit follow-up in MarkCommand,
+// listing only what actually went out.
+func prepareBatch(repoRoot, queuePath, destination, network, instructions string, sections []batchSection, count int, outPath string) (BatchResult, error) {
 	if err := validateDestination(destination); err != nil {
-		return LinkedInBatchResult{}, err
+		return BatchResult{}, err
 	}
 	q, err := queue.Load(queuePath)
 	if err != nil {
-		return LinkedInBatchResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+		return BatchResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
 	}
 
 	pending := q.NextUnposted(destination, count)
 	if len(pending) == 0 {
-		return LinkedInBatchResult{Message: fmt.Sprintf("nothing to prepare: every queued entry is already on %s", destination)}, nil
+		return BatchResult{Message: fmt.Sprintf("nothing to prepare: every queued entry is already on %s", destination)}, nil
 	}
 
 	var doc strings.Builder
 	days := make([]int, 0, len(pending))
 	numbers := make([]int, 0, len(pending))
+	var warnings []string
 
-	fmt.Fprintf(&doc, "# LinkedIn batch — %d day(s) for %s\n\n", len(pending), destination)
-	doc.WriteString("Schedule these in LinkedIn's composer, then run the mark-posted command at the bottom for the days you actually scheduled.\n")
+	fmt.Fprintf(&doc, "# %s batch — %d day(s) for %s\n\n", network, len(pending), destination)
+	doc.WriteString(instructions + "\n")
 
 	for _, e := range pending {
-		teaser, err := os.ReadFile(filepath.Join(repoRoot, e.Folder, "POST_LINKEDIN.md"))
-		if err != nil {
-			return LinkedInBatchResult{}, fmt.Errorf("day %d (%s): reading POST_LINKEDIN.md: %w", e.Day, e.Title, err)
-		}
-		article, err := os.ReadFile(filepath.Join(repoRoot, e.Folder, "POST_LINKEDIN_ARTICLE.md"))
-		if err != nil {
-			return LinkedInBatchResult{}, fmt.Errorf("day %d (%s): reading POST_LINKEDIN_ARTICLE.md: %w", e.Day, e.Title, err)
-		}
-
 		days = append(days, e.Day)
 		numbers = append(numbers, e.Number)
 
@@ -356,27 +482,94 @@ func LinkedInBatch(repoRoot, queuePath, destination string, count int, outPath s
 		} else {
 			doc.WriteString("Image to attach: (no HERO.png for this day)\n")
 		}
-		fmt.Fprintf(&doc, "\n### Short post\n\n%s\n\n### Newsletter article\n\n%s\n", strings.TrimSpace(string(teaser)), strings.TrimSpace(string(article)))
+
+		for _, sec := range sections {
+			raw, err := os.ReadFile(filepath.Join(repoRoot, e.Folder, sec.Filename))
+			if err != nil {
+				return BatchResult{}, fmt.Errorf("day %d (%s): reading %s: %w", e.Day, e.Title, sec.Filename, err)
+			}
+
+			body := strings.TrimSpace(string(raw))
+			if sec.HasMeta {
+				meta, stripped, err := postmeta.Parse(string(raw))
+				if err != nil {
+					return BatchResult{}, fmt.Errorf("day %d (%s): %s: %w", e.Day, e.Title, sec.Filename, err)
+				}
+				body = stripped
+				fmt.Fprintf(&doc, "\n### %s — publish settings\n\n", sec.Heading)
+				fmt.Fprintf(&doc, "- Meta title (%d/%d): %s\n", utf8.RuneCountInString(meta.Title), postmeta.MaxTitleChars, orNotSet(meta.Title))
+				fmt.Fprintf(&doc, "- Meta description (%d/%d): %s\n", utf8.RuneCountInString(meta.Description), postmeta.MaxDescriptionChars, orNotSet(meta.Description))
+				fmt.Fprintf(&doc, "- Canonical URL: %s\n", orNotSet(meta.Canonical))
+				for _, w := range meta.Warnings() {
+					warnings = append(warnings, fmt.Sprintf("day %d (%s), %s: %s", e.Day, e.Title, sec.Filename, w))
+				}
+			}
+
+			fmt.Fprintf(&doc, "\n### %s\n\n%s\n", sec.Heading, body)
+		}
 	}
 
 	markCmd := fmt.Sprintf(`leetcodectl mark-posted '{"queuePath":%q,"destination":%q,"numbers":%s}'`,
 		queuePath, destination, intsToJSON(numbers))
 	fmt.Fprintf(&doc, "\n\n---\n\nOnce scheduled, mark them:\n\n    %s\n", markCmd)
 
-	if err := os.MkdirAll(filepath.Dir(outPath), 0o755); err != nil {
-		return LinkedInBatchResult{}, err
-	}
-	if err := os.WriteFile(outPath, []byte(doc.String()), 0o644); err != nil {
-		return LinkedInBatchResult{}, fmt.Errorf("writing batch file: %w", err)
+	if len(warnings) > 0 {
+		doc.WriteString("\nWorth fixing before publishing:\n\n")
+		for _, w := range warnings {
+			fmt.Fprintf(&doc, "- %s\n", w)
+		}
 	}
 
-	return LinkedInBatchResult{
+	if err := os.MkdirAll(filepath.Dir(outPath), 0o755); err != nil {
+		return BatchResult{}, err
+	}
+	if err := os.WriteFile(outPath, []byte(doc.String()), 0o644); err != nil {
+		return BatchResult{}, fmt.Errorf("writing batch file: %w", err)
+	}
+
+	return BatchResult{
 		Days:        days,
 		Numbers:     numbers,
 		OutPath:     outPath,
 		MarkCommand: markCmd,
+		Warnings:    warnings,
 		Message:     fmt.Sprintf("prepared %d day(s) for %s", len(days), destination),
 	}, nil
+}
+
+func orNotSet(s string) string {
+	if strings.TrimSpace(s) == "" {
+		return "(not set)"
+	}
+	return s
+}
+
+// LinkedInBatch writes the next count unposted days' LinkedIn content to
+// outPath as one paste-ready file, for scheduling by hand in LinkedIn's
+// own composer.
+func LinkedInBatch(repoRoot, queuePath, destination string, count int, outPath string) (BatchResult, error) {
+	return prepareBatch(repoRoot, queuePath, destination, "LinkedIn",
+		"Schedule these in LinkedIn's composer, then run the mark-posted command at the bottom for the days you actually scheduled.",
+		[]batchSection{
+			{Heading: "Short post", Filename: "POST_LINKEDIN.md"},
+			{Heading: "Newsletter article", Filename: "POST_LINKEDIN_ARTICLE.md", HasMeta: true},
+		}, count, outPath)
+}
+
+// SubstackBatch writes the next count unposted days' Substack content to
+// outPath as one paste-ready file.
+//
+// Substack is manual for a harder reason than LinkedIn's: it has no
+// public publishing API at all — only inbound RSS and email import — so
+// there is nothing to automate against even with an approved app. The
+// tooling prepares the post and tracks what went out; the paste is
+// yours.
+func SubstackBatch(repoRoot, queuePath string, count int, outPath string) (BatchResult, error) {
+	return prepareBatch(repoRoot, queuePath, queue.DestinationSubstack, "Substack",
+		"Paste each of these into a new Substack post, set the SEO fields from the publish settings block, then run the mark-posted command at the bottom for the days you actually published.",
+		[]batchSection{
+			{Heading: "Post", Filename: "POST_SUBSTACK.md", HasMeta: true},
+		}, count, outPath)
 }
 
 // MarkPostedResult reports which numbers were marked and which weren't

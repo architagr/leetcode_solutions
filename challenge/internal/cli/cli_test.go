@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -14,6 +15,7 @@ import (
 	"leetcode_solutions/challenge/internal/gitmap"
 	"leetcode_solutions/challenge/internal/hero"
 	"leetcode_solutions/challenge/internal/queue"
+	"leetcode_solutions/challenge/internal/xpost"
 )
 
 func TestResolveFindsCanonical(t *testing.T) {
@@ -622,4 +624,417 @@ func stubScreenshot(fn func(htmlPath, outPath string) error) func() {
 	prev := screenshot
 	screenshot = fn
 	return func() { screenshot = prev }
+}
+
+// fakeX swaps the X client for the duration of a test, recording what it
+// was asked to post and returning postID (or err, when set).
+func fakeX(t *testing.T, postID string, err error) *struct {
+	Calls    int
+	Text     string
+	HeroPath string
+	Creds    xpost.Credentials
+} {
+	t.Helper()
+	rec := &struct {
+		Calls    int
+		Text     string
+		HeroPath string
+		Creds    xpost.Credentials
+	}{}
+	old := postToX
+	postToX = func(creds xpost.Credentials, text, heroPath string) (string, error) {
+		rec.Calls++
+		rec.Text, rec.HeroPath, rec.Creds = text, heroPath, creds
+		return postID, err
+	}
+	t.Cleanup(func() { postToX = old })
+	return rec
+}
+
+func xCreds() xpost.Credentials {
+	return xpost.Credentials{ConsumerKey: "ck", ConsumerSecret: "cs", AccessToken: "at", AccessSecret: "as"}
+}
+
+// xFixture writes a repo with one queued day whose POST_X.md and
+// HERO.png exist, and returns the repo root and queue path.
+func xFixture(t *testing.T) (repoRoot, queuePath, folder string) {
+	t.Helper()
+	repoRoot = t.TempDir()
+	folder = "easy_problems/101_200/two_sum"
+	if err := os.MkdirAll(filepath.Join(repoRoot, folder), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoRoot, folder, "POST_X.md"), []byte("day one on X\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoRoot, folder, "HERO.png"), []byte("fake-png"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	queuePath = filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 1, Title: "Two Sum", Difficulty: "easy", Folder: folder, Batch: "arrays"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+	return repoRoot, queuePath, folder
+}
+
+func TestPostXPostsOldestUnpostedAndMarksIt(t *testing.T) {
+	repoRoot, queuePath, folder := xFixture(t)
+	rec := fakeX(t, "1799999999", nil)
+
+	res, err := PostX(repoRoot, queuePath, "@architagr", xCreds())
+	if err != nil {
+		t.Fatalf("PostX: %v", err)
+	}
+	if !res.Posted || res.Day != 1 || res.Number != 1 {
+		t.Errorf("result = %+v, want a posted day 1 / number 1", res)
+	}
+	// The handle carries an @ in the queue and in most places a person
+	// writes it; the URL must not.
+	if want := "https://x.com/architagr/status/1799999999"; res.URL != want {
+		t.Errorf("URL = %q, want %q", res.URL, want)
+	}
+	if rec.Text != "day one on X" {
+		t.Errorf("posted text = %q, want the file contents with the trailing newline trimmed", rec.Text)
+	}
+	if rec.HeroPath != filepath.Join(repoRoot, folder, "HERO.png") {
+		t.Errorf("hero path = %q, want the day's HERO.png", rec.HeroPath)
+	}
+
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !reloaded.Entries[0].IsPosted(queue.DestinationX) {
+		t.Error("entry should be marked posted to x after a successful post")
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationDiscord) {
+		t.Error("posting to x must not mark discord")
+	}
+}
+
+// The queue is the record of what is owed. Marking a day that never went
+// out skips it permanently, so a failed post must leave the queue alone.
+func TestPostXFailedPostLeavesQueueUnchanged(t *testing.T) {
+	repoRoot, queuePath, _ := xFixture(t)
+	fakeX(t, "", errors.New("X returned 403: duplicate content"))
+
+	if _, err := PostX(repoRoot, queuePath, "architagr", xCreds()); err == nil {
+		t.Fatal("a rejected post must be an error")
+	}
+
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationX) {
+		t.Error("a failed post must not mark the entry, or the day is skipped forever")
+	}
+}
+
+func TestPostXMissingContentFileIsAnError(t *testing.T) {
+	repoRoot, queuePath, folder := xFixture(t)
+	if err := os.Remove(filepath.Join(repoRoot, folder, "POST_X.md")); err != nil {
+		t.Fatal(err)
+	}
+	rec := fakeX(t, "1", nil)
+
+	if _, err := PostX(repoRoot, queuePath, "architagr", xCreds()); err == nil {
+		t.Fatal("a missing POST_X.md must be an error")
+	}
+	if rec.Calls != 0 {
+		t.Error("nothing should have been posted when the content file is missing")
+	}
+}
+
+// A day whose hero screenshot failed should still be able to go out as
+// text rather than blocking the day.
+func TestPostXWithoutAHeroImagePostsTextOnly(t *testing.T) {
+	repoRoot, queuePath, folder := xFixture(t)
+	if err := os.Remove(filepath.Join(repoRoot, folder, "HERO.png")); err != nil {
+		t.Fatal(err)
+	}
+	rec := fakeX(t, "1", nil)
+
+	res, err := PostX(repoRoot, queuePath, "architagr", xCreds())
+	if err != nil {
+		t.Fatalf("PostX: %v", err)
+	}
+	if !res.Posted {
+		t.Error("a missing hero must not stop the post")
+	}
+	if rec.HeroPath != "" {
+		t.Errorf("hero path = %q, want empty when there is no HERO.png", rec.HeroPath)
+	}
+}
+
+// A missing secret must fail loudly. Reported as an idle day it would
+// look like the challenge had simply run out of content.
+func TestPostXWithIncompleteCredentialsIsAnErrorNotAnIdleDay(t *testing.T) {
+	repoRoot, queuePath, _ := xFixture(t)
+	rec := fakeX(t, "1", nil)
+
+	res, err := PostX(repoRoot, queuePath, "architagr", xpost.Credentials{ConsumerKey: "ck"})
+	if err == nil {
+		t.Fatalf("incomplete credentials must be an error, got %+v", res)
+	}
+	if !strings.Contains(err.Error(), "X_API_SECRET") {
+		t.Errorf("error should name the missing variables, got %v", err)
+	}
+	if rec.Calls != 0 {
+		t.Error("nothing should have been posted with incomplete credentials")
+	}
+}
+
+func TestPostXNothingToPostIsNotAnError(t *testing.T) {
+	repoRoot := t.TempDir()
+	queuePath := filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 2, Entries: []queue.Entry{{Day: 1, Number: 1, Folder: "f"}}}
+	q.MarkPosted(1, queue.DestinationX, time.Now().Add(-48*time.Hour))
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+	fakeX(t, "1", nil)
+
+	res, err := PostX(repoRoot, queuePath, "architagr", xCreds())
+	if err != nil {
+		t.Fatalf("an idle day must not be an error: %v", err)
+	}
+	if res.Posted {
+		t.Errorf("result = %+v, want Posted false", res)
+	}
+}
+
+// A cron GitHub delayed past midnight, then firing again on schedule,
+// must not burn two days in one day.
+func TestPostXSkipsWhenADayAlreadyWentOutToday(t *testing.T) {
+	repoRoot, queuePath, _ := xFixture(t)
+	q, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	day2 := "medium_problems/1_100/add_two_numbers"
+	if err := os.MkdirAll(filepath.Join(repoRoot, day2), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(repoRoot, day2, "POST_X.md"), []byte("day two on X"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	q.Append(queue.Entry{Number: 2, Title: "Add Two Numbers", Folder: day2, Batch: "lists"})
+	q.MarkPosted(1, queue.DestinationX, time.Now().UTC())
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+	rec := fakeX(t, "1", nil)
+
+	res, err := PostX(repoRoot, queuePath, "architagr", xCreds())
+	if err != nil {
+		t.Fatalf("PostX: %v", err)
+	}
+	if res.Posted {
+		t.Errorf("result = %+v, want Posted false — day 1 already went out today", res)
+	}
+	if rec.Calls != 0 {
+		t.Error("the same-day guard must run before any network call")
+	}
+
+	// The manual catch-up override still gets through.
+	if res, err := PostX(repoRoot, queuePath, "architagr", xCreds(), AllowSameDay()); err != nil || !res.Posted {
+		t.Errorf("AllowSameDay = (%+v, %v), want a posted day", res, err)
+	}
+}
+
+// An empty handle is not an error — the post still goes out, there is
+// just no URL to report.
+func TestPostXWithoutAHandleOmitsTheURL(t *testing.T) {
+	repoRoot, queuePath, _ := xFixture(t)
+	fakeX(t, "1799999999", nil)
+
+	res, err := PostX(repoRoot, queuePath, "", xCreds())
+	if err != nil {
+		t.Fatalf("PostX: %v", err)
+	}
+	if !res.Posted {
+		t.Error("a missing handle must not stop the post")
+	}
+	if res.URL != "" {
+		t.Errorf("URL = %q, want empty without a handle", res.URL)
+	}
+}
+
+// batchFixture writes a repo with one queued day carrying every
+// long-form content file, and returns the repo root and queue path.
+func batchFixture(t *testing.T, articleBody, substackBody string) (repoRoot, queuePath string) {
+	t.Helper()
+	repoRoot = t.TempDir()
+	folder := "easy_problems/101_200/two_sum"
+	if err := os.MkdirAll(filepath.Join(repoRoot, folder), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	files := map[string]string{
+		"POST_LINKEDIN.md":         "short teaser",
+		"POST_LINKEDIN_ARTICLE.md": articleBody,
+		"POST_SUBSTACK.md":         substackBody,
+		"HERO.png":                 "fake-png",
+	}
+	for name, body := range files {
+		if err := os.WriteFile(filepath.Join(repoRoot, folder, name), []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	queuePath = filepath.Join(repoRoot, "queue.yaml")
+	q := &queue.Queue{NextDay: 1}
+	q.Append(queue.Entry{Number: 1, Title: "Two Sum", Difficulty: "easy", Folder: folder, Batch: "arrays"})
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+	return repoRoot, queuePath
+}
+
+const articleWithMeta = `---
+meta_title: A title that fits
+meta_description: A description that fits comfortably.
+canonical_url: https://github.com/architagr/leetcode_solutions
+---
+
+# The article
+
+Body text.
+`
+
+// LinkedIn asks for the SEO title and description in their own fields at
+// publish time, so the batch has to surface them separately rather than
+// leaving them buried at the top of the article.
+func TestLinkedInBatchLiftsArticleMetaIntoItsOwnBlock(t *testing.T) {
+	repoRoot, queuePath := batchFixture(t, articleWithMeta, "substack body")
+	outPath := filepath.Join(t.TempDir(), "batch.md")
+
+	res, err := LinkedInBatch(repoRoot, queuePath, queue.DestinationLinkedInMain, 7, outPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Warnings) != 0 {
+		t.Errorf("warnings = %v, want none for well-formed meta", res.Warnings)
+	}
+
+	doc, err := os.ReadFile(outPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := string(doc)
+	for _, want := range []string{
+		"Meta title (17/60): A title that fits",
+		"Meta description (36/155): A description that fits comfortably.",
+		"Canonical URL: https://github.com/architagr/leetcode_solutions",
+		"# The article",
+	} {
+		if !strings.Contains(got, want) {
+			t.Errorf("batch document is missing %q:\n%s", want, got)
+		}
+	}
+	// The front matter must not also appear inline, or it gets pasted
+	// into the article body as visible YAML.
+	if strings.Contains(got, "meta_title:") {
+		t.Errorf("raw front matter leaked into the batch body:\n%s", got)
+	}
+}
+
+// Days written before the meta fields existed must still prepare, with
+// the gap reported rather than raised.
+func TestLinkedInBatchReportsMissingMetaAsAWarning(t *testing.T) {
+	repoRoot, queuePath := batchFixture(t, "# An older article\n\nNo front matter.\n", "substack body")
+	outPath := filepath.Join(t.TempDir(), "batch.md")
+
+	res, err := LinkedInBatch(repoRoot, queuePath, queue.DestinationLinkedInMain, 7, outPath)
+	if err != nil {
+		t.Fatalf("an article without front matter must still prepare: %v", err)
+	}
+	if len(res.Warnings) != 2 {
+		t.Errorf("warnings = %v, want one each for the missing title and description", res.Warnings)
+	}
+	for _, w := range res.Warnings {
+		if !strings.Contains(w, "day 1") || !strings.Contains(w, "POST_LINKEDIN_ARTICLE.md") {
+			t.Errorf("warning should name the day and the file: %q", w)
+		}
+	}
+
+	doc, err := os.ReadFile(outPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(doc), "Meta title (0/60): (not set)") {
+		t.Errorf("batch document should show the gap explicitly:\n%s", doc)
+	}
+}
+
+func TestSubstackBatchPreparesPostsAndTracksItsOwnDestination(t *testing.T) {
+	repoRoot, queuePath := batchFixture(t, articleWithMeta, "---\nmeta_title: Substack title\n---\n\nSubstack body.\n")
+	outPath := filepath.Join(t.TempDir(), "substack.md")
+
+	res, err := SubstackBatch(repoRoot, queuePath, 4, outPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Days) != 1 || res.Days[0] != 1 {
+		t.Errorf("days = %v, want [1]", res.Days)
+	}
+	if !strings.Contains(res.MarkCommand, queue.DestinationSubstack) {
+		t.Errorf("mark command should target substack: %s", res.MarkCommand)
+	}
+
+	doc, err := os.ReadFile(outPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := string(doc)
+	for _, want := range []string{"Substack batch", "Meta title (14/60): Substack title", "Substack body."} {
+		if !strings.Contains(got, want) {
+			t.Errorf("substack document is missing %q:\n%s", want, got)
+		}
+	}
+	// LinkedIn's files must not bleed into a Substack batch.
+	if strings.Contains(got, "short teaser") {
+		t.Errorf("substack document included LinkedIn content:\n%s", got)
+	}
+}
+
+// Preparing a batch must never mark anything: scheduling by hand is
+// partial, and a claimed day that was never published is skipped forever.
+func TestSubstackBatchDoesNotMarkTheQueue(t *testing.T) {
+	repoRoot, queuePath := batchFixture(t, articleWithMeta, "substack body")
+
+	if _, err := SubstackBatch(repoRoot, queuePath, 4, filepath.Join(t.TempDir(), "out.md")); err != nil {
+		t.Fatal(err)
+	}
+	reloaded, err := queue.Load(queuePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if reloaded.Entries[0].IsPosted(queue.DestinationSubstack) {
+		t.Error("preparing a batch must not mark the day as published")
+	}
+}
+
+func TestSubstackBatchMissingContentFileIsAnError(t *testing.T) {
+	repoRoot, queuePath := batchFixture(t, articleWithMeta, "substack body")
+	if err := os.Remove(filepath.Join(repoRoot, "easy_problems/101_200/two_sum", "POST_SUBSTACK.md")); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := SubstackBatch(repoRoot, queuePath, 4, filepath.Join(t.TempDir(), "out.md")); err == nil {
+		t.Fatal("a missing POST_SUBSTACK.md must be an error")
+	}
+}
+
+// Unclosed front matter would otherwise be pasted into the published
+// post as visible YAML.
+func TestBatchRejectsBrokenFrontMatter(t *testing.T) {
+	repoRoot, queuePath := batchFixture(t, "---\nmeta_title: oops\n\n# Article\n", "substack body")
+	_, err := LinkedInBatch(repoRoot, queuePath, queue.DestinationLinkedInMain, 7, filepath.Join(t.TempDir(), "out.md"))
+	if err == nil {
+		t.Fatal("front matter that is never closed must be an error")
+	}
+	if !strings.Contains(err.Error(), "POST_LINKEDIN_ARTICLE.md") {
+		t.Errorf("error should name the file: %v", err)
+	}
 }

@@ -20,8 +20,6 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
-
-	"leetcode_solutions/challenge/internal/queue"
 )
 
 // MaxMessageChars is Discord's hard limit on a message's content field.
@@ -31,60 +29,6 @@ const MaxMessageChars = 2000
 // httpClient is a package-level client so a slow or hung Discord doesn't
 // wedge a scheduled run forever.
 var httpClient = &http.Client{Timeout: 30 * time.Second}
-
-// SelectNext returns the oldest entry, by day, that has not yet been
-// posted to destination. ok is false when there is nothing left to post,
-// which is a normal idle day rather than an error.
-func SelectNext(q *queue.Queue, destination string) (entry queue.Entry, ok bool) {
-	for _, e := range q.Entries {
-		if e.IsPosted(destination) {
-			continue
-		}
-		// Entries are ordered by day in practice, but selection must not
-		// depend on file order — a hand-edited queue shouldn't change
-		// which day goes out next.
-		if !ok || e.Day < entry.Day {
-			entry, ok = e, true
-		}
-	}
-	return entry, ok
-}
-
-// PostedOn returns the entry, if any, that already went out to
-// destination on the same UTC calendar day as now.
-//
-// A scheduled run can fire more than once a day — GitHub reruns a
-// delayed cron, a dispatch retries a run that already succeeded — and
-// the queue alone can't tell those apart from a legitimate next day,
-// since it only records that an entry was posted, not when it was due.
-// Comparing against the wall clock is what makes a second run that day
-// a no-op instead of burning tomorrow's entry.
-//
-// Timestamps are compared in UTC because that's how MarkPosted writes
-// them; an entry whose stamp doesn't parse is treated as not-today
-// rather than blocking the day's post on a malformed field.
-func PostedOn(q *queue.Queue, destination string, now time.Time) (entry queue.Entry, ok bool) {
-	y, m, d := now.UTC().Date()
-	for _, e := range q.Entries {
-		if !e.IsPosted(destination) {
-			continue
-		}
-		at, err := time.Parse(time.RFC3339, *e.PostedAt[destination])
-		if err != nil {
-			continue
-		}
-		ay, am, ad := at.UTC().Date()
-		if ay != y || am != m || ad != d {
-			continue
-		}
-		// Report the newest day sent today, so a message naming it reads
-		// as the post that actually just went out.
-		if !ok || e.Day > entry.Day {
-			entry, ok = e, true
-		}
-	}
-	return entry, ok
-}
 
 // ValidateMessage checks a message body against Discord's limits before
 // any network call. Over-length content is a bug in the source file, not

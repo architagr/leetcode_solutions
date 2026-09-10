@@ -24,6 +24,8 @@ const (
 	DestinationLinkedInMain    = "linkedin_main_account"
 	DestinationLinkedInCompany = "linkedin_company_page"
 	DestinationLinkedInGroup   = "linkedin_group"
+	DestinationX               = "x"
+	DestinationSubstack        = "substack"
 )
 
 // Entry is one question's record in the challenge queue.
@@ -207,6 +209,8 @@ var KnownDestinations = []string{
 	DestinationLinkedInMain,
 	DestinationLinkedInCompany,
 	DestinationLinkedInGroup,
+	DestinationX,
+	DestinationSubstack,
 }
 
 func newPostedAt() map[string]*string {

@@ -72,7 +72,21 @@ posted_at:
     linkedin_main_account: null
     linkedin_company_page: null
     linkedin_group: null
+    x: null
+    substack: null
 ```
+
+Two of these post themselves and two don't, which is a property of the networks rather
+than a choice: Discord and X have APIs that will accept a post from a cron, LinkedIn's
+needs product approval and rotates tokens every ~60 days, and Substack has no publishing
+API at all.
+
+| Destination | How | Command |
+|---|---|---|
+| `discord` | automatic, daily cron | `post-discord` |
+| `x` | automatic, daily cron | `post-x` |
+| `linkedin_*` | manual, batch-prepared | `linkedin-batch` + `mark-posted` |
+| `substack` | manual, batch-prepared | `substack-batch` + `mark-posted` |
 
 `status` says nothing about posting — it only means content was generated. Adding a new
 place to post means adding a key to `queue.KnownDestinations`; no migration needed.
@@ -108,6 +122,60 @@ DISCORD_WEBHOOK_URL=... go run ./challenge/cmd/leetcodectl post-discord \
   '{"repoRoot":".","queuePath":"challenge/queue.yaml"}'
 ```
 
+### X — automatic
+
+`.github/workflows/x-daily-post.yml` runs daily at 04:22 UTC (09:52 IST), an hour after
+Discord's, and posts the oldest entry not yet on X with that day's `HERO.png` attached.
+The message body is the day's `POST_X.md`, sent verbatim — that file is written to be
+exactly what lands on the timeline, so it must stay under 280 characters, and `post-x`
+refuses an over-length post rather than truncating one.
+
+Everything runs through the official X API v2 with OAuth 1.0a user credentials. That is
+worth stating plainly, because the "will this get my account limited" question has a
+boring answer: X does not run an AI-text detector on posts, and there is nothing to
+evade. What its rules actually police is *platform manipulation* — duplicate or
+near-duplicate posts, bulk automated follows/likes/replies, and unauthorised automation
+(browser drivers, scraped sessions). So the defences that matter here are structural, and
+all four are already in place:
+
+- one post a day, guarded by the same-day check in `PostX`, not by cron luck;
+- a `concurrency` group, so two runs can never post seconds apart;
+- `POST_X.md` written per day as its own copy, never a truncation of the Discord or
+  LinkedIn text, so the same sentence isn't fanned out across four networks;
+- no automated engagement of any kind — this posts, and does nothing else.
+
+#### Setup
+
+X Premium (the consumer subscription) does **not** include API access; the developer
+project is separate and free at the tier this needs.
+
+1. At `developer.x.com`, create a project and an app inside it.
+2. In the app's **User authentication settings**, set App permissions to **Read and
+   write**. This is the step people miss — tokens minted before this is set stay
+   read-only, and posting fails with a 401 until they're regenerated.
+3. From **Keys and tokens**, take the API Key and Secret (the consumer pair) and generate
+   an Access Token and Secret (the user pair). All four are needed: posting is a
+   user-context action, so an app-only bearer token cannot do it.
+4. Store them as repository secrets: `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`,
+   `X_ACCESS_TOKEN_SECRET`. Set the handle as a repository *variable* `X_HANDLE` — it
+   only builds the result URL, it authorises nothing.
+5. Trigger the workflow by hand once from the Actions tab before relying on the cron.
+
+Check the current free-tier write limit on the portal before assuming a day is safe; X
+has changed its tiers repeatedly. One post a day is ~30/month, which has historically sat
+well inside it.
+
+Run it locally:
+
+```bash
+X_API_KEY=... X_API_SECRET=... X_ACCESS_TOKEN=... X_ACCESS_TOKEN_SECRET=... \
+  go run ./challenge/cmd/leetcodectl post-x \
+  '{"repoRoot":".","queuePath":"challenge/queue.yaml","handle":"architagr"}'
+```
+
+As with Discord, the queue is only written after X accepts the post, so a failed run
+leaves the day unclaimed and the next run retries it instead of skipping ahead.
+
 ### LinkedIn — manual, batch-prepared
 
 LinkedIn's API requires product approval, rotates tokens every ~60 days, and has no
@@ -128,3 +196,34 @@ go run ./challenge/cmd/leetcodectl mark-posted \
 claiming days that were never scheduled would skip them permanently. It prints the exact
 `mark-posted` command to run afterwards. Valid destinations are `linkedin_main_account`,
 `linkedin_company_page` and `linkedin_group`.
+
+The batch file lifts each article's YAML front matter into its own "publish settings"
+block — meta title, meta description, canonical URL — because LinkedIn asks for those in
+separate fields at publish time rather than reading them off the article. Days whose
+metadata is missing or too long still prepare; the gaps come back in `warnings` and are
+listed at the bottom of the batch file. Articles written before the front matter existed
+have none, and that is fine.
+
+### Substack — manual, batch-prepared
+
+Substack has no public publishing API — only inbound RSS and email import — so there is
+nothing to automate against even in principle. The tooling prepares the post and tracks
+what went out; the paste is yours.
+
+```bash
+go run ./challenge/cmd/leetcodectl substack-batch \
+  '{"repoRoot":".","queuePath":"challenge/queue.yaml","count":4}'
+```
+
+The document carries each day's `POST_SUBSTACK.md` with its publish settings lifted out,
+the same way `linkedin-batch` does. Mark what actually went out:
+
+```bash
+go run ./challenge/cmd/leetcodectl mark-posted \
+  '{"queuePath":"challenge/queue.yaml","destination":"substack","numbers":[104,108]}'
+```
+
+The `canonical_url` in every day's front matter points at that day's `SOLUTION.md` in this
+repo, and the LinkedIn article's points at the same place. That is deliberate: the piece
+goes out in two places, and a shared canonical means the copies credit one original rather
+than competing as duplicates.

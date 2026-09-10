@@ -1,6 +1,6 @@
 ---
 name: leetcode-content
-description: 'Generate teaching content (intuition/solution docs, commented code, companies, hero image, LinkedIn/Discord post drafts) for already-solved LeetCode questions from a problem-list URL, in resumable "365 Days of LeetCode Challenge" order. Trigger: /leetcode-content'
+description: 'Generate teaching content (intuition/solution docs, commented code, companies, hero image, LinkedIn/Discord/X/Substack post drafts) for already-solved LeetCode questions from a problem-list URL, in resumable "365 Days of LeetCode Challenge" order. Trigger: /leetcode-content'
 ---
 
 # LeetCode Content-Gen Agent
@@ -33,7 +33,7 @@ mention of Claude, Anthropic, or a model, in any commit this skill makes. A `com
 hook in this repo rejects such messages, so a slip here fails the commit outright.
 
 Every prose file this skill writes (INTUITION.md, SOLUTION.md, POST_LINKEDIN_ARTICLE.md,
-POST_LINKEDIN.md, POST_DISCORD.md) goes out under the user's own name on their own
+POST_LINKEDIN.md, POST_DISCORD.md, POST_X.md, POST_SUBSTACK.md) goes out under the user's own name on their own
 channels. Default LLM prose has well-known tells that make it read as machine-written —
 avoid them from the first draft, don't write generic and "clean up" after:
 
@@ -150,7 +150,7 @@ bigger operation than it looks, because the day number is copied into published-
 artifacts. Renumbering day N to day M means all of:
 
 - rewrite `Day <N>/365` and `![Day <N>](HERO.png)` in `POST_LINKEDIN.md`,
-  `POST_DISCORD.md` and `POST_LINKEDIN_ARTICLE.md`
+  `POST_DISCORD.md`, `POST_LINKEDIN_ARTICLE.md`, `POST_X.md` and `POST_SUBSTACK.md`
 - re-render `HERO.png` with the new day (the card has the number printed on it)
 - fix any `[Day <N>: <title>](...)` cross-reference in *other* questions' files that
   points at this folder
@@ -422,7 +422,32 @@ Two things to keep honest:
       journal is a separate, unrelated newsletter and its logo should NOT be added here.
 
    k. Write `<folder>/POST_LINKEDIN_ARTICLE.md`: the long-form piece, styled as a
-      LinkedIn Newsletter/Article edition. Header "365 Days of LeetCode Challenge — Day
+      LinkedIn Newsletter/Article edition.
+
+      **Open the file with a YAML front matter block** carrying the SEO metadata LinkedIn
+      asks for in its own fields at publish time. `leetcodectl linkedin-batch` lifts this
+      out into a "publish settings" block and warns when a field is missing or too long,
+      so it is worth getting right here rather than in the composer:
+      ```
+      ---
+      meta_title: <=60 chars
+      meta_description: <=155 chars
+      canonical_url: https://github.com/architagr/leetcode_solutions/blob/main/<folder>/SOLUTION.md
+      ---
+      ```
+      - `meta_title` is NOT the article's H1. The H1 is read in context, with the hero
+        image above it; the meta title has to work alone in a search result or a shared
+        card. Name the technique and the payoff, skip the "Day N/365" prefix — it means
+        nothing to someone arriving from search.
+      - `meta_description` is the blurb under that title. One sentence, the specific
+        insight, not "In this article we explore...". Left empty, the platform excerpts
+        the opening line, which is rarely the line you'd choose.
+      - `canonical_url` always points at the repo's `SOLUTION.md`. The same piece goes out
+        on LinkedIn and Substack, and without a canonical the two copies compete with each
+        other as duplicates; with one, both credit a single original.
+      - Count characters, not bytes — an em dash is one character of the budget.
+
+      After the front matter, the article proper: header "365 Days of LeetCode Challenge — Day
       <day>/365", question title + LeetCode link, the FULL intuition write-up (based on
       INTUITION.md, expanded for a public audience who hasn't seen INTUITION.md itself),
       the FULL solution walkthrough with the real code (based on SOLUTION.md), the
@@ -502,7 +527,57 @@ Two things to keep honest:
       `#BinaryTree #BFS #DFS #Recursion #BinarySearchTree #Golang` — pick whichever
       genuinely apply, don't reuse the same topic tags for every problem regardless of fit).
 
-   n. Commit everything for this question in one commit. The message body is
+   n. Write `<folder>/POST_X.md`. **This file IS the exact post** — `leetcodectl post-x`
+      sends its bytes verbatim (trailing newline trimmed) with `HERO.png` attached.
+
+      - **Hard cap: 280 characters**, counted as characters, not bytes. `post-x` refuses
+        to send an over-length post rather than truncating it, which fails the day's cron.
+        Check with `python3 -c "print(len(open('<folder>/POST_X.md').read().strip()))"`.
+        X collapses any URL to 23 characters regardless of real length, so a long GitHub
+        link costs less than it looks — but the tooling counts it in full, so write to the
+        stricter number and you will always fit.
+      - **Write it fresh. Do not truncate POST_DISCORD.md or POST_LINKEDIN.md.** This is
+        the one rule here that is about the account rather than the prose: near-identical
+        text fanned out across several networks is the duplicate-content pattern X's
+        platform manipulation policy actually polices, and it is also just worse writing.
+        Same insight, different sentence.
+      - **One or two hashtags at most.** Five to eight is a LinkedIn convention; on X the
+        same line reads as spam.
+      - No image markdown — the poster attaches `HERO.png` itself.
+
+      Structure, roughly (adapt it; a template applied 365 times stops reading as a
+      person):
+      ```
+      Day <day>/365 · <title> (<difficulty>)
+
+      <one or two lines: the actual insight, not a summary of the problem>
+
+      <complexity, when it's the interesting part>
+
+      <github blob url to that folder's SOLUTION.md>
+      ```
+
+   o. Write `<folder>/POST_SUBSTACK.md`: the long-form piece again, for the CodeStreak
+      Daily Substack. Substack has no publishing API, so `leetcodectl substack-batch`
+      prepares this for pasting by hand.
+
+      - **Open with the same front matter block as step (k)** — `meta_title`,
+        `meta_description`, `canonical_url` — and the same rules. `substack-batch` surfaces
+        them as publish settings and warns on gaps.
+      - **`canonical_url` is the same repo `SOLUTION.md` URL as the LinkedIn article's.**
+        That is the point of it: two copies of one piece, both crediting one original.
+      - The body may reuse the article's structure and code, but rewrite the opening and
+        closing paragraphs. Substack readers subscribed to a newsletter, not a feed —
+        the piece can open slower and go deeper, and an opening line that reads as a
+        LinkedIn hook lands badly there.
+      - Substack renders standard Markdown and does show SVGs, so unlike Discord the
+        `walkthrough-<n>.svg` diagrams can be referenced. Use full GitHub raw URLs, not
+        relative paths — relative paths are dead once pasted.
+      - No hashtag line. Hashtags are not a Substack convention.
+      - Carry the same AI-disclosure line as the LinkedIn article, as the last thing in
+        the file.
+
+   p. Commit everything for this question in one commit. The message body is
       user-facing product content like everything else this skill writes — it must never
       mention Claude, an AI assistant, or that the content was generated by a model (no
       "Generated with Claude", no `Co-Authored-By: Claude ...` trailer, nothing like it).
@@ -526,6 +601,10 @@ Two things to keep honest:
 ## Notes
 
 - This skill only produces content and updates `challenge/queue.yaml` — it never posts
-  anything to LinkedIn or Discord. Posting is a separate, not-yet-built subsystem.
+  anything itself. Posting is a separate subsystem, and it is split: Discord and X go out
+  automatically on their own GitHub Actions crons (`post-discord`, `post-x`), while
+  LinkedIn and Substack are prepared as paste-ready batches (`linkedin-batch`,
+  `substack-batch`) and marked by hand with `mark-posted` after they actually go out.
+  See `challenge/README.md` for the whole picture.
 - Re-running this skill with the same URL/list is always safe — already-queued questions
   are skipped, so partial batches (e.g. "10 of 30 done this week") resume cleanly.

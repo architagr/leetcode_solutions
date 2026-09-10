@@ -13,6 +13,7 @@ import (
 	"leetcode_solutions/challenge/internal/cli"
 	"leetcode_solutions/challenge/internal/hero"
 	"leetcode_solutions/challenge/internal/queue"
+	"leetcode_solutions/challenge/internal/xpost"
 )
 
 func main() {
@@ -205,6 +206,38 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return cli.PostDiscord(in.RepoRoot, in.QueuePath, webhookURL, opts...)
 
+	case "post-x":
+		var in struct {
+			RepoRoot  string `json:"repoRoot"`
+			QueuePath string `json:"queuePath"`
+			// Handle is only used to build the result URL; posting is
+			// authorised by the tokens, not by this.
+			Handle string `json:"handle"`
+			// Force posts even though a day already went out today. The
+			// daily cron leaves it off; it's for a manual catch-up.
+			Force bool `json:"force"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		// The four OAuth values are account credentials, so they come
+		// from the environment rather than the JSON argument — argv is
+		// visible in process listings and gets echoed into logs.
+		creds := xpost.Credentials{
+			ConsumerKey:    os.Getenv("X_API_KEY"),
+			ConsumerSecret: os.Getenv("X_API_SECRET"),
+			AccessToken:    os.Getenv("X_ACCESS_TOKEN"),
+			AccessSecret:   os.Getenv("X_ACCESS_TOKEN_SECRET"),
+		}
+		if in.Handle == "" {
+			in.Handle = os.Getenv("X_HANDLE")
+		}
+		var opts []cli.PostOption
+		if in.Force {
+			opts = append(opts, cli.AllowSameDay())
+		}
+		return cli.PostX(in.RepoRoot, in.QueuePath, in.Handle, creds, opts...)
+
 	case "linkedin-batch":
 		var in struct {
 			RepoRoot    string `json:"repoRoot"`
@@ -226,6 +259,24 @@ func dispatch(cmd string, payload []byte) (any, error) {
 			in.OutPath = fmt.Sprintf("/tmp/linkedin-batch-%s.md", time.Now().Format("2006-01-02"))
 		}
 		return cli.LinkedInBatch(in.RepoRoot, in.QueuePath, in.Destination, in.Count, in.OutPath)
+
+	case "substack-batch":
+		var in struct {
+			RepoRoot  string `json:"repoRoot"`
+			QueuePath string `json:"queuePath"`
+			Count     int    `json:"count"`
+			OutPath   string `json:"outPath"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		if in.Count == 0 {
+			in.Count = 4
+		}
+		if in.OutPath == "" {
+			in.OutPath = fmt.Sprintf("/tmp/substack-batch-%s.md", time.Now().Format("2006-01-02"))
+		}
+		return cli.SubstackBatch(in.RepoRoot, in.QueuePath, in.Count, in.OutPath)
 
 	case "mark-posted":
 		var in struct {
