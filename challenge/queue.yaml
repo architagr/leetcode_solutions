@@ -12,6 +12,8 @@ entries:
         linkedin_company_page: "2026-09-03T06:57:14Z"
         linkedin_group: "2026-09-03T06:57:14Z"
         linkedin_main_account: "2026-09-03T06:57:12Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 2
       number: 108
       title: Convert Sorted Array to Binary Search Tree
@@ -24,6 +26,8 @@ entries:
         linkedin_company_page: "2026-09-04T17:37:08Z"
         linkedin_group: "2026-09-04T17:37:08Z"
         linkedin_main_account: "2026-09-04T17:37:06Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 3
       number: 257
       title: Binary Tree Paths
@@ -36,6 +40,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: "2026-09-05T08:09:30Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 4
       number: 404
       title: Sum of Left Leaves
@@ -48,6 +54,8 @@ entries:
         linkedin_company_page: "2026-09-06T07:24:42Z"
         linkedin_group: "2026-09-06T07:24:42Z"
         linkedin_main_account: "2026-09-06T07:24:40Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 5
       number: 110
       title: Balanced Binary Tree
@@ -60,6 +68,8 @@ entries:
         linkedin_company_page: "2026-09-07T04:15:21Z"
         linkedin_group: "2026-09-07T04:15:21Z"
         linkedin_main_account: "2026-09-07T04:15:21Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 6
       number: 222
       title: Count Complete Tree Nodes
@@ -72,6 +82,8 @@ entries:
         linkedin_company_page: "2026-09-08T04:12:21Z"
         linkedin_group: "2026-09-08T04:12:21Z"
         linkedin_main_account: "2026-09-08T04:12:21Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 7
       number: 111
       title: Minimum Depth of Binary Tree
@@ -84,6 +96,8 @@ entries:
         linkedin_company_page: "2026-09-09T05:18:33Z"
         linkedin_group: "2026-09-09T05:18:33Z"
         linkedin_main_account: "2026-09-09T05:18:32Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 8
       number: 144
       title: Binary Tree Preorder Traversal
@@ -96,6 +110,8 @@ entries:
         linkedin_company_page: "2026-09-10T08:55:13Z"
         linkedin_group: "2026-09-10T08:55:13Z"
         linkedin_main_account: "2026-09-10T08:55:13Z"
+        substack: "2026-09-10T11:22:39Z"
+        x: "2026-09-10T11:22:39Z"
     - day: 9
       number: 145
       title: Binary Tree Postorder Traversal
@@ -108,6 +124,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 10
       number: 114
       title: Flatten Binary Tree to Linked List
@@ -120,6 +138,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 11
       number: 112
       title: Path Sum
@@ -132,6 +152,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 12
       number: 1022
       title: Sum of Root To Leaf Binary Numbers
@@ -144,6 +166,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 13
       number: 606
       title: Construct String from Binary Tree
@@ -156,6 +180,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 14
       number: 637
       title: Average of Levels in Binary Tree
@@ -168,6 +194,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 15
       number: 102
       title: Binary Tree Level Order Traversal
@@ -180,6 +208,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 16
       number: 103
       title: Binary Tree Zigzag Level Order Traversal
@@ -192,6 +222,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 17
       number: 965
       title: Univalued Binary Tree
@@ -204,6 +236,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 18
       number: 993
       title: Cousins in Binary Tree
@@ -216,6 +250,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 19
       number: 199
       title: Binary Tree Right Side View
@@ -228,6 +264,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 20
       number: 1161
       title: Maximum Level Sum of a Binary Tree
@@ -240,6 +278,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 21
       number: 543
       title: Diameter of Binary Tree
@@ -252,6 +292,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 22
       number: 563
       title: Binary Tree Tilt
@@ -264,6 +306,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 23
       number: 2265
       title: Count Nodes Equal to Average of Subtree
@@ -276,6 +320,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 24
       number: 366
       title: Find Leaves of Binary Tree
@@ -288,6 +334,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 25
       number: 124
       title: Binary Tree Maximum Path Sum
@@ -300,6 +348,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 26
       number: 700
       title: Search in a Binary Search Tree
@@ -312,6 +362,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 27
       number: 235
       title: Lowest Common Ancestor of a Binary Search Tree
@@ -324,6 +376,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 28
       number: 236
       title: Lowest Common Ancestor of a Binary Tree
@@ -336,6 +390,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 29
       number: 501
       title: Find Mode in Binary Search Tree
@@ -348,6 +404,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 30
       number: 530
       title: Minimum Absolute Difference in BST
@@ -360,6 +418,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 31
       number: 783
       title: Minimum Distance Between BST Nodes
@@ -372,6 +432,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 32
       number: 98
       title: Validate Binary Search Tree
@@ -384,6 +446,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 33
       number: 173
       title: Binary Search Tree Iterator
@@ -396,6 +460,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 34
       number: 272
       title: Closest Binary Search Tree Value II
@@ -408,6 +474,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 35
       number: 897
       title: Increasing Order Search Tree
@@ -420,6 +488,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 36
       number: 1038
       title: Binary Search Tree to Greater Sum Tree
@@ -432,6 +502,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 37
       number: 653
       title: Two Sum IV - Input is a BST
@@ -444,6 +516,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 38
       number: 703
       title: Kth Largest Element in a Stream
@@ -456,6 +530,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 39
       number: 450
       title: Delete Node in a BST
@@ -468,6 +544,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 40
       number: 617
       title: Merge Two Binary Trees
@@ -480,6 +558,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 41
       number: 1379
       title: Find a Corresponding Node of a Binary Tree in a Clone of That Tree
@@ -492,6 +572,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 42
       number: 572
       title: Subtree of Another Tree
@@ -504,6 +586,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 43
       number: 2331
       title: Evaluate Boolean Binary Tree
@@ -516,6 +600,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 44
       number: 814
       title: Binary Tree Pruning
@@ -528,6 +614,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 45
       number: 2415
       title: Reverse Odd Levels of Binary Tree
@@ -540,6 +628,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 46
       number: 872
       title: Leaf-Similar Trees
@@ -552,6 +642,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 47
       number: 314
       title: Binary Tree Vertical Order Traversal
@@ -564,6 +656,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 48
       number: 671
       title: Second Minimum Node In a Binary Tree
@@ -576,6 +670,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 49
       number: 156
       title: Binary Tree Upside Down
@@ -588,6 +684,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 50
       number: 116
       title: Populating Next Right Pointers in Each Node
@@ -600,6 +698,8 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
     - day: 51
       number: 1302
       title: Deepest Leaves Sum
@@ -612,3 +712,5 @@ entries:
         linkedin_company_page: null
         linkedin_group: null
         linkedin_main_account: null
+        substack: null
+        x: null
