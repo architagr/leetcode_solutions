@@ -1,6 +1,6 @@
 ---
 meta_title: "Validating a BST without threading any bounds down"
-meta_description: "In-order traversal is sorted if and only if the tree is a BST. A violating node lands in the wrong slot, so a linear scan catches it with no ancestor bounds."
+meta_description: "In-order traversal is sorted if and only if the tree is a BST. A violating node lands in the wrong slot, so one linear scan catches it with no bounds."
 tags: [golang, binary-search-tree, in-order, recursion, leetcode]
 ---
 
