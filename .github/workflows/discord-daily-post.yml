@@ -11,6 +11,8 @@ name: Discord daily post
 # no-ops — extra crons can only make the post earlier, never double it.
 on:
   schedule:
+    # 00:22 UTC = 05:52 IST — earliest attempt.
+    - cron: "22 0 * * *"
     # 03:22 UTC = 08:52 IST — the intended slot.
     - cron: "22 3 * * *"
     # Retries, in case GitHub delays or drops the one above.
