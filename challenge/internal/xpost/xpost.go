@@ -285,6 +285,17 @@ func apiError(resp *http.Response, body []byte) error {
 				time.Unix(ts, 0).UTC().Format(time.RFC3339), trimmed)
 		}
 		return fmt.Errorf("X rate limited this app: %s", trimmed)
+	case http.StatusPaymentRequired:
+		// X retired the free tier on 2026-02-06 and moved every account
+		// to pay-per-use credits, so a project with no credit balance
+		// fails here on its first write rather than after some monthly
+		// allowance runs out. Worth naming the link surcharge in the
+		// message: at the time of writing a plain post costs about
+		// $0.015 and a post containing any URL about $0.20, and these
+		// posts all carry a link to the solution walkthrough.
+		return fmt.Errorf("X refused the post for lack of API credits (402). There is no free tier any more — "+
+			"add a payment method and load credits in the developer portal. Note the pricing: a plain post is ~$0.015 "+
+			"and a post containing any URL is ~$0.20, and these posts carry a GitHub link. Response: %s", trimmed)
 	case http.StatusUnauthorized:
 		return fmt.Errorf("X rejected the credentials (401) — check the four OAuth values and that the app has Read and write permission: %s", trimmed)
 	case http.StatusForbidden:

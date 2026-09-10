@@ -460,3 +460,26 @@ func TestPostExplainsTheReadOnlyTokenTrap(t *testing.T) {
 		t.Errorf("the error must say to regenerate the tokens, got %v", err)
 	}
 }
+
+// X retired the free tier in February 2026, so an account that never
+// loaded credits fails on its first write. The message has to say that,
+// because "402 Payment Required" on an account the user believes is on a
+// free tier reads as a bug rather than as the bill.
+func TestPostExplainsDepletedCredits(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusPaymentRequired)
+		io.WriteString(w, `{"detail":"credits depleted","status":402,"title":"Payment Required","type":"https://api.x.com/2/problems/credits-depleted"}`)
+	}))
+	defer srv.Close()
+	redirect(t, srv.URL, srv.URL)
+
+	_, err := Post(testCreds(), "a post", "")
+	if err == nil {
+		t.Fatal("a 402 must be an error")
+	}
+	for _, want := range []string{"credits", "no free tier"} {
+		if !strings.Contains(err.Error(), want) {
+			t.Errorf("error should mention %q, got %v", want, err)
+		}
+	}
+}

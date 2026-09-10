@@ -180,9 +180,25 @@ not expire.
 Keep the keys out of this working tree. `.gitignore` covers `x.com`, `.env` and `*.secrets`,
 but the only durable answer is to keep the file somewhere else entirely and source it.
 
-Check the current free-tier write limit on the portal before assuming a day is safe; X
-has changed its tiers repeatedly. One post a day is ~30/month, which has historically sat
-well inside it.
+There is no free tier. X retired it on 2026-02-06 and moved every account to pay-per-use
+credits (Basic migrated 2026-06-01, Pro 2026-09-01), so a project with no credit balance
+fails on its very first write with a 402 rather than after some allowance runs out. Add a
+payment method and load credits in the portal before the first run.
+
+The pricing has one sharp edge worth knowing before writing the posts rather than after:
+
+| Request | Cost |
+|---|---|
+| Post, plain text | ~$0.015 |
+| Post containing any URL | ~$0.20 |
+| Media upload | bundled into the post |
+
+A link costs 13x a plain post — X is deliberately taxing off-platform links, and its
+ranking demotes them too. Every day's post carrying a link to `SOLUTION.md` is therefore
+~$73/year and gets less reach than the same post without one; dropping the link is ~$5/year
+and travels further, at the cost of the click-through. That is a content decision rather
+than a technical one, so nothing here enforces either way — but it is the reason to make
+the decision deliberately.
 
 Run it locally:
 
