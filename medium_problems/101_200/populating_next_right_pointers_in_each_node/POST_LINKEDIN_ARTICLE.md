@@ -1,6 +1,6 @@
 ---
 meta_title: "Reverse the walk and two special cases disappear"
-meta_description: "Pushing children right before left makes BFS run each level backwards, so the node to your right is the one you just visited. The assignment becomes trivial."
+meta_description: "Pushing children right before left makes BFS run each level backwards, so the node to your right is the one you just visited. The assignment is trivial."
 ---
 
 ## 365 Days of LeetCode Challenge — Day 50/365
