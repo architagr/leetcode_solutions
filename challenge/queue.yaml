@@ -300,10 +300,11 @@ entries:
       difficulty: medium
       folder: medium_problems/1101_1200/maximum_level_sum_of_a_binary_tree
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 102
         - 637
+        - 103
       posted_at:
         discord: null
         linkedin_company_page: null

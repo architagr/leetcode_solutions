@@ -6,7 +6,7 @@ Return the smallest level `x` such that the sum of all the values of nodes at le
 
 #### Example 1:
 
-!["Example 1"](capture.JPG)
+![Example 1](images/1.jpg)
 
 ```
 Input: root = [1,7,0,7,-8,null,null]
