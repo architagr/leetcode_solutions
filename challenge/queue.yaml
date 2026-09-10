@@ -737,7 +737,7 @@ entries:
       difficulty: medium
       folder: medium_problems/301_400/binary_tree_vertical_order_traversal
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 102
       posted_at:
