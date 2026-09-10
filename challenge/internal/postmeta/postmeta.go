@@ -28,6 +28,11 @@ import (
 const (
 	MaxTitleChars       = 60
 	MaxDescriptionChars = 155
+
+	// MaxTags is a house rule rather than a Substack limit: past a
+	// handful, tags stop describing the piece and start looking like
+	// keyword stuffing to a reader who can see them all.
+	MaxTags = 5
 )
 
 // Meta is the front matter block of a long-form post.
@@ -44,12 +49,17 @@ type Meta struct {
 	// two copies compete as duplicates; with one, the copies credit a
 	// single original.
 	Canonical string `yaml:"canonical_url,omitempty"`
+	// Tags are Substack's post tags, set in the publish dialog rather
+	// than written into the body. They are the reason a hashtag line
+	// does not belong in POST_SUBSTACK.md: Substack indexes these, and
+	// treats a #hashtag in the prose as prose.
+	Tags []string `yaml:"tags,omitempty"`
 }
 
 // IsZero reports whether no front matter fields were set at all, which
 // is how a file written before this feature existed reads.
 func (m Meta) IsZero() bool {
-	return m.Title == "" && m.Description == "" && m.Canonical == ""
+	return m.Title == "" && m.Description == "" && m.Canonical == "" && len(m.Tags) == 0
 }
 
 // Warnings describes anything about the metadata that will publish, but
@@ -61,6 +71,9 @@ func (m Meta) Warnings() []string {
 		out = append(out, "no meta_title — the platform will fall back to the first heading, which is usually too long for a card")
 	} else if n := utf8.RuneCountInString(m.Title); n > MaxTitleChars {
 		out = append(out, fmt.Sprintf("meta_title is %d characters, over the %d that fit before a search result truncates it", n, MaxTitleChars))
+	}
+	if len(m.Tags) > MaxTags {
+		out = append(out, fmt.Sprintf("%d tags — Substack shows the first %d, and a long list reads as keyword stuffing", len(m.Tags), MaxTags))
 	}
 	if m.Description == "" {
 		out = append(out, "no meta_description — the platform will excerpt the opening line, which is rarely the line you'd choose")

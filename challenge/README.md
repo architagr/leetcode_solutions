@@ -235,7 +235,9 @@ go run ./challenge/cmd/leetcodectl substack-batch \
 ```
 
 The document carries each day's `POST_SUBSTACK.md` with its publish settings lifted out,
-the same way `linkedin-batch` does. Mark what actually went out:
+the same way `linkedin-batch` does — including the post's `tags`, which are Substack's
+discovery mechanism and are set in the publish dialog rather than written into the body.
+Substack does not index inline hashtags, so `POST_SUBSTACK.md` carries none. Mark what actually went out:
 
 ```bash
 go run ./challenge/cmd/leetcodectl mark-posted \

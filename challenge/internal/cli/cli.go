@@ -500,6 +500,7 @@ func prepareBatch(repoRoot, queuePath, destination, network, instructions string
 				fmt.Fprintf(&doc, "- Meta title (%d/%d): %s\n", utf8.RuneCountInString(meta.Title), postmeta.MaxTitleChars, orNotSet(meta.Title))
 				fmt.Fprintf(&doc, "- Meta description (%d/%d): %s\n", utf8.RuneCountInString(meta.Description), postmeta.MaxDescriptionChars, orNotSet(meta.Description))
 				fmt.Fprintf(&doc, "- Canonical URL: %s\n", orNotSet(meta.Canonical))
+				fmt.Fprintf(&doc, "- Tags: %s\n", orNotSet(strings.Join(meta.Tags, ", ")))
 				for _, w := range meta.Warnings() {
 					warnings = append(warnings, fmt.Sprintf("day %d (%s), %s: %s", e.Day, e.Title, sec.Filename, w))
 				}

@@ -288,6 +288,15 @@ func apiError(resp *http.Response, body []byte) error {
 	case http.StatusUnauthorized:
 		return fmt.Errorf("X rejected the credentials (401) — check the four OAuth values and that the app has Read and write permission: %s", trimmed)
 	case http.StatusForbidden:
+		// X names this one precisely, and it is the setup failure that
+		// looks like every other one: credentials that authenticate
+		// perfectly and cannot write. Tokens carry the app's permissions
+		// as they were when the tokens were minted, so flipping the app
+		// to Read and write does nothing to tokens that already exist.
+		if strings.Contains(trimmed, "oauth1-permissions") || strings.Contains(trimmed, "oauth1 app permissions") {
+			return fmt.Errorf("X refused the post: these access tokens were generated before the app was set to Read and write, so they are read-only. "+
+				"Set App permissions to Read and write in the developer portal, then REGENERATE the access token and secret — changing the permission does not upgrade tokens that already exist. Response: %s", trimmed)
+		}
 		return fmt.Errorf("X refused the request (403) — usually a duplicate post, a suspended app, or an access tier without write access: %s", trimmed)
 	default:
 		return fmt.Errorf("X returned %d: %s", resp.StatusCode, trimmed)

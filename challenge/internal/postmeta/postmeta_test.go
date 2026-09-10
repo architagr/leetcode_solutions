@@ -129,3 +129,41 @@ func TestWarningsCountRunesNotBytes(t *testing.T) {
 		t.Errorf("warnings = %v, want none for a title and description at exactly the rune budget", got)
 	}
 }
+
+func TestParseReadsSubstackTags(t *testing.T) {
+	m, _, err := Parse("---\nmeta_title: T\ntags: [golang, binary-tree, recursion]\n---\n\nBody.\n")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(m.Tags) != 3 || m.Tags[0] != "golang" || m.Tags[2] != "recursion" {
+		t.Errorf("Tags = %v, want [golang binary-tree recursion]", m.Tags)
+	}
+	if m.IsZero() {
+		t.Error("meta carrying tags is not zero")
+	}
+}
+
+// Tags are the reason there is no hashtag line in a Substack post, so a
+// file carrying only tags must still read as having front matter.
+func TestTagsAloneAreNotZeroMeta(t *testing.T) {
+	if (Meta{Tags: []string{"golang"}}).IsZero() {
+		t.Error("Meta with tags reported as zero")
+	}
+}
+
+func TestWarningsFlagTooManyTags(t *testing.T) {
+	tags := make([]string, MaxTags+1)
+	for i := range tags {
+		tags[i] = "tag"
+	}
+	m := Meta{Title: "A title", Description: "A description.", Tags: tags}
+	got := m.Warnings()
+	if len(got) != 1 || !strings.Contains(got[0], "keyword stuffing") {
+		t.Errorf("warnings = %v, want one about too many tags", got)
+	}
+
+	m.Tags = tags[:MaxTags]
+	if got := m.Warnings(); len(got) != 0 {
+		t.Errorf("warnings = %v, want none at exactly the tag budget", got)
+	}
+}

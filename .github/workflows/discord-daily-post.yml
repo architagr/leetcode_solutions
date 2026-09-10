@@ -51,6 +51,10 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           FORCE: ${{ inputs.force && 'true' || 'false' }}
         run: |
+          # tee returns its own exit code, so without pipefail a post that
+          # Discord rejected would report success and the run would go green
+          # on a day that never went out.
+          set -o pipefail
           go run ./challenge/cmd/leetcodectl post-discord \
             "{\"repoRoot\":\".\",\"queuePath\":\"challenge/queue.yaml\",\"force\":${FORCE}}" | tee result.json
 

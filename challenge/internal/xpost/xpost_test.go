@@ -438,3 +438,25 @@ func TestVerifyChecksCredentialsBeforeCallingTheAPI(t *testing.T) {
 		t.Error("the API was called with incomplete credentials")
 	}
 }
+
+// The oauth1-permissions 403 is the one setup failure that looks like
+// every other one — the credentials authenticate, verify-x passes, and
+// only the write is refused. The error has to say what to do about it,
+// because the fix (regenerate the tokens) is not what the message
+// "check your permissions" would lead you to do.
+func TestPostExplainsTheReadOnlyTokenTrap(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusForbidden)
+		io.WriteString(w, `{"detail":"Your client app is not configured with the appropriate oauth1 app permissions for this endpoint.","status":403,"title":"Forbidden","type":"https://api.x.com/2/problems/oauth1-permissions"}`)
+	}))
+	defer srv.Close()
+	redirect(t, srv.URL, srv.URL)
+
+	_, err := Post(testCreds(), "a post", "")
+	if err == nil {
+		t.Fatal("a 403 must be an error")
+	}
+	if !strings.Contains(err.Error(), "REGENERATE") {
+		t.Errorf("the error must say to regenerate the tokens, got %v", err)
+	}
+}

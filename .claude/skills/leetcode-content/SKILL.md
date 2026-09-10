@@ -425,7 +425,8 @@ Two things to keep honest:
       LinkedIn Newsletter/Article edition.
 
       **Open the file with a YAML front matter block** carrying the SEO metadata LinkedIn
-      asks for in its own fields at publish time. `leetcodectl linkedin-batch` lifts this
+      asks for in its own fields at publish time. (`tags:` is Substack's field — LinkedIn
+      has no equivalent, so leave it out here.) `leetcodectl linkedin-batch` lifts this
       out into a "publish settings" block and warns when a field is missing or too long,
       so it is worth getting right here rather than in the composer:
       ```
@@ -541,8 +542,15 @@ Two things to keep honest:
         text fanned out across several networks is the duplicate-content pattern X's
         platform manipulation policy actually polices, and it is also just worse writing.
         Same insight, different sentence.
-      - **One or two hashtags at most.** Five to eight is a LinkedIn convention; on X the
-        same line reads as spam.
+      - **End with one or two hashtags, on their own line at the bottom.** They do help
+        reach on X — but only in ones and twos. The five-to-eight line the LinkedIn posts
+        carry is a LinkedIn convention, and the same line on X reads as spam. Pick the
+        ones a person actually searches: the language and the topic (`#golang #leetcode`,
+        `#golang #binarytree`), not the generic career tags.
+      - Budget them deliberately. A link costs 23 characters on X however long it is, so
+        `leetcodectl` counts it that way too — but the tags still come out of the same 280,
+        and trimming a sentence to pay for them is the right trade, not padding the post
+        to the cap.
       - No image markdown — the poster attaches `HERO.png` itself.
 
       Structure, roughly (adapt it; a template applied 365 times stops reading as a
@@ -573,7 +581,15 @@ Two things to keep honest:
       - Substack renders standard Markdown and does show SVGs, so unlike Discord the
         `walkthrough-<n>.svg` diagrams can be referenced. Use full GitHub raw URLs, not
         relative paths — relative paths are dead once pasted.
-      - No hashtag line. Hashtags are not a Substack convention.
+      - **Tags go in the front matter, not in the body.** Substack has no inline-hashtag
+        discovery — a `#golang` line in the prose is just text there. What it actually
+        indexes is the post's tags, set in the publish dialog. So add up to five to the
+        front matter block and `substack-batch` will surface them as a publish setting:
+        ```
+        tags: [golang, binary-tree, recursion, dsa]
+        ```
+        Pick tags that describe this piece, not the series. Past five they stop describing
+        the post and start reading as keyword stuffing to someone who can see them all.
       - Carry the same AI-disclosure line as the LinkedIn article, as the last thing in
         the file.
 

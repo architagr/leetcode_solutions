@@ -58,6 +58,10 @@ jobs:
           X_HANDLE: ${{ vars.X_HANDLE }}
           FORCE: ${{ inputs.force && 'true' || 'false' }}
         run: |
+          # tee returns its own exit code, so without pipefail a post that
+          # X rejected would report success and the run would go green
+          # on a day that never went out.
+          set -o pipefail
           go run ./challenge/cmd/leetcodectl post-x \
             "{\"repoRoot\":\".\",\"queuePath\":\"challenge/queue.yaml\",\"force\":${FORCE}}" | tee result.json
 
