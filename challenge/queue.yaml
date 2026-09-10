@@ -367,7 +367,7 @@ entries:
       difficulty: medium
       folder: medium_problems/301_400/find_leaves_of_binary_tree
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 104
         - 543
