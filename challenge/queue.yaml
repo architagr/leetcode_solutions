@@ -800,7 +800,7 @@ entries:
       difficulty: medium
       folder: medium_problems/1301_1400/deepest_leaves_sum
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 104
         - 637
