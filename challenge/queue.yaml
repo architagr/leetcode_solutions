@@ -767,7 +767,9 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/binary_tree_upside_down
       batch: binary tree
-      status: pending_content
+      status: content_ready
+      builds_on:
+        - 897
       posted_at:
         discord: null
         linkedin_company_page: null
