@@ -688,7 +688,7 @@ entries:
       difficulty: medium
       folder: medium_problems/801_900/binary_tree_pruning
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 145
         - 2331
