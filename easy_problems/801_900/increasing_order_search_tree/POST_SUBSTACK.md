@@ -22,7 +22,7 @@ Given the root of a binary search tree, rearrange the tree in-order so that the
 leftmost node becomes the new root, and every node has no left child and only one
 right child.
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/1.jpg "Example1")
+![Example 1](images/1.jpg "Example1")
 
 ### The intuition
 
@@ -121,9 +121,9 @@ Let's trace `inOrder` on the smaller example from the statement, `root = [5,1,7]
 3-node BST with `5` at the top and children `1` and `7`. Small enough to draw every
 node explicitly.
 
-![Example 2](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/2.jpg "Example2")
+![Example 2](images/2.jpg "Example2")
 
-![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/walkthrough-1.png)
+![Step 1: original tree shape, 5 with children 1 and 7, before inOrder runs](images/walkthrough-1.png)
 
 `inOrder(5)` recurses left and right before touching `5` itself. `inOrder(1)` has both
 children nil, so `left=[]` and `right=[]`; clearing `1.Left` and `1.Right` is a no-op
@@ -142,7 +142,7 @@ Back in `increasingBST`, `inorder = [1, 5, 7]`, and the relinking loop runs twic
 `inorder[0]`, node `1`, now the root of a chain `1 → 5 → 7`, linked purely through
 `.Right`, matching the expected output `[1,null,5,null,7]`.
 
-![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/801_900/increasing_order_search_tree/images/walkthrough-3.png)
+![Step 3: relinking sets 1.Right=5 and 5.Right=7, increasingBST returns node 1](images/walkthrough-3.png)
 
 The same two-phase approach scales directly to the bigger example above
 (`root = [5,3,6,2,4,null,8,1,null,null,null,7,9]`): `inOrder` collects all nine nodes

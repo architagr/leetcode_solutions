@@ -84,7 +84,7 @@ reallocated. That's what makes it worth knowing about rather than worth looking 
 `[1,null,2,3]` — node `1` has no left child, its right child is `2`, and `2` has a left
 child `3`. Expected output is `[1,2,3]`.
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/101_200/binary_tree_preorder_traversal/images/1.png)
+![Example 1](images/1.png)
 
 `traversal(1)` appends `1`, so `arr = [1]`.
 

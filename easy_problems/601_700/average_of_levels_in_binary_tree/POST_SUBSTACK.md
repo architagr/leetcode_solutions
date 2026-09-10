@@ -47,7 +47,7 @@ totals into averages.
 
 ### The solution
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/average_of_levels_in_binary_tree/images/1.jpg "Example1")
+![Example 1](images/1.jpg "Example1")
 
 ```go
 func AverageOfLevel(root *TreeNode) []float64 {

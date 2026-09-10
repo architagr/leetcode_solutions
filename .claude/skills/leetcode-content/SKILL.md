@@ -595,9 +595,15 @@ Two things to keep honest:
         closing paragraphs. Substack readers subscribed to a newsletter, not a feed —
         the piece can open slower and go deeper, and an opening line that reads as a
         LinkedIn hook lands badly there.
-      - Substack renders standard Markdown and does show SVGs, so unlike Discord the
-        `walkthrough-<n>.svg` diagrams can be referenced. Use full GitHub raw URLs, not
-        relative paths — relative paths are dead once pasted.
+      - **Reference images by their local path, `images/<file>`, exactly as SOLUTION.md
+        and the LinkedIn article do.** Not a `raw.githubusercontent.com` URL. The images
+        get attached by hand when the post is pasted into Substack's editor, the same way
+        they are for a LinkedIn article, so the path in the file is a pointer for the
+        author rather than something the platform resolves. Keeping all three files on the
+        same paths means a diagram can be renamed in one place.
+
+        This applies to image references only. The LeetCode link, the "Builds on" links
+        and the walkthrough link at the bottom are real external links and stay absolute.
       - **Tags go in the front matter, not in the body.** Substack has no inline-hashtag
         discovery — a `#golang` line in the prose is just text there. What it actually
         indexes is the post's tags, set in the publish dialog. So add up to five to the

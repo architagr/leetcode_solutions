@@ -19,7 +19,7 @@ travel, and letting the return value carry more than one thing.
 
 Given the root of a binary tree, count the nodes whose value equals the average of their own subtree, rounded down.
 
-![Example tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/images/1.png)
+![Example tree](images/1.png)
 
 ## Two numbers per node
 
@@ -91,7 +91,7 @@ Skip past that and you get a wrong answer. Node 5 in the example has sum 11 over
 
 The example, `root = [4,8,5,0,1,null,6]`:
 
-![Post-order sums and counts](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree/images/walkthrough-1.png)
+![Post-order sums and counts](images/walkthrough-1.png)
 
 - **0**, a leaf: sum 0, count 1, average 0. Match.
 - **1**, a leaf: sum 1, count 1, average 1. Match.

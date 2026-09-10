@@ -44,7 +44,7 @@ telling you the order.
 
 ### The solution
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/minimum_distance_between_bst_nodes/images/1.jpg "Example1")
+![Example 1](images/1.jpg "Example1")
 
 We'll trace it on `root = [4,2,6,1,3]` (expected `1`).
 
@@ -97,12 +97,12 @@ time: `(1,2)`, `(2,3)`, `(3,4)`, `(4,6)`. It takes the absolute difference of ea
 and keeps the smallest. Since the answer can only live between adjacent values once
 everything is sorted, one linear pass covers it.
 
-![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/minimum_distance_between_bst_nodes/images/walkthrough-2.png)
+![Step 2: scanning adjacent gaps 1, 1, 1, 2 — minVal settles at 1](images/walkthrough-2.png)
 
 Last, return the answer. Once the loop finishes, `minVal` is holding the smallest gap
 found across the whole sequence.
 
-![Step 3: minDiffInBST(root) returns 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/701_800/minimum_distance_between_bst_nodes/images/walkthrough-3.png)
+![Step 3: minDiffInBST(root) returns 1](images/walkthrough-3.png)
 
 One thing worth flagging: the traversal visits each of the `n` nodes once, but `inOrder`
 rebuilds and copies a slice at every recursive call through nested `append`s, so the

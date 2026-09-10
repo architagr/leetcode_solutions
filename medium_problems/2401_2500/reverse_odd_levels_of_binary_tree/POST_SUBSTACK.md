@@ -19,7 +19,7 @@ actually means.
 
 Given the root of a perfect binary tree, reverse the node values at each odd level.
 
-![Example tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/images/1.png)
+![Example tree](images/1.png)
 
 ## The answer everyone reaches for first
 
@@ -65,7 +65,7 @@ Checking only `l == nil` is enough. The tree is perfect, so `l` and `r` are alwa
 
 Given a mirror pair, their four children have to be regrouped into two mirror pairs, and the grouping is not the obvious one:
 
-![How the child pairs are formed](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/images/walkthrough-2.png)
+![How the child pairs are formed](images/walkthrough-2.png)
 
 Node 4 is the leftmost of the four and node 7 is the rightmost, so those mirror each other: `rev(l.Left, r.Right, d+1)`. Nodes 5 and 6 are the middle two: `rev(l.Right, r.Left, d+1)`.
 
@@ -75,7 +75,7 @@ The second call crosses. Pair left-with-left and right-with-right instead and no
 
 A four-level perfect tree numbered 1 to 15, so every position is distinguishable:
 
-![Mirror pairs on each odd level](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/2401_2500/reverse_odd_levels_of_binary_tree/images/walkthrough-1.png)
+![Mirror pairs on each odd level](images/walkthrough-1.png)
 
 `rev(2, 3, d=1)` is odd, so 2 and 3 swap. Level 1 becomes `[3, 2]`, reversed.
 

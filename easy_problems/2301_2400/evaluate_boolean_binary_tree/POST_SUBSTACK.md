@@ -43,7 +43,7 @@ leaf, `1` is `True` while anything else (`0`) is `False`.
 
 ### The solution
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/1.png "Example1")
+![Example 1](images/1.png "Example1")
 
 ```go
 const (
@@ -75,18 +75,18 @@ Walking it through `root = [2,1,3,null,null,0,1]` (root is `OR`, its left child 
   child (`1`) returns `True`; `AND`'s left child (`0`) returns `False`; `AND`'s right
   child (`1`) returns `True`.
 
-![Step 1: leaves hit the base case, root.Val == TRUE decides each](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/walkthrough-1.png)
+![Step 1: leaves hit the base case, root.Val == TRUE decides each](images/walkthrough-1.png)
 
 - Back at the `AND` node: `left = False`, `right = True`. `root.Val` isn't `OR`, so it
   falls to `left && right`, which comes out `False && True = False`.
 
-![Step 2: AND node combines left && right = False && True = False](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/walkthrough-2.png)
+![Step 2: AND node combines left && right = False && True = False](images/walkthrough-2.png)
 
 - Back at the `root` (`OR`) node: `left = True` (its own left child), `right = False`
   (the just-resolved `AND` subtree). `root.Val == OR`, so `left || right` gives
   `True || False = True`. Checks out.
 
-![Step 3: root OR combines left || right = True || False = True](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/images/walkthrough-3.png)
+![Step 3: root OR combines left || right = True || False = True](images/walkthrough-3.png)
 
 **Complexity:** O(n) time, since every node gets visited and evaluated exactly once.
 O(h) space for the recursion stack, where h is the tree's height: O(log n) if it's

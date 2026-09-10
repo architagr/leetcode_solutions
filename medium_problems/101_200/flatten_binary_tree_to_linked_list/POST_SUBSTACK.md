@@ -23,7 +23,7 @@ Given the root of a binary tree, flatten it into a "linked list" that reuses the
 `TreeNode` type: every node's left pointer is null, every right pointer points at the next
 node, and the order matches a pre-order traversal of the original tree.
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/101_200/flatten_binary_tree_to_linked_list/images/1.jpg)
+![Example 1](images/1.jpg)
 
 ### The intuition
 

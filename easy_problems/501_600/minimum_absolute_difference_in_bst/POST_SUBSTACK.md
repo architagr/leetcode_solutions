@@ -45,7 +45,7 @@ cost is remembering one extra pointer as you go.
 
 ### The solution
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/minimum_absolute_difference_in_bst/images/1.jpg "Example1")
+![Example 1](images/1.jpg "Example1")
 
 ```go
 func getMinimumDifference(root *TreeNode) int {
@@ -90,26 +90,26 @@ Walking it through `root = [4,2,6,1,3]`, whose in-order sequence is `1, 2, 3, 4,
 - Descend all the way left to node `1`. `prev` is still `nil`, so the comparison gets
   skipped, and `prev` becomes `1`.
 
-  ![Step 1: descend to leftmost node 1, prev initialized](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/minimum_absolute_difference_in_bst/images/walkthrough-1.png)
+  ![Step 1: descend to leftmost node 1, prev initialized](images/walkthrough-1.png)
 
 - Back at node `2`: `prev` is `1`, so `res = min(∞, 2-1) = 1`, then `prev` becomes `2`.
 
-  ![Step 2: at node 2, diff 2-1=1, res becomes 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/minimum_absolute_difference_in_bst/images/walkthrough-2.png)
+  ![Step 2: at node 2, diff 2-1=1, res becomes 1](images/walkthrough-2.png)
 
 - At node `3`: `prev` is `2`, so `res = min(1, 3-2) = 1` (no change), then `prev`
   becomes `3`.
 
-  ![Step 3: at node 3, diff 3-2=1, res stays 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/minimum_absolute_difference_in_bst/images/walkthrough-3.png)
+  ![Step 3: at node 3, diff 3-2=1, res stays 1](images/walkthrough-3.png)
 
 - Back up at the root, node `4`: `prev` is `3`, so `res = min(1, 4-3) = 1` (no change),
   then `prev` becomes `4`.
 
-  ![Step 4: back at root 4, diff 4-3=1, res stays 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/minimum_absolute_difference_in_bst/images/walkthrough-4.png)
+  ![Step 4: back at root 4, diff 4-3=1, res stays 1](images/walkthrough-4.png)
 
 - At node `6`: `prev` is `4`, so `res = min(1, 6-4) = min(1, 2) = 1` (no change), then
   `prev` becomes `6`. Traversal ends.
 
-  ![Step 5: at node 6, diff 6-4=2, res stays 1 — final answer](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/501_600/minimum_absolute_difference_in_bst/images/walkthrough-5.png)
+  ![Step 5: at node 6, diff 6-4=2, res stays 1 — final answer](images/walkthrough-5.png)
 
 `getMinimumDifference` returns `res = 1`. ✓
 

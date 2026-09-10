@@ -82,7 +82,7 @@ Output: [2,1,3]
 - `searchBST(4, val=2)`: `4 > 2` → recurse left into `2`. The right subtree (`7`) is
   eliminated in this single comparison, never even visited.
 
-  ![Step 1: at node 4, 4 > 2, recurse left, right subtree eliminated](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/search_in_a_binary_search_tree/images/walkthrough-1.png)
+  ![Step 1: at node 4, 4 > 2, recurse left, right subtree eliminated](images/walkthrough-1.png)
 
 - `searchBST(2, val=2)`: `2 == 2` → `return root` hands back node `2` with its `Left`
   (`1`) and `Right` (`3`) still attached, giving the expected `[2,1,3]`.
@@ -101,13 +101,13 @@ Output: []
 - `searchBST(4, val=5)`: `4 < 5` → recurse right into `7`. This time the *left* subtree
   (`2,1,3`) is the one eliminated.
 
-  ![Step 3: at node 4, 4 < 5, recurse right, left subtree eliminated](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/search_in_a_binary_search_tree/images/walkthrough-3.png)
+  ![Step 3: at node 4, 4 < 5, recurse right, left subtree eliminated](images/walkthrough-3.png)
 
 - `searchBST(7, val=5)`: `7 > 5` → recurse left into `7.Left`, which is `nil`. That call
   hits the base case immediately and returns `nil`, which propagates straight back up as
   the final answer.
 
-  ![Step 4: at node 7, 7 > 5, recurse left into nil, base case returns nil](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/601_700/search_in_a_binary_search_tree/images/walkthrough-4.png)
+  ![Step 4: at node 7, 7 > 5, recurse left into nil, base case returns nil](images/walkthrough-4.png)
 
 Both traces have the same shape: one comparison per level, one subtree thrown away per
 comparison, nothing ever revisited. That's the part I find satisfying about tracing it by

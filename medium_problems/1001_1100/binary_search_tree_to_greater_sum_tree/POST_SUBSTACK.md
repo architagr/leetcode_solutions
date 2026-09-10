@@ -19,7 +19,7 @@ behind you.
 
 Given the root of a BST, convert it so that every key becomes the original key plus the sum of all keys greater than it.
 
-![Example tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/1.png)
+![Example tree](images/1.png)
 
 ## The trap in the problem statement
 
@@ -74,7 +74,7 @@ Get that ordering wrong and every value drifts by one subtree's worth. The outpu
 
 Take the BST `[4,1,6,0,2,5,7]`:
 
-![Visit order and the running sum](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/walkthrough-1.png)
+![Visit order and the running sum](images/walkthrough-1.png)
 
 The badges show the order `parse` reaches each node: 7, 6, 5, 4, 2, 1, 0. Strictly descending.
 
@@ -88,7 +88,7 @@ The badges show the order `parse` reaches each node: 7, 6, 5, 4, 2, 1, 0. Strict
 
 The result:
 
-![The converted tree](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree/images/walkthrough-2.png)
+![The converted tree](images/walkthrough-2.png)
 
 Spot-check node 5. The keys above it are 6 and 7, and 5 + 6 + 7 = 18. Node 7 never moves, because nothing in the tree is bigger.
 

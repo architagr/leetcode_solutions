@@ -52,7 +52,7 @@ separate trees, turns out not to be a real problem once you notice the copy guar
 
 ### The solution
 
-![Example 1](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree/images/1.png "Example1")
+![Example 1](images/1.png "Example1")
 
 ```go
 // getTargetCopy walks original and clones in lockstep: every recursive call
@@ -91,14 +91,14 @@ node from `cloned`):
 - `getTargetCopy(7, 7, target)`: `clones.Val(7) != target.Val(3)` → recurse left first,
   into `(4, 4)`.
 
-  ![Step 1: at the root pair (7,7), values don't match, recurse left into (4,4)](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree/images/walkthrough-1.png)
+  ![Step 1: at the root pair (7,7), values don't match, recurse left into (4,4)](images/walkthrough-1.png)
 
 - `getTargetCopy(4, 4, target)`: `clones.Val(4) != target.Val(3)`. `4` is a leaf in both
   trees, so recursing left goes to `(nil, nil)` → returns `nil` immediately, and
   recursing right also goes to `(nil, nil)` → returns `nil`. This call returns `nil` —
   the target isn't anywhere under `4`.
 
-  ![Step 2: at pair (4,4), values don't match and both children are nil, so this branch is a dead end — returns nil](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree/images/walkthrough-2.png)
+  ![Step 2: at pair (4,4), values don't match and both children are nil, so this branch is a dead end — returns nil](images/walkthrough-2.png)
 
 - Back in `getTargetCopy(7, 7, target)`: the left recursion returned `nil`, so it falls
   through to search the right subtree instead: `(3, 3)`.
@@ -107,7 +107,7 @@ node from `cloned`):
   `clones` directly — the `3` node from the *cloned* tree — and that result is
   propagated all the way back up as the final answer. ✓
 
-  ![Step 3: at pair (3,3), values match — clones (the cloned-tree node) is returned as the answer](https://raw.githubusercontent.com/architagr/leetcode_solutions/main/easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree/images/walkthrough-3.png)
+  ![Step 3: at pair (3,3), values match — clones (the cloned-tree node) is returned as the answer](images/walkthrough-3.png)
 
 **Complexity:** O(n) time — in the worst case (target is the last node visited, or the
 tree is degenerate) every node pair gets visited once. O(h) space for the recursion
