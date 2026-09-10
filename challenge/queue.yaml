@@ -528,7 +528,7 @@ entries:
       difficulty: hard
       folder: hard_problems/201_300/closest_binary_search_tree_value_ii
       batch: binary tree
-      status: pending_content
+      status: content_ready
       builds_on:
         - 173
       posted_at:

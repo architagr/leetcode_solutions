@@ -5,7 +5,7 @@ Given the `root` of a binary search tree, a `target` value, and an integer `k`, 
 You are `guaranteed` to have only one unique set of `k` values in the BST that are closest to the `target`.
 
 #### Example 1:
-!["Example 1"](closest1-1-tree.jpg "example 1")
+![Example 1](images/1.jpg)
 ```
 Input: root = [4,2,5,1,3], target = 3.714286, k = 2
 Output: [4,3]
