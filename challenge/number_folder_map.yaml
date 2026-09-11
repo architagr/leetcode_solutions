@@ -1,4 +1,4 @@
-last_scanned_commit: 1d51534361dd68a58b5a34fd4c56b117893ddb47
+last_scanned_commit: f044d777b7414477bd91abc10c1699b63b0aac3e
 map:
     55: google_questions/dynamic_programming/jump_game
     80: google_questions/array_strings/remove_duplicates_from_sorted_array_ii
@@ -35,6 +35,7 @@ map:
     897: easy_problems/801_900/increase_order_search_tree
     965: easy_problems/901_1000/univalued_binary_tree
     993: easy_problems/901_1000/cousions_in_binary_tree
+    1008: medium_problems/1001_1100/construct_binary_serch_tree_from_preorder_traversal
     1022: easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers
     1031: medium_problems/1001_1100/maximum_sum_of_two_non_overlapping_subarrays
     1038: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
@@ -59,6 +60,7 @@ map:
     2016: easy_problems/2001_2100/maximum_difference_between_increasing_elements
     2024: medium_problems/2001_2100/maximize_the_confusion_of_an_exam
     2134: medium_problems/2101_2200/minimum_swaps_to_group_all_1s_together_ii
+    2196: medium_problems/2101_2200/create_binary_tree_from_descriptions
     2256: medium_problems/2201_2300/minimum_average_difference
     2265: medium_problems/2201_2300/count_nodes_equal_to_average_of_subtree
     2269: easy_problems/2201_2300/find_the_k_beauty_of_a_number
