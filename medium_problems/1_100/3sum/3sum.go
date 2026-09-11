@@ -25,11 +25,13 @@ func ThreeSum(nums []int) [][]int {
 				r--
 			}
 
-			for nums[l-1] == nums[l] && l < r {
+			// Both guards have to come before the index, or l runs past
+			// the end of nums and r+1 reads one past it on the first pass.
+			for l < r && nums[l-1] == nums[l] {
 				l++
 			}
 
-			for nums[r+1] == nums[r] && l < r {
+			for l < r && r+1 < n && nums[r+1] == nums[r] {
 				r--
 			}
 		}
