@@ -52,6 +52,20 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return cli.Resolve(in.RepoRoot, in.MapPath, in.Number, in.Difficulty, in.Slug)
 
+	case "scaffold-from-submission":
+		var in struct {
+			RepoRoot    string `json:"repoRoot"`
+			SessionPath string `json:"sessionPath"`
+			Number      int    `json:"number"`
+			Difficulty  string `json:"difficulty"`
+			Slug        string `json:"slug"`
+			Title       string `json:"title"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		return cli.ScaffoldFromSubmission(in.RepoRoot, in.SessionPath, in.Number, in.Difficulty, in.Slug, in.Title)
+
 	case "reorg":
 		var in struct {
 			RepoRoot   string `json:"repoRoot"`

@@ -25,6 +25,31 @@ Every subcommand takes one JSON argument and prints one JSON result to stdout, e
 /tmp/leetcodectl resolve '{"repoRoot":".","mapPath":"challenge/number_folder_map.yaml","number":965,"difficulty":"easy","slug":"univalued-binary-tree"}'
 ```
 
+## LeetCode session cookie
+
+Step 3(b) asks LeetCode whether the user has solved a question that has no folder here,
+and pulls their accepted submission down when they have. Both are user-scoped, so they
+need the user's own login. `leetcodectl` reads it from `.leetcode_session` at the repo
+root (gitignored), or from `$LEETCODE_SESSION` / `$LEETCODE_CSRF`:
+
+```json
+{ "leetcodeSession": "<LEETCODE_SESSION cookie value>", "csrfToken": "<csrftoken cookie value>" }
+```
+
+To get the values: log in at leetcode.com, open the browser's dev tools, and copy the
+`LEETCODE_SESSION` and `csrftoken` cookies for `leetcode.com`. In Safari the cookie jar is
+under Develop > Show Web Inspector > Storage > Cookies (the Develop menu has to be turned
+on in Settings > Advanced first).
+
+This file is a credential. It is gitignored, it must never be committed, echoed into a
+post draft, or pasted into a commit message, and it expires every couple of weeks — an
+auth error from `scaffold-from-submission` usually just means it needs refreshing.
+
+Note that **Playwright cannot drive Safari**. It ships a bundled WebKit build, which is
+not Safari.app and has none of Safari's cookies or logins. Nothing in this skill automates
+a browser for LeetCode; the cookie is copied across by hand once, and every LeetCode call
+is a plain authenticated GraphQL request.
+
 ## Writing style — sound human, not AI
 
 **This applies to every commit message too, not only the prose files — see step 3(n).**
@@ -111,6 +136,12 @@ Before marking a problem complete, verify:
 - [ ] Comments added only at non-obvious steps
 - [ ] No logic changes to main.go
 - [ ] Comments explain WHY, not WHAT
+
+**Solved-but-missing problems**
+- [ ] Every `unresolved` question was checked against LeetCode, not skipped silently
+- [ ] End-of-run summary has a "Pulled from LeetCode" section (even if it says none)
+- [ ] Any pulled submission was committed on its own, before the content commit
+- [ ] No non-Go submission was committed or given generated content
 
 **Queue and chaining**
 - [ ] `builds_on` set, and every entry in it is on an EARLIER day (no forward references)
@@ -247,11 +278,45 @@ Two things to keep honest:
       ```bash
       /tmp/leetcodectl resolve '{"repoRoot":".","mapPath":"challenge/number_folder_map.yaml","number":<number>,"difficulty":"<difficulty>","slug":"<slug>"}'
       ```
-      - If `"status": "unresolved"` — this question isn't solved yet (or genuinely can't be
-        found). Skip it silently and move to the next problem; it'll be picked up on a future
-        re-run once solved. Do NOT ask the user about every unresolved question — only ask if
-        you have a specific, well-founded suspicion it IS solved but the tooling missed it
-        (e.g. you can see a matching file via other means).
+      - If `"status": "unresolved"` — there is no folder for this question in the repo.
+        That has two very different causes, and they must not be collapsed: the user may
+        genuinely not have solved it, or they may have solved it **on LeetCode** and never
+        committed the code here. Ask LeetCode which it is, and pull the code down if so:
+        ```bash
+        /tmp/leetcodectl scaffold-from-submission '{"repoRoot":".","sessionPath":".leetcode_session","number":<number>,"difficulty":"<difficulty>","slug":"<slug>","title":"<title>"}'
+        ```
+        This needs an authenticated session — see "LeetCode session cookie" below. Act on
+        the returned `status`:
+        - `"not-solved"` — genuinely unsolved. Skip it silently and move on; a future
+          re-run picks it up once solved. Do NOT ask the user about these.
+        - `"scaffolded"` — solved on LeetCode, missing here. The canonical folder now
+          exists with their own accepted submission in it, at the returned `file`. Commit
+          that on its own, before any content work, so the pulled code is one reviewable
+          commit separate from the generated prose:
+          ```bash
+          git add <result.path>
+          git commit -m "<Difficulty>(<number>) <Title>"
+          ```
+          Then continue this problem from step (c) as normal — the folder is now a
+          solved folder like any other. Record it for the end-of-run summary as
+          "pulled from LeetCode (submitted <result.submittedAt>)".
+        - `"scaffolded"` with `"nonGo": true` — their accepted submission was not Go, so
+          the code landed under its own extension (e.g. `main.python3`) and the repo's
+          Go-only convention is broken. Do NOT commit it and do NOT generate content.
+          Leave the file in the working tree, stop processing this problem, and flag it
+          prominently in the end-of-run summary as needing a hand-written Go port.
+        - `"exists"` — a solution file is already there but `resolve` could not see it.
+          That is a tooling miss, not a missing solution. Do not overwrite anything; use
+          the returned `path` as the folder and continue from step (c), and note the
+          resolver gap in the end-of-run summary.
+        - The command exiting non-zero because no session cookie is configured is NOT a
+          per-problem failure. Stop the whole run and tell the user to set the cookie up
+          (see below) — otherwise every unsolved-looking question in the batch gets
+          misreported as unsolved.
+
+      **The end-of-run summary must always have a "Pulled from LeetCode" section** listing
+      every problem that was solved on LeetCode but missing from the repo, even when the
+      count is zero. This is the gap the user asked to see; a silent skip hides it.
       - If `"source"` is anything other than `"canonical"` — the question was found in a
         non-canonical location (a root straggler, or under `google_questions`/`linkedin_questions`,
         or via the gitmap/fuzzy fallback). Note: `ResolveResult.Canonical` is tagged

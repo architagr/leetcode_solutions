@@ -1,7 +1,8 @@
-// Package leetcode is a minimal client for LeetCode's public (unofficial,
-// undocumented) GraphQL API: fetching a custom problem list and a single
-// question's statement. No authentication — Premium-only fields (like
-// official company tags) are not available through this client.
+// Package leetcode is a minimal client for LeetCode's unofficial,
+// undocumented GraphQL API: fetching a custom problem list, a single
+// question's statement, and — with a Session attached — the signed-in
+// user's own accepted submissions. Premium-only fields (like official
+// company tags) are not available through this client.
 package leetcode
 
 import (
@@ -36,6 +37,10 @@ type Question struct {
 type Client struct {
 	BaseURL    string
 	HTTPClient *http.Client
+	// Session, when non-nil, authenticates every request as that
+	// LeetCode user. Required for anything user-scoped (submission
+	// history and submitted code); the public queries ignore it.
+	Session *Session
 }
 
 // NewClient returns a Client pointed at LeetCode's real GraphQL endpoint.
@@ -153,6 +158,17 @@ func (c *Client) doGraphQL(query string, variables map[string]any, out any) erro
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("User-Agent", "leetcodectl/1.0")
+	if c.Session != nil {
+		// LeetCode authenticates GraphQL by cookie and rejects any
+		// mutation-ish query whose x-csrftoken does not echo the
+		// csrftoken cookie. Referer is checked too.
+		req.AddCookie(&http.Cookie{Name: "LEETCODE_SESSION", Value: c.Session.LeetCodeSession})
+		if c.Session.CSRFToken != "" {
+			req.AddCookie(&http.Cookie{Name: "csrftoken", Value: c.Session.CSRFToken})
+			req.Header.Set("x-csrftoken", c.Session.CSRFToken)
+		}
+		req.Header.Set("Referer", "https://leetcode.com/")
+	}
 
 	client := c.HTTPClient
 	if client == nil {

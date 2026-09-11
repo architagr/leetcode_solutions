@@ -25,3 +25,7 @@ x.com
 
 # Node dependencies
 node_modules/
+
+# LeetCode auth cookie for leetcodectl - secret, never commit
+.leetcode_session
+.leetcode_session.json
