@@ -1,0 +1,36 @@
+# Folders whose name does not match their LeetCode slug closely enough to
+# be looked up automatically: typos, abbreviations, and questions LeetCode
+# has since renamed. Keyed by the folder's path relative to the repo root.
+#
+# Every slug here was verified against the live API. Note that two of them
+# sit under the wrong difficulty directory, which the sweep corrects:
+# lowest_common_ancestor_of_bst is Medium (235) and jump_game_4 is Hard
+# (1345).
+aliases:
+  easy_problems/binary_tree_inorder_triversal: binary-tree-inorder-traversal
+  easy_problems/check_every_row_column_contains_all_numbers: check-if-every-row-and-column-contains-all-numbers
+  easy_problems/contains_duplicate_2: contains-duplicate-ii
+  easy_problems/count_num_pairs_with_absolute_diff: count-number-of-pairs-with-absolute-difference-k
+  easy_problems/count_number_of_consistent_strings: count-the-number-of-consistent-strings
+  easy_problems/count_vowel_substrings: count-vowel-substrings-of-a-string
+  easy_problems/first_unique_character_in_string: first-unique-character-in-a-string
+  easy_problems/implement_strstr: find-the-index-of-the-first-occurrence-in-a-string
+  easy_problems/largest_common_prefix: longest-common-prefix
+  easy_problems/lowest_common_ancestor_of_bst: lowest-common-ancestor-of-a-binary-search-tree
+  easy_problems/maximum_units_on_truck: maximum-units-on-a-truck
+  easy_problems/merge_sorted_list: merge-two-sorted-lists
+  easy_problems/number_after_a_double_reversal: a-number-after-a-double-reversal
+  easy_problems/pascals_triangle_2: pascals-triangle-ii
+  easy_problems/pivot_index: find-pivot-index
+  easy_problems/roman_to_interger: roman-to-integer
+  easy_problems/running_sum: running-sum-of-1d-array
+  easy_problems/target_Indices_after_sorting_array: find-target-indices-after-sorting-array
+  easy_problems/x_matrix: check-if-matrix-is-x-matrix
+  medium_problems/add_two_numbers_ll: add-two-numbers
+  medium_problems/check_if_there_valid_partition_for_the_array: check-if-there-is-a-valid-partition-for-the-array
+  medium_problems/construct_b_tree_pre_inorder_traversal: construct-binary-tree-from-preorder-and-inorder-traversal
+  medium_problems/jump_game_4: jump-game-iv
+  medium_problems/linked_list_cycle_2: linked-list-cycle-ii
+  medium_problems/max_area_cake_piece: maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts
+  medium_problems/three_sum_closest: 3sum-closest
+  medium_problems/triangular_sum_of_an_array: find-triangular-sum-of-an-array

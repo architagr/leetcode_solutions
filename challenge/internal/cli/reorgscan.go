@@ -14,6 +14,8 @@ import (
 	"leetcode_solutions/challenge/internal/gitmap"
 	"leetcode_solutions/challenge/internal/leetcode"
 	"leetcode_solutions/challenge/internal/reorg"
+
+	"gopkg.in/yaml.v3"
 )
 
 // ReorgItem is one folder the sweep looked at.
@@ -56,7 +58,7 @@ var skipDirs = map[string]bool{
 //
 // It is a dry run unless apply is true, so the plan can be reviewed
 // before any folder moves.
-func ReorgScan(repoRoot, mapPath, cachePath string, apply bool) (ReorgScanResult, error) {
+func ReorgScan(repoRoot, mapPath, cachePath, aliasPath string, apply bool) (ReorgScanResult, error) {
 	res := ReorgScanResult{DryRun: !apply}
 
 	folders, err := solutionFolders(repoRoot)
@@ -72,6 +74,7 @@ func ReorgScan(repoRoot, mapPath, cachePath string, apply bool) (ReorgScanResult
 		}
 	}
 
+	aliases := loadAliases(aliasPath)
 	cache := loadLookupCache(cachePath)
 	client := leetcode.NewClient()
 	dirty := false
@@ -83,7 +86,7 @@ func ReorgScan(repoRoot, mapPath, cachePath string, apply bool) (ReorgScanResult
 		}
 
 		item := ReorgItem{From: from}
-		meta, ok := identify(client, repoRoot, from, byFolder, cache, &dirty)
+		meta, ok := identify(client, repoRoot, from, byFolder, aliases, cache, &dirty)
 		if !ok {
 			item.Note = "could not identify the question from git history, the folder name, or a README title"
 			res.Unresolved = append(res.Unresolved, item)
@@ -132,8 +135,16 @@ type identified struct {
 }
 
 // identify resolves a folder to a question, cheapest signal first.
-func identify(c *leetcode.Client, repoRoot, folder string, byFolder map[string]int, cache map[string]*leetcode.Meta, dirty *bool) (identified, bool) {
+func identify(c *leetcode.Client, repoRoot, folder string, byFolder map[string]int, aliases map[string]string, cache map[string]*leetcode.Meta, dirty *bool) (identified, bool) {
 	base := filepath.Base(folder)
+
+	// A hand-written alias outranks every guess: it is there precisely
+	// because the folder name does not match the real slug.
+	if slug, ok := aliases[folder]; ok {
+		if m, ok := lookupSlug(c, slug, cache, dirty); ok {
+			return identified{Meta: m, via: "alias"}, true
+		}
+	}
 
 	// Git history is authoritative and free, but only carries the
 	// number, so the difficulty still has to come from LeetCode.
@@ -252,6 +263,28 @@ func solutionFolders(repoRoot string) ([]string, error) {
 	}
 	sort.Strings(out)
 	return out, nil
+}
+
+// loadAliases reads the hand-maintained folder -> slug overrides.
+func loadAliases(path string) map[string]string {
+	out := map[string]string{}
+	if path == "" {
+		return out
+	}
+	raw, err := os.ReadFile(path)
+	if err != nil {
+		return out
+	}
+	var doc struct {
+		Aliases map[string]string `yaml:"aliases"`
+	}
+	if err := yaml.Unmarshal(raw, &doc); err != nil {
+		return out
+	}
+	for k, v := range doc.Aliases {
+		out[filepath.Clean(k)] = v
+	}
+	return out
 }
 
 func loadLookupCache(path string) map[string]*leetcode.Meta {
