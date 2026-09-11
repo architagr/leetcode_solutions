@@ -18,6 +18,8 @@ func FirstBadVersion(n int) int {
 	return max
 }
 
-func isBadVersion(a int) bool {
+// isBadVersion stands in for the API LeetCode supplies. It is a var so a
+// test can point it at a known first bad version.
+var isBadVersion = func(a int) bool {
 	return false
 }
