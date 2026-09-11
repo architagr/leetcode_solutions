@@ -80,7 +80,11 @@ func ReorgScan(repoRoot, mapPath, cachePath, aliasPath string, apply bool) (Reor
 	dirty := false
 
 	for _, from := range folders {
-		if canonicalRe.MatchString(from) {
+		// A folder can sit at a canonical-looking path and still be
+		// wrong, when its name is not the question's real slug. An
+		// alias entry says exactly that, so those are always checked.
+		_, aliased := aliases[from]
+		if canonicalRe.MatchString(from) && !aliased {
 			res.Canonical++
 			continue
 		}
