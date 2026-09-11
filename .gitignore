@@ -29,6 +29,3 @@ node_modules/
 # LeetCode auth cookie for leetcodectl - secret, never commit
 .leetcode_session
 .leetcode_session.json
-
-# In-progress solution - remove this line when the question is done
-medium_problems/1101_1200/lowest_common_ancestor_of_deepest_leaves/
