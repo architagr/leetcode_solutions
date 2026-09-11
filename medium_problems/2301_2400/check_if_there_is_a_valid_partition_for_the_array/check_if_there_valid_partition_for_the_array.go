@@ -1,38 +1,29 @@
 package check_if_there_valid_partition_for_the_array
 
+// ValidPartition reports whether nums can be split into contiguous
+// pieces that are each two equal elements, three equal elements, or
+// three consecutive increasing elements.
+//
+// A piece can only end at one of three offsets behind the current
+// position, so whether a prefix is splittable depends on at most two
+// shorter prefixes. dp[i] is that answer for the first i elements.
 func ValidPartition(nums []int) bool {
 	n := len(nums)
-	x := make([]int, n)
-	for i := 1; i < n; i++ {
-		x[i] = nums[i] - nums[i-1]
-		if x[i] > 1 || x[i] < 0 {
-			return false
+	dp := make([]bool, n+1)
+	dp[0] = true
+
+	for i := 2; i <= n; i++ {
+		if dp[i-2] && nums[i-1] == nums[i-2] {
+			dp[i] = true
+			continue
+		}
+		if i < 3 || !dp[i-3] {
+			continue
+		}
+		a, b, c := nums[i-3], nums[i-2], nums[i-1]
+		if (a == b && b == c) || (b == a+1 && c == b+1) {
+			dp[i] = true
 		}
 	}
-	zeroCount, oneCount := 0, 0
-	for i := 1; i < n; i++ {
-
-		for i < n && x[i] == 0 {
-			zeroCount++
-			i++
-		}
-		for i < n && x[i] == 1 {
-			oneCount++
-			i++
-		}
-		if oneCount != 0 {
-			if oneCount%2 != 0 {
-				return false
-			} else if zeroCount > 0 && (zeroCount%4 != 0 && zeroCount%3 != 0 && zeroCount%2 != 0) {
-				return false
-			}
-		} else {
-			if zeroCount > 0 && (zeroCount%4 != 0 && zeroCount%3 != 0 && zeroCount%2 != 0) {
-				return false
-			}
-		}
-		zeroCount, oneCount = 0, 0
-	}
-
-	return true
+	return dp[n]
 }

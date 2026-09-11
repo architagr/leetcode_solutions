@@ -76,12 +76,19 @@ func TestAccountsMerge(t *testing.T) {
 	for i, tc := range testcases {
 		t.Run(fmt.Sprint(i), func(t *testing.T) {
 			got := accountsMerge(tc.accounts)
-			sort.Slice(got, func(i, j int) bool {
-				return got[i][0] < got[j][0]
-			})
-			sort.Slice(tc.expected, func(i, j int) bool {
-				return tc.expected[i][0] < tc.expected[j][0]
-			})
+			// Two groups can share a name, so ordering on the name alone
+			// is not a total order and sort.Slice is not stable. Break
+			// the tie on the first email.
+			byNameThenEmail := func(s [][]string) func(i, j int) bool {
+				return func(i, j int) bool {
+					if s[i][0] != s[j][0] {
+						return s[i][0] < s[j][0]
+					}
+					return s[i][1] < s[j][1]
+				}
+			}
+			sort.Slice(got, byNameThenEmail(got))
+			sort.Slice(tc.expected, byNameThenEmail(tc.expected))
 			assert.Equal(t, tc.expected, got)
 		})
 	}

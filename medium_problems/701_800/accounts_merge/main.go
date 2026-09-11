@@ -2,51 +2,66 @@ package accountsmerge
 
 import "sort"
 
+// accountsMerge groups the accounts that belong to one person. Two
+// accounts belong together when they share any email, and that
+// relationship is transitive: the first and last account here are the
+// same person even though they share nothing directly.
+//
+//	["David","David0@m.co","David1@m.co"]
+//	["David","David1@m.co","David2@m.co"]
+//
+// A single pass that maps each email to the account it first appeared in
+// cannot see that, because the link arrives after both have been placed.
+// Union-find can, since merging two groups later re-points both.
 func accountsMerge(accounts [][]string) [][]string {
-
-	emailMap := make(map[string]int, len(accounts)*10)
-	indexMap := make(map[int]int, len(accounts))
-
-	for _, email := range accounts[0][1:] {
-		emailMap[email] = 0
+	parent := make([]int, len(accounts))
+	for i := range parent {
+		parent[i] = i
 	}
-	for i := 1; i < len(accounts); i++ {
-		emails := accounts[i]
-		currentIndex := i
-		for _, email := range emails[1:] {
-			mappedIndex, ok := emailMap[email]
-			if ok {
-				currentIndex = mappedIndex
+	var find func(int) int
+	find = func(x int) int {
+		for parent[x] != x {
+			parent[x] = parent[parent[x]] // path halving
+			x = parent[x]
+		}
+		return x
+	}
+	union := func(a, b int) {
+		ra, rb := find(a), find(b)
+		if ra != rb {
+			parent[rb] = ra
+		}
+	}
+
+	owner := make(map[string]int, len(accounts)*4)
+	for i, account := range accounts {
+		for _, email := range account[1:] {
+			if j, seen := owner[email]; seen {
+				union(i, j)
 			} else {
-				emailMap[email] = i
+				owner[email] = i
 			}
-		}
-		if currentIndex != i {
-			indexMap[i] = currentIndex
-			for _, email := range emails[1:] {
-				if index := emailMap[email]; index == i {
-					accounts[currentIndex] = append(accounts[currentIndex], email)
-					emailMap[email] = currentIndex
-				}
-			}
-		}
-	}
-	result := make([][]string, 0, len(accounts))
-	for i, vals := range accounts {
-		if _, ok := indexMap[i]; !ok {
-			x := make([]string, 0, len(vals))
-			x = append(x, vals[0])
-			m := make(map[string]bool, len(vals))
-			for _, e := range vals[1:] {
-				if _, ok := m[e]; !ok {
-					x = append(x, e)
-					m[e] = true
-				}
-			}
-			sort.Strings(x[1:])
-			result = append(result, x)
 		}
 	}
 
+	// Collect each root's emails, deduplicated.
+	emails := make(map[int]map[string]bool, len(accounts))
+	for email, i := range owner {
+		root := find(i)
+		if emails[root] == nil {
+			emails[root] = make(map[string]bool)
+		}
+		emails[root][email] = true
+	}
+
+	result := make([][]string, 0, len(emails))
+	for root, set := range emails {
+		merged := make([]string, 0, len(set)+1)
+		for email := range set {
+			merged = append(merged, email)
+		}
+		sort.Strings(merged)
+		result = append(result, append([]string{accounts[root][0]}, merged...))
+	}
 	return result
 }
