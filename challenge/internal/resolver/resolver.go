@@ -108,3 +108,20 @@ func FuzzyFind(repoRoot, slug string) (Location, bool) {
 	}
 	return found, ok
 }
+
+// FindAnywhere reports whether a question already has a folder anywhere
+// in the repo — canonical, straggler, topic directory, or under a
+// differently-cased name. It is the static half of cli.Resolve, without
+// the git-history map, and exists so a caller that is about to create a
+// folder can cheaply avoid duplicating an existing solution.
+//
+// A zero Location with a nil error means nothing was found.
+func FindAnywhere(repoRoot string, number int, difficulty, slug string) (Location, error) {
+	if loc, ok := Find(repoRoot, CandidatePaths(repoRoot, number, difficulty, slug)); ok {
+		return loc, nil
+	}
+	if loc, ok := FuzzyFind(repoRoot, slug); ok {
+		return loc, nil
+	}
+	return Location{}, nil
+}

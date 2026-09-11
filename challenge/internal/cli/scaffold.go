@@ -7,6 +7,7 @@ import (
 
 	"leetcode_solutions/challenge/internal/leetcode"
 	"leetcode_solutions/challenge/internal/reorg"
+	"leetcode_solutions/challenge/internal/resolver"
 )
 
 // langExt maps LeetCode's lang slugs to the file a solution folder
@@ -22,6 +23,9 @@ var langExt = map[string]string{
 type ScaffoldResult struct {
 	// Status is "scaffolded", "not-solved", or "exists".
 	Status string `json:"status"`
+	// Source, on an "exists" result, says where the already-present
+	// solution was found, matching Resolve's source values.
+	Source string `json:"source,omitempty"`
 	// Path is the canonical folder, set for "scaffolded" and "exists".
 	Path string `json:"path,omitempty"`
 	// File is the solution file written, relative to the repo root.
@@ -43,6 +47,17 @@ type ScaffoldResult struct {
 // It never overwrites: if the canonical folder already holds a solution
 // file, it reports "exists" and leaves the tree untouched.
 func ScaffoldFromSubmission(repoRoot, sessionPath string, number int, difficulty, slug, title string) (ScaffoldResult, error) {
+	// Runs before authentication on purpose: a question that is already
+	// in the repo needs neither a cookie nor a network round trip.
+	// Guard against duplicating a solution that is already here under a
+	// non-canonical path. The skill resolves before it scaffolds, so this
+	// should not fire in the normal flow, but scaffolding a second copy
+	// is destructive enough to be worth checking independently of call
+	// order.
+	if existing, err := resolver.FindAnywhere(repoRoot, number, difficulty, slug); err == nil && existing.Path != "" {
+		return ScaffoldResult{Status: "exists", Path: existing.Path, Source: string(existing.Source)}, nil
+	}
+
 	sess, err := leetcode.LoadSession(sessionPath)
 	if err != nil {
 		return ScaffoldResult{}, err
@@ -66,10 +81,13 @@ func ScaffoldFromSubmission(repoRoot, sessionPath string, number int, difficulty
 		ext = "." + sub.Lang
 	}
 	name := "main" + ext
-	fileRel := filepath.Join(rel, name)
 
-	if _, err := os.Stat(filepath.Join(abs, name)); err == nil {
-		return ScaffoldResult{Status: "exists", Path: rel, File: fileRel}, nil
+	// Final guard before writing. Solution folders do not all use
+	// main.go — older ones are named after the slug — so treat any
+	// non-empty canonical folder as already solved rather than only
+	// looking for the file this call would write.
+	if entries, err := os.ReadDir(abs); err == nil && len(entries) > 0 {
+		return ScaffoldResult{Status: "exists", Path: rel, Source: "canonical"}, nil
 	}
 
 	if err := os.MkdirAll(abs, 0o755); err != nil {
@@ -90,7 +108,7 @@ func ScaffoldFromSubmission(repoRoot, sessionPath string, number int, difficulty
 	res := ScaffoldResult{
 		Status: "scaffolded",
 		Path:   rel,
-		File:   fileRel,
+		File:   filepath.Join(rel, name),
 		Lang:   sub.Lang,
 		NonGo:  !isGo,
 	}
