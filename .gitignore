@@ -22,3 +22,6 @@ x.com
 *.secrets
 .env
 .env.*
+
+# Node dependencies
+node_modules/
