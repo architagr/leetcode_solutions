@@ -577,7 +577,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/number_of_islands
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 104
       posted_at:
