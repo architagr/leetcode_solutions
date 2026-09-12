@@ -349,7 +349,7 @@ entries:
       difficulty: easy
       folder: easy_problems/201_300/palindrome_linked_list
       batch: linked list
-      status: pending_content
+      status: content_ready
       builds_on:
         - 206
         - 876
