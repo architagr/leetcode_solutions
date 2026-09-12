@@ -12,6 +12,10 @@ Design doc: `docs/superpowers/specs/2026-08-30-leetcode-content-gen-agent-design
 - `queue.yaml` — the ordered, resumable record of which questions have content generated
   and/or have been posted. Read/written by `leetcodectl`; don't hand-edit unless fixing a
   mistake.
+- `plans/` — reorder mappings fed to `leetcodectl queue-renumber`. Each file is a full
+  intended day ordering rather than a diff, so validation can catch a duplicate day or a
+  forward `builds_on` before anything is written. Keeping them in the repo means a past
+  reshape can be read back: the queue only shows where days ended up, not why.
 - `number_folder_map.yaml` — incremental cache mapping LeetCode question numbers to repo
   folders, derived from commit history. Safe to delete; it'll rebuild (slowly, via a full
   history scan) on the next `gitmap-update`.

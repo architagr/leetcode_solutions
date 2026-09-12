@@ -18,6 +18,7 @@ import (
 	"leetcode_solutions/challenge/internal/leetcode"
 	"leetcode_solutions/challenge/internal/postmeta"
 	"leetcode_solutions/challenge/internal/queue"
+	"leetcode_solutions/challenge/internal/renumber"
 	"leetcode_solutions/challenge/internal/reorg"
 	"leetcode_solutions/challenge/internal/resolver"
 	"leetcode_solutions/challenge/internal/xpost"
@@ -691,4 +692,12 @@ func intsToJSON(ns []int) string {
 		parts[i] = fmt.Sprint(n)
 	}
 	return "[" + strings.Join(parts, ",") + "]"
+}
+
+// QueueRenumber applies a reordering plan: it rewrites every day
+// reference in every queued folder's markdown, re-renders the heroes of
+// moved days, and writes the queue last. A dry run reports the same
+// thing and writes nothing.
+func QueueRenumber(repoRoot, queuePath, heroTemplate string, p renumber.Plan, dryRun bool) (renumber.Result, error) {
+	return renumber.Apply(repoRoot, queuePath, p, heroTemplate, dryRun)
 }

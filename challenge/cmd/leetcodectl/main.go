@@ -13,6 +13,7 @@ import (
 	"leetcode_solutions/challenge/internal/cli"
 	"leetcode_solutions/challenge/internal/hero"
 	"leetcode_solutions/challenge/internal/queue"
+	"leetcode_solutions/challenge/internal/renumber"
 	"leetcode_solutions/challenge/internal/xpost"
 )
 
@@ -123,6 +124,19 @@ func dispatch(cmd string, payload []byte) (any, error) {
 			return nil, err
 		}
 		return map[string]int{"day": day}, nil
+
+	case "queue-renumber":
+		var in struct {
+			RepoRoot     string        `json:"repoRoot"`
+			QueuePath    string        `json:"queuePath"`
+			HeroTemplate string        `json:"heroTemplate"`
+			Plan         renumber.Plan `json:"plan"`
+			DryRun       bool          `json:"dryRun"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		return cli.QueueRenumber(in.RepoRoot, in.QueuePath, in.HeroTemplate, in.Plan, in.DryRun)
 
 	case "companies-lookup":
 		var in struct {
