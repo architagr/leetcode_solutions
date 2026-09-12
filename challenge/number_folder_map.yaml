@@ -4,7 +4,7 @@ map:
     80: google_questions/array_strings/remove_duplicates_from_sorted_array_ii
     110: easy_problems/101_200/balanced_binary_tree
     112: easy_problems/101_200/path_sum
-    150: medium_problems/701_800/daily_temperature
+    150: medium_problems/101_200/evaluate_reverse_polish_notation
     157: easy_problems/101_200/read_n_characters_given_read4
     163: easy_problems/101_200/missing_ranges
     168: easy_problems/101_200/excel_sheet_column_title
@@ -28,6 +28,7 @@ map:
     653: easy_problems/601_700/two_sum_iv_input_is_a_bst
     654: medium_problems/601_700/maximum_binary_tree
     703: easy_problems/701_800/kth_largest_element_in_a_stream
+    739: medium_problems/701_800/daily_temperatures
     783: easy_problems/701_800/minimum_distance_between_bst_nodes
     841: medium_problems/801_900/keys_and_rooms
     872: easy_problems/801_900/leaf_similar_trees
