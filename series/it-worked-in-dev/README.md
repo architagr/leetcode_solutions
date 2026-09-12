@@ -23,6 +23,7 @@ written, not the first one numbered.
 | 1 | [Why your CSV import crawls on a real customer's file](episodes/01-dedupe-user-list/) | set membership | — |
 | 2 | [Your org chart is fine. Your comment thread is not.](episodes/02-org-chart-depth/) | level order traversal | day 1 |
 | 3 | [Why adding pricing tiers made every request slower](episodes/03-pricing-tier-lookup/) | binary search over ranges | day 2 |
+| 4 | [Why the breadcrumbs cost more than the file list](episodes/04-file-breadcrumbs/) | root-to-leaf path building | day 3 |
 | 8 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 4, 9 |
 
 ## Why it lives in this repo
