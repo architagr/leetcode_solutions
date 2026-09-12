@@ -1215,7 +1215,7 @@ entries:
       difficulty: medium
       folder: medium_problems/201_300/kth_largest_element_in_an_array
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 703
       posted_at:
