@@ -14,9 +14,13 @@ the whole differentiator: not the explanation, the bill arriving.
 
 ## Episodes
 
+Episodes are numbered in the order they unlock, which is the order the daily
+challenge teaches what each one is built on. So episode 8 is the first one
+written, not the first one numbered.
+
 | # | Episode | Technique | Built on |
 |---|---|---|---|
-| 1 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 1, 4, 9 |
+| 8 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 1, 4, 9 |
 
 ## Why it lives in this repo
 
