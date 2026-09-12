@@ -691,7 +691,7 @@ entries:
       difficulty: medium
       folder: medium_problems/201_300/course_schedule
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 1971
       posted_at:
