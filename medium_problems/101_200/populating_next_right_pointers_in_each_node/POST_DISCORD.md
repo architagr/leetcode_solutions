@@ -1,8 +1,8 @@
-**365 Days of LeetCode Challenge — Day 50/365**
+**365 Days of LeetCode Challenge — Day 35/365**
 **Populating Next Right Pointers in Each Node** (Medium)
 🔗 https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
 
-"Same level" makes it BFS, and needing to know where a level ends makes it the nil-sentinel BFS from Day 16.
+"Same level" makes it BFS, and needing to know where a level ends makes it the nil-sentinel BFS from Day 30.
 
 The obvious version walks each level left to right, remembers the previous node, and sets `prev.Next = current`. That works.
 

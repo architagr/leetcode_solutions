@@ -1,16 +1,16 @@
 ---
 meta_title: "Vertical order is where BFS stops being optional"
-meta_description: "Day 15 grouped by depth with a DFS because arrival order never mattered. Here the order inside a column is the answer, so only a breadth-first walk works."
+meta_description: "Day 29 grouped by depth with a DFS because arrival order never mattered. Here the order inside a column is the answer, so only a breadth-first walk works."
 tags: [golang, binary-tree, bfs, hashmap, leetcode]
 ---
 
 # Binary Tree Vertical Order Traversal
 
-*365 Days of LeetCode Challenge — Day 47/365*
+*365 Days of LeetCode Challenge — Day 74/365*
 
 🔗 [LeetCode #314](https://leetcode.com/problems/binary-tree-vertical-order-traversal/) · Difficulty: Medium
 
-Day 15 solved level order with a depth-first walk and made a point of it: the grouping did not
+Day 29 solved level order with a depth-first walk and made a point of it: the grouping did not
 care what order nodes arrived in, so the traversal was free to arrive however it liked.
 
 This problem groups the same way and reaches the opposite conclusion. It is a good pair to
@@ -31,12 +31,12 @@ left of its parent, a right child one to the right. Group by that number and you
 answer.
 
 That much is a coordinate carried down the traversal, exactly like the depth parameter from
-Day 15 — the only difference is that this one can go negative, because columns extend both
+Day 29 — the only difference is that this one can go negative, because columns extend both
 ways from the root.
 
-The interesting part is that here the traversal has to be BFS, and Day 15's did not.
+The interesting part is that here the traversal has to be BFS, and Day 29's did not.
 
-Day 15 grouped by depth, and within a level the required order — left to right — came from
+Day 29 grouped by depth, and within a level the required order — left to right — came from
 recursing into `Left` before `Right`. Arrival order across branches never mattered, so a
 depth-first walk worked.
 
@@ -56,7 +56,7 @@ reached.
 
 ### Builds on
 
-- [Day 15: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — grouping by a coordinate carried down the traversal, and the BFS-versus-DFS question that this problem answers the other way
+- [Day 29: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — grouping by a coordinate carried down the traversal, and the BFS-versus-DFS question that this problem answers the other way
 
 ### The solution
 

@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 21/365**
+**365 Days of LeetCode Challenge — Day 13/365**
 **Diameter of Binary Tree** (Easy)
 🔗 https://leetcode.com/problems/diameter-of-binary-tree/
 

@@ -1,4 +1,4 @@
-Day 40/365 · Merge Two Binary Trees (Easy)
+Day 66/365 · Merge Two Binary Trees (Easy)
 
 Adding the values is the boring half. The real decision is what to do when one side is nil.
 

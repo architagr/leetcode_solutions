@@ -3,13 +3,13 @@ meta_title: "Reversing a level is swapping its mirror pairs"
 meta_description: "BFS allocates a slice per level and the widest holds half the tree. Restated as swapping mirror pairs, the same job needs no extra storage at all."
 ---
 
-# 365 Days of LeetCode Challenge — Day 45/365
+# 365 Days of LeetCode Challenge — Day 72/365
 
 ## Reverse Odd Levels of Binary Tree
 
 [LeetCode #2415](https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/) · Medium
 
-![Day 45](HERO.png)
+![Day 72](HERO.png)
 
 Given the root of a perfect binary tree, reverse the node values at each odd level.
 

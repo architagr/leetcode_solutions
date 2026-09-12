@@ -3,7 +3,7 @@ meta_title: "The empty parentheses are the whole problem"
 meta_description: "Pre-order is the easy half. The rule that empty pairs survive when a node has a right child and no left one is what keeps the string reversible."
 ---
 
-## 365 Days of LeetCode Challenge — Day 13/365
+## 365 Days of LeetCode Challenge — Day 17/365
 
 # Construct String from Binary Tree
 

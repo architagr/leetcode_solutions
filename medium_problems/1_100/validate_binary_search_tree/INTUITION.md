@@ -11,8 +11,8 @@ The way out is a property this batch has already used twice.
 
 ## Builds on
 
-- [Day 30: Minimum Absolute Difference in BST](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/minimum_absolute_difference_in_bst/) — in-order traversal of a BST yields values in sorted order, which that problem relied on to compare only adjacent values
-- [Day 29: Find Mode in Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/) — the same property, noted there as the follow-up's constant-space route
+- [Day 47: Minimum Absolute Difference in BST](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/minimum_absolute_difference_in_bst/) — in-order traversal of a BST yields values in sorted order, which that problem relied on to compare only adjacent values
+- [Day 46: Find Mode in Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/) — the same property, noted there as the follow-up's constant-space route
 
 In-order traversal of a BST yields its values in ascending order. That's not a side effect,
 it's equivalent to the definition — and equivalences run both ways. If in-order comes out
@@ -37,5 +37,5 @@ O(n^2) on a skewed tree. It's kept as the contrast rather than as the answer.
 - Time: O(n) — one traversal, then one linear scan.
 - Space: O(n) for the collected slice plus O(h) for the recursion stack. The textbook
   improvement is to compare each value against the previous one during the traversal
-  instead of materialising the slice, which drops it to O(h). Day 30 already does exactly
+  instead of materialising the slice, which drops it to O(h). Day 47 already does exactly
   that, so the pieces for it are on the shelf.

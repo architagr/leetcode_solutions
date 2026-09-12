@@ -6,7 +6,7 @@ tags: [golang, binary-tree, dfs, recursion, leetcode]
 
 # Cousins in Binary Tree
 
-*365 Days of LeetCode Challenge — Day 18/365*
+*365 Days of LeetCode Challenge — Day 28/365*
 
 🔗 [LeetCode #993](https://leetcode.com/problems/cousins-in-binary-tree/) · Difficulty: Easy
 

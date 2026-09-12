@@ -9,7 +9,7 @@ rewiring happen?
 
 ## Builds on
 
-- [Day 35: Increasing Order Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/increasing_order_search_tree/) — relinking the existing nodes into a different shape rather than building new ones, and the care that takes when you are mutating the pointers you navigate by
+- [Day 53: Increasing Order Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/increasing_order_search_tree/) — relinking the existing nodes into a different shape rather than building new ones, and the care that takes when you are mutating the pointers you navigate by
 
 The new root is the deepest node on the left spine — keep taking `Left` until there isn't
 one. That's the base case, `if root == nil || root.Left == nil { return root }`, and it's

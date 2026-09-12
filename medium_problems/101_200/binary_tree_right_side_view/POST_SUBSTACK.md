@@ -6,7 +6,7 @@ tags: [golang, binary-tree, dfs, recursion, leetcode]
 
 # Binary Tree Right Side View
 
-*365 Days of LeetCode Challenge — Day 19/365*
+*365 Days of LeetCode Challenge — Day 31/365*
 
 🔗 [LeetCode #199](https://leetcode.com/problems/binary-tree-right-side-view/) · Difficulty: Medium
 
@@ -32,9 +32,9 @@ So the answer holds one entry per level, top to bottom. That framing sounds like
 the queue version is perfectly good: walk each level, keep the last node you popped.
 
 This solution uses a depth-first walk instead, and gets there with two small changes to
-the shape from Day 15.
+the shape from Day 29.
 
-The first is what gets stored. Day 15 accumulated every node at a depth; here only one per
+The first is what gets stored. Day 29 accumulated every node at a depth; here only one per
 depth is wanted, so the append is guarded by `if len(arr) == level`. Since `arr` holds one
 entry per level filled so far, `len(arr)` is the next level not yet recorded — so the
 condition means "this is the first node I've reached at this depth." Every later arrival
@@ -57,7 +57,7 @@ every depth, and where it has nothing, the left subtree's node is the first arri
 
 ### Builds on
 
-- [Day 15: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — the same depth-as-an-index idea, one slot per level, reached by a depth-first walk rather than a queue
+- [Day 29: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — the same depth-as-an-index idea, one slot per level, reached by a depth-first walk rather than a queue
 
 ### The solution
 

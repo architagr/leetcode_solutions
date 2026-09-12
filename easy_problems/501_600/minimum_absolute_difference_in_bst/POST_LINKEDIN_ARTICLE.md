@@ -3,7 +3,7 @@ meta_title: "Smallest gap in a BST is always between neighbours"
 meta_description: "In-order on a BST yields sorted values, and in a sorted sequence the smallest difference always sits between two adjacent elements."
 ---
 
-## 365 Days of LeetCode Challenge — Day 30/365
+## 365 Days of LeetCode Challenge — Day 47/365
 
 # Minimum Absolute Difference in BST
 

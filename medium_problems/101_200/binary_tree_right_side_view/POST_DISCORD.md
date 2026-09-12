@@ -1,10 +1,10 @@
-**365 Days of LeetCode Challenge — Day 19/365**
+**365 Days of LeetCode Challenge — Day 31/365**
 **Binary Tree Right Side View** (Medium)
 🔗 https://leetcode.com/problems/binary-tree-right-side-view/
 
 Standing on the right and seeing what isn't hidden has a plainer description: from each level you see exactly one node, the rightmost.
 
-That sounds like BFS, and BFS works. This one is a DFS with two small changes to the Day 15 shape. Store only the first node reached at each depth — `arr` holds one value per level, so `len(arr) == level` means "first arrival here". Then visit right before left, which makes that first arrival the rightmost node.
+That sounds like BFS, and BFS works. This one is a DFS with two small changes to the Day 29 shape. Store only the first node reached at each depth — `arr` holds one value per level, so `len(arr) == level` means "first arrival here". Then visit right before left, which makes that first arrival the rightmost node.
 
 Neither piece works alone. The guard picks first arrivals; the traversal order decides which arrival is first. Swap the two recursive calls and you get the left side view.
 

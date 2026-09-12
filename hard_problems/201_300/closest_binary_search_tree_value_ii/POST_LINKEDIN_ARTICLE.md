@@ -3,7 +3,7 @@ meta_title: "The k closest values in a sorted array are contiguous"
 meta_description: "That one claim turns pick-k-things into pick-a-window. Flatten the BST in-order, find the closest value, and expand outward taking the nearer neighbour."
 ---
 
-## 365 Days of LeetCode Challenge — Day 34/365
+## 365 Days of LeetCode Challenge — Day 57/365
 
 # Closest Binary Search Tree Value II
 
@@ -44,7 +44,7 @@ as much.
 
 ### Builds on
 
-- [Day 33: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — flattening a BST in-order into a slice, which is the first half of this solution verbatim
+- [Day 55: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — flattening a BST in-order into a slice, which is the first half of this solution verbatim
 
 ### The solution
 

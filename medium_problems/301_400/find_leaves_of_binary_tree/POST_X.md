@@ -1,4 +1,4 @@
-Day 24/365 · Find Leaves of Binary Tree (Medium)
+Day 16/365 · Find Leaves of Binary Tree (Medium)
 
 Don't simulate the stripping — that's O(n·h).
 

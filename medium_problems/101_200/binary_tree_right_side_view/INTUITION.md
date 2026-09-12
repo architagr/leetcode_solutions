@@ -9,12 +9,12 @@ node you popped.
 
 ## Builds on
 
-- [Day 15: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — the same depth-as-an-index idea, one slot per level, reached by a depth-first walk rather than a queue
+- [Day 29: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — the same depth-as-an-index idea, one slot per level, reached by a depth-first walk rather than a queue
 
 This solution does it with a depth-first walk instead, and gets there with two small
-changes to the Day 15 shape.
+changes to the Day 29 shape.
 
-The first is what gets stored. Day 15 accumulated every node at a depth; here only one
+The first is what gets stored. Day 29 accumulated every node at a depth; here only one
 node per depth is wanted, so the append is guarded: `if len(arr) == level`. Since `arr`
 holds one entry per level filled so far, `len(arr)` is the next level that hasn't been
 recorded yet. The condition therefore means "this is the first node I've reached at this

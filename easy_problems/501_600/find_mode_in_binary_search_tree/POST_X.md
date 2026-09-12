@@ -1,4 +1,4 @@
-Day 29/365 · Find Mode in Binary Search Tree (Easy)
+Day 46/365 · Find Mode in Binary Search Tree (Easy)
 
 The BST label is a red herring. A mode is a frequency question — tally into a map, read off the winners.
 

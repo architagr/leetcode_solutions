@@ -1,4 +1,4 @@
-Day 51/365 · Deepest Leaves Sum (Medium)
+Day 34/365 · Deepest Leaves Sum (Medium)
 
 The obvious answer is two passes: find the depth, then sum at it.
 

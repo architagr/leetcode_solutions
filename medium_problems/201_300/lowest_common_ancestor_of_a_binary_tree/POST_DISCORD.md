@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 28/365**
+**365 Days of LeetCode Challenge — Day 49/365**
 **Lowest Common Ancestor of a Binary Tree** (Medium)
 🔗 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 

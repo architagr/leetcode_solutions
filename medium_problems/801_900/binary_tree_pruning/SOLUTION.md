@@ -63,7 +63,7 @@ children are `0` and `1`. Expected output `[1,null,0,null,1]`.
 
 7. **A note on the shape.** This returns a boolean and mutates the tree as a side effect.
    The more common formulation returns `*TreeNode` and has the caller reassign —
-   `root.Left = prune(root.Left)` — which is what Day 39 used for deletion. Both work, and
+   `root.Left = prune(root.Left)` — which is what Day 56 used for deletion. Both work, and
    the reassigning version needs no wrapper, because returning nil for the root handles the
    whole-tree case naturally.
 

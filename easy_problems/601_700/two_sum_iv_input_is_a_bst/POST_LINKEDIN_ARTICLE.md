@@ -3,7 +3,7 @@ meta_title: "Two Sum on a tree: store the complement, not the value"
 meta_description: "Strip the BST label and this is classic Two Sum. Store each node's complement rather than its value and every later node checks itself in one lookup."
 ---
 
-## 365 Days of LeetCode Challenge — Day 37/365
+## 365 Days of LeetCode Challenge — Day 51/365
 
 # Two Sum IV - Input is a BST
 

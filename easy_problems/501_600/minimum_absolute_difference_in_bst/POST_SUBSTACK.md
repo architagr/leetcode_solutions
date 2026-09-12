@@ -6,7 +6,7 @@ tags: [golang, binary-search-tree, in-order, recursion, leetcode]
 
 # Minimum Absolute Difference in BST
 
-*365 Days of LeetCode Challenge — Day 30/365*
+*365 Days of LeetCode Challenge — Day 47/365*
 
 🔗 [LeetCode #530](https://leetcode.com/problems/minimum-absolute-difference-in-bst/) · Difficulty: Easy
 

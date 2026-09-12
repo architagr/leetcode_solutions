@@ -6,11 +6,11 @@ tags: [golang, binary-search-tree, in-order, recursion, leetcode]
 
 # Minimum Distance Between BST Nodes
 
-*365 Days of LeetCode Challenge — Day 31/365*
+*365 Days of LeetCode Challenge — Day 50/365*
 
 🔗 [LeetCode #783](https://leetcode.com/problems/minimum-distance-between-bst-nodes/) · Difficulty: Easy
 
-This is Day 30's problem again. LeetCode carries it under two numbers — 530 and 783 — with the
+This is Day 47's problem again. LeetCode carries it under two numbers — 530 and 783 — with the
 same constraints and the same answer.
 
 Rather than skip it, it's worth doing deliberately, because a repeat is the cheapest possible

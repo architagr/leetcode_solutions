@@ -1,8 +1,8 @@
-**365 Days of LeetCode Challenge — Day 51/365**
+**365 Days of LeetCode Challenge — Day 34/365**
 **Deepest Leaves Sum** (Medium)
 🔗 https://leetcode.com/problems/deepest-leaves-sum/
 
-The obvious solution is two passes: find the maximum depth, then walk again summing everything at that depth. Both halves already exist in this batch — Day 1 for the depth, Day 14 for the accumulation.
+The obvious solution is two passes: find the maximum depth, then walk again summing everything at that depth. Both halves already exist in this batch — Day 1 for the depth, Day 27 for the accumulation.
 
 One pass is enough, and the trick is being willing to throw work away.
 

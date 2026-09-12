@@ -8,7 +8,7 @@ here carries a fourth field, `Next`, which is what the problem asks to populate.
 We'll trace `[1,2,3,4,5,6,7]` — a perfect tree of three levels. Expected result: each level
 threaded left to right, with the rightmost node of each level pointing at nil.
 
-1. **Nil-sentinel BFS, as in Day 16.** `push(root)` then `push(nil)`; popping the sentinel
+1. **Nil-sentinel BFS, as in Day 30.** `push(root)` then `push(nil)`; popping the sentinel
    means a level just drained, and a fresh one is pushed if the queue still holds nodes.
 
 2. **Children are pushed right before left.**
@@ -59,7 +59,7 @@ threaded left to right, with the rightmost node of each level pointing at nil.
 
 6. **The re-push guard, again.** `if len(queue) > 0 { push(nil) }` — without it the final
    sentinel would be re-added to an empty queue and the loop would spin forever. Same guard
-   as Day 16 and Day 20.
+   as Day 30 and Day 33.
 
 7. **What this solution deliberately doesn't use.** The tree is guaranteed perfect, and
    nothing here depends on that. A perfect tree admits the well-known O(1)-space answer:

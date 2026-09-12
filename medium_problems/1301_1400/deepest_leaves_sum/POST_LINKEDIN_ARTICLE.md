@@ -3,7 +3,7 @@ meta_title: "One pass, if you are willing to throw work away"
 meta_description: "Finding the deepest level and summing it looks like two passes. A leaf deeper than any seen so far resets the sum instead of adding to it, so one suffices."
 ---
 
-## 365 Days of LeetCode Challenge — Day 51/365
+## 365 Days of LeetCode Challenge — Day 34/365
 
 # Deepest Leaves Sum
 
@@ -35,7 +35,7 @@ Whatever survives to the end was accumulated at the true maximum depth.
 ### Builds on
 
 - [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — finding the deepest level, which the two-pass version would do first and this one discovers as it goes
-- [Day 14: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — accumulating a number per level during a depth-first walk
+- [Day 27: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — accumulating a number per level during a depth-first walk
 
 ### The solution
 

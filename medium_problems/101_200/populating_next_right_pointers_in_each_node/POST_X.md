@@ -1,4 +1,4 @@
-Day 50/365 · Populating Next Right Pointers (Medium)
+Day 35/365 · Populating Next Right Pointers (Medium)
 
 Push right before left, so BFS walks each level backwards.
 

@@ -3,7 +3,7 @@ meta_title: "Max Path Sum: every node computes two different things"
 meta_description: "As the top of a path a node uses both children; as a link in an ancestor's path, one. Only one can be the return value, and picking wrong is the bug."
 ---
 
-## 365 Days of LeetCode Challenge — Day 25/365
+## 365 Days of LeetCode Challenge — Day 18/365
 
 # Binary Tree Maximum Path Sum
 
@@ -46,7 +46,7 @@ don't."
 
 ### Builds on
 
-- [Day 21: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the identical shape. There, each node returned a height upward while recording left + right as a candidate answer. Swap "height" for "path sum" and you have this problem
+- [Day 13: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the identical shape. There, each node returned a height upward while recording left + right as a candidate answer. Swap "height" for "path sum" and you have this problem
 
 ### The solution
 

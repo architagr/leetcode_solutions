@@ -3,7 +3,7 @@ meta_title: "Univalued trees: compare to the parent, not the root"
 meta_description: "If every parent-child edge matches, transitivity makes the whole tree match. No node needs to be told what the root's value was."
 ---
 
-## 365 Days of LeetCode Challenge — Day 17/365
+## 365 Days of LeetCode Challenge — Day 65/365
 
 # Univalued Binary Tree
 

@@ -1,4 +1,4 @@
-Day 30/365 · Minimum Absolute Difference in BST (Easy)
+Day 47/365 · Minimum Absolute Difference in BST (Easy)
 
 In-order on a BST gives sorted values. In sorted order the smallest gap is always between neighbours.
 

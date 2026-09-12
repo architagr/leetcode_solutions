@@ -3,7 +3,7 @@ meta_title: "Reverse the walk and two special cases disappear"
 meta_description: "Pushing children right before left makes BFS run each level backwards, so the node to your right is the one you just visited. The assignment is trivial."
 ---
 
-## 365 Days of LeetCode Challenge — Day 50/365
+## 365 Days of LeetCode Challenge — Day 35/365
 
 # Populating Next Right Pointers in Each Node
 
@@ -20,7 +20,7 @@ its right on the same level. The rightmost node of each level points at nil.
 
 Every node needs a pointer to the node on its right at the same level, and the rightmost
 node of each level needs nil. "Same level" makes it a BFS problem, and knowing where a
-level ends makes it the nil-sentinel BFS from Day 16.
+level ends makes it the nil-sentinel BFS from Day 30.
 
 The obvious way to write it is to walk each level left to right, remembering the previous
 node, and set `prev.Next = current`. That works.
@@ -40,8 +40,8 @@ applied at a boundary.
 
 ### Builds on
 
-- [Day 16: Binary Tree Zigzag Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_zigzag_level_order_traversal/) — the nil sentinel in the queue, marking where one level stops and the next begins
-- [Day 15: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — level order as the underlying shape
+- [Day 30: Binary Tree Zigzag Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_zigzag_level_order_traversal/) — the nil sentinel in the queue, marking where one level stops and the next begins
+- [Day 29: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — level order as the underlying shape
 
 ### The solution
 

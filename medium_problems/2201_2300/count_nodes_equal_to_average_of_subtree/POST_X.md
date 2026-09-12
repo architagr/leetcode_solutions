@@ -1,4 +1,4 @@
-Day 23/365 · Count Nodes Equal to Average of Subtree (Medium)
+Day 15/365 · Count Nodes Equal to Average of Subtree (Medium)
 
 A node can't decide anything on the way down — nothing beneath it has reported yet.
 

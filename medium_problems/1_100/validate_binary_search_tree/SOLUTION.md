@@ -71,4 +71,4 @@ We'll trace `[5,1,4,null,null,3,6]` — the invalid example. Root `5` with child
 **Complexity:** O(n) time — one traversal plus one linear scan. Space is O(n) for the
 collected slice plus O(h) for the recursion stack. The standard improvement is to compare
 each value against the previously visited one during the traversal rather than
-materialising the slice, dropping space to O(h); Day 30 already does exactly that.
+materialising the slice, dropping space to O(h); Day 47 already does exactly that.

@@ -6,7 +6,7 @@ tags: [golang, binary-tree, hashmap, traversal, leetcode]
 
 # Find Mode in Binary Search Tree
 
-*365 Days of LeetCode Challenge — Day 29/365*
+*365 Days of LeetCode Challenge — Day 46/365*
 
 🔗 [LeetCode #501](https://leetcode.com/problems/find-mode-in-binary-search-tree/) · Difficulty: Easy
 

@@ -6,7 +6,7 @@ tags: [golang, heap, priority-queue, streaming, leetcode]
 
 # Kth Largest Element in a Stream
 
-*365 Days of LeetCode Challenge — Day 38/365*
+*365 Days of LeetCode Challenge — Day 75/365*
 
 🔗 [LeetCode #703](https://leetcode.com/problems/kth-largest-element-in-a-stream/) · Difficulty: Easy
 

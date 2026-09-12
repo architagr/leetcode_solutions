@@ -3,7 +3,7 @@ meta_title: "Subtree of Another Tree is Same Tree, tried everywhere"
 meta_description: "Two problems stacked: are two trees identical, and does any node in the big tree answer yes to that. Seeing the split is most of the work."
 ---
 
-## 365 Days of LeetCode Challenge — Day 42/365
+## 365 Days of LeetCode Challenge — Day 68/365
 
 # Subtree of Another Tree
 

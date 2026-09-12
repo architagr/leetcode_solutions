@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, dsa, leetcode]
 
 # Univalued Binary Tree
 
-*365 Days of LeetCode Challenge — Day 17/365*
+*365 Days of LeetCode Challenge — Day 65/365*
 
 🔗 [LeetCode #965](https://leetcode.com/problems/univalued-binary-tree/) · Difficulty: Easy
 

@@ -1,4 +1,4 @@
-Day 43/365 · Evaluate Boolean Binary Tree (Easy)
+Day 69/365 · Evaluate Boolean Binary Tree (Easy)
 
 The tree doesn't hold an expression — it IS one. Leaves are literals, internal nodes operators.
 

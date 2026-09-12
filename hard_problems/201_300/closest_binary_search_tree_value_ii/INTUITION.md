@@ -8,7 +8,7 @@ batch has now used five times. Yesterday's iterator did exactly that flattening.
 
 ## Builds on
 
-- [Day 33: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — flattening a BST in-order into a slice, which is the first half of this solution verbatim
+- [Day 55: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — flattening a BST in-order into a slice, which is the first half of this solution verbatim
 
 Now the claim: **in a sorted array, the k values closest to a target are always
 contiguous.**

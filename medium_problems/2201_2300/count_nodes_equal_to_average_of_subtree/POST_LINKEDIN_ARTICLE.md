@@ -3,13 +3,13 @@ meta_title: "Return a pair, not a number, and one pass is enough"
 meta_description: "A node decides nothing on the way down. Coming back up both children have reported, so returning sum and count together makes it a single pass."
 ---
 
-# 365 Days of LeetCode Challenge — Day 23/365
+# 365 Days of LeetCode Challenge — Day 15/365
 
 ## Count Nodes Equal to Average of Subtree
 
 [LeetCode #2265](https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/) · Medium
 
-![Day 23](HERO.png)
+![Day 15](HERO.png)
 
 Given the root of a binary tree, count the nodes whose value equals the average of their own subtree, rounded down.
 

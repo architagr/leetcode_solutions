@@ -6,7 +6,7 @@ tags: [golang, binary-search-tree, hashmap, two-pointers, leetcode]
 
 # Two Sum IV - Input is a BST
 
-*365 Days of LeetCode Challenge — Day 37/365*
+*365 Days of LeetCode Challenge — Day 51/365*
 
 🔗 [LeetCode #653](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/) · Difficulty: Easy
 

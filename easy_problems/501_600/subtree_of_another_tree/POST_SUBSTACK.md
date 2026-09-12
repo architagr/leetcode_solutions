@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, dfs, leetcode]
 
 # Subtree of Another Tree
 
-*365 Days of LeetCode Challenge — Day 42/365*
+*365 Days of LeetCode Challenge — Day 68/365*
 
 🔗 [LeetCode #572](https://leetcode.com/problems/subtree-of-another-tree/) · Difficulty: Easy
 

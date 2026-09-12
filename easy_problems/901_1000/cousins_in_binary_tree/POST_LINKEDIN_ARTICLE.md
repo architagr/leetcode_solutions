@@ -3,7 +3,7 @@ meta_title: "Finding cousins without parent pointers"
 meta_description: "Same depth, different parents. A binary tree has no parent pointers, but unique node values mean a parent's value works perfectly well as its identity."
 ---
 
-## 365 Days of LeetCode Challenge — Day 18/365
+## 365 Days of LeetCode Challenge — Day 28/365
 
 # Cousins in Binary Tree
 

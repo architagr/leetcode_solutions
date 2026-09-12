@@ -1,4 +1,4 @@
-Day 44/365 · Binary Tree Pruning (Medium)
+Day 71/365 · Binary Tree Pruning (Medium)
 
 The bit people get wrong isn't the condition, it's who does the deleting.
 

@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 18/365**
+**365 Days of LeetCode Challenge — Day 28/365**
 **Cousins in Binary Tree** (Easy)
 🔗 https://leetcode.com/problems/cousins-in-binary-tree/
 

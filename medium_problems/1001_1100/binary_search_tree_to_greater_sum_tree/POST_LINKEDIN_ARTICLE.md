@@ -3,13 +3,13 @@ meta_title: "Walk the BST backwards and there is nothing to search"
 meta_description: "Every node becomes itself plus every greater key. Traverse right, node, left and the greater keys are already visited, so a running sum replaces it."
 ---
 
-# 365 Days of LeetCode Challenge — Day 36/365
+# 365 Days of LeetCode Challenge — Day 54/365
 
 ## Binary Search Tree to Greater Sum Tree
 
 [LeetCode #1038](https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/) · Medium
 
-![Day 36](HERO.png)
+![Day 54](HERO.png)
 
 Given the root of a BST, convert it so that every key becomes the original key plus the sum of all keys greater than it.
 

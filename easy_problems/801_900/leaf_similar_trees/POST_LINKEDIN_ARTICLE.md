@@ -3,7 +3,7 @@ meta_title: "Leaf-similar trees: compare sequences, not shapes"
 meta_description: "The question is only whether two leaf sequences match left to right. Shape is irrelevant, and a left-before-right DFS produces that sequence for free."
 ---
 
-## 365 Days of LeetCode Challenge — Day 46/365
+## 365 Days of LeetCode Challenge — Day 32/365
 
 # Leaf-Similar Trees
 

@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 50/365
+365 Days of LeetCode Challenge — Day 35/365
 
 Populating Next Right Pointers in Each Node (Medium)
 🔗 https://leetcode.com/problems/populating-next-right-pointers-in-each-node/

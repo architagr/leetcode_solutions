@@ -3,7 +3,7 @@ meta_title: "In a BST a comparison is a direction, not a verdict"
 meta_description: "Comparing the target against a node does not just say match or no match. It says which half of the remaining tree the answer could still be hiding in."
 ---
 
-## 365 Days of LeetCode Challenge — Day 26/365
+## 365 Days of LeetCode Challenge — Day 45/365
 
 # Search in a Binary Search Tree
 

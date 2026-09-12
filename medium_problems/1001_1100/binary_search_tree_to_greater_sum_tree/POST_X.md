@@ -1,4 +1,4 @@
-Day 36/365 · Binary Search Tree to Greater Sum Tree (Medium)
+Day 54/365 · Binary Search Tree to Greater Sum Tree (Medium)
 
 Read literally it's O(n²): per node, go find everything bigger.
 

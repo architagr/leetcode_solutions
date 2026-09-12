@@ -6,7 +6,7 @@ tags: [golang, binary-tree, dfs, recursion, leetcode]
 
 # Leaf-Similar Trees
 
-*365 Days of LeetCode Challenge — Day 46/365*
+*365 Days of LeetCode Challenge — Day 32/365*
 
 🔗 [LeetCode #872](https://leetcode.com/problems/leaf-similar-trees/) · Difficulty: Easy
 

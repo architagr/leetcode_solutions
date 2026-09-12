@@ -3,7 +3,7 @@ meta_title: "Merging trees: the interesting case is the missing one"
 meta_description: "Adding two values is trivial. The real decision is what happens when one side is nil, and the answer is to hand back the other subtree whole."
 ---
 
-## 365 Days of LeetCode Challenge — Day 40/365
+## 365 Days of LeetCode Challenge — Day 66/365
 
 # Merge Two Binary Trees
 

@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 15/365
+365 Days of LeetCode Challenge — Day 29/365
 
 Binary Tree Level Order Traversal (Medium)
 🔗 https://leetcode.com/problems/binary-tree-level-order-traversal/

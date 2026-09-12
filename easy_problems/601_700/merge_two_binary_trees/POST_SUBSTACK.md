@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, leetcode]
 
 # Merge Two Binary Trees
 
-*365 Days of LeetCode Challenge — Day 40/365*
+*365 Days of LeetCode Challenge — Day 66/365*
 
 🔗 [LeetCode #617](https://leetcode.com/problems/merge-two-binary-trees/) · Difficulty: Easy
 

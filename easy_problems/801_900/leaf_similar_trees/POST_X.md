@@ -1,4 +1,4 @@
-Day 46/365 · Leaf-Similar Trees (Easy)
+Day 32/365 · Leaf-Similar Trees (Easy)
 
 Shape doesn't matter here at all — only the leaves, read left to right.
 

@@ -3,7 +3,7 @@ meta_title: "Level order without BFS: index the accumulator by depth"
 meta_description: "A DFS arrives at nodes branch by branch, in an order with nothing to do with levels. It still groups them correctly, because the slot is chosen by depth."
 ---
 
-## 365 Days of LeetCode Challenge — Day 15/365
+## 365 Days of LeetCode Challenge — Day 29/365
 
 # Binary Tree Level Order Traversal
 
@@ -42,7 +42,7 @@ given depth — BFS would be the better shape.
 
 ### Builds on
 
-- [Day 14: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — the same idea, that a DFS can answer a per-level question by keying its accumulator on depth instead of on visit order
+- [Day 27: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — the same idea, that a DFS can answer a per-level question by keying its accumulator on depth instead of on visit order
 
 ### The solution
 

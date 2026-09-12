@@ -3,7 +3,7 @@ meta_title: "Validating a BST without threading any bounds down"
 meta_description: "In-order traversal is sorted if and only if the tree is a BST. A violating node lands in the wrong slot, so one linear scan catches it with no bounds."
 ---
 
-## 365 Days of LeetCode Challenge — Day 32/365
+## 365 Days of LeetCode Challenge — Day 52/365
 
 # Validate Binary Search Tree
 
@@ -41,8 +41,8 @@ greater, so duplicates are invalid, which is why the check is `>=` rather than `
 
 ### Builds on
 
-- [Day 30: Minimum Absolute Difference in BST](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/minimum_absolute_difference_in_bst/) — in-order traversal of a BST yields values in sorted order, which that problem relied on to compare only adjacent values
-- [Day 29: Find Mode in Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/) — the same property, noted there as the follow-up's constant-space route
+- [Day 47: Minimum Absolute Difference in BST](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/minimum_absolute_difference_in_bst/) — in-order traversal of a BST yields values in sorted order, which that problem relied on to compare only adjacent values
+- [Day 46: Find Mode in Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/) — the same property, noted there as the follow-up's constant-space route
 
 ### The solution
 
@@ -97,7 +97,7 @@ on a skewed tree. It's there as the contrast rather than as the answer.
 O(n) time, one traversal plus one linear scan. Space is O(n) for the collected slice plus
 O(h) for the recursion stack. The standard improvement is comparing each value against the
 previously visited one during the traversal rather than materialising the slice, dropping
-space to O(h) — which is exactly what Day 30 already does, so the pieces are on the shelf.
+space to O(h) — which is exactly what Day 47 already does, so the pieces are on the shelf.
 
 Full code and the step-by-step walkthrough:
 [validate_binary_search_tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/1_100/validate_binary_search_tree/SOLUTION.md)

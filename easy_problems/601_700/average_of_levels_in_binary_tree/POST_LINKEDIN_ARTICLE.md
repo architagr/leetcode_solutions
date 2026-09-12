@@ -3,7 +3,7 @@ meta_title: "Level averages without BFS: index by depth"
 meta_description: "DFS does not visit a tree level by level, and it does not need to. Key the running sum and count by depth and the visit order stops mattering."
 ---
 
-## 365 Days of LeetCode Challenge — Day 14/365
+## 365 Days of LeetCode Challenge — Day 27/365
 
 # Average of Levels in Binary Tree
 

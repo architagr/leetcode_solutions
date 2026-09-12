@@ -6,7 +6,7 @@ tags: [golang, binary-search-tree, data-structures, in-order, leetcode]
 
 # Binary Search Tree Iterator
 
-*365 Days of LeetCode Challenge — Day 33/365*
+*365 Days of LeetCode Challenge — Day 55/365*
 
 🔗 [LeetCode #173](https://leetcode.com/problems/binary-search-tree-iterator/) · Difficulty: Medium
 
@@ -53,8 +53,8 @@ true.
 
 ### Builds on
 
-- [Day 30: Minimum Absolute Difference in BST](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/minimum_absolute_difference_in_bst/) — in-order on a BST yields sorted values, which is exactly the sequence this iterator has to produce
-- [Day 29: Find Mode in Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/) — the same property again, with the same choice to collect first and compute afterwards
+- [Day 47: Minimum Absolute Difference in BST](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/minimum_absolute_difference_in_bst/) — in-order on a BST yields sorted values, which is exactly the sequence this iterator has to produce
+- [Day 46: Find Mode in Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/find_mode_in_binary_search_tree/) — the same property again, with the same choice to collect first and compute afterwards
 
 ### The solution
 

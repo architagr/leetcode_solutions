@@ -48,7 +48,7 @@ children `15` and `7`. Expected output `[[9],[3,15],[20],[7]]`.
    A depth-first walk would break this. It would drive one branch to the bottom before
    touching the other, so a deep node from the left subtree could be appended to a column
    before a shallower node from the right subtree that belongs above it. Same grouping,
-   wrong order within it — which is exactly the difference from Day 15, where order within
+   wrong order within it — which is exactly the difference from Day 29, where order within
    a group never depended on arrival.
 
 5. **Assembly walks the columns in order.**

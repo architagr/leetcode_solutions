@@ -11,7 +11,7 @@ combines their answers with its own value.
 ## Builds on
 
 - [Day 9: Binary Tree Postorder Traversal](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_postorder_traversal/) — the children-before-parent order that makes a bottom-up answer possible
-- [Day 43: Evaluate Boolean Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/) — the same shape, where each node returned a boolean built from its children's booleans
+- [Day 69: Evaluate Boolean Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/) — the same shape, where each node returned a boolean built from its children's booleans
 
 The part that's easy to get wrong is *who does the deleting*. A node can't remove itself —
 it has no reference to its own parent, and nulling a local variable changes nothing the
@@ -38,7 +38,7 @@ The nil base case returning `false` is the other quiet piece. An absent subtree 
 
 One stylistic note: this returns a boolean and mutates the tree as a side effect. The more
 common formulation returns `*TreeNode` and has the caller reassign — `root.Left =
-prune(root.Left)` — which is the shape Day 39 used for deletion. Both work. The reassigning
+prune(root.Left)` — which is the shape Day 56 used for deletion. Both work. The reassigning
 version needs no wrapper, since returning nil for the root handles the whole-tree case
 naturally.
 
