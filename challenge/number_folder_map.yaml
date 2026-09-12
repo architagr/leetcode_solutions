@@ -9,7 +9,7 @@ map:
     163: easy_problems/101_200/missing_ranges
     168: easy_problems/101_200/excel_sheet_column_title
     209: medium_problems/201_300/minimum_size_subarray_sum
-    222: easy_problems/201_300/count_complete_tree_nodes
+    222: medium_problems/201_300/count_complete_tree_nodes
     257: easy_problems/201_300/binary_tree_path
     293: easy_problems/201_300/flip_game
     359: easy_problems/301_400/logger_rate_limiter
@@ -18,7 +18,7 @@ map:
     413: medium_problems/401_500/arithmetic_slices
     415: easy_problems/401_500/add_strings
     496: easy_problems/401_500/next_greater_element_i
-    501: easy_problems/501_600/find_mode_in_binary_sarch_tree
+    501: easy_problems/501_600/find_mode_in_binary_search_tree
     530: easy_problems/501_600/minimum_absolute_difference_in_bst
     563: easy_problems/501_600/binary_tree_tilt
     567: medium_problems/501_600/permutation_in_string
@@ -33,10 +33,10 @@ map:
     841: medium_problems/801_900/keys_and_rooms
     872: easy_problems/801_900/leaf_similar_trees
     894: hard_problems/801_900/sum_of_distances_in_tree
-    897: easy_problems/801_900/increase_order_search_tree
+    897: easy_problems/801_900/increasing_order_search_tree
     965: easy_problems/901_1000/univalued_binary_tree
-    993: easy_problems/901_1000/cousions_in_binary_tree
-    1008: medium_problems/1001_1100/construct_binary_serch_tree_from_preorder_traversal
+    993: easy_problems/901_1000/cousins_in_binary_tree
+    1008: medium_problems/1001_1100/construct_binary_search_tree_from_preorder_traversal
     1022: easy_problems/1001_1100/sum_of_root_to_leaf_binary_numbers
     1031: medium_problems/1001_1100/maximum_sum_of_two_non_overlapping_subarrays
     1038: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
@@ -48,7 +48,7 @@ map:
     1315: medium_problems/1301_1400/sum_of_nodes_with_even_valued_grandparent
     1343: medium_problems/1301_1400/number_of_sub_arrays_of_size_k_and_average_greater_than_or_equal_to_threshold
     1358: medium_problems/1301_1400/number_of_substrings_containing_all_three_characters
-    1379: easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_clone
+    1379: easy_problems/1301_1400/find_a_corresponding_node_of_a_binary_tree_in_a_clone_of_that_tree
     1423: medium_problems/1401_1500/maximum_points_you_can_obtain_from_cards
     1486: easy_problems/1401_1500/xor_operation_in_an_array
     1651: easy_problems/1601_1700/defuse_the_bomb
@@ -82,9 +82,9 @@ map:
     3136: easy_problems/3101_3200/valid_word
     3163: medium_problems/3101_3200/string_compression_iii
     3191: medium_problems/3101_3200/minimum_operations_to_make_binary_array_elements_equal_to_one_i
-    3208: google_questions/array_strings/alternating_group_ii
+    3208: medium_problems/3201_3300/alternating_groups_ii
     3254: medium_problems/3201_3300/find_the_power_of_k_size_subarrays_i
     3258: easy_problems/3201_3300/count_substrings_that_satisfy_k_constraint_i
     3306: medium_problems/3301_3400/count_of_substrings_containing_every_vowel_and_k_consonants_ii
     3325: medium_problems/3301_3400/count_substrings_with_k_frequency_characters_i
-    3652: medium_problems/3601_3700/best_time_to_buy_and_sell_stock_using_statergy
+    3652: medium_problems/3601_3700/best_time_to_buy_and_sell_stock_using_strategy
