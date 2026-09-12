@@ -305,7 +305,7 @@ entries:
       difficulty: easy
       folder: easy_problems/801_900/middle_of_the_linked_list
       batch: linked list
-      status: pending_content
+      status: content_ready
       posted_at:
         discord: null
         linkedin_company_page: null
