@@ -917,7 +917,7 @@ entries:
       difficulty: easy
       folder: easy_problems/1_100/valid_parentheses
       batch: stack
-      status: pending_content
+      status: content_ready
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -931,7 +931,7 @@ entries:
       difficulty: easy
       folder: easy_problems/401_500/next_greater_element_i
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 20
       posted_at:
@@ -947,7 +947,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/min_stack
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 20
       posted_at:
@@ -963,7 +963,7 @@ entries:
       difficulty: medium
       folder: medium_problems/701_800/daily_temperatures
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 496
       posted_at:
@@ -979,7 +979,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/evaluate_reverse_polish_notation
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 20
       posted_at:
@@ -995,7 +995,7 @@ entries:
       difficulty: medium
       folder: medium_problems/301_400/flatten_nested_list_iterator
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 173
       posted_at:
@@ -1011,7 +1011,7 @@ entries:
       difficulty: medium
       folder: medium_problems/601_700/exclusive_time_of_functions
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 155
       posted_at:

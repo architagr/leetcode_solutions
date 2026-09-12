@@ -1,25 +1,30 @@
 package nextgreaterelementi
 
 func nextGreaterElement(nums1 []int, nums2 []int) []int {
-	next := make(map[int]int)
+	// next[v] is the first value to the right of v in nums2 that beats it.
+	next := make(map[int]int, len(nums2))
 
-	// set the last item with next = -1
-	next[nums2[len(nums2)-1]] = -1
+	// The stack holds values still waiting for something bigger, and it stays
+	// decreasing from bottom to top: anything smaller than the incoming value
+	// has just found its answer and leaves.
+	stack := make([]int, 0, len(nums2))
 
-	// backward loop for get the next greater
-	// element for each item in nums2
-	for i := len(nums2) - 2; i >= 0; i-- {
-		elNext := nums2[i+1]
-		for elNext != -1 && elNext < nums2[i] {
-			elNext = next[elNext]
+	for _, v := range nums2 {
+		for len(stack) > 0 && stack[len(stack)-1] < v {
+			next[stack[len(stack)-1]] = v
+			stack = stack[:len(stack)-1]
 		}
-		next[nums2[i]] = elNext
+		stack = append(stack, v)
 	}
 
-	// Fill the nums1 array with the next greater elements
+	// Whatever is still waiting never found anything bigger.
+	for _, v := range stack {
+		next[v] = -1
+	}
+
+	result := make([]int, len(nums1))
 	for i, num := range nums1 {
-		nums1[i] = next[num]
+		result[i] = next[num]
 	}
-
-	return nums1
+	return result
 }

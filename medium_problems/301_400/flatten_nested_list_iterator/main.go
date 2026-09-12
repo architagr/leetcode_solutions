@@ -1,37 +1,61 @@
 package flattennestedlistiterator
 
+// frame is one list being walked, plus how far into it we are. The stack of
+// frames is the iterator's whole memory - it is the path from the outermost
+// list down to wherever the cursor currently sits.
+type frame struct {
+	list []*NestedInteger
+	i    int
+}
+
 type NestedIterator struct {
-	originalList []*NestedInteger
-	list         []int
-	index        int
+	stack []*frame
 }
 
+// Constructor does no work beyond wrapping the outer list. Nothing is walked
+// and nothing is flattened, so construction is O(1) however deep or large the
+// structure is.
 func Constructor(nestedList []*NestedInteger) *NestedIterator {
-	obj := &NestedIterator{
-		originalList: nestedList,
-		index:        0,
-	}
-	obj.flattenList(nestedList)
-	return obj
+	return &NestedIterator{stack: []*frame{{list: nestedList}}}
 }
 
-func (this *NestedIterator) flattenList(list []*NestedInteger) {
-	for _, item := range list {
-		if item.IsInteger() {
-			this.list = append(this.list, item.GetInteger())
-		} else {
-			this.flattenList(item.GetList())
-		}
-	}
-}
-
-func (this *NestedIterator) Next() int {
-	defer func() {
-		this.index++
-	}()
-	return this.list[this.index]
-}
-
+// HasNext does the advancing, which is what makes this lazy: it moves the
+// stack forward only until the cursor is sitting on an integer, then stops.
+//
+// Three cases, and the loop keeps going until one of them settles it:
+// a finished list is popped, a nested list is descended into, and an integer
+// means there is something to return.
 func (this *NestedIterator) HasNext() bool {
-	return this.index < len(this.list)
+	for len(this.stack) > 0 {
+		top := this.stack[len(this.stack)-1]
+
+		if top.i == len(top.list) {
+			this.stack = this.stack[:len(this.stack)-1]
+			continue
+		}
+
+		item := top.list[top.i]
+		if item.IsInteger() {
+			return true
+		}
+
+		// Step past the nested list in the parent before descending, so the
+		// parent resumes after it rather than re-entering it forever.
+		top.i++
+		this.stack = append(this.stack, &frame{list: item.GetList()})
+	}
+	return false
+}
+
+// Next positions the cursor itself rather than assuming HasNext was just
+// called. The problem only promises that a value exists when Next is called,
+// not that the caller asked first, and HasNext is idempotent and cheap once
+// the cursor is already on an integer - so paying for it here costs nothing
+// and removes the ordering requirement between the two methods.
+func (this *NestedIterator) Next() int {
+	this.HasNext()
+	top := this.stack[len(this.stack)-1]
+	v := top.list[top.i].GetInteger()
+	top.i++
+	return v
 }
