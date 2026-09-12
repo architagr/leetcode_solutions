@@ -1,4 +1,4 @@
-Day 48/365 · Second Minimum Node In a Binary Tree (Easy)
+Day 70/365 · Second Minimum Node In a Binary Tree (Easy)
 
 The constraint does half the work: every parent is min(its children).
 

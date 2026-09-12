@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, dfs, leetcode]
 
 # Diameter of Binary Tree
 
-*365 Days of LeetCode Challenge — Day 21/365*
+*365 Days of LeetCode Challenge — Day 13/365*
 
 🔗 [LeetCode #543](https://leetcode.com/problems/diameter-of-binary-tree/) · Difficulty: Easy
 
@@ -141,7 +141,7 @@ height is `1`.
 ---
 
 Full breakdown, code, and images for every day of this challenge live in this
-repo. See you tomorrow for Day 13.
+repo. See you tomorrow for Day 14.
 
 ---
 

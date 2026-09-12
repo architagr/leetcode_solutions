@@ -8,7 +8,7 @@ The implementation is `deleteNode(root *TreeNode, key int) *TreeNode` with `succ
 We'll trace `root = [5,3,6,2,4,null,7]`, `key = 3`. Root `5` with children `3` and `6`; `3`
 has children `2` and `4`; `6` has a right child `7`.
 
-1. **The search half is Day 26's walk.**
+1. **The search half is Day 45's walk.**
 
    ```go
    if key > root.Val {
@@ -36,7 +36,7 @@ has children `2` and `4`; `6` has a right child `7`.
 
    ![Step 2: 3 has two children](images/walkthrough-2.png)
 
-   That follows from the property Day 32 used. If the in-order sequence must stay sorted,
+   That follows from the property Day 52 used. If the in-order sequence must stay sorted,
    whatever fills the hole has to sit between everything in the left subtree and everything
    in the right. The only candidates are the largest value on the left and the smallest on
    the right.

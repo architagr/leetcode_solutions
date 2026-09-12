@@ -1,4 +1,4 @@
-Day 21/365 · Diameter of Binary Tree (Easy)
+Day 13/365 · Diameter of Binary Tree (Easy)
 
 The longest path needn't pass through the root — that's the trap.
 

@@ -1,8 +1,8 @@
-**365 Days of LeetCode Challenge — Day 15/365**
+**365 Days of LeetCode Challenge — Day 29/365**
 **Binary Tree Level Order Traversal** (Medium)
 🔗 https://leetcode.com/problems/binary-tree-level-order-traversal/
 
-"Level order" is the textbook use for BFS. This solution doesn't use one — it's a plain DFS that produces level-ordered output anyway, for the same reason Day 14 worked.
+"Level order" is the textbook use for BFS. This solution doesn't use one — it's a plain DFS that produces level-ordered output anyway, for the same reason Day 27 worked.
 
 A DFS arrives at nodes branch by branch, in an order with nothing to do with levels. That doesn't matter, because the grouping isn't decided by arrival. Each call carries its own depth, and every node appends into `arr[level]` — the slot for its own depth. Descending into Left before Right is what makes each level read left to right.
 

@@ -1,4 +1,4 @@
-Day 32/365 · Validate Binary Search Tree (Medium)
+Day 52/365 · Validate Binary Search Tree (Medium)
 
 Checking a node against its two children is the classic wrong answer — a BST constrains a node against every ancestor.
 

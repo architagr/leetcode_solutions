@@ -3,7 +3,7 @@ meta_title: "You only need the top k, and its weakest member"
 meta_description: "The kth largest of a stream is the smallest of its top k. Keep a min-heap capped at k and every add is a log-k push, not a re-sort."
 ---
 
-# 365 Days of LeetCode Challenge — Day 38/365
+# 365 Days of LeetCode Challenge — Day 75/365
 
 ## Kth Largest Element in a Stream
 

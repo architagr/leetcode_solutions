@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, dfs, leetcode]
 
 # Find a Corresponding Node of a Binary Tree in a Clone of That Tree
 
-*365 Days of LeetCode Challenge — Day 41/365*
+*365 Days of LeetCode Challenge — Day 67/365*
 
 🔗 [LeetCode #1379](https://leetcode.com/problems/find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree/) · Difficulty: Easy
 

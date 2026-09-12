@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, postorder, leetcode]
 
 # Binary Tree Pruning
 
-*365 Days of LeetCode Challenge — Day 44/365*
+*365 Days of LeetCode Challenge — Day 71/365*
 
 🔗 [LeetCode #814](https://leetcode.com/problems/binary-tree-pruning/) · Difficulty: Medium
 
@@ -46,7 +46,7 @@ to nil itself. Without that, a tree of all zeroes would come back intact instead
 ### Builds on
 
 - [Day 9: Binary Tree Postorder Traversal](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_postorder_traversal/) — the children-before-parent order that makes a bottom-up answer possible
-- [Day 43: Evaluate Boolean Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/) — the same shape, where each node returned a boolean built from its children's booleans
+- [Day 69: Evaluate Boolean Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/2301_2400/evaluate_boolean_binary_tree/) — the same shape, where each node returned a boolean built from its children's booleans
 
 ### The solution
 
@@ -100,7 +100,7 @@ independent of the other's.
 
 One note on the shape. This returns a boolean and mutates the tree as a side effect. The
 more common formulation returns `*TreeNode` and has the caller reassign — `root.Left =
-prune(root.Left)` — which is what Day 39 used for deletion. Both work, and the reassigning
+prune(root.Left)` — which is what Day 56 used for deletion. Both work, and the reassigning
 version needs no wrapper, because returning nil for the root handles the whole-tree case
 naturally.
 

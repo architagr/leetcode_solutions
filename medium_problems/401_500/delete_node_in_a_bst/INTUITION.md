@@ -5,15 +5,15 @@ The problem splits itself for you: find the node, then delete it. The first half
 
 ## Builds on
 
-- [Day 26: Search in a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/) — the comparison that picks a direction, which is the whole search half of this problem
-- [Day 32: Validate Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/1_100/validate_binary_search_tree/) — in-order is sorted, which is the property the deletion has to preserve and the reason the successor is the right value to move
+- [Day 45: Search in a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/) — the comparison that picks a direction, which is the whole search half of this problem
+- [Day 52: Validate Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/1_100/validate_binary_search_tree/) — in-order is sorted, which is the property the deletion has to preserve and the reason the successor is the right value to move
 
 The second half is where it gets interesting, because a node with two children can't just
 be unhooked. Something has to take its place, and only two values in the entire tree can:
 its in-order predecessor and its in-order successor — the values immediately before and
 after it in sorted order.
 
-That's the crux, and it follows directly from the property Day 32 used. If in-order must
+That's the crux, and it follows directly from the property Day 52 used. If in-order must
 stay sorted after the deletion, then whatever fills the hole must sit between the deleted
 node's left subtree (all smaller) and its right subtree (all larger). The only two
 candidates are the largest value on the left and the smallest on the right. Anything else

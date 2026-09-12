@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, postorder, leetcode]
 
 # Binary Tree Maximum Path Sum
 
-*365 Days of LeetCode Challenge — Day 25/365*
+*365 Days of LeetCode Challenge — Day 18/365*
 
 🔗 [LeetCode #124](https://leetcode.com/problems/binary-tree-maximum-path-sum/) · Difficulty: Hard
 
@@ -55,7 +55,7 @@ don't."
 
 ### Builds on
 
-- [Day 21: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the identical shape. There, each node returned a height upward while recording left + right as a candidate answer. Swap "height" for "path sum" and you have this problem
+- [Day 13: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the identical shape. There, each node returned a height upward while recording left + right as a candidate answer. Swap "height" for "path sum" and you have this problem
 
 ### The solution
 

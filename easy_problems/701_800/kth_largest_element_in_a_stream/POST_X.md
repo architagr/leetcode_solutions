@@ -1,4 +1,4 @@
-Day 38/365 · Kth Largest Element in a Stream (Easy)
+Day 75/365 · Kth Largest Element in a Stream (Easy)
 
 You never need the full sorted order — only the kth largest, now.
 

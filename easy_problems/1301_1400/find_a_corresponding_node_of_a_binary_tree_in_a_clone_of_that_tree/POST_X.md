@@ -1,4 +1,4 @@
-Day 41/365 · Find a Corresponding Node in a Clone (Easy)
+Day 67/365 · Find a Corresponding Node in a Clone (Easy)
 
 The clone is structurally identical. That guarantee is the whole solution.
 

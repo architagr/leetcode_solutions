@@ -1,4 +1,4 @@
-Day 26/365 · Search in a Binary Search Tree (Easy)
+Day 45/365 · Search in a Binary Search Tree (Easy)
 
 A BST comparison isn't match/no-match. It's a direction.
 

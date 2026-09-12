@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, postorder, leetcode]
 
 # Find Leaves of Binary Tree
 
-*365 Days of LeetCode Challenge — Day 24/365*
+*365 Days of LeetCode Challenge — Day 16/365*
 
 🔗 [LeetCode #366](https://leetcode.com/problems/find-leaves-of-binary-tree/) · Difficulty: Medium
 
@@ -55,7 +55,7 @@ at the front.
 ### Builds on
 
 - [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — the height recursion this is, with the height put to a different use
-- [Day 21: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the same post-order shape, where each call returns a height to its parent and does its own work on the way past
+- [Day 13: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the same post-order shape, where each call returns a height to its parent and does its own work on the way past
 
 ### The solution
 

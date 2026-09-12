@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 44/365**
+**365 Days of LeetCode Challenge — Day 71/365**
 **Binary Tree Pruning** (Medium)
 🔗 https://leetcode.com/problems/binary-tree-pruning/
 

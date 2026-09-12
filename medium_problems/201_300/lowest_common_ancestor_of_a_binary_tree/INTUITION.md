@@ -5,7 +5,7 @@ that guarantee was doing.
 
 ## Builds on
 
-- [Day 27: Lowest Common Ancestor of a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree/) — the same question on a BST, where comparing values told you which way to walk. Take the ordering away and none of that survives
+- [Day 48: Lowest Common Ancestor of a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree/) — the same question on a BST, where comparing values told you which way to walk. Take the ordering away and none of that survives
 
 In a BST, comparing a target against a node told you which subtree it was in, so the walk
 went down one path and never looked at the rest of the tree. Here there is no ordering, so

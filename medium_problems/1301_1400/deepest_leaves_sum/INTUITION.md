@@ -2,12 +2,12 @@
 
 The obvious solution is two passes: find the maximum depth, then walk again adding up
 everything at that depth. Both halves are things this batch has already built — Day 1 for
-the depth, Day 14 for the per-level accumulation.
+the depth, Day 27 for the per-level accumulation.
 
 ## Builds on
 
 - [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — finding the deepest level, which the two-pass version would do first and this one discovers as it goes
-- [Day 14: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — accumulating a number per level during a depth-first walk
+- [Day 27: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — accumulating a number per level during a depth-first walk
 
 One pass is enough, and the trick is being willing to throw work away.
 

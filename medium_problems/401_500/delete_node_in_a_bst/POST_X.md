@@ -1,4 +1,4 @@
-Day 39/365 · Delete Node in a BST (Medium)
+Day 56/365 · Delete Node in a BST (Medium)
 
 An internal node is never actually removed.
 

@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 32/365
+365 Days of LeetCode Challenge — Day 52/365
 
 Validate Binary Search Tree (Medium)
 🔗 https://leetcode.com/problems/validate-binary-search-tree/

@@ -6,7 +6,7 @@ tags: [golang, binary-tree, dfs, recursion, leetcode]
 
 # Average of Levels in Binary Tree
 
-*365 Days of LeetCode Challenge — Day 14/365*
+*365 Days of LeetCode Challenge — Day 27/365*
 
 🔗 [LeetCode #637](https://leetcode.com/problems/average-of-levels-in-binary-tree/) · Difficulty: Easy
 

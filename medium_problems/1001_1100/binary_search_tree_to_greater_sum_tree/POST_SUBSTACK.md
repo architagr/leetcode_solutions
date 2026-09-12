@@ -6,7 +6,7 @@ tags: [golang, binary-search-tree, in-order, recursion, leetcode]
 
 # Binary Search Tree to Greater Sum Tree
 
-*365 Days of LeetCode Challenge — Day 36/365*
+*365 Days of LeetCode Challenge — Day 54/365*
 
 🔗 [LeetCode #1038](https://leetcode.com/problems/binary-search-tree-to-greater-sum-tree/) · Difficulty: Medium
 

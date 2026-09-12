@@ -3,7 +3,7 @@ meta_title: "LCA without the ordering: subtrees have to report upward"
 meta_description: "Take a BST's ordering away and a comparison stops telling you which way to walk. The fix is to count targets per subtree and let the counts flow up."
 ---
 
-## 365 Days of LeetCode Challenge — Day 28/365
+## 365 Days of LeetCode Challenge — Day 49/365
 
 # Lowest Common Ancestor of a Binary Tree
 
@@ -37,7 +37,7 @@ traversal finds first.
 
 ### Builds on
 
-- [Day 27: Lowest Common Ancestor of a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree/) — the same question on a BST, where comparing values told you which way to walk. Take the ordering away and none of that survives
+- [Day 48: Lowest Common Ancestor of a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree/) — the same question on a BST, where comparing values told you which way to walk. Take the ordering away and none of that survives
 
 ### The solution
 

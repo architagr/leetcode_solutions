@@ -1,4 +1,4 @@
-Day 45/365 · Reverse Odd Levels of Binary Tree (Medium)
+Day 72/365 · Reverse Odd Levels of Binary Tree (Medium)
 
 BFS works, but allocates a slice per level and the widest holds half the tree.
 

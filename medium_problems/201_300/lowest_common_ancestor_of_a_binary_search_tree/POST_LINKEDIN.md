@@ -1,10 +1,10 @@
-365 Days of LeetCode Challenge — Day 27/365
+365 Days of LeetCode Challenge — Day 48/365
 
 Lowest Common Ancestor of a Binary Search Tree (Medium)
 🔗 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 
 The general version of this problem needs a search. The BST version doesn't, for the same
-reason Day 26 didn't: a comparison in a BST is a direction, not a verdict.
+reason Day 45 didn't: a comparison in a BST is a direction, not a verdict.
 
 Both targets smaller than the node? The answer is further left. Both larger? Further
 right. Anything else, and this node is the answer.

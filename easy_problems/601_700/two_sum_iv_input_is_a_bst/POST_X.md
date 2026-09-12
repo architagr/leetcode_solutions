@@ -1,4 +1,4 @@
-Day 37/365 · Two Sum IV - Input is a BST (Easy)
+Day 51/365 · Two Sum IV - Input is a BST (Easy)
 
 Strip the BST label and this is plain Two Sum.
 

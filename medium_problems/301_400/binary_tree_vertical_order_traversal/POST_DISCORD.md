@@ -1,12 +1,12 @@
-**365 Days of LeetCode Challenge — Day 47/365**
+**365 Days of LeetCode Challenge — Day 74/365**
 **Binary Tree Vertical Order Traversal** (Medium)
 🔗 https://leetcode.com/problems/binary-tree-vertical-order-traversal/
 
-Give every node a column number: root is 0, left child is parent-1, right child is parent+1. Group by it. That's a coordinate carried down the traversal, same as Day 15's depth — it just goes negative too.
+Give every node a column number: root is 0, left child is parent-1, right child is parent+1. Group by it. That's a coordinate carried down the traversal, same as Day 29's depth — it just goes negative too.
 
-The interesting part is that here the traversal **has** to be BFS, and Day 15's did not.
+The interesting part is that here the traversal **has** to be BFS, and Day 29's did not.
 
-Day 15 grouped by depth, and left-to-right within a level came from recursing Left before Right. Arrival order across branches never mattered.
+Day 29 grouped by depth, and left-to-right within a level came from recursing Left before Right. Arrival order across branches never mattered.
 
 This wants each column top to bottom, and left to right among ties. Those are exactly what BFS produces. Append as you go and the lists are already correct, no sorting.
 

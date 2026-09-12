@@ -274,3 +274,52 @@ func TestBuildsOnSurvivesASaveLoadCycle(t *testing.T) {
 		t.Errorf("builds_on should appear once, for the entry that has one:\n%s", raw)
 	}
 }
+
+func TestPendingContentEntryIsNotSelectedForPosting(t *testing.T) {
+	q := &Queue{NextDay: 3, Entries: []Entry{
+		{Day: 1, Number: 104, Status: StatusContentReady, PostedAt: map[string]*string{}},
+		{Day: 2, Number: 206, Status: StatusPendingContent, PostedAt: map[string]*string{}},
+	}}
+	got := q.NextUnposted(DestinationDiscord, 10)
+	if len(got) != 1 || got[0].Number != 104 {
+		t.Fatalf("pending_content entry must not be selected; got %+v", got)
+	}
+}
+
+func TestReorderAssignsDaysAndKeepsNextDayAhead(t *testing.T) {
+	q := &Queue{NextDay: 3, Entries: []Entry{
+		{Day: 1, Number: 104, Status: StatusContentReady, PostedAt: map[string]*string{}},
+		{Day: 2, Number: 108, Status: StatusContentReady, PostedAt: map[string]*string{}},
+	}}
+	q.Reorder(map[int]int{104: 2, 108: 1})
+	byNum := map[int]int{}
+	for _, e := range q.Entries {
+		byNum[e.Number] = e.Day
+	}
+	if byNum[104] != 2 || byNum[108] != 1 {
+		t.Fatalf("days not reassigned: %v", byNum)
+	}
+	if q.Entries[0].Day != 1 {
+		t.Fatalf("entries must be sorted by day after reorder, got day %d first", q.Entries[0].Day)
+	}
+	if q.NextDay != 3 {
+		t.Fatalf("NextDay must stay one past the highest day, got %d", q.NextDay)
+	}
+}
+
+func TestFindReportsStatusAndDay(t *testing.T) {
+	q := &Queue{NextDay: 3, Entries: []Entry{
+		{Day: 1, Number: 104, Status: StatusContentReady, PostedAt: map[string]*string{}},
+		{Day: 19, Number: 206, Status: StatusPendingContent, PostedAt: map[string]*string{}},
+	}}
+	e, ok := q.Find(206)
+	if !ok {
+		t.Fatal("206 should be found")
+	}
+	if e.Day != 19 || e.Status != StatusPendingContent {
+		t.Fatalf("wrong entry returned: %+v", e)
+	}
+	if _, ok := q.Find(999); ok {
+		t.Fatal("999 should not be found")
+	}
+}

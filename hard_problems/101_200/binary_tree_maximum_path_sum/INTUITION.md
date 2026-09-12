@@ -24,7 +24,7 @@ different.
 
 ## Builds on
 
-- [Day 21: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the identical shape. There, each node returned a height upward while recording left + right as a candidate answer. Swap "height" for "path sum" and you have this problem
+- [Day 13: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the identical shape. There, each node returned a height upward while recording left + right as a candidate answer. Swap "height" for "path sum" and you have this problem
 
 The other half is negatives. Node values can be negative, so a subtree isn't automatically
 worth attaching. Every use of a child's value here is guarded by a comparison against

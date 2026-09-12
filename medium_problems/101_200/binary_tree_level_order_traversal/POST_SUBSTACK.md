@@ -6,7 +6,7 @@ tags: [golang, binary-tree, dfs, recursion, leetcode]
 
 # Binary Tree Level Order Traversal
 
-*365 Days of LeetCode Challenge — Day 15/365*
+*365 Days of LeetCode Challenge — Day 29/365*
 
 🔗 [LeetCode #102](https://leetcode.com/problems/binary-tree-level-order-traversal/) · Difficulty: Medium
 
@@ -50,7 +50,7 @@ given depth — BFS would be the better shape.
 
 ### Builds on
 
-- [Day 14: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — the same idea, that a DFS can answer a per-level question by keying its accumulator on depth instead of on visit order
+- [Day 27: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — the same idea, that a DFS can answer a per-level question by keying its accumulator on depth instead of on visit order
 
 ### The solution
 

@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, postorder, leetcode]
 
 # Lowest Common Ancestor of a Binary Tree
 
-*365 Days of LeetCode Challenge — Day 28/365*
+*365 Days of LeetCode Challenge — Day 49/365*
 
 🔗 [LeetCode #236](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) · Difficulty: Medium
 
@@ -45,7 +45,7 @@ traversal finds first.
 
 ### Builds on
 
-- [Day 27: Lowest Common Ancestor of a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree/) — the same question on a BST, where comparing values told you which way to walk. Take the ordering away and none of that survives
+- [Day 48: Lowest Common Ancestor of a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/lowest_common_ancestor_of_a_binary_search_tree/) — the same question on a BST, where comparing values told you which way to walk. Take the ordering away and none of that survives
 
 ### The solution
 

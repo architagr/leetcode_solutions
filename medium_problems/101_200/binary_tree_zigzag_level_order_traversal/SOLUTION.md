@@ -87,5 +87,5 @@ loop condition simple.
 **Complexity:** O(n) time — every node is pushed and popped exactly once, and the
 reversals total O(n) across the whole tree because each element is swapped at most once.
 Space is O(w) for the queue, where w is the width of the widest level, plus O(n) for the
-output. That width is BFS's real memory cost, and it's the opposite trade to Day 15's
+output. That width is BFS's real memory cost, and it's the opposite trade to Day 29's
 recursion, whose peak was the tree's height.

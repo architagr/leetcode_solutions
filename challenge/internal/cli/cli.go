@@ -18,6 +18,7 @@ import (
 	"leetcode_solutions/challenge/internal/leetcode"
 	"leetcode_solutions/challenge/internal/postmeta"
 	"leetcode_solutions/challenge/internal/queue"
+	"leetcode_solutions/challenge/internal/renumber"
 	"leetcode_solutions/challenge/internal/reorg"
 	"leetcode_solutions/challenge/internal/resolver"
 	"leetcode_solutions/challenge/internal/xpost"
@@ -97,6 +98,47 @@ func QueueHas(queuePath string, number int) (bool, error) {
 		return false, fmt.Errorf("load queue %s: %w", queuePath, err)
 	}
 	return q.Has(number), nil
+}
+
+// QueueLookupResult says whether a question is queued and, if it is,
+// what state it is in.
+//
+// "Queued" used to be enough to decide to skip a question, because the
+// only way into the queue was an append that already carried finished
+// content. Reserving day numbers ahead of the write-ups broke that
+// equivalence: a queued question may still be waiting for its content,
+// and skipping it would strand the day permanently.
+type QueueLookupResult struct {
+	Has    bool   `json:"has"`
+	Day    int    `json:"day,omitempty"`
+	Status string `json:"status,omitempty"`
+	Folder string `json:"folder,omitempty"`
+	Title  string `json:"title,omitempty"`
+	// NeedsContent is true for an entry whose day is reserved but whose
+	// write-ups do not exist yet. It is the one flag a caller needs:
+	// generate for this question, but mark it ready rather than
+	// appending it a second time.
+	NeedsContent bool `json:"needsContent"`
+}
+
+// QueueLookup reports whether number is queued and in what state.
+func QueueLookup(queuePath string, number int) (QueueLookupResult, error) {
+	q, err := queue.Load(queuePath)
+	if err != nil {
+		return QueueLookupResult{}, fmt.Errorf("load queue %s: %w", queuePath, err)
+	}
+	e, ok := q.Find(number)
+	if !ok {
+		return QueueLookupResult{Has: false}, nil
+	}
+	return QueueLookupResult{
+		Has:          true,
+		Day:          e.Day,
+		Status:       e.Status,
+		Folder:       e.Folder,
+		Title:        e.Title,
+		NeedsContent: !e.HasContent(),
+	}, nil
 }
 
 // QueueAppend appends e to the queue, assigning it the next day number,
@@ -691,4 +733,12 @@ func intsToJSON(ns []int) string {
 		parts[i] = fmt.Sprint(n)
 	}
 	return "[" + strings.Join(parts, ",") + "]"
+}
+
+// QueueRenumber applies a reordering plan: it rewrites every day
+// reference in every queued folder's markdown, re-renders the heroes of
+// moved days, and writes the queue last. A dry run reports the same
+// thing and writes nothing.
+func QueueRenumber(repoRoot, queuePath, heroTemplate string, p renumber.Plan, dryRun bool) (renumber.Result, error) {
+	return renumber.Apply(repoRoot, queuePath, p, heroTemplate, dryRun)
 }

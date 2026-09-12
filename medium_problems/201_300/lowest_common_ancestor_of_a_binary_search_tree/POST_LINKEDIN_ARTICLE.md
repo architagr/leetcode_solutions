@@ -3,7 +3,7 @@ meta_title: "LCA in a BST: the ordering removes the search entirely"
 meta_description: "Both targets smaller means go left, both larger means go right, and anything else is the answer. No search, no backtracking, one comparison per level."
 ---
 
-## 365 Days of LeetCode Challenge — Day 27/365
+## 365 Days of LeetCode Challenge — Day 48/365
 
 # Lowest Common Ancestor of a Binary Search Tree
 
@@ -19,7 +19,7 @@ node with both as descendants, where a node counts as a descendant of itself.
 ### The intuition
 
 The general version of this problem needs a search. The BST version doesn't, and the
-reason is the property Day 26 leaned on: comparing a value against a node tells you which
+reason is the property Day 45 leaned on: comparing a value against a node tells you which
 subtree it must be in, if it's anywhere at all.
 
 Run that comparison for both targets at once and there are exactly three cases at any
@@ -47,7 +47,7 @@ they stop agreeing on a direction.
 
 ### Builds on
 
-- [Day 26: Search in a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/) — a comparison in a BST is a direction, not a verdict. Here the same comparison is made twice, once per target
+- [Day 45: Search in a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/) — a comparison in a BST is a direction, not a verdict. Here the same comparison is made twice, once per target
 
 ### The solution
 

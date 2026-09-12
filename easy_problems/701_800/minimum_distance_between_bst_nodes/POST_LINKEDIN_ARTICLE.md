@@ -3,7 +3,7 @@ meta_title: "The same BST problem twice, under two numbers"
 meta_description: "783 and 530 are the same question. In-order gives sorted order and the smallest gap sits between adjacent values — worth deriving rather than recalling."
 ---
 
-## 365 Days of LeetCode Challenge — Day 31/365
+## 365 Days of LeetCode Challenge — Day 50/365
 
 # Minimum Distance Between BST Nodes
 

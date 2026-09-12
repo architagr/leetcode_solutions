@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 49/365**
+**365 Days of LeetCode Challenge — Day 73/365**
 **Binary Tree Upside Down** (Medium)
 🔗 https://leetcode.com/problems/binary-tree-upside-down/
 

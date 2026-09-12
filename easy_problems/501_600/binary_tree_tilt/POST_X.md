@@ -1,4 +1,4 @@
-Day 22/365 · Binary Tree Tilt (Easy)
+Day 14/365 · Binary Tree Tilt (Easy)
 
 Tilt needs whole-subtree sums, not child values. Re-summing per node is O(n²).
 

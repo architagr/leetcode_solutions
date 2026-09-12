@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 30/365**
+**365 Days of LeetCode Challenge — Day 47/365**
 **Minimum Absolute Difference in BST** (Easy)
 🔗 https://leetcode.com/problems/minimum-absolute-difference-in-bst/
 

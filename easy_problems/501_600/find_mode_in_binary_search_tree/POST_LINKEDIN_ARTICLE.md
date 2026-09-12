@@ -3,7 +3,7 @@ meta_title: "Find Mode in a BST: the BST part is a red herring"
 meta_description: "A mode is a frequency question, and a hashmap tally answers it on any binary tree. The constant-space in-order version is the follow-up."
 ---
 
-## 365 Days of LeetCode Challenge — Day 29/365
+## 365 Days of LeetCode Challenge — Day 46/365
 
 # Find Mode in Binary Search Tree
 

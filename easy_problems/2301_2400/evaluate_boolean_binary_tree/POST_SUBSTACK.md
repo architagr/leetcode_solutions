@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, postorder, leetcode]
 
 # Evaluate Boolean Binary Tree
 
-*365 Days of LeetCode Challenge — Day 43/365*
+*365 Days of LeetCode Challenge — Day 69/365*
 
 🔗 [LeetCode #2331](https://leetcode.com/problems/evaluate-boolean-binary-tree/) · Difficulty: Easy
 

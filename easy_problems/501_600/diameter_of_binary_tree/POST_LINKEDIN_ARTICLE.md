@@ -3,7 +3,7 @@ meta_title: "Diameter of a binary tree: try every node as the centre"
 meta_description: "The longest path need not pass through the root, but through any given node it is just height(left) + height(right). So try every node and keep the best."
 ---
 
-## 365 Days of LeetCode Challenge — Day 21/365
+## 365 Days of LeetCode Challenge — Day 13/365
 
 ### Diameter of Binary Tree
 
@@ -134,7 +134,7 @@ height is `1`.
 ---
 
 Full breakdown, code, and images for every day of this challenge live in this
-repo. See you tomorrow for Day 13.
+repo. See you tomorrow for Day 14.
 
 Full code and the step-by-step walkthrough:
 [diameter_of_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/SOLUTION.md)

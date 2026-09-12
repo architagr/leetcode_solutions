@@ -3,7 +3,7 @@ meta_title: "A sorted linked list wearing TreeNode"
 meta_description: "The requested shape, no left child and one right child, is a linked list. In-order collects the nodes already sorted, then relinking is a flat second pass."
 ---
 
-## 365 Days of LeetCode Challenge — Day 35/365
+## 365 Days of LeetCode Challenge — Day 53/365
 
 # Increasing Order Search Tree
 

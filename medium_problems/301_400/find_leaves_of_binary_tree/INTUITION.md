@@ -24,7 +24,7 @@ value into the bucket for that round.
 ## Builds on
 
 - [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — the height recursion this is, with the height put to a different use
-- [Day 21: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the same post-order shape, where each call returns a height to its parent and does its own work on the way past
+- [Day 13: Diameter of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/) — the same post-order shape, where each call returns a height to its parent and does its own work on the way past
 
 Two details make it work cleanly.
 
@@ -33,7 +33,7 @@ children are both nil, so `max(-1, -1) + 1` is `0`, and leaves land in round 0 w
 belong. Return `0` for nil and every node's round shifts up by one, and there'd be an empty
 first bucket.
 
-The outer slice grows lazily, the same way Day 15's did. `if len(*arr) <= index` creates the
+The outer slice grows lazily: `if len(*arr) <= index` creates the
 bucket the first time any node reaches that round.
 
 Worth noticing that the answer's shape falls out for free. Nodes appear in `arr[index]` in

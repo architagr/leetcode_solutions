@@ -6,7 +6,7 @@ tags: [golang, binary-search-tree, in-order, linked-list, leetcode]
 
 # Increasing Order Search Tree
 
-*365 Days of LeetCode Challenge — Day 35/365*
+*365 Days of LeetCode Challenge — Day 53/365*
 
 🔗 [LeetCode #897](https://leetcode.com/problems/increasing-order-search-tree/) · Difficulty: Easy
 

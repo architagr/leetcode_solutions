@@ -1,4 +1,4 @@
-Day 17/365 · Univalued Binary Tree (Easy)
+Day 65/365 · Univalued Binary Tree (Easy)
 
 No node needs to know the root's value. Compare each one to its parent — if every edge agrees, transitivity does the rest.
 

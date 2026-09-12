@@ -6,7 +6,7 @@ tags: [golang, binary-search-tree, recursion, search, leetcode]
 
 # Search in a Binary Search Tree
 
-*365 Days of LeetCode Challenge — Day 26/365*
+*365 Days of LeetCode Challenge — Day 45/365*
 
 🔗 [LeetCode #700](https://leetcode.com/problems/search-in-a-binary-search-tree/) · Difficulty: Easy
 

@@ -3,7 +3,7 @@ meta_title: "Binary tree tilt: compute each subtree sum exactly once"
 meta_description: "Tilt needs whole-subtree sums, not child values. Re-summing per node is quadratic; postorder returns each sum on the way up so it is computed once."
 ---
 
-## 365 Days of LeetCode Challenge — Day 22/365
+## 365 Days of LeetCode Challenge — Day 14/365
 
 # Binary Tree Tilt
 

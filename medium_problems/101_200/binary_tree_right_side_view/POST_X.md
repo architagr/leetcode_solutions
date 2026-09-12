@@ -1,4 +1,4 @@
-Day 19/365 · Binary Tree Right Side View (Medium)
+Day 31/365 · Binary Tree Right Side View (Medium)
 
 From each level you see one node: the rightmost.
 

@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 51/365
+365 Days of LeetCode Challenge — Day 34/365
 
 Deepest Leaves Sum (Medium)
 🔗 https://leetcode.com/problems/deepest-leaves-sum/

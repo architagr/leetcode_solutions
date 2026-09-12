@@ -1,4 +1,4 @@
-Day 28/365 · Lowest Common Ancestor of a Binary Tree (Medium)
+Day 49/365 · Lowest Common Ancestor of a Binary Tree (Medium)
 
 Yesterday's BST version walked one path down. Without ordering, a comparison says nothing about direction.
 

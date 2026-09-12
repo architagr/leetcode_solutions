@@ -6,14 +6,14 @@ tags: [golang, binary-search-tree, two-pointers, in-order, leetcode]
 
 # Closest Binary Search Tree Value II
 
-*365 Days of LeetCode Challenge — Day 34/365*
+*365 Days of LeetCode Challenge — Day 57/365*
 
 🔗 [LeetCode #272](https://leetcode.com/problems/closest-binary-search-tree-value-ii/) · Difficulty: Hard
 
 Both hards in this batch have had the same shape: a traversal you already know, plus one
 observation that has to be made before any of it helps.
 
-Day 25's observation was that a node computes two different values. Today's is a claim about
+Day 18's observation was that a node computes two different values. Today's is a claim about
 sorted arrays that has nothing to do with trees at all, and the tree part of the problem
 becomes routine the moment you have it.
 
@@ -52,7 +52,7 @@ as much.
 
 ### Builds on
 
-- [Day 33: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — flattening a BST in-order into a slice, which is the first half of this solution verbatim
+- [Day 55: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — flattening a BST in-order into a slice, which is the first half of this solution verbatim
 
 ### The solution
 

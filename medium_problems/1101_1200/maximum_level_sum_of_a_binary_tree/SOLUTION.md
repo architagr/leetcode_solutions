@@ -22,7 +22,7 @@ children `7` and `-8`. Level sums are `1`, `7`, and `-1`, so the answer is level
    ![Step 1: state before the walk, seeded from the root](images/walkthrough-1.png)
 
 3. **Seed the queue with the root and a sentinel.** `push(root)` then `push(nil)`. Same
-   marker as Day 16: everything ahead of the `nil` is the current level.
+   marker as Day 30: everything ahead of the `nil` is the current level.
 
 4. **A real node adds and enqueues.**
 
@@ -76,7 +76,7 @@ children `7` and `-8`. Level sums are `1`, `7`, and `-1`, so the answer is level
 
    ![Step 4: level 3 loses the comparison](images/walkthrough-4.png)
 
-8. **The re-push guard ends the loop.** As in Day 16, the fresh sentinel only goes on if
+8. **The re-push guard ends the loop.** As in Day 30, the fresh sentinel only goes on if
    the queue still holds nodes. Without the guard the final sentinel would be re-added
    forever.
 

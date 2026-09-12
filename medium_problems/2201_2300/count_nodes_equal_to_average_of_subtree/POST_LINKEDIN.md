@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 23/365
+365 Days of LeetCode Challenge — Day 15/365
 
 Count Nodes Equal to Average of Subtree (Medium)
 https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/

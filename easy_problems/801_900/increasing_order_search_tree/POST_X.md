@@ -1,4 +1,4 @@
-Day 35/365 · Increasing Order Search Tree (Easy)
+Day 53/365 · Increasing Order Search Tree (Easy)
 
 No left child, one right child — that shape is a sorted linked list wearing TreeNode.
 

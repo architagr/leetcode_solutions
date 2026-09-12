@@ -1,4 +1,4 @@
-**365 Days of LeetCode Challenge — Day 46/365**
+**365 Days of LeetCode Challenge — Day 32/365**
 
 **Leaf-Similar Trees** (Easy)
 🔗 https://leetcode.com/problems/leaf-similar-trees/

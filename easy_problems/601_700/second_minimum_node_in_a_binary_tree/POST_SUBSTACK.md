@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, dfs, leetcode]
 
 # Second Minimum Node In a Binary Tree
 
-*365 Days of LeetCode Challenge — Day 48/365*
+*365 Days of LeetCode Challenge — Day 70/365*
 
 🔗 [LeetCode #671](https://leetcode.com/problems/second-minimum-node-in-a-binary-tree/) · Difficulty: Easy
 

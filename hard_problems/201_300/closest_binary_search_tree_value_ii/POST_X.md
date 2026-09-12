@@ -1,4 +1,4 @@
-Day 34/365 · Closest BST Value II (Hard)
+Day 57/365 · Closest BST Value II (Hard)
 
 The claim that makes this tractable: in a sorted array, the k closest values to a target are always contiguous.
 

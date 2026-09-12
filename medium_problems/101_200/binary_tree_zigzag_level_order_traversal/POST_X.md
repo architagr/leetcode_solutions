@@ -1,4 +1,4 @@
-Day 16/365 · Binary Tree Zigzag Level Order (Medium)
+Day 30/365 · Binary Tree Zigzag Level Order (Medium)
 
 Yesterday's DFS never learned where a level ends. Zigzag needs it: you can't reverse a level before it's done.
 

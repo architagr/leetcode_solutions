@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 16/365
+365 Days of LeetCode Challenge — Day 30/365
 
 Binary Tree Zigzag Level Order Traversal (Medium)
 🔗 https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/

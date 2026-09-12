@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, strings, leetcode]
 
 # Construct String from Binary Tree
 
-*365 Days of LeetCode Challenge — Day 13/365*
+*365 Days of LeetCode Challenge — Day 17/365*
 
 🔗 [LeetCode #606](https://leetcode.com/problems/construct-string-from-binary-tree/) · Difficulty: Medium
 

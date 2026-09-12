@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 39/365
+365 Days of LeetCode Challenge — Day 56/365
 
 Delete Node in a BST (Medium)
 🔗 https://leetcode.com/problems/delete-node-in-a-bst/

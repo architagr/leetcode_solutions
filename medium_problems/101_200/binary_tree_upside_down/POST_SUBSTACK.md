@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, pointers, leetcode]
 
 # Binary Tree Upside Down
 
-*365 Days of LeetCode Challenge — Day 49/365*
+*365 Days of LeetCode Challenge — Day 73/365*
 
 🔗 [LeetCode #156](https://leetcode.com/problems/binary-tree-upside-down/) · Difficulty: Medium
 
@@ -45,7 +45,7 @@ the child subtree has to be turned over before its old parent can be hung undern
 
 ### Builds on
 
-- [Day 35: Increasing Order Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/increasing_order_search_tree/) — relinking the existing nodes into a different shape rather than building new ones, and the care that takes when you are mutating the pointers you navigate by
+- [Day 53: Increasing Order Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/801_900/increasing_order_search_tree/) — relinking the existing nodes into a different shape rather than building new ones, and the care that takes when you are mutating the pointers you navigate by
 
 ### The solution
 

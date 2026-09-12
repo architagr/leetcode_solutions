@@ -10,7 +10,7 @@ back to BFS.
 
 ## Builds on
 
-- [Day 15: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — the same output grouped the same way, solved without level boundaries, which is what makes the contrast here worth drawing
+- [Day 29: Binary Tree Level Order Traversal](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_tree_level_order_traversal/) — the same output grouped the same way, solved without level boundaries, which is what makes the contrast here worth drawing
 - [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — the nil sentinel pushed into the queue to mark where a level ends
 
 The level boundary comes from the same trick as Day 1: push a `nil` into the queue right

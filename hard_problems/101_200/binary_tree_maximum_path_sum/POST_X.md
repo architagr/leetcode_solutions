@@ -1,4 +1,4 @@
-Day 25/365 · Binary Tree Maximum Path Sum (Hard)
+Day 18/365 · Binary Tree Maximum Path Sum (Hard)
 
 Each node computes two things, and mixing them is the bug.
 

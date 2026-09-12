@@ -2,11 +2,11 @@
 
 "Level order" is the textbook use for BFS: a queue, drain one level, move to the next.
 This solution doesn't use one. It's a depth-first recursion that produces level-ordered
-output anyway, and the reason it works is the same one from Day 14.
+output anyway, and the reason it works is the same one from Day 27.
 
 ## Builds on
 
-- [Day 14: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — the same idea, that a DFS can answer a per-level question by keying its accumulator on depth instead of on visit order
+- [Day 27: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — the same idea, that a DFS can answer a per-level question by keying its accumulator on depth instead of on visit order
 
 A DFS visits nodes branch by branch. It goes all the way down the left side before it
 touches anything on the right, so the order it arrives at nodes has nothing to do with

@@ -1,12 +1,12 @@
 ## Intuition
 
 The general version of this problem needs a search. The BST version doesn't, and the
-reason is the same property Day 26 leaned on: in a BST, comparing a value against a node
+reason is the same property Day 45 leaned on: in a BST, comparing a value against a node
 tells you which subtree it must be in, if it's anywhere.
 
 ## Builds on
 
-- [Day 26: Search in a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/) — a comparison in a BST is a direction, not a verdict. Here the same comparison is made twice, once per target
+- [Day 45: Search in a Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/search_in_a_binary_search_tree/) — a comparison in a BST is a direction, not a verdict. Here the same comparison is made twice, once per target
 
 Run that comparison for both targets at once and there are exactly three cases at any node:
 

@@ -3,7 +3,7 @@ meta_title: "The tree is the expression, so evaluate it bottom-up"
 meta_description: "Leaves hold literals and internal nodes hold operators. A node cannot know its own value until both children report, which is exactly postorder."
 ---
 
-## 365 Days of LeetCode Challenge — Day 43/365
+## 365 Days of LeetCode Challenge — Day 69/365
 
 # Evaluate Boolean Binary Tree
 

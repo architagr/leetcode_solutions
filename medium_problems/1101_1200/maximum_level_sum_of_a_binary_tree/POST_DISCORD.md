@@ -1,10 +1,10 @@
-**365 Days of LeetCode Challenge — Day 20/365**
+**365 Days of LeetCode Challenge — Day 33/365**
 **Maximum Level Sum of a Binary Tree** (Medium)
 🔗 https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
 
 Two things have to be true here and only one is about sums.
 
-The sums are the easy half: nil-sentinel BFS from Day 16, add each level, keep the biggest total.
+The sums are the easy half: nil-sentinel BFS from Day 30, add each level, keep the biggest total.
 
 The other half is in the wording — return the **smallest** level whose sum is maximal. Ties go to the shallower level. There's no code for that anywhere. It's one character: the comparison is `sum > maxSum`, strictly greater, so a later level that merely matches doesn't replace the earlier one. Write `>=` and you still return a maximal level, just the wrong one on ties.
 

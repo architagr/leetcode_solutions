@@ -1,4 +1,4 @@
-Day 14/365 · Average of Levels in Binary Tree (Easy)
+Day 27/365 · Average of Levels in Binary Tree (Easy)
 
 Everyone reaches for BFS here. DFS works too — key the running sum and count by depth, not visit order.
 

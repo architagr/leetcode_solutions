@@ -1,4 +1,4 @@
-Day 20/365 · Maximum Level Sum (Medium)
+Day 33/365 · Maximum Level Sum (Medium)
 
 "Return the SMALLEST level whose sum is maximal." That tie-break is one character: sum > maxSum.
 

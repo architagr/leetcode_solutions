@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, dfs, leetcode]
 
 # Reverse Odd Levels of Binary Tree
 
-*365 Days of LeetCode Challenge — Day 45/365*
+*365 Days of LeetCode Challenge — Day 72/365*
 
 🔗 [LeetCode #2415](https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/) · Difficulty: Medium
 

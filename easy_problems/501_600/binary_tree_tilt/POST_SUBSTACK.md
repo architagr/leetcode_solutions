@@ -6,7 +6,7 @@ tags: [golang, binary-tree, recursion, postorder, leetcode]
 
 # Binary Tree Tilt
 
-*365 Days of LeetCode Challenge — Day 22/365*
+*365 Days of LeetCode Challenge — Day 14/365*
 
 🔗 [LeetCode #563](https://leetcode.com/problems/binary-tree-tilt/) · Difficulty: Easy
 

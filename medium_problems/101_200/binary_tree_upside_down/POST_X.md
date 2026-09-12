@@ -1,4 +1,4 @@
-Day 49/365 · Binary Tree Upside Down (Medium)
+Day 73/365 · Binary Tree Upside Down (Medium)
 
 Two unrelated jobs on one recursion.
 

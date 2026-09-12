@@ -41,7 +41,7 @@ We'll trace `[1,2,3,4,5]`: root `1` with children `2` and `3`; `2` has children 
    ![Step 3: node 2 waits for both children, so max(0,0)+1 = 1](images/walkthrough-3.png)
 
 5. **Buckets grow lazily.** `if len(*arr) <= index { *arr = append(*arr, []int{}) }` —
-   the first node to reach a round creates its bucket, the same lazy growth as Day 15's
+   the first node to reach a round creates its bucket, growing the outer slice on demand
    level slices.
 
 6. **Round is height, not depth.** This is the point of the whole problem, and node `3`

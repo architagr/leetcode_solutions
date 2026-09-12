@@ -1,4 +1,4 @@
-Day 18/365 · Cousins in Binary Tree (Easy)
+Day 28/365 · Cousins in Binary Tree (Easy)
 
 Same depth, different parents. There are no parent pointers — but values are unique, so a parent's Val is identity enough.
 

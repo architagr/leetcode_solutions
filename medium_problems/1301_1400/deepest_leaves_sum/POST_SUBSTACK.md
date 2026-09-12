@@ -6,7 +6,7 @@ tags: [golang, binary-tree, dfs, recursion, leetcode]
 
 # Deepest Leaves Sum
 
-*365 Days of LeetCode Challenge — Day 51/365*
+*365 Days of LeetCode Challenge — Day 34/365*
 
 🔗 [LeetCode #1302](https://leetcode.com/problems/deepest-leaves-sum/) · Difficulty: Medium
 
@@ -43,7 +43,7 @@ Whatever survives to the end was accumulated at the true maximum depth.
 ### Builds on
 
 - [Day 1: Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/) — finding the deepest level, which the two-pass version would do first and this one discovers as it goes
-- [Day 14: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — accumulating a number per level during a depth-first walk
+- [Day 27: Average of Levels in Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/601_700/average_of_levels_in_binary_tree/) — accumulating a number per level during a depth-first walk
 
 ### The solution
 

@@ -3,7 +3,7 @@ meta_title: "Walk both trees in lockstep and the search disappears"
 meta_description: "The clone is structurally identical, so advancing both pointers together keeps the second one in the matching position. No independent search needed."
 ---
 
-## 365 Days of LeetCode Challenge — Day 41/365
+## 365 Days of LeetCode Challenge — Day 67/365
 
 # Find a Corresponding Node of a Binary Tree in a Clone of That Tree
 

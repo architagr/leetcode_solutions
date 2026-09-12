@@ -1,4 +1,4 @@
-Day 27/365 · Lowest Common Ancestor of a BST (Medium)
+Day 48/365 · Lowest Common Ancestor of a BST (Medium)
 
 No search anywhere in this one.
 

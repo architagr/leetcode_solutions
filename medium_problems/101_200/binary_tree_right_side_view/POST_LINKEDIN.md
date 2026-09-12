@@ -1,4 +1,4 @@
-365 Days of LeetCode Challenge — Day 19/365
+365 Days of LeetCode Challenge — Day 31/365
 
 Binary Tree Right Side View (Medium)
 🔗 https://leetcode.com/problems/binary-tree-right-side-view/
