@@ -276,3 +276,9 @@ function.
 
 Part of [It worked in dev](../../), the long-form companion to the
 [365-day LeetCode challenge](https://github.com/architagr/leetcode_solutions).
+
+---
+
+*Ideation, problem selection, benchmarks and conclusions: Archit Agarwal.
+The prose was drafted with AI assistance and edited by me. Every number here
+comes from a run you can reproduce with the commands above.*

@@ -359,3 +359,9 @@ go test -bench=. -benchtime=200x   # the numbers above
 The tests assert that the two implementations return identical maps on six tree
 shapes, including a 50-deep chain — because the whole argument depends on them
 being the same function.
+
+---
+
+*Ideation, problem selection, benchmarks and conclusions: Archit Agarwal.
+The prose was drafted with AI assistance and edited by me. Every number here
+comes from a run you can reproduce with the commands above.*
