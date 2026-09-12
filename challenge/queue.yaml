@@ -995,7 +995,7 @@ entries:
       difficulty: medium
       folder: medium_problems/301_400/flatten_nested_list_iterator
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 173
       posted_at:
