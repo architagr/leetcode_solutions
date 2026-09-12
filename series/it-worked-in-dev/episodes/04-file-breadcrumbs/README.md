@@ -102,6 +102,8 @@ At 600 deep that is 181,503 segments copied. That is what 3.66 ms buys.
 
 ![notes rebuilds the identical prefix](images/walkthrough-3.png)
 
+![One prefix, rebuilt once per file underneath it](images/walkthrough-4.png)
+
 ### Why is it allowed to happen?
 
 Because each path is computed from the node alone, and that independence is the

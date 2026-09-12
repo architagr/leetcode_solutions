@@ -30,6 +30,8 @@ reports, and so on.
 
 ![Every row needs its level before the page can render](images/walkthrough-1.png)
 
+![Walking up from Eng: 4 hops to reach the CEO](images/walkthrough-2.png)
+
 ---
 
 ## What you would write

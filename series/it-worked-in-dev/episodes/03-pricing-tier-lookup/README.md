@@ -94,6 +94,8 @@ and tier 1, and tier 0. The loop re-establishes that fact one element at a time.
 
 ![The scan reads every tier it has already ruled out](images/walkthrough-2.png)
 
+![Six reads to rule out five tiers nothing could match](images/walkthrough-3.png)
+
 ![Every lookup starts over at tier 0](images/walkthrough-4.png)
 
 ### Why is it allowed to happen?
@@ -139,6 +141,8 @@ bottom half, and half the list is gone — not because of anything about the
 data, but because it was in order.
 
 ![Everything below the middle is eliminated, unread](images/walkthrough-6.png)
+
+![Same answer, without reading the tiers it ruled out](images/walkthrough-7.png)
 
 > **When the question is "which range contains this", and the ranges are sorted,
 > every comparison should eliminate half of what is left rather than one item.**

@@ -28,6 +28,8 @@ looked at again.
 
 ![For each incoming email, is it already in existing?](images/walkthrough-1.png)
 
+![a@x scans existing from the top and matches](images/walkthrough-2.png)
+
 ## What you would write
 
 ```go
@@ -114,6 +116,8 @@ if want := n * n; compares != want {
 Four hundred million string comparisons. That is what 516 ms buys.
 
 ![b@x scans the whole list again, unchanged](images/walkthrough-3.png)
+
+![c@x scans the same list a third time](images/walkthrough-4.png)
 
 ![Every question answered by re-reading the same list](images/walkthrough-5.png)
 
