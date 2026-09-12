@@ -1281,8 +1281,6 @@ entries:
       folder: medium_problems/201_300/ugly_number_ii
       batch: heap
       status: pending_content
-      builds_on:
-        - 703
       posted_at:
         discord: null
         linkedin_company_page: null
