@@ -609,7 +609,7 @@ entries:
       difficulty: medium
       folder: medium_problems/501_600/number_of_provinces
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 1971
         - 200
