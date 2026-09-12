@@ -16,7 +16,7 @@ the whole differentiator: not the explanation, the bill arriving.
 
 | # | Episode | Technique | Built on |
 |---|---|---|---|
-| 1 | [Why `du` crawls on node_modules](episodes/01-directory-sizes/) | postorder traversal | days 1, 4, 9 |
+| 1 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 1, 4, 9 |
 
 ## Why it lives in this repo
 
@@ -35,7 +35,7 @@ episodes/     one folder each: code, tests, benchmarks, diagrams, the write-up
 ## Running an episode
 
 ```bash
-cd episodes/01-directory-sizes
+cd episodes/08-directory-sizes
 go test ./...                      # both implementations agree
 go test -bench=. -benchtime=200x   # the numbers in RESULTS.md
 ```

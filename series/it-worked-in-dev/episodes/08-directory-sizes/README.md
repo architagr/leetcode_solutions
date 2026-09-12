@@ -7,7 +7,7 @@ hashtags: "#Golang #DSA #Algorithms #Performance #SoftwareEngineering #DataStruc
 
 # Why `du` crawls on node_modules
 
-**It worked in dev · Episode 1 · technique: postorder traversal**
+**It worked in dev · Episode 8 · technique: postorder traversal**
 
 You want the total size of every directory in a project. You write the obvious
 thing, it works, and then someone runs it on a `node_modules` and it stops
@@ -258,7 +258,7 @@ Clone it and make the tests pass:
 
 ```bash
 git clone https://github.com/architagr/leetcode_solutions
-cd leetcode_solutions/series/it-worked-in-dev/episodes/01-directory-sizes
+cd leetcode_solutions/series/it-worked-in-dev/episodes/08-directory-sizes
 go test ./...
 ```
 
@@ -360,7 +360,7 @@ underneath it, the subtree's answer wants to be a return value, not a second wal
 
 ```bash
 git clone https://github.com/architagr/leetcode_solutions
-cd leetcode_solutions/series/it-worked-in-dev/episodes/01-directory-sizes
+cd leetcode_solutions/series/it-worked-in-dev/episodes/08-directory-sizes
 go test ./...                      # both implementations agree
 go test -bench=. -benchtime=200x   # the numbers above
 ```
