@@ -1296,7 +1296,7 @@ For the 30 new days, use these folders, all verified to exist:
 | 92 | Reverse Linked List II | medium | `medium_problems/1_100/reverse_linked_list_ii` | linked list |
 | 143 | Reorder List | medium | `medium_problems/101_200/reorder_list` | linked list |
 | 1971 | Find if Path Exists in Graph | easy | `easy_problems/1901_2000/find_if_path_exists_in_graph` | graph |
-| 200 | Number of Islands | medium | `medium_problems/201_300/number_of_islands` | graph |
+| 200 | Number of Islands | medium | `medium_problems/101_200/number_of_islands` | graph |
 | 695 | Max Area of Island | medium | `medium_problems/601_700/max_area_of_island` | graph |
 | 547 | Number of Provinces | medium | `medium_problems/501_600/number_of_provinces` | graph |
 | 994 | Rotting Oranges | medium | `medium_problems/901_1000/rotting_oranges` | graph |
@@ -1477,9 +1477,11 @@ print('warnings:', r.get('warnings') or 'none')
 for m in r['moved'][:5]: print('  ', m['number'], m['oldDay'], '->', m['newDay'])
 "
 ```
-Expected: `moved: 40`, `inserted: 30`, `files` in the low hundreds, `heroes: 40`, `warnings: none`.
+Expected: `moved: 39`, `inserted: 30`, `files` in the low hundreds, `heroes: 39`, `warnings: none`.
 
-If `inserted` is not 30 or `moved` is not 40, stop — the plan file disagrees with the spec and applying it would produce a queue nobody designed.
+39 rather than 40 because 1022 Sum of Root To Leaf is already on day 12 and stays there; the other 39 tree questions move.
+
+If `inserted` is not 30 or `moved` is not 39, stop — the plan file disagrees with the spec and applying it would produce a queue nobody designed.
 
 - [ ] **Step 4: Apply**
 
@@ -1566,7 +1568,7 @@ Expected: days 1–11 still carry their original question numbers (104, 108, 257
 - [ ] **Step 4: Heroes were re-rendered**
 
 Run: `git diff HEAD~1 --stat -- '*HERO.png' | tail -3`
-Expected: about 40 `HERO.png` files changed.
+Expected: about 39 `HERO.png` files changed.
 
 - [ ] **Step 5: Spot-check one hero image by eye**
 
