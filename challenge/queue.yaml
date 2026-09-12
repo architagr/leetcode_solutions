@@ -1011,7 +1011,7 @@ entries:
       difficulty: medium
       folder: medium_problems/601_700/exclusive_time_of_functions
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 155
       posted_at:
