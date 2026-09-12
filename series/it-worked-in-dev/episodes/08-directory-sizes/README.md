@@ -213,11 +213,9 @@ answer travels one level up without the parent going to look.
 
 ### Where you have already written this
 
-Not one of these steps is new. All three pieces are in the first nine days of
+Not one of these steps is new. Both pieces are in the first nine days of
 the daily challenge, and each contributes a different one:
 
-- **[Day 1 — Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/SOLUTION.md)**
-  — a node's depth is 1 + the deeper of its children. The equation-with-only-children-on-the-right shape, and a recursion that returns a number up the tree.
 - **[Day 4 — Sum of Left Leaves](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/401_500/sum_of_left_leaves/SOLUTION.md)**
   — a parent reads what its children returned instead of going down to look. The mechanism.
 - **[Day 9 — Binary Tree Postorder Traversal](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_postorder_traversal/SOLUTION.md)**
