@@ -319,7 +319,7 @@ entries:
       difficulty: easy
       folder: easy_problems/101_200/linked_list_cycle
       batch: linked list
-      status: pending_content
+      status: content_ready
       builds_on:
         - 876
       posted_at:
