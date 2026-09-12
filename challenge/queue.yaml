@@ -593,7 +593,7 @@ entries:
       difficulty: medium
       folder: medium_problems/601_700/max_area_of_island
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 200
       posted_at:
