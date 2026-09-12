@@ -1231,7 +1231,7 @@ entries:
       difficulty: medium
       folder: medium_problems/301_400/top_k_frequent_elements
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 215
       posted_at:
