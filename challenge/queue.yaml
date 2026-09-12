@@ -146,11 +146,11 @@ entries:
         - 144
       posted_at:
         discord: "2026-09-12T04:42:17Z"
-        linkedin_company_page: null
-        linkedin_group: null
-        linkedin_main_account: null
-        substack: null
-        x: null
+        linkedin_company_page: "2026-09-12T06:31:16Z"
+        linkedin_group: "2026-09-12T06:31:16Z"
+        linkedin_main_account: "2026-09-12T06:31:16Z"
+        substack: "2026-09-12T06:31:16Z"
+        x: "2026-09-12T06:31:16Z"
     - day: 11
       number: 112
       title: Path Sum
