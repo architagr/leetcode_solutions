@@ -29,32 +29,28 @@ directories up rather than trusting a separate checkout to be current.
 
 ```
 FORMAT.md     what the series is, and the rules an episode follows
-queue.yaml    the publishing queue, and which days each episode needs
-LINKS.yaml    canonical URL per surface
-tools/        diagram, hero, humanize, lint_episode, render_post, schedule
-episodes/     one folder each: code, tests, benchmarks, diagrams, drafts
+episodes/     one folder each: code, tests, benchmarks, diagrams, the write-up
 ```
 
-## Working on an episode
-
-Run everything from this directory.
+## Running an episode
 
 ```bash
 cd episodes/01-directory-sizes
 go test ./...                      # both implementations agree
 go test -bench=. -benchtime=200x   # the numbers in RESULTS.md
-
-cd ../..
-python3 tools/lint_episode.py            # structure, metadata, units, images
-python3 tools/checklinks.py              # every link accounted for
-python3 tools/hero.py --check-palettes   # backgrounds distinct and readable
-python3 tools/schedule.py                # what is publishable, and what is blocked
-python3 tools/render_post.py episodes/01-directory-sizes   # paste-ready copy
 ```
 
-An episode may only publish once **every day it cites has actually posted**. A
-reader following a backlink has to land on something they can read, so
-`schedule.py` checks that and refuses to call an episode publishable until then.
+`RESULTS.md` records the machine and the Go version, because a benchmark number
+without them is decoration. If your numbers differ from the ones in the
+write-up, yours are the true ones for your machine - the argument is about the
+shape of the curve, not the absolute figures.
 
-`FORMAT.md` has the rules. `.claude/skills/worked-in-dev-episode/SKILL.md` at
-the repo root has the full working guide.
+## What is not here
+
+The social drafts, the hero cards, the publishing queue and the tooling that
+builds them are kept in a private repo. Nothing a reader would follow a link to
+lives there - the write-ups, the code, the tests and the diagrams are all here,
+and that is deliberate: every episode ends by telling you to clone this and make
+the tests pass.
+
+`FORMAT.md` explains what the series is and the rules each episode follows.
