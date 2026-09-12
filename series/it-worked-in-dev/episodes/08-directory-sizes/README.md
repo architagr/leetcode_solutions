@@ -1,10 +1,3 @@
----
-meta_title: "Why du crawls on node_modules: depth, not size, is the axis"
-meta_description: "801 directories in a chain ran 3x slower than 8,191 in a balanced tree, and the naive version 34x slower than the fix. Both Go versions and the numbers."
-tags: [golang, algorithms, performance, recursion, dsa]
-hashtags: "#Golang #DSA #Algorithms #Performance #SoftwareEngineering #DataStructures #100DaysOfCode"
----
-
 # Why `du` crawls on node_modules
 
 **It worked in dev · Episode 8 · technique: postorder traversal**

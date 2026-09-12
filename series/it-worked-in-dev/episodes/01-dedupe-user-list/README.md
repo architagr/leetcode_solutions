@@ -1,10 +1,3 @@
----
-meta_title: "Why your CSV import crawls on a real customer's file"
-meta_description: "Checking 20,000 uploaded rows against 20,000 existing users took 516 ms in a Go benchmark. The loop is correct. The reasoning that reaches the fix is the part worth having."
-tags: [golang, algorithms, performance, hashing, dsa]
-hashtags: "#Golang #DSA #Algorithms #Performance #SoftwareEngineering #DataStructures #100DaysOfCode"
----
-
 # Why your CSV import crawls on a real customer's file
 
 **It worked in dev · Episode 1 · technique: set membership**
