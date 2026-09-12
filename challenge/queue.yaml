@@ -626,7 +626,7 @@ entries:
       difficulty: medium
       folder: medium_problems/901_1000/rotting_oranges
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 102
         - 200
