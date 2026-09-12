@@ -1199,7 +1199,7 @@ entries:
       difficulty: easy
       folder: easy_problems/1001_1100/last_stone_weight
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 703
       posted_at:
@@ -1215,7 +1215,7 @@ entries:
       difficulty: medium
       folder: medium_problems/201_300/kth_largest_element_in_an_array
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 703
       posted_at:
@@ -1231,7 +1231,7 @@ entries:
       difficulty: medium
       folder: medium_problems/301_400/top_k_frequent_elements
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 215
       posted_at:
@@ -1247,7 +1247,7 @@ entries:
       difficulty: medium
       folder: medium_problems/601_700/top_k_frequent_words
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 347
       posted_at:
@@ -1263,7 +1263,7 @@ entries:
       difficulty: hard
       folder: hard_problems/1_100/merge_k_sorted_lists
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 21
         - 703
@@ -1280,9 +1280,7 @@ entries:
       difficulty: medium
       folder: medium_problems/201_300/ugly_number_ii
       batch: heap
-      status: pending_content
-      builds_on:
-        - 703
+      status: content_ready
       posted_at:
         discord: null
         linkedin_company_page: null
