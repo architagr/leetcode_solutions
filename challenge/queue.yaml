@@ -398,7 +398,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/reorder_list
       batch: linked list
-      status: pending_content
+      status: content_ready
       builds_on:
         - 206
         - 876
