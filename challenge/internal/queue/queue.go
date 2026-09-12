@@ -14,6 +14,13 @@ import (
 const (
 	StatusContentReady = "content_ready"
 	StatusPosted       = "posted"
+
+	// StatusPendingContent is a day whose number is reserved but whose
+	// content has not been written. HasContent reports false for it, so
+	// posting skips it rather than sending an empty day. Reserving the
+	// number up front is what lets the whole queue's topic and
+	// difficulty shape be decided before any of it is written.
+	StatusPendingContent = "pending_content"
 )
 
 // The destinations an entry can be posted to. Posting state is tracked
@@ -283,4 +290,31 @@ func (q *Queue) Append(e Entry) int {
 	q.Entries = append(q.Entries, e)
 	q.NextDay++
 	return e.Day
+}
+
+// Reorder reassigns day numbers from a question-number → day map and
+// re-sorts the entries so file order matches day order. Entries whose
+// number is absent from the map keep the day they have.
+//
+// It does no validation: callers reaching here have already decided the
+// mapping is legal. The renumber package is where frozen days, forward
+// builds_on references and missing folders are refused, because those
+// checks need the filesystem and the whole intended ordering, not just
+// the queue.
+func (q *Queue) Reorder(dayByNumber map[int]int) {
+	for i := range q.Entries {
+		if day, ok := dayByNumber[q.Entries[i].Number]; ok {
+			q.Entries[i].Day = day
+		}
+	}
+	sort.Slice(q.Entries, func(i, j int) bool { return q.Entries[i].Day < q.Entries[j].Day })
+	highest := 0
+	for _, e := range q.Entries {
+		if e.Day > highest {
+			highest = e.Day
+		}
+	}
+	if q.NextDay <= highest {
+		q.NextDay = highest + 1
+	}
 }
