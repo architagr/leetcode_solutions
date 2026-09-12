@@ -366,7 +366,7 @@ entries:
       difficulty: medium
       folder: medium_problems/1_100/remove_nth_node_from_end_of_list
       batch: linked list
-      status: pending_content
+      status: content_ready
       builds_on:
         - 876
       posted_at:
