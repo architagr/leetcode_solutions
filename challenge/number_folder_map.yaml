@@ -1,4 +1,4 @@
-last_scanned_commit: f044d777b7414477bd91abc10c1699b63b0aac3e
+last_scanned_commit: 041c6de9517a71802bf2b371efebea3e4d81830d
 map:
     55: google_questions/dynamic_programming/jump_game
     80: google_questions/array_strings/remove_duplicates_from_sorted_array_ii
@@ -41,6 +41,7 @@ map:
     1031: medium_problems/1001_1100/maximum_sum_of_two_non_overlapping_subarrays
     1038: medium_problems/1001_1100/binary_search_tree_to_greater_sum_tree
     1052: medium_problems/1001_1100/grumpy_bookstore_owner
+    1123: medium_problems/1101_1200/lowest_common_ancestor_of_deepest_leaves
     1208: medium_problems/1201_1300/get_equal_substrings_within_budget
     1248: medium_problems/1201_1300/count_number_of_nice_subarrays
     1261: medium_problems/1201_1300/find_elements_in_a_contaminated_binary_tree
