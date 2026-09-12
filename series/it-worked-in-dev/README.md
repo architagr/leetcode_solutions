@@ -25,6 +25,7 @@ written, not the first one numbered.
 | 3 | [Why adding pricing tiers made every request slower](episodes/03-pricing-tier-lookup/) | binary search over ranges | day 2 |
 | 4 | [Why the breadcrumbs cost more than the file list](episodes/04-file-breadcrumbs/) | root-to-leaf path building | day 3 |
 | 5 | [Why your nav health check slowed down as the menu grew](episodes/05-lopsided-categories/) | two facts from one pass | days 1, 5 |
+| 6 | [The answer was two clicks away. We read all 5,464 pages.](episodes/06-sitemap-click-depth/) | stop at the first level that answers | days 1, 7 |
 | 8 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 4, 9 |
 
 ## Why it lives in this repo
