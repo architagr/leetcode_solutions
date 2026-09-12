@@ -1,31 +1,39 @@
 ---
-meta_title: "The nested loop that was fine until it wasn't"
-meta_description: "20,000 records against 20,000 took 516 ms in a Go benchmark. The loop is correct, and the fix is four lines - but the reasoning that gets you there is the part worth having."
+meta_title: "Why your CSV import crawls on a real customer's file"
+meta_description: "Checking 20,000 uploaded rows against 20,000 existing users took 516 ms in a Go benchmark. The loop is correct. The reasoning that reaches the fix is the part worth having."
 tags: [golang, algorithms, performance, hashing, dsa]
 hashtags: "#Golang #DSA #Algorithms #Performance #SoftwareEngineering #DataStructures #100DaysOfCode"
 ---
 
-# The nested loop that was fine until it wasn't
+# Why your CSV import crawls on a real customer's file
 
 **It worked in dev · Episode 1 · technique: set membership**
 
-You wrote it against a test fixture of twelve records. It was instant. It went
-to production, and eighteen months later somebody imported twenty thousand rows
-and the request timed out.
+A customer uploads a CSV of their users. You have to work out which rows are
+new, so you can insert those and skip the rest.
 
-Nothing changed. The code was always this slow. The input finally caught up.
+You wrote that function against a twelve-row fixture. It was instant. Today
+somebody uploaded twenty thousand rows and the request timed out.
+
+Nothing changed. The code was always this slow. The file finally got big enough
+to show it.
 
 ---
 
 ## The problem
 
-You have a list of incoming records and a list of the ones you already have.
-Which incoming ones are new?
+Two lists:
 
-A CSV import. A webhook batch. A sync against a third-party API. Every codebase
-has this function somewhere.
+- **incoming** — the rows in the uploaded file
+- **existing** — the users already in the database
 
----
+Return the incoming rows whose email is not already in `existing`.
+
+That is it. A CSV import, a webhook batch, a nightly sync against some API —
+every codebase has this function somewhere, usually written early and never
+looked at again.
+
+![For each incoming email, is it already in existing?](images/walkthrough-1.png)
 
 ## What you would write
 
@@ -56,8 +64,6 @@ look through the existing ones, keep it if nothing matched. It allocates nothing
 beyond the result. There is no setup step to forget, no second data structure to
 keep in sync, and nothing that behaves differently on an empty input. It is
 correct, and it passes review anywhere.
-
-![For each incoming email, is it already in existing?](images/walkthrough-1.png)
 
 ---
 
