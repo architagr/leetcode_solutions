@@ -289,10 +289,16 @@ entries:
       difficulty: easy
       folder: easy_problems/201_300/reverse_linked_list
       batch: linked list
-      status: pending_content
+      status: content_ready
       builds_on:
         - 114
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 20
       number: 876
       title: Middle of the Linked List
@@ -300,7 +306,13 @@ entries:
       folder: easy_problems/801_900/middle_of_the_linked_list
       batch: linked list
       status: pending_content
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 21
       number: 141
       title: Linked List Cycle
@@ -310,7 +322,13 @@ entries:
       status: pending_content
       builds_on:
         - 876
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 22
       number: 21
       title: Merge Two Sorted Lists
@@ -318,7 +336,13 @@ entries:
       folder: easy_problems/1_100/merge_two_sorted_lists
       batch: linked list
       status: pending_content
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 23
       number: 234
       title: Palindrome Linked List
@@ -329,7 +353,13 @@ entries:
       builds_on:
         - 206
         - 876
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 24
       number: 19
       title: Remove Nth Node From End of List
@@ -339,7 +369,13 @@ entries:
       status: pending_content
       builds_on:
         - 876
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 25
       number: 92
       title: Reverse Linked List II
@@ -349,7 +385,13 @@ entries:
       status: pending_content
       builds_on:
         - 206
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 26
       number: 143
       title: Reorder List
@@ -361,7 +403,13 @@ entries:
         - 206
         - 876
         - 21
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 27
       number: 637
       title: Average of Levels in Binary Tree
@@ -516,7 +564,13 @@ entries:
       folder: easy_problems/1901_2000/find_if_path_exists_in_graph
       batch: graph
       status: pending_content
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 37
       number: 200
       title: Number of Islands
@@ -526,7 +580,13 @@ entries:
       status: pending_content
       builds_on:
         - 102
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 38
       number: 695
       title: Max Area of Island
@@ -536,7 +596,13 @@ entries:
       status: pending_content
       builds_on:
         - 200
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 39
       number: 547
       title: Number of Provinces
@@ -546,7 +612,13 @@ entries:
       status: pending_content
       builds_on:
         - 200
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 40
       number: 994
       title: Rotting Oranges
@@ -557,7 +629,13 @@ entries:
       builds_on:
         - 102
         - 200
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 41
       number: 542
       title: 01 Matrix
@@ -567,7 +645,13 @@ entries:
       status: pending_content
       builds_on:
         - 994
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 42
       number: 261
       title: Graph Valid Tree
@@ -578,7 +662,13 @@ entries:
       builds_on:
         - 104
         - 200
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 43
       number: 133
       title: Clone Graph
@@ -588,7 +678,13 @@ entries:
       status: pending_content
       builds_on:
         - 200
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 44
       number: 207
       title: Course Schedule
@@ -598,7 +694,13 @@ entries:
       status: pending_content
       builds_on:
         - 133
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 45
       number: 700
       title: Search in a Binary Search Tree
@@ -816,7 +918,13 @@ entries:
       folder: easy_problems/1_100/valid_parentheses
       batch: stack
       status: pending_content
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 59
       number: 496
       title: Next Greater Element I
@@ -826,7 +934,13 @@ entries:
       status: pending_content
       builds_on:
         - 20
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 60
       number: 155
       title: Min Stack
@@ -836,7 +950,13 @@ entries:
       status: pending_content
       builds_on:
         - 20
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 61
       number: 739
       title: Daily Temperatures
@@ -846,7 +966,13 @@ entries:
       status: pending_content
       builds_on:
         - 496
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 62
       number: 150
       title: Evaluate Reverse Polish Notation
@@ -856,7 +982,13 @@ entries:
       status: pending_content
       builds_on:
         - 20
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 63
       number: 341
       title: Flatten Nested List Iterator
@@ -866,7 +998,13 @@ entries:
       status: pending_content
       builds_on:
         - 173
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 64
       number: 636
       title: Exclusive Time of Functions
@@ -876,7 +1014,13 @@ entries:
       status: pending_content
       builds_on:
         - 155
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 65
       number: 965
       title: Univalued Binary Tree
@@ -1057,7 +1201,13 @@ entries:
       status: pending_content
       builds_on:
         - 703
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 77
       number: 215
       title: Kth Largest Element in an Array
@@ -1067,7 +1217,13 @@ entries:
       status: pending_content
       builds_on:
         - 703
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 78
       number: 347
       title: Top K Frequent Elements
@@ -1077,7 +1233,13 @@ entries:
       status: pending_content
       builds_on:
         - 215
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 79
       number: 692
       title: Top K Frequent Words
@@ -1087,7 +1249,13 @@ entries:
       status: pending_content
       builds_on:
         - 347
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 80
       number: 23
       title: Merge k Sorted Lists
@@ -1098,7 +1266,13 @@ entries:
       builds_on:
         - 21
         - 703
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 81
       number: 264
       title: Ugly Number II
@@ -1108,4 +1282,10 @@ entries:
       status: pending_content
       builds_on:
         - 703
-      posted_at: {}
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
