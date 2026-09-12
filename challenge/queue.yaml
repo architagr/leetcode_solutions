@@ -931,7 +931,7 @@ entries:
       difficulty: easy
       folder: easy_problems/401_500/next_greater_element_i
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 20
       posted_at:
