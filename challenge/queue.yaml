@@ -947,7 +947,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/min_stack
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 20
       posted_at:
