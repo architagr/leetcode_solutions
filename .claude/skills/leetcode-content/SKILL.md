@@ -256,23 +256,42 @@ Two things to keep honest:
    proceed past a failed call as if it had succeeded (e.g. don't fabricate a folder path
    or day number when a call that was supposed to produce one failed).
 
-   **Post-`queue-append` failures need special handling, since `queue-append` (step i)
-   is the point of no return.** Once it succeeds, `queue-has` will report this number as
-   already queued on every future run — there is no "un-append" operation. So a failure
-   in any of steps (j) through (n) — hero rendering (other than the already-handled
-   `hero-generate` case, which is non-fatal by design), writing the post drafts, or the
-   final `git commit` — leaves a permanently "claimed" queue entry with incomplete or
-   missing content, which a future re-run will silently skip forever rather than retry.
-   If this happens: do NOT treat it as a normal per-problem skip. Call it out prominently
-   and separately in the end-of-run summary (e.g. "Day N / question NUMBER was queued but
-   its commit failed — needs manual follow-up: <error>"), so the user knows to
-   investigate and finish that entry by hand rather than assuming a clean re-run will
-   pick it up.
+   **A failure after `queue-append` (step i) leaves the day claimed but unwritten.**
+   There is no "un-append" operation, so a failure in any of steps (j) through (n) —
+   hero rendering (other than the already-handled `hero-generate` case, which is
+   non-fatal by design), writing the post drafts, or the final `git commit` — leaves a
+   queue entry whose number is taken and whose content is incomplete.
 
-   a. Skip it if `queue-has` returns `{"has": true}` (the subcommand's JSON result, not a bare `true`):
+   That state is recoverable rather than permanent, because the entry is still
+   `pending_content`: `queue-lookup` reports `"needsContent": true` for it, so the next
+   run picks it up and finishes it instead of skipping it. Only `mark-content-ready`,
+   at the very end of a successful iteration, declares a question done.
+
+   Still report it. Call it out prominently and separately in the end-of-run summary
+   (e.g. "Day N / question NUMBER was queued but its commit failed — will be retried on
+   the next run: <error>"), because a half-written folder sitting in the working tree is
+   something the user should see rather than discover later.
+
+   a. Look the question up in the queue and branch on what comes back:
       ```bash
-      /tmp/leetcodectl queue-has '{"queuePath":"challenge/queue.yaml","number":<number>}'
+      /tmp/leetcodectl queue-lookup '{"queuePath":"challenge/queue.yaml","number":<number>}'
       ```
+      Three outcomes, and conflating the first two strands a day forever:
+
+      - `{"has": false}` — not queued. Generate content and **append** it, which assigns
+        the day number (step i).
+      - `{"has": true, "needsContent": true}` — **queued but not yet written.** Its day
+        number is already reserved, and posting skips it until content exists. Generate
+        content for it exactly as normal, but use the `day` the lookup returned rather
+        than appending, and finish with `mark-content-ready` instead of `queue-append`
+        (see step i-bis). Do **not** skip these.
+      - `{"has": true, "needsContent": false}` — already written. Skip it silently.
+
+      The reserved-day case is how a batch's topic and difficulty shape gets decided
+      before any of it is written: the whole ordering is laid out first, then the
+      write-ups are filled in arc by arc. Treating "queued" as "done" — which this step
+      used to do — leaves every reserved day permanently unwritten, because posting
+      skips a day with no content and nothing ever comes back to fill it in.
 
    b. Resolve its location:
       ```bash
@@ -476,8 +495,22 @@ Two things to keep honest:
       If the returned `companies` array is non-empty, write `<folder>/COMPANIES.md` listing
       them. If empty, don't create the file at all.
 
-   i. Append to the queue FIRST — this assigns and returns the authoritative Day number
-      that every remaining step in this iteration needs (hero image, both post drafts):
+   i. **If step (a) reported `"needsContent": true`, do not append.** The day number is
+      already reserved and `queue-append` would assign a second one to a question that
+      already has a day. Use the `day` the lookup returned for steps (j)-(n), and close
+      the question out with `mark-content-ready` after its files are written and
+      committed:
+      ```bash
+      /tmp/leetcodectl mark-content-ready '{"queuePath":"challenge/queue.yaml","numbers":[<number>]}'
+      ```
+      The entry already carries `title`, `difficulty`, `folder`, `batch` and `builds_on`
+      from when the ordering was laid out, so none of those need setting again — flipping
+      the status is the whole of it. Everything else in this iteration is unchanged.
+      Then skip to step (j).
+
+      Otherwise, append to the queue FIRST — this assigns and returns the authoritative
+      Day number that every remaining step in this iteration needs (hero image, both post
+      drafts):
       ```bash
       /tmp/leetcodectl queue-append '{"queuePath":"challenge/queue.yaml","entry":{"number":<number>,"title":"<title>","difficulty":"<difficulty>","folder":"<folder>","batch":"<list-name>","builds_on":[<earlier problem numbers>]}}'
       ```
@@ -496,7 +529,7 @@ Two things to keep honest:
       question, before rendering anything that embeds the day number, is what keeps a
       multi-question batch's day numbers correct. (This ordering matters specifically
       because there is no read-only way to peek `next_day` without mutating it — the
-      only two things that touch it are `queue-has`, which doesn't return it, and
+      only two things that touch it are `queue-lookup`, which doesn't return it, and
       `queue-append`, which advances it. Calling `queue-append` first removes any need
       to predict its value.)
 
@@ -749,5 +782,6 @@ Two things to keep honest:
   LinkedIn and Substack are prepared as paste-ready batches (`linkedin-batch`,
   `substack-batch`) and marked by hand with `mark-posted` after they actually go out.
   See `challenge/README.md` for the whole picture.
-- Re-running this skill with the same URL/list is always safe — already-queued questions
+- Re-running this skill with the same URL/list is always safe — questions whose content
+  is already written
   are skipped, so partial batches (e.g. "10 of 30 done this week") resume cleanly.

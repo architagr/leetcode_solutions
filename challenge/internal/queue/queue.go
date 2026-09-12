@@ -318,3 +318,19 @@ func (q *Queue) Reorder(dayByNumber map[int]int) {
 		q.NextDay = highest + 1
 	}
 }
+
+// Find returns the entry for a question number.
+//
+// Has answers "is this number claimed", which is all an append needs to
+// know. Generating content for a day whose number was reserved ahead of
+// its write-up needs more than that: it has to tell a finished entry
+// from one still waiting on content, and it needs the reserved day
+// number to write into the post.
+func (q *Queue) Find(number int) (Entry, bool) {
+	for _, e := range q.Entries {
+		if e.Number == number {
+			return e, true
+		}
+	}
+	return Entry{}, false
+}

@@ -111,6 +111,16 @@ func dispatch(cmd string, payload []byte) (any, error) {
 		}
 		return map[string]bool{"has": has}, nil
 
+	case "queue-lookup":
+		var in struct {
+			QueuePath string `json:"queuePath"`
+			Number    int    `json:"number"`
+		}
+		if err := json.Unmarshal(payload, &in); err != nil {
+			return nil, err
+		}
+		return cli.QueueLookup(in.QueuePath, in.Number)
+
 	case "queue-append":
 		var in struct {
 			QueuePath string      `json:"queuePath"`

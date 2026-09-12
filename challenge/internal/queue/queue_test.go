@@ -306,3 +306,20 @@ func TestReorderAssignsDaysAndKeepsNextDayAhead(t *testing.T) {
 		t.Fatalf("NextDay must stay one past the highest day, got %d", q.NextDay)
 	}
 }
+
+func TestFindReportsStatusAndDay(t *testing.T) {
+	q := &Queue{NextDay: 3, Entries: []Entry{
+		{Day: 1, Number: 104, Status: StatusContentReady, PostedAt: map[string]*string{}},
+		{Day: 19, Number: 206, Status: StatusPendingContent, PostedAt: map[string]*string{}},
+	}}
+	e, ok := q.Find(206)
+	if !ok {
+		t.Fatal("206 should be found")
+	}
+	if e.Day != 19 || e.Status != StatusPendingContent {
+		t.Fatalf("wrong entry returned: %+v", e)
+	}
+	if _, ok := q.Find(999); ok {
+		t.Fatal("999 should not be found")
+	}
+}
