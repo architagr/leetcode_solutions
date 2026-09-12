@@ -6,30 +6,27 @@ func maxAreaOfIsland(grid [][]int) int {
 	for i := 0; i < len(grid); i++ {
 		for j := 0; j < len(grid[0]); j++ {
 			if grid[i][j] == 1 {
-				visted := map[node]bool{}
-				bfs(i, j, visted, &grid)
-				if len(visted) > max {
-					max = len(visted)
+				// Every cell of this island is sunk during the fill, so a
+				// later scan can never start a second fill on the same one.
+				if area := dfs(i, j, &grid); area > max {
+					max = area
 				}
-
 			}
 		}
 	}
 	return max
 }
 
-type node struct {
-	i, j int
-}
-
-func bfs(i, j int, visited map[node]bool, grid *[][]int) {
+// dfs sinks the island reachable from (i, j) and returns how many cells it
+// covered. The bounds check and the "already sunk" check share one guard,
+// so a caller never has to validate a neighbour before recursing.
+func dfs(i, j int, grid *[][]int) int {
 	if i < 0 || j < 0 || i >= len(*grid) || j >= len((*grid)[0]) || (*grid)[i][j] != 1 {
-		return
+		return 0
 	}
-	visited[node{i: i, j: j}] = true
+	// Sink before recursing. Marking on the way in is what stops the four
+	// calls below from walking straight back into this cell.
 	(*grid)[i][j] = 0
-	bfs(i+1, j, visited, grid)
-	bfs(i-1, j, visited, grid)
-	bfs(i, j+1, visited, grid)
-	bfs(i, j-1, visited, grid)
+
+	return 1 + dfs(i+1, j, grid) + dfs(i-1, j, grid) + dfs(i, j+1, grid) + dfs(i, j-1, grid)
 }

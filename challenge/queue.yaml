@@ -563,7 +563,7 @@ entries:
       difficulty: easy
       folder: easy_problems/1901_2000/find_if_path_exists_in_graph
       batch: graph
-      status: pending_content
+      status: content_ready
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -577,9 +577,9 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/number_of_islands
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
-        - 102
+        - 104
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -593,7 +593,7 @@ entries:
       difficulty: medium
       folder: medium_problems/601_700/max_area_of_island
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 200
       posted_at:
@@ -609,8 +609,9 @@ entries:
       difficulty: medium
       folder: medium_problems/501_600/number_of_provinces
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
+        - 1971
         - 200
       posted_at:
         discord: null
@@ -625,7 +626,7 @@ entries:
       difficulty: medium
       folder: medium_problems/901_1000/rotting_oranges
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 102
         - 200
@@ -642,7 +643,7 @@ entries:
       difficulty: medium
       folder: medium_problems/501_600/01_matrix
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 994
       posted_at:
@@ -653,14 +654,13 @@ entries:
         substack: null
         x: null
     - day: 42
-      number: 261
-      title: Graph Valid Tree
+      number: 133
+      title: Clone Graph
       difficulty: medium
-      folder: medium_problems/201_300/graph_valid_tree
+      folder: medium_problems/101_200/clone_graph
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
-        - 104
         - 200
       posted_at:
         discord: null
@@ -670,14 +670,14 @@ entries:
         substack: null
         x: null
     - day: 43
-      number: 133
-      title: Clone Graph
+      number: 261
+      title: Graph Valid Tree
       difficulty: medium
-      folder: medium_problems/101_200/clone_graph
+      folder: medium_problems/201_300/graph_valid_tree
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
-        - 200
+        - 1971
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -691,9 +691,9 @@ entries:
       difficulty: medium
       folder: medium_problems/201_300/course_schedule
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
-        - 133
+        - 1971
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -1137,6 +1137,7 @@ entries:
       status: content_ready
       builds_on:
         - 102
+        - 103
       posted_at:
         discord: null
         linkedin_company_page: null
