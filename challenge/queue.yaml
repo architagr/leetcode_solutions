@@ -563,7 +563,7 @@ entries:
       difficulty: easy
       folder: easy_problems/1901_2000/find_if_path_exists_in_graph
       batch: graph
-      status: pending_content
+      status: content_ready
       posted_at:
         discord: null
         linkedin_company_page: null
