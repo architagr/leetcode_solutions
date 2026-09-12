@@ -1,0 +1,26 @@
+# Canonical URLs for every surface this content publishes to.
+#
+# One place, so a moved newsletter or a renamed publication is one edit rather
+# than a hunt through every episode. The drafts carry the real URLs - this file
+# is the record of what each surface's canonical URL is, and tools/checklinks.py
+# fails on a link in a draft that this file does not know about.
+#
+# Hub and spoke: the GitHub write-up is canonical and carries every link. The
+# other surfaces carry the piece and link back here plus sideways to each other.
+# One canonical page means one place to fix a broken link, and the repo is the
+# only surface fully under our control.
+
+hub:
+  # The series lives inside the daily-challenge repo on purpose. Every episode
+  # backlinks the days it is built on, so keeping them together makes those
+  # links local, and one clone gets a reader the solutions and the benchmarks
+  # they were just told to run.
+  github_solutions: https://github.com/architagr/leetcode_solutions
+  github_series: https://github.com/architagr/leetcode_solutions/tree/main/series/it-worked-in-dev
+
+spokes:
+  golang_journal: "https://www.linkedin.com/newsletters/the-weekly-golang-journal-7261403856079597568/"
+  medium: "https://medium.com/@architagr"
+  substack: "https://substack.com/@architagr"
+  linkedin_profile: "https://www.linkedin.com/in/architagarwal984/"
+  x_profile: "https://x.com/architagr"
