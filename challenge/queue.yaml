@@ -1199,7 +1199,7 @@ entries:
       difficulty: easy
       folder: easy_problems/1001_1100/last_stone_weight
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 703
       posted_at:
