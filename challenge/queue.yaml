@@ -659,7 +659,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/clone_graph
       batch: graph
-      status: pending_content
+      status: content_ready
       builds_on:
         - 200
       posted_at:
