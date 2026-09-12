@@ -1263,7 +1263,7 @@ entries:
       difficulty: hard
       folder: hard_problems/1_100/merge_k_sorted_lists
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 21
         - 703
