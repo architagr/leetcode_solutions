@@ -979,7 +979,7 @@ entries:
       difficulty: medium
       folder: medium_problems/101_200/evaluate_reverse_polish_notation
       batch: stack
-      status: pending_content
+      status: content_ready
       builds_on:
         - 20
       posted_at:
