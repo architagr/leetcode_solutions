@@ -1280,7 +1280,7 @@ entries:
       difficulty: medium
       folder: medium_problems/201_300/ugly_number_ii
       batch: heap
-      status: pending_content
+      status: content_ready
       posted_at:
         discord: null
         linkedin_company_page: null
