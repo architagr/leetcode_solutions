@@ -1247,7 +1247,7 @@ entries:
       difficulty: medium
       folder: medium_problems/601_700/top_k_frequent_words
       batch: heap
-      status: pending_content
+      status: content_ready
       builds_on:
         - 347
       posted_at:
