@@ -275,6 +275,21 @@ func ApplyWith(repoRoot, queuePath string, p Plan, dryRun bool, render HeroRende
 		dayByNumber[e.Number] = e.Day
 	}
 	q.Reorder(dayByNumber)
+
+	// The plan is the full intended state, not a diff, so a chain it
+	// describes wins over whatever the queue currently holds. Without
+	// this, correcting a builds_on means hand-editing the yaml the
+	// renumber was supposed to own.
+	planBuildsOn := make(map[int][]int, len(p.Entries))
+	for _, e := range p.Entries {
+		planBuildsOn[e.Number] = e.BuildsOn
+	}
+	for i := range q.Entries {
+		if deps, ok := planBuildsOn[q.Entries[i].Number]; ok {
+			q.Entries[i].BuildsOn = deps
+		}
+	}
+
 	for _, ins := range res.Inserted {
 		var e Entry
 		for _, pe := range p.Entries {

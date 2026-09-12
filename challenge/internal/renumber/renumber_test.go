@@ -293,3 +293,32 @@ func TestApplyRefusesAnInvalidPlanWithoutWriting(t *testing.T) {
 		t.Fatalf("a refused plan must write nothing, but the file changed: %q", got)
 	}
 }
+
+func TestApplySyncsBuildsOnForExistingEntries(t *testing.T) {
+	root := testRepo(t, "a", "b", "c")
+	queuePath := filepath.Join(root, "queue.yaml")
+	q := baseQueue()
+	q.Entries[2].BuildsOn = []int{999} // stale, and wrong
+	if err := q.Save(queuePath); err != nil {
+		t.Fatal(err)
+	}
+	p := Plan{Entries: []Entry{
+		{Day: 1, Number: 104, Folder: "a"},
+		{Day: 2, Number: 108, Folder: "b"},
+		{Day: 3, Number: 257, Folder: "c", BuildsOn: []int{104, 108}},
+	}}
+	if _, err := Apply(root, queuePath, p, "", false); err != nil {
+		t.Fatalf("apply failed: %v", err)
+	}
+	reloaded, _ := queue.Load(queuePath)
+	for _, e := range reloaded.Entries {
+		if e.Number != 257 {
+			continue
+		}
+		if len(e.BuildsOn) != 2 || e.BuildsOn[0] != 104 || e.BuildsOn[1] != 108 {
+			t.Fatalf("builds_on not synced from plan: %v", e.BuildsOn)
+		}
+		return
+	}
+	t.Fatal("257 missing from queue")
+}

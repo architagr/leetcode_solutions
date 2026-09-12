@@ -579,7 +579,7 @@ entries:
       batch: graph
       status: pending_content
       builds_on:
-        - 102
+        - 104
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -611,6 +611,7 @@ entries:
       batch: graph
       status: pending_content
       builds_on:
+        - 1971
         - 200
       posted_at:
         discord: null
@@ -653,23 +654,6 @@ entries:
         substack: null
         x: null
     - day: 42
-      number: 261
-      title: Graph Valid Tree
-      difficulty: medium
-      folder: medium_problems/201_300/graph_valid_tree
-      batch: graph
-      status: pending_content
-      builds_on:
-        - 104
-        - 200
-      posted_at:
-        discord: null
-        linkedin_company_page: null
-        linkedin_group: null
-        linkedin_main_account: null
-        substack: null
-        x: null
-    - day: 43
       number: 133
       title: Clone Graph
       difficulty: medium
@@ -685,6 +669,22 @@ entries:
         linkedin_main_account: null
         substack: null
         x: null
+    - day: 43
+      number: 261
+      title: Graph Valid Tree
+      difficulty: medium
+      folder: medium_problems/201_300/graph_valid_tree
+      batch: graph
+      status: pending_content
+      builds_on:
+        - 1971
+      posted_at:
+        discord: null
+        linkedin_company_page: null
+        linkedin_group: null
+        linkedin_main_account: null
+        substack: null
+        x: null
     - day: 44
       number: 207
       title: Course Schedule
@@ -693,7 +693,7 @@ entries:
       batch: graph
       status: pending_content
       builds_on:
-        - 133
+        - 1971
       posted_at:
         discord: null
         linkedin_company_page: null
@@ -1137,6 +1137,7 @@ entries:
       status: content_ready
       builds_on:
         - 102
+        - 103
       posted_at:
         discord: null
         linkedin_company_page: null

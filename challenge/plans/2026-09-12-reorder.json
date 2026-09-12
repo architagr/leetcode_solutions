@@ -399,7 +399,7 @@
       "folder": "medium_problems/101_200/number_of_islands",
       "batch": "graph",
       "buildsOn": [
-        102
+        104
       ]
     },
     {
@@ -421,6 +421,7 @@
       "folder": "medium_problems/501_600/number_of_provinces",
       "batch": "graph",
       "buildsOn": [
+        1971,
         200
       ]
     },
@@ -449,18 +450,6 @@
     },
     {
       "day": 42,
-      "number": 261,
-      "title": "Graph Valid Tree",
-      "difficulty": "medium",
-      "folder": "medium_problems/201_300/graph_valid_tree",
-      "batch": "graph",
-      "buildsOn": [
-        104,
-        200
-      ]
-    },
-    {
-      "day": 43,
       "number": 133,
       "title": "Clone Graph",
       "difficulty": "medium",
@@ -471,6 +460,17 @@
       ]
     },
     {
+      "day": 43,
+      "number": 261,
+      "title": "Graph Valid Tree",
+      "difficulty": "medium",
+      "folder": "medium_problems/201_300/graph_valid_tree",
+      "batch": "graph",
+      "buildsOn": [
+        1971
+      ]
+    },
+    {
       "day": 44,
       "number": 207,
       "title": "Course Schedule",
@@ -478,7 +478,7 @@
       "folder": "medium_problems/201_300/course_schedule",
       "batch": "graph",
       "buildsOn": [
-        133
+        1971
       ]
     },
     {
