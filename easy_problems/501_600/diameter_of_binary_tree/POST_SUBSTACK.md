@@ -141,7 +141,7 @@ height is `1`.
 ---
 
 Full breakdown, code, and images for every day of this challenge live in this
-repo. See you tomorrow for Day 13.
+repo. See you tomorrow for Day 22.
 
 ---
 

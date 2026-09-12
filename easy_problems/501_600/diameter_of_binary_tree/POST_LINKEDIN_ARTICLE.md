@@ -134,7 +134,7 @@ height is `1`.
 ---
 
 Full breakdown, code, and images for every day of this challenge live in this
-repo. See you tomorrow for Day 13.
+repo. See you tomorrow for Day 22.
 
 Full code and the step-by-step walkthrough:
 [diameter_of_binary_tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/501_600/diameter_of_binary_tree/SOLUTION.md)
