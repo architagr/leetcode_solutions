@@ -382,7 +382,7 @@ entries:
       difficulty: medium
       folder: medium_problems/1_100/reverse_linked_list_ii
       batch: linked list
-      status: pending_content
+      status: content_ready
       builds_on:
         - 206
       posted_at:
