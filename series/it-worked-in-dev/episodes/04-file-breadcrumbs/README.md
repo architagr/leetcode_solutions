@@ -259,6 +259,16 @@ If you are reversing what you collected, you gathered it in the wrong direction.
 
 ---
 
+## Built on
+
+Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode_solutions),
+with the solution write-up and the problem itself:
+
+- **Day 3 — [Binary Tree Paths](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/201_300/binary_tree_path/SOLUTION.md)** · LeetCode [#257](https://leetcode.com/problems/binary-tree-paths/) · easy
+  <br>building a root-to-leaf path by passing the prefix down the recursion
+
+---
+
 ## Run it yourself
 
 ```bash

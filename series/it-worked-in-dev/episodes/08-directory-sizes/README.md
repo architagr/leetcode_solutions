@@ -347,6 +347,18 @@ underneath it, the subtree's answer wants to be a return value, not a second wal
 
 ---
 
+## Built on
+
+Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode_solutions),
+with the solution write-up and the problem itself:
+
+- **Day 4 — [Sum of Left Leaves](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/401_500/sum_of_left_leaves/SOLUTION.md)** · LeetCode [#404](https://leetcode.com/problems/sum-of-left-leaves/) · easy
+  <br>a parent reading what its children returned, instead of going to look
+- **Day 9 — [Binary Tree Postorder Traversal](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_postorder_traversal/SOLUTION.md)** · LeetCode [#145](https://leetcode.com/problems/binary-tree-postorder-traversal/) · easy
+  <br>children before the parent, stated on its own
+
+---
+
 ## Run it yourself
 
 ```bash

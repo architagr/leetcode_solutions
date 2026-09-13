@@ -287,6 +287,18 @@ expensive kind of tidiness.
 
 ---
 
+## Built on
+
+Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode_solutions),
+with the solution write-up and the problem itself:
+
+- **Day 1 — [Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/SOLUTION.md)** · LeetCode [#104](https://leetcode.com/problems/maximum-depth-of-binary-tree/) · easy
+  <br>level-order traversal with a queue, and a counter that ticks once per level
+- **Day 5 — [Balanced Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/balanced_binary_tree/SOLUTION.md)** · LeetCode [#110](https://leetcode.com/problems/balanced-binary-tree/) · easy
+  <br>returning a height and a verdict from one pass, because checking height per node is quadratic
+
+---
+
 ## Run it yourself
 
 ```bash

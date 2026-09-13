@@ -279,6 +279,16 @@ long enough that halving beats reading it.
 
 ---
 
+## Built on
+
+Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode_solutions),
+with the solution write-up and the problem itself:
+
+- **Day 2 — [Convert Sorted Array to Binary Search Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/convert_sorted_array_to_binary_search_tree/SOLUTION.md)** · LeetCode [#108](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/) · easy
+  <br>taking the middle element so each choice halves what is left
+
+---
+
 ## Run it yourself
 
 ```bash

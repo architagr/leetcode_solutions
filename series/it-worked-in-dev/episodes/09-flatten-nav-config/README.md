@@ -272,6 +272,18 @@ only to be poured into another one.
 
 ---
 
+## Built on
+
+Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode_solutions),
+with the solution write-up and the problem itself:
+
+- **Day 8 — [Binary Tree Preorder Traversal](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/binary_tree_preorder_traversal/SOLUTION.md)** · LeetCode [#144](https://leetcode.com/problems/binary-tree-preorder-traversal/) · easy
+  <br>visiting a node before its children - the whole difference is one line's position
+- **Day 10 — [Flatten Binary Tree to Linked List](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/flatten_binary_tree_to_linked_list/SOLUTION.md)** · LeetCode [#114](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/) · medium
+  <br>collecting in preorder, then rebuilding the tree as a flat chain
+
+---
+
 ## Run it yourself
 
 ```bash

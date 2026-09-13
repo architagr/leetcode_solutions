@@ -310,6 +310,13 @@ does not change while you search it, the answer is a set built once.
 
 ---
 
+## Built on
+
+Nothing - this one stands alone. The daily challenge is at
+[github.com/architagr/leetcode_solutions](https://github.com/architagr/leetcode_solutions).
+
+---
+
 ## Run it yourself
 
 ```bash

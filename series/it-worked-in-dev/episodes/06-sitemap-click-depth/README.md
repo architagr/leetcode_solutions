@@ -262,6 +262,18 @@ you avoided.
 
 ---
 
+## Built on
+
+Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode_solutions),
+with the solution write-up and the problem itself:
+
+- **Day 1 — [Maximum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/maximum_depth_of_binary_tree/SOLUTION.md)** · LeetCode [#104](https://leetcode.com/problems/maximum-depth-of-binary-tree/) · easy
+  <br>level-order traversal with a queue, and a counter that ticks once per level
+- **Day 7 — [Minimum Depth of Binary Tree](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/minimum_depth_of_binary_tree/SOLUTION.md)** · LeetCode [#111](https://leetcode.com/problems/minimum-depth-of-binary-tree/) · easy
+  <br>the shallowest leaf, and why a missing child must not count as depth zero
+
+---
+
 ## Run it yourself
 
 ```bash
