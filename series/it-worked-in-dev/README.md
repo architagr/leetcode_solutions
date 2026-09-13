@@ -28,6 +28,7 @@ written, not the first one numbered.
 | 6 | [The answer was two clicks away. We read all 5,464 pages.](episodes/06-sitemap-click-depth/) | stop at the first level that answers | days 1, 7 |
 | 7 | [61 comments took longer to sort than 259](episodes/07-comment-thread/) | preorder traversal | days 3, 8 |
 | 8 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 4, 9 |
+| 9 | [601 menu items took 2.4 milliseconds to flatten](episodes/09-flatten-nav-config/) | writing into one destination | days 8, 10 |
 
 ## Why it lives in this repo
 
