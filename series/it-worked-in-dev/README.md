@@ -26,6 +26,7 @@ written, not the first one numbered.
 | 4 | [Why the breadcrumbs cost more than the file list](episodes/04-file-breadcrumbs/) | root-to-leaf path building | day 3 |
 | 5 | [Why your nav health check slowed down as the menu grew](episodes/05-lopsided-categories/) | two facts from one pass | days 1, 5 |
 | 6 | [The answer was two clicks away. We read all 5,464 pages.](episodes/06-sitemap-click-depth/) | stop at the first level that answers | days 1, 7 |
+| 7 | [61 comments took longer to sort than 259](episodes/07-comment-thread/) | preorder traversal | days 3, 8 |
 | 8 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 4, 9 |
 
 ## Why it lives in this repo
