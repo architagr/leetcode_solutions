@@ -30,6 +30,7 @@ written, not the first one numbered.
 | 8 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 4, 9 |
 | 9 | [601 menu items took 2.4 milliseconds to flatten](episodes/09-flatten-nav-config/) | writing into one destination | days 8, 10 |
 | 10 | [Your fleet tripled and the check got 12x slower](episodes/10-two-furthest-services/) | diameter, from two child results at each node | days 11, 13 |
+| 11 | [The cascade delete was fine until a reply got a reply](episodes/11-safe-delete-order/) | peeling leaves, one layer at a time | days 13, 16 |
 
 ## Why it lives in this repo
 
