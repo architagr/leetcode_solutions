@@ -34,6 +34,8 @@ written, not the first one numbered.
 | 12 | [The loop check allocated 4.7 MB to return a boolean](episodes/12-pipeline-never-finishes/) | two cursors at different speeds | days 19, 21 |
 | 13 | [Your feed got slower when one source went quiet](episodes/13-merge-two-sorted-feeds/) | merging two sorted inputs | days 19, 22 |
 | 14 | [Your crash report held the whole log to send 200 lines](episodes/14-last-n-in-one-pass/) | a fixed gap between two cursors | days 20, 24 |
+| 15 | [Your org chart read 55,987 rows to draw the first 43](episodes/15-org-chart-by-level/) | level order with a queue | days 27, 29 |
+| 16 | [The collapsed thread built 55,987 previews to show 7](episodes/16-collapsed-tree-view/) | first arrival wins | days 29, 31 |
 
 ## Why it lives in this repo
 
