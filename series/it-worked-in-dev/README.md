@@ -33,6 +33,7 @@ written, not the first one numbered.
 | 11 | [The cascade delete was fine until a reply got a reply](episodes/11-safe-delete-order/) | peeling leaves, one layer at a time | days 13, 16 |
 | 12 | [The loop check allocated 4.7 MB to return a boolean](episodes/12-pipeline-never-finishes/) | two cursors at different speeds | days 19, 21 |
 | 13 | [Your feed got slower when one source went quiet](episodes/13-merge-two-sorted-feeds/) | merging two sorted inputs | days 19, 22 |
+| 14 | [Your crash report held the whole log to send 200 lines](episodes/14-last-n-in-one-pass/) | a fixed gap between two cursors | days 20, 24 |
 
 ## Why it lives in this repo
 
