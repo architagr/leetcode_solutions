@@ -332,7 +332,7 @@ Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode
 with the solution write-up and the problem itself:
 
 - **Day 19 — [Reverse Linked List](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/201_300/reverse_linked_list/SOLUTION.md)** · LeetCode [#206](https://leetcode.com/problems/reverse-linked-list/) · easy
-  <br>two cursors walking one chain, and a loop that ends on a nil pointer rather than a count - which is exactly what never happens on a chain that rings
+  <br>two cursors walking one chain, and a loop that ends on a nil pointer rather than on a count
 - **Day 21 — [Linked List Cycle](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/101_200/linked_list_cycle/SOLUTION.md)** · LeetCode [#141](https://leetcode.com/problems/linked-list-cycle/) · easy
   <br>the two-speed walk itself, and the reason the loop condition is the no-cycle answer rather than a guard against dereferencing nil
 
