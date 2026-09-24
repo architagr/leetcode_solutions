@@ -37,11 +37,18 @@ pair should cost the same.
 One pair does. The other does not:
 
 ```
-BenchmarkMixDiscarded-8       0.315 ns/op
-BenchmarkMixKept-8            1.054 ns/op    <- 3.3x
-BenchmarkSumToDiscarded-8     324.4 ns/op
-BenchmarkSumToKept-8          324.8 ns/op    <- no difference
+                   │ sec/op        │
+MixDiscarded-8       0.3184n ± 1%
+MixKept-8             1.054n ± 1%   <- 3.3x apart
+SumToDiscarded-8      324.9n ± 0%
+SumToKept-8           324.4n ± 1%   <- the same
 ```
+
+Ten runs each through `benchstat`, not one, because one run is not evidence —
+measured on a loaded laptop a single run reported the SumTo pair 1.3x apart
+when they are the same. The `± n%` is the variance, and it is how you tell a
+real difference from a busy machine. Those are M1 Pro numbers; yours will
+differ.
 
 `Mix` discarded never ran. **0.315 ns on a 3.2 GHz machine is about one clock
 cycle, and five operations do not happen in one cycle** — the number is its own

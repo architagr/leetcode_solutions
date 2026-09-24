@@ -10,10 +10,14 @@ import "testing"
 //
 // One pair does. The other does not.
 //
-//	Mix    discarded  0.315 ns/op
-//	Mix    kept       1.054 ns/op   <- 3.3x
-//	SumTo  discarded    324 ns/op
-//	SumTo  kept         325 ns/op   <- no difference
+//	MixDiscarded-8     0.3184n ± 1%
+//	MixKept-8           1.054n ± 1%   <- 3.3x apart
+//	SumToDiscarded-8     324.9n ± 0%
+//	SumToKept-8          324.4n ± 1%   <- the same
+//
+// Ten runs through benchstat, which is what `make verify` does. A single run
+// on a busy machine reported the SumTo pair 1.3x apart when they are the same,
+// which would teach the opposite of the lesson. M1 Pro; yours will differ.
 //
 // Both functions are inlined. `go test -gcflags=-m` prints "inlining call to
 // Mix" and "inlining call to SumTo" alike, so inlining is not what separates
