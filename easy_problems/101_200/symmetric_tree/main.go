@@ -7,6 +7,10 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+// isSymmetric checks whether the right half, mirrored, equals the left
+// half. Note that invertTree works in place: the caller's right subtree is
+// left inverted after this returns. A direct mirror comparison (a.Left
+// against b.Right, a.Right against b.Left) would avoid the mutation.
 func isSymmetric(root *TreeNode) bool {
 	if root == nil {
 		return true
@@ -14,7 +18,9 @@ func isSymmetric(root *TreeNode) bool {
 	return isSameTree(root.Left, invertTree(root.Right))
 }
 
+// isSameTree is the lockstep comparison from Same Tree.
 func isSameTree(p *TreeNode, q *TreeNode) bool {
+	// Both-nil first, so the || below can only mean "exactly one".
 	if p == nil && q == nil {
 		return true
 	} else if p == nil || q == nil {
@@ -30,6 +36,7 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 
 }
 
+// invertTree is the in-place mirror from Invert Binary Tree.
 func invertTree(root *TreeNode) *TreeNode {
 	if root == nil {
 		return root
