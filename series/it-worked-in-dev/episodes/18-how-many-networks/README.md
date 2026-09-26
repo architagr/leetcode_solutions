@@ -349,7 +349,7 @@ Days from the [365-day LeetCode challenge](https://github.com/architagr/leetcode
 with the solution write-up and the problem itself:
 
 - **Day 37 — [Number of Islands](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/number_of_islands/SOLUTION.md)** · LeetCode [#200](https://leetcode.com/problems/number-of-islands/) · medium
-  <br>counting the times a scan meets land no earlier search has consumed, and consuming the whole island when it does
+  <br>marking land consumed the moment a search reaches it, so nothing is visited twice, and counting only the searches that start on land nobody has consumed
 - **Day 39 — [Number of Provinces](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/501_600/number_of_provinces/SOLUTION.md)** · LeetCode [#547](https://leetcode.com/problems/number-of-provinces/) · medium
   <br>the same scan over relationships instead of places, with one visited set made once and handed to every search
 

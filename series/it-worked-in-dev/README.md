@@ -38,6 +38,7 @@ written, not the first one numbered.
 | 16 | [The collapsed thread built 55,987 previews to show 7](episodes/16-collapsed-tree-view/) | first arrival wins | days 29, 31 |
 | 17 | [Your category report changes its answer on refresh](episodes/17-which-depth-is-heaviest/) | depth as an index, read in order | days 29, 33 |
 | 18 | [499 new links made the network count 608x slower](episodes/18-how-many-networks/) | connected components, one sweep | days 37, 39 |
+| 19 | [Invalidation got faster; computing it got 540x slower](episodes/19-invalidation-wavefront/) | multi-source BFS | days 37, 40 |
 
 ## Why it lives in this repo
 
