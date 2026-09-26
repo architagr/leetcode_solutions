@@ -41,6 +41,7 @@ written, not the first one numbered.
 | 19 | [Invalidation got faster; computing it got 540x slower](episodes/19-invalidation-wavefront/) | multi-source BFS | days 37, 40 |
 | 20 | [999 more stores made the delivery map 213x slower](episodes/20-nearest-store-heatmap/) | two sweeps instead of a queue | days 40, 41 |
 | 21 | [A config 5x longer took 28.7x longer to validate](episodes/21-is-this-config-a-tree/) | count the links, then union-find | days 36, 43 |
+| 22 | [Kahn's algorithm lost to a for loop on our build graph](episodes/22-circular-dependency/) | topological sort, counting what each node waits for | days 36, 44 |
 
 ## Why it lives in this repo
 
