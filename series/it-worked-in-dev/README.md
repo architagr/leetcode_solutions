@@ -43,6 +43,7 @@ written, not the first one numbered.
 | 21 | [A config 5x longer took 28.7x longer to validate](episodes/21-is-this-config-a-tree/) | count the links, then union-find | days 36, 43 |
 | 22 | [Kahn's algorithm lost to a for loop on our build graph](episodes/22-circular-dependency/) | topological sort, counting what each node waits for | days 36, 44 |
 | 23 | [A price filter read 200,000 products to return 20](episodes/23-range-query-without-scan/) | in-order walk, pruned by the ordering | days 45, 47 |
+| 24 | [An all-hands invite searched the org chart 2,000 times](episodes/24-who-is-the-common-manager/) | lowest common ancestor, counted bottom-up | days 48, 49 |
 
 ## Why it lives in this repo
 
