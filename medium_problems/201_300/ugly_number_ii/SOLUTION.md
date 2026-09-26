@@ -125,7 +125,7 @@ Every candidate is generated exactly once, because a pointer never revisits a po
 
 This is deliberate as the last day of the heap arc.
 
-Day 76 to 78 built the case for the heap. Day 79 found a problem where sorting reads better. Today is a problem where the heap is the obvious answer and a plain array with three counters is strictly better.
+Day 78 to 78 built the case for the heap. Day 81 found a problem where sorting reads better. Today is a problem where the heap is the obvious answer and a plain array with three counters is strictly better.
 
 Day 41 did the same thing to BFS, replacing it with a two-pass DP. Recognising the structure a problem suggests is most of the skill; knowing when to put it down is the rest.
 

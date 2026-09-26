@@ -36,7 +36,7 @@ has children `2` and `4`; `6` has a right child `7`.
 
    ![Step 2: 3 has two children](images/walkthrough-2.png)
 
-   That follows from the property Day 52 used. If the in-order sequence must stay sorted,
+   That follows from the property Day 53 used. If the in-order sequence must stay sorted,
    whatever fills the hole has to sit between everything in the left subtree and everything
    in the right. The only candidates are the largest value on the left and the smallest on
    the right.

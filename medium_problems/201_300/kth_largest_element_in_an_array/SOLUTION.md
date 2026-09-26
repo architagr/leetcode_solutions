@@ -75,7 +75,7 @@ Partition around a pivot, as in quicksort, and recurse only into the side contai
 
 Asymptotically the best of the three, and the fiddliest to write correctly under time pressure.
 
-## Day 75 was the same question with different constraints
+## Day 77 was the same question with different constraints
 
 There, values arrived one at a time and the answer was required after each, so a size-k min-heap was the only workable structure — you cannot sort a stream that has not finished.
 

@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 58: Valid Parentheses](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1_100/valid_parentheses/) — the same structure, now asked to answer a question about its contents rather than just hold them
+- [Day 60: Valid Parentheses](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1_100/valid_parentheses/) — the same structure, now asked to answer a question about its contents rather than just hold them
 
 ## The problem in one line
 

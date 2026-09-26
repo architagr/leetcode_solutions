@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 60: Min Stack](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/min_stack/) — stack entries carrying a second field, so that popping restores the right state without recomputation
+- [Day 62: Min Stack](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/min_stack/) — stack entries carrying a second field, so that popping restores the right state without recomputation
 
 ## The problem in one line
 

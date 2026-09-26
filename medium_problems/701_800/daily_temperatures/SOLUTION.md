@@ -24,15 +24,15 @@ func dailyTemperatures(temperatures []int) []int {
 
 ## The two differences from day 59
 
-Day 59 asked *which* value comes next and is larger. This asks *how far away* it is, and two things follow.
+Day 61 asked *which* value comes next and is larger. This asks *how far away* it is, and two things follow.
 
 **The stack holds indices, not values.** A distance needs positions. `i` goes on the stack, and the answer is `stack.Top() - i`.
 
-**Values repeat.** Day 59 stored answers in a map keyed by value, which was safe only because uniqueness was guaranteed. Temperatures repeat constantly, so that approach would collide. Indices are unique by construction — the problem disappears rather than needing a workaround.
+**Values repeat.** Day 61 stored answers in a map keyed by value, which was safe only because uniqueness was guaranteed. Temperatures repeat constantly, so that approach would collide. Indices are unique by construction — the problem disappears rather than needing a workaround.
 
 ## Scanning backwards
 
-Day 59 went left to right, asking "which earlier values does this one answer?" and writing results into a map as it resolved them.
+Day 61 went left to right, asking "which earlier values does this one answer?" and writing results into a map as it resolved them.
 
 This goes right to left, asking "what is the first thing to my right that beats me?" The answer for index `i` is known while standing on `i`, so it is written straight into `results[i]` and the loop moves on. No map, no deferred bookkeeping.
 

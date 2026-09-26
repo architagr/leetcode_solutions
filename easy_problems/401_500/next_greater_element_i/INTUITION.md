@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 58: Valid Parentheses](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1_100/valid_parentheses/) — the same "the top of the stack is the only thing that can be resolved right now" reasoning, applied to values instead of brackets
+- [Day 60: Valid Parentheses](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1_100/valid_parentheses/) — the same "the top of the stack is the only thing that can be resolved right now" reasoning, applied to values instead of brackets
 
 ## The problem in one line
 

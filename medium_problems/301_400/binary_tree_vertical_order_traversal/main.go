@@ -43,7 +43,7 @@ func verticalOrder(root *TreeNode) [][]int {
 	}
 	push(root, 0)
 
-	// Breadth-first is required here, unlike Day 15's depth-first level
+	// Breadth-first is required here, unlike Day 29's depth-first level
 	// order. This problem needs each column ordered top to bottom, and a
 	// BFS visits by increasing depth, so appending as it goes is already
 	// correct. A DFS would drive one branch to the bottom first and could

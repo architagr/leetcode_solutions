@@ -74,7 +74,7 @@ So the heap is size `k`, not size `N`. That is what separates O(N log k) from O(
 
 **Empty lists are filtered.** A `nil` entry must not be pushed: `Less` would dereference it immediately during the first sift. The problem's examples include `[[]]` and `[]`, so this is a real input, not a hypothetical.
 
-**`Init` rather than k pushes.** Appending everything and heapifying once is O(k) by Floyd's method. Pushing one at a time would be O(k log k). Day 76 flagged this distinction and did not use it; here it is used.
+**`Init` rather than k pushes.** Appending everything and heapifying once is O(k) by Floyd's method. Pushing one at a time would be O(k log k). Day 78 flagged this distinction and did not use it; here it is used.
 
 ## The loop
 

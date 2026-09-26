@@ -26,7 +26,7 @@ func bfs(root *Node) {
 		return x
 	}
 	push(root)
-	// Level marker, as in Day 16: everything ahead of it is one level.
+	// Level marker, as in Day 30: everything ahead of it is one level.
 	push(nil)
 	var prev *Node
 	current := root

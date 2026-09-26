@@ -3,7 +3,7 @@
 ## Builds on
 
 - [Day 22: Merge Two Sorted Lists](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/1_100/merge_two_sorted_lists/) — the dummy head and the splice-don't-copy rule, both used here unchanged
-- [Day 75: Kth Largest Element in a Stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/) — a heap held at a fixed size while values stream through it
+- [Day 77: Kth Largest Element in a Stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/) — a heap held at a fixed size while values stream through it
 
 ## The problem in one line
 

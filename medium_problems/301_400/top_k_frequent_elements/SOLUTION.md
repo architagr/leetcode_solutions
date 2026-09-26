@@ -89,7 +89,7 @@ Two things in one line.
 
 **It compares `count`, not `ele`.** The heap is ordered by frequency; the value is cargo.
 
-**It is `<`, not `>`.** Day 76 got a max-heap by writing `>` and lying to `container/heap`. Here the honest `<` is wanted, and this is the problem where that choice does the work.
+**It is `<`, not `>`.** Day 78 got a max-heap by writing `>` and lying to `container/heap`. Here the honest `<` is wanted, and this is the problem where that choice does the work.
 
 ## Why the min-heap is right when you want the most frequent
 

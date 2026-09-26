@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 59: Next Greater Element I](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/401_500/next_greater_element_i/) — the same monotonic stack, holding indices here because the answer is a distance and values can repeat
+- [Day 61: Next Greater Element I](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/401_500/next_greater_element_i/) — the same monotonic stack, holding indices here because the answer is a distance and values can repeat
 
 ## The problem in one line
 
@@ -10,17 +10,17 @@ For each day, how many days until a warmer one? Zero if there is no warmer day.
 
 ## It is day 59 with two changes
 
-Day 59 asked *which* value comes next and is larger. This asks *how far away* it is.
+Day 61 asked *which* value comes next and is larger. This asks *how far away* it is.
 
 Two consequences follow from that, and they are the whole difference:
 
 **The stack holds indices, not values.** A distance needs positions, so `i` goes on the stack and the answer is `stack.Top() - i`.
 
-**Values can repeat.** Day 59 could key a map by value because uniqueness was guaranteed. Temperatures repeat constantly, so a value-keyed map would collide. Indices are unique by construction, which removes the problem rather than working around it.
+**Values can repeat.** Day 61 could key a map by value because uniqueness was guaranteed. Temperatures repeat constantly, so a value-keyed map would collide. Indices are unique by construction, which removes the problem rather than working around it.
 
 ## This version scans backwards
 
-Day 59 scanned left to right, asking "which earlier values does this one answer?" This scans right to left, asking "what is the first thing to my right that beats me?"
+Day 61 scanned left to right, asking "which earlier values does this one answer?" This scans right to left, asking "what is the first thing to my right that beats me?"
 
 Both are monotonic stacks and both are linear. The backward version computes each answer at the moment it visits the element, so there is no bookkeeping to write into a map — the result slot is filled and the loop moves on.
 

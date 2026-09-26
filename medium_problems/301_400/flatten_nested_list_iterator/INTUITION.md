@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 55: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — the same design: a stack holding the path to the cursor, advanced only when the caller asks
+- [Day 56: Binary Search Tree Iterator](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/101_200/binary_search_tree_iterator/) — the same design: a stack holding the path to the cursor, advanced only when the caller asks
 
 ## The problem in one line
 

@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 78: Top K Frequent Elements](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/301_400/top_k_frequent_elements/) — the same counting problem with an ordering requirement added, which is enough to change the tool
+- [Day 80: Top K Frequent Elements](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/301_400/top_k_frequent_elements/) — the same counting problem with an ordering requirement added, which is enough to change the tool
 
 ## The problem in one line
 

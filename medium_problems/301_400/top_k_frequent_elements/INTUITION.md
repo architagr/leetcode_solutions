@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 77: Kth Largest Element in an Array](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/kth_largest_element_in_an_array/) — the size-k min-heap that day named but did not use, applied here to frequencies rather than values
+- [Day 79: Kth Largest Element in an Array](https://github.com/architagr/leetcode_solutions/blob/main/medium_problems/201_300/kth_largest_element_in_an_array/) — the size-k min-heap that day named but did not use, applied here to frequencies rather than values
 
 ## The problem in one line
 
@@ -40,7 +40,7 @@ The reason is what the structure has to do on each arrival: decide which entry t
 
 A max-heap of size k would keep the most frequent at the root, which is never in danger and tells you nothing.
 
-Day 77 stated this rule; today is the problem where getting it wrong silently returns the k *least* frequent elements.
+Day 79 stated this rule; today is the problem where getting it wrong silently returns the k *least* frequent elements.
 
 ## The order of the output
 

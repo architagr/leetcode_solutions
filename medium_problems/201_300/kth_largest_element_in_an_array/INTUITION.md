@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 75: Kth Largest Element in a Stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/) — the same question asked of a fixed array rather than an arriving stream, which changes which heap is the right one
+- [Day 77: Kth Largest Element in a Stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/) — the same question asked of a fixed array rather than an arriving stream, which changes which heap is the right one
 
 ## The problem in one line
 
@@ -30,7 +30,7 @@ To hold the k largest, the element you need instant access to is **the smallest 
 
 A max-heap of size k would keep the largest at the root, which tells you nothing about whether a new element deserves a place.
 
-## Day 75 is the same question, differently shaped
+## Day 77 is the same question, differently shaped
 
 There, values arrived one at a time and the answer was needed after each — so a size-k min-heap was the only sensible structure.
 

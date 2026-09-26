@@ -2,7 +2,7 @@
 
 ## Builds on
 
-- [Day 75: Kth Largest Element in a Stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/) — the same structure, used there to hold a running answer and here to repeatedly take the largest
+- [Day 77: Kth Largest Element in a Stream](https://github.com/architagr/leetcode_solutions/blob/main/easy_problems/701_800/kth_largest_element_in_a_stream/) — the same structure, used there to hold a running answer and here to repeatedly take the largest
 
 ## The problem in one line
 

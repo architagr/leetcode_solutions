@@ -24,7 +24,7 @@ func PruneTree(root *TreeNode) *TreeNode {
 // yet know what is beneath it.
 //
 // An alternative shape returns *TreeNode and has the caller reassign, the
-// way Day 39's deletion does. That version needs no wrapper, because
+// way Day 58's deletion does. That version needs no wrapper, because
 // returning nil for the root handles the whole-tree case naturally.
 func parse(node *TreeNode) bool {
 	// An absent subtree contains no 1, so it contributes nothing to the

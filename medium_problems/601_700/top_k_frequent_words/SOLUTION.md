@@ -35,7 +35,7 @@ func topKFrequent(words []string, k int) []string {
 
 ## One sentence separates this from yesterday
 
-Day 78: *return the k most frequent elements, in any order.*
+Day 80: *return the k most frequent elements, in any order.*
 
 Today: *return them sorted by frequency from highest to lowest, and sort words with the same frequency by lexicographical order.*
 

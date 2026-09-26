@@ -15,7 +15,7 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 // targets, and count, how many of the two targets live in this subtree.
 //
 // The count exists because there is no ordering to exploit here. In the
-// BST version (Day 27) a comparison said which way to walk; without one,
+// BST version (Day 48) a comparison said which way to walk; without one,
 // the only way to know whether a target is below a node is to look, so
 // subtrees report upward instead of the walk deciding on the way down.
 func f(root, p, q *TreeNode) (n *TreeNode, count int) {
