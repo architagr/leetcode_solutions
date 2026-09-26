@@ -37,6 +37,7 @@ written, not the first one numbered.
 | 15 | [Your org chart read 55,987 rows to draw the first 43](episodes/15-org-chart-by-level/) | level order with a queue | days 27, 29 |
 | 16 | [The collapsed thread built 55,987 previews to show 7](episodes/16-collapsed-tree-view/) | first arrival wins | days 29, 31 |
 | 17 | [Your category report changes its answer on refresh](episodes/17-which-depth-is-heaviest/) | depth as an index, read in order | days 29, 33 |
+| 18 | [499 new links made the network count 608x slower](episodes/18-how-many-networks/) | connected components, one sweep | days 37, 39 |
 
 ## Why it lives in this repo
 
