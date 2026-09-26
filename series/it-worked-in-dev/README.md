@@ -26,14 +26,14 @@ written, not the first one numbered.
 | 4 | [Why the breadcrumbs cost more than the file list](episodes/04-file-breadcrumbs/) | root-to-leaf path building | day 3 |
 | 5 | [Why your nav health check slowed down as the menu grew](episodes/05-lopsided-categories/) | two facts from one pass | days 1, 5 |
 | 6 | [The answer was two clicks away. We read all 5,464 pages.](episodes/06-sitemap-click-depth/) | stop at the first level that answers | days 1, 7 |
-| 7 | [61 comments took longer to sort than 259](episodes/07-comment-thread/) | preorder traversal | days 3, 8 |
-| 8 | [Why `du` crawls on node_modules](episodes/08-directory-sizes/) | postorder traversal | days 4, 9 |
-| 9 | [601 menu items took 2.4 milliseconds to flatten](episodes/09-flatten-nav-config/) | writing into one destination | days 8, 10 |
-| 10 | [Your fleet tripled and the check got 12x slower](episodes/10-two-furthest-services/) | diameter, from two child results at each node | days 11, 13 |
-| 11 | [The cascade delete was fine until a reply got a reply](episodes/11-safe-delete-order/) | peeling leaves, one layer at a time | days 13, 16 |
+| 7 | [61 nested replies cost nearly as much to sort as 259](episodes/07-comment-thread/) | preorder traversal | days 3, 8 |
+| 8 | [801 folders took 3x longer to size than 8,191](episodes/08-directory-sizes/) | postorder traversal | days 4, 9 |
+| 9 | [Returning a slice per node cost 376x the memory](episodes/09-flatten-nav-config/) | writing into one destination | days 8, 10 |
+| 10 | [Finding the two furthest servers allocated 529 MB](episodes/10-two-furthest-services/) | diameter, from two child results at each node | days 11, 13 |
+| 11 | [A deep reply chain made the delete plan 790x slower](episodes/11-safe-delete-order/) | peeling leaves, one layer at a time | days 13, 16 |
 | 12 | [The loop check allocated 4.7 MB to return a boolean](episodes/12-pipeline-never-finishes/) | two cursors at different speeds | days 19, 21 |
-| 13 | [Your feed got slower when one source went quiet](episodes/13-merge-two-sorted-feeds/) | merging two sorted inputs | days 19, 22 |
-| 14 | [Your crash report held the whole log to send 200 lines](episodes/14-last-n-in-one-pass/) | a fixed gap between two cursors | days 20, 24 |
+| 13 | [200,050 events sorted 2x slower than 400,000](episodes/13-merge-two-sorted-feeds/) | merging two sorted inputs | days 19, 22 |
+| 14 | [Your crash report held 186 MB of log to send 200 lines](episodes/14-last-n-in-one-pass/) | a fixed gap between two cursors | days 20, 24 |
 | 15 | [Your org chart read 55,987 rows to draw the first 43](episodes/15-org-chart-by-level/) | level order with a queue | days 27, 29 |
 | 16 | [The collapsed thread built 55,987 previews to show 7](episodes/16-collapsed-tree-view/) | first arrival wins | days 29, 31 |
 

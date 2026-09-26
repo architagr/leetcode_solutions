@@ -1,4 +1,4 @@
-# 61 comments took longer to sort than 259
+# 61 nested replies cost nearly as much to sort as 259
 
 **It worked in dev · Episode 7 · technique: preorder traversal**
 

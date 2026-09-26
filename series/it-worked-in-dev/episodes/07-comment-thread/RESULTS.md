@@ -23,7 +23,7 @@ Raw ns: 16,942 / 912.1 · 51,557 / 4,144 · 47,406 / 966.6 · 1,500,670 / 7,484
 
 ## Depth costs the sort key twice
 
-Row three is the one to look at. **61 comments take longer than 259**, because
+Row three is the one to look at. **61 comments cost nearly as much as 259** - 47.4 µs against 51.6 µs - because
 those 61 are sixty levels deep and the 259 are three.
 
 Depth hits the sort-key version on two axes at once. Each key is one segment per

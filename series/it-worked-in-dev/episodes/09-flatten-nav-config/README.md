@@ -1,4 +1,4 @@
-# 601 menu items took 2.4 milliseconds to flatten
+# Returning a slice per node cost 376x the memory
 
 **It worked in dev · Episode 9 · technique: writing into one destination**
 

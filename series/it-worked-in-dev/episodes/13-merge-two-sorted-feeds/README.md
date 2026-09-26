@@ -1,4 +1,4 @@
-# Your feed got slower when one source went quiet
+# 200,050 events sorted 2x slower than 400,000
 
 **It worked in dev · Episode 13 · technique: merging two sorted inputs**
 

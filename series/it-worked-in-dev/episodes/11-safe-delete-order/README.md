@@ -1,4 +1,4 @@
-# The cascade delete was fine until a reply got a reply
+# A deep reply chain made the delete plan 790x slower
 
 **It worked in dev · Episode 11 · technique: peeling leaves, one layer at a time**
 

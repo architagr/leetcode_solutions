@@ -1,4 +1,4 @@
-# Why `du` crawls on node_modules
+# 801 folders took 3x longer to size than 8,191
 
 **It worked in dev · Episode 8 · technique: postorder traversal**
 

@@ -1,4 +1,4 @@
-# Your fleet tripled and the check got 12x slower
+# Finding the two furthest servers allocated 529 MB
 
 **It worked in dev · Episode 10 · technique: diameter, from two child results at each node**
 

@@ -1,4 +1,4 @@
-# Your crash report held the whole log to send 200 lines
+# Your crash report held 186 MB of log to send 200 lines
 
 **It worked in dev · Episode 14 · technique: a fixed gap between two cursors**
 
