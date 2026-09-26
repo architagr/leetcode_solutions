@@ -2,6 +2,9 @@ package grumpybookstoreowner
 
 func maxSatisfied(customers []int, grumpy []int, minutes int) int {
 	n := len(customers)
+	// allGoodCount: prefix sum of every customer, as if never grumpy.
+	// grumpyCount: prefix sum of customers actually satisfied (those in
+	// non-grumpy minutes), despite the name.
 	allGoodCount, grumpyCount := make([]int, n), make([]int, n)
 	allGoodCount[0] = customers[0]
 	if grumpy[0] == 0 {
@@ -20,6 +23,8 @@ func maxSatisfied(customers []int, grumpy []int, minutes int) int {
 	}
 	max := allGoodCount[minutes-1] + grumpyCount[n-1] - grumpyCount[minutes-1]
 	for i := minutes; i < n; i++ {
+		// Window (i-minutes, i]: satisfied-as-usual before it, everyone inside
+		// it, satisfied-as-usual after it.
 		currCount := grumpyCount[i-minutes] + allGoodCount[i] - allGoodCount[i-minutes] + grumpyCount[n-1] - grumpyCount[i]
 		if max < currCount {
 			max = currCount
