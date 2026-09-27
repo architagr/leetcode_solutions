@@ -15,6 +15,10 @@ func constructFromPrePost(preorder []int, postorder []int) *TreeNode {
 	if len(preorder) == 1 {
 		return root
 	}
+	// preorder[1] is the left subtree's root, and postorder lists a subtree's
+	// root last, so its position in postorder marks the end of the left
+	// subtree. (A lone child is always placed on the left; either side would
+	// produce the same two traversals.)
 	i := 0
 	for ; i < len(postorder); i++ {
 		if postorder[i] == preorder[1] {
