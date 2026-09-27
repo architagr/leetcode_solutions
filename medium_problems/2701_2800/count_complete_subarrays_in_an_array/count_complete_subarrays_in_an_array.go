@@ -13,6 +13,9 @@ func countCompleteSubarrays(nums []int) int {
 	res := 0
 	for end := 0; end < len(nums); end++ {
 		fre[nums[end]]++
+		// A window can't hold more than k distinct values, and adding elements
+		// never removes one, so once complete, every extension to the right is
+		// complete too: len(nums) - end subarrays start here.
 		for start <= end && len(fre) == k {
 			res += len(nums) - end
 
