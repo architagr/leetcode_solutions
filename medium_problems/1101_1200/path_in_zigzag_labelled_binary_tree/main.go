@@ -49,6 +49,8 @@ func findLevel(label int) int {
 	return level
 }
 
+// pow2 uses float math.Pow; exact for the exponents here (<= 20), though
+// 1 << x would avoid floats altogether.
 func pow2(x int) int {
 	return int(math.Pow(float64(2), float64(x)))
 }
