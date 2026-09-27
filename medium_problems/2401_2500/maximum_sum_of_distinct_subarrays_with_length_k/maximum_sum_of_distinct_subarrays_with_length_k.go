@@ -1,7 +1,10 @@
 package maximumsumofdistinctsubarrayswithlengthk
 
 func maximumSubarraySum(nums []int, k int) int64 {
+	// k becomes an offset: nums[i-k] is the oldest element in the window.
 	k--
+	// Value -> count in the window, deleted at zero, so len(m) == k+1 means
+	// every element in the window is different.
 	m := make(map[int]int)
 	sum, result := int64(0), int64(0)
 	for i := 0; i < k; i++ {
