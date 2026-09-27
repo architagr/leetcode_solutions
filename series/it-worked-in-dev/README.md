@@ -46,6 +46,7 @@ written, not the first one numbered.
 | 24 | [An all-hands invite searched the org chart 2,000 times](episodes/24-who-is-the-common-manager/) | lowest common ancestor, counted bottom-up | days 48, 49 |
 | 25 | [Nearest price: 51 MB allocated to return one number](episodes/25-closest-price-lookup/) | the two neighbours are on the search path | days 47, 50 |
 | 26 | [Each node passed its check. The index was still wrong.](episodes/26-is-this-hierarchy-valid/) | carrying bounds down the tree | days 48, 53 |
+| 27 | [Page 1 of the catalogue built all 10,000 pages](episodes/27-paginate-without-loading/) | an iterator that keeps only the unfinished path | days 53, 56 |
 
 ## Why it lives in this repo
 
