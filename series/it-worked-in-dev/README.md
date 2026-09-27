@@ -48,6 +48,7 @@ written, not the first one numbered.
 | 26 | [Each node passed its check. The index was still wrong.](episodes/26-is-this-hierarchy-valid/) | carrying bounds down the tree | days 48, 53 |
 | 27 | [Page 1 of the catalogue built all 10,000 pages](episodes/27-paginate-without-loading/) | an iterator that keeps only the unfinished path | days 53, 56 |
 | 28 | [The linter passed `([)]`, and its fix choked on depth](episodes/28-matching-brackets-config/) | a stack of what is still open | days 56, 60 |
+| 29 | [Undo held 122 MB for a 76 KB document](episodes/29-undo-history/) | a stack of edits, each with its inverse | days 60, 62 |
 
 ## Why it lives in this repo
 
