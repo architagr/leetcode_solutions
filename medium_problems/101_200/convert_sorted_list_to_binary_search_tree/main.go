@@ -15,6 +15,9 @@ type TreeNode struct {
 }
 
 func sortedListToBST(head *ListNode) *TreeNode {
+	// A list can't jump to its middle, so copy it into a slice once and reuse
+	// the sorted-array build. Costs O(n) space; fast/slow pointers per level
+	// would avoid the copy at O(n log n) time.
 	nums := listToArray(head)
 	return sortedArrayToBST(nums)
 }
