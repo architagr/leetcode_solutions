@@ -44,6 +44,7 @@ written, not the first one numbered.
 | 22 | [Kahn's algorithm lost to a for loop on our build graph](episodes/22-circular-dependency/) | topological sort, counting what each node waits for | days 36, 44 |
 | 23 | [A price filter read 200,000 products to return 20](episodes/23-range-query-without-scan/) | in-order walk, pruned by the ordering | days 45, 47 |
 | 24 | [An all-hands invite searched the org chart 2,000 times](episodes/24-who-is-the-common-manager/) | lowest common ancestor, counted bottom-up | days 48, 49 |
+| 25 | [Nearest price: 51 MB allocated to return one number](episodes/25-closest-price-lookup/) | the two neighbours are on the search path | days 47, 50 |
 
 ## Why it lives in this repo
 
