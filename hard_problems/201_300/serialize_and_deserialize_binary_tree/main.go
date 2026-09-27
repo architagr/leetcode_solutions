@@ -24,6 +24,8 @@ func (this *Codec) serialize(root *TreeNode) string {
 	var ss []string
 	var dfs func(root *TreeNode)
 	dfs = func(root *TreeNode) {
+		// Record missing children too: without them a preorder of values
+		// can't say where one subtree ends and the next begins.
 		if root == nil {
 			ss = append(ss, "")
 			return
@@ -41,6 +43,8 @@ func (this *Codec) serialize(root *TreeNode) string {
 func (this *Codec) deserialize(data string) *TreeNode {
 	ss := strings.Split(data, ",")
 
+	// Each call builds one subtree from the front of ss and returns the
+	// tokens it didn't consume, which is where the next subtree starts.
 	var dfs func(ss []string) ([]string, *TreeNode)
 	dfs = func(ss []string) ([]string, *TreeNode) {
 		if ss[0] == "" {
