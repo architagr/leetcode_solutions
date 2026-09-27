@@ -28,6 +28,8 @@ func levelOrderBottom(root *TreeNode) [][]int {
 	result = append(result, []int{})
 	for len(q) > 0 {
 		n := pop()
+		// The nil marker ends a level. If nodes remain, they are the whole
+		// next level: open a new slot and mark its end.
 		if n == nil {
 			if len(q) > 0 {
 				result = append(result, []int{})
@@ -44,6 +46,8 @@ func levelOrderBottom(root *TreeNode) [][]int {
 			push(n.Right)
 		}
 	}
+	// Bottom-up is top-down with the levels flipped. Reversing once is
+	// O(levels); prepending each level as it's found would copy every time.
 	return reverse(result)
 }
 func reverse(arr [][]int) [][]int {
