@@ -21,6 +21,9 @@ func lcaDeepestLeaves(root *TreeNode) *TreeNode {
 
 func process(node *TreeNode, path []*TreeNode) {
 	if node.Left == nil && node.Right == nil { // this is the leaf node
+		// A tie: compare with the FIRST deepest path. DFS visits subtrees
+		// contiguously, so LCA(first, latest) covers every deepest leaf seen
+		// in between.
 		if len(deepestPath) > 0 && len(path) == len(deepestPath) {
 			resFinal = findLca(path, deepestPath)
 		} else if len(path) > len(deepestPath) {
@@ -28,6 +31,7 @@ func process(node *TreeNode, path []*TreeNode) {
 			resFinal = node
 		}
 	}
+	// A fresh copy, so sibling calls don't share a backing array.
 	newPath := append([]*TreeNode{}, path...)
 	newPath = append(newPath, node)
 	if node.Left != nil {
