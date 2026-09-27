@@ -45,6 +45,7 @@ written, not the first one numbered.
 | 23 | [A price filter read 200,000 products to return 20](episodes/23-range-query-without-scan/) | in-order walk, pruned by the ordering | days 45, 47 |
 | 24 | [An all-hands invite searched the org chart 2,000 times](episodes/24-who-is-the-common-manager/) | lowest common ancestor, counted bottom-up | days 48, 49 |
 | 25 | [Nearest price: 51 MB allocated to return one number](episodes/25-closest-price-lookup/) | the two neighbours are on the search path | days 47, 50 |
+| 26 | [Each node passed its check. The index was still wrong.](episodes/26-is-this-hierarchy-valid/) | carrying bounds down the tree | days 48, 53 |
 
 ## Why it lives in this repo
 
