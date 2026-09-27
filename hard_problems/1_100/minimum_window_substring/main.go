@@ -29,6 +29,7 @@ func minWindow(s string, t string) string {
 	}
 	return result
 }
+
 // found reports whether nothing is still needed. It scans the map (at most
 // 52 letters); a "missing" counter updated as entries cross 0 would make it O(1).
 func found(frequencyMapT map[byte]int) bool {
