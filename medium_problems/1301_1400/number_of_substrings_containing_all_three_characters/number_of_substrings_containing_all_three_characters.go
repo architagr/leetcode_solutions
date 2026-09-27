@@ -9,7 +9,8 @@ func numberOfSubstrings(s string) int {
 		counts[s[right]-'a']++
 
 		for counts[0] > 0 && counts[1] > 0 && counts[2] > 0 {
-			// All substrings starting from left to right are valid
+			// Adding letters can't remove a, b or c, so every substring that
+			// starts at left and ends at right or later is valid.
 			result += len(s) - right
 			counts[s[left]-'a']--
 			left++
