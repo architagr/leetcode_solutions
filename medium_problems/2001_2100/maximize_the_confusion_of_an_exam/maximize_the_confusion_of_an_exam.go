@@ -2,10 +2,14 @@ package maximizetheconfusionofanexam
 
 func maxConsecutiveAnswers(answerKey string, k int) int {
 
+	// Longest all-F run = longest window with at most k Ts (change them), and
+	// vice versa. Solve both and keep the better one.
 	return findMax(countData(answerKey, k, 'T'), countData(answerKey, k, 'F'))
 
 }
 
+// countData returns the longest window of answerKey with at most k copies of
+// c: the longest run that changing those copies could make uniform.
 func countData(answerKey string, k int, c byte) int {
 	f := 0
 	start := 0
@@ -19,6 +23,8 @@ func countData(answerKey string, k int, c byte) int {
 			f++
 		}
 		if f > k {
+			// The window only grows between violations, so [start, end) is
+			// its peak; record before shrinking past one copy of c.
 			ans = findMax(ans, end-start)
 			for f > k {
 				if answerKey[start] == c {
