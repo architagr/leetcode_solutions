@@ -8,6 +8,8 @@ type TreeNode struct {
 }
 
 func balanceBST(root *TreeNode) *TreeNode {
+	// Keep the values, discard the shape: in order gives them sorted, and
+	// building from the middle gives a balanced tree.
 	arr := make([]int, 0, 10_000)
 	arr = inOrder(root, arr)
 	return createNode(arr)
@@ -28,6 +30,8 @@ func createNode(arr []int) *TreeNode {
 		return nil
 	}
 
+	// The middle value splits the rest into halves differing by at most one,
+	// which is what keeps every node's subtrees within one level.
 	l := len(arr)
 	mid := l / 2
 	return &TreeNode{
