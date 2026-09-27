@@ -24,6 +24,8 @@ func Constructor(root *TreeNode) FindElements {
 	}
 }
 
+// updateNode recovers the labels top-down: a node x has children 2x+1 and
+// 2x+2, the same numbering as an array-backed heap.
 func updateNode(node *TreeNode, data map[int]struct{}) {
 	if node == nil {
 		return
