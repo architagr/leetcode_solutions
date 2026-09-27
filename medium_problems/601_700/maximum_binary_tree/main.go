@@ -11,6 +11,8 @@ func constructMaximumBinaryTree(nums []int) *TreeNode {
 	if len(nums) == 0 {
 		return nil
 	}
+	// The definition, written as recursion. Each call scans its slice for the
+	// maximum, so a sorted input costs O(n^2); a monotonic stack does it in O(n).
 	higestVal, higestIndex := findHigest(nums)
 	return &TreeNode{
 		Val:   higestVal,
