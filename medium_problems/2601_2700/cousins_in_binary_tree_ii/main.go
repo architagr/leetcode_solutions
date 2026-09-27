@@ -20,6 +20,8 @@ func parse(node *TreeNode, level int, sumArr []int) {
 	if node.Left == nil && node.Right == nil {
 		return
 	}
+	// Cousins are the next level minus this node's own children, so sum the
+	// children's ORIGINAL values before overwriting either of them.
 	currSum := 0
 	if node.Left != nil {
 		currSum += node.Left.Val
