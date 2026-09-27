@@ -47,6 +47,7 @@ written, not the first one numbered.
 | 25 | [Nearest price: 51 MB allocated to return one number](episodes/25-closest-price-lookup/) | the two neighbours are on the search path | days 47, 50 |
 | 26 | [Each node passed its check. The index was still wrong.](episodes/26-is-this-hierarchy-valid/) | carrying bounds down the tree | days 48, 53 |
 | 27 | [Page 1 of the catalogue built all 10,000 pages](episodes/27-paginate-without-loading/) | an iterator that keeps only the unfinished path | days 53, 56 |
+| 28 | [The linter passed `([)]`, and its fix choked on depth](episodes/28-matching-brackets-config/) | a stack of what is still open | days 56, 60 |
 
 ## Why it lives in this repo
 
