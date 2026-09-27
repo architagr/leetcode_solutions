@@ -4,6 +4,8 @@ func checkInclusion(s1 string, s2 string) bool {
 	if len(s1) > len(s2) {
 		return false
 	}
+	// Permutations have identical letter counts, so compare counts over a
+	// window of len(s1) sliding across s2.
 	s1Map := make(map[byte]int)
 	subStringMap := make(map[byte]int)
 
@@ -15,6 +17,8 @@ func checkInclusion(s1 string, s2 string) bool {
 		return true
 	}
 	for start, end := 1, len(s1); end < len(s2); start, end = start+1, end+1 {
+		// Drop the letter leaving, deleting it at zero so a letter no longer in
+		// the window can't linger as a key and spoil the comparison.
 		subStringMap[s2[start-1]]--
 		if c := subStringMap[s2[start-1]]; c == 0 {
 			delete(subStringMap, s2[start-1])
