@@ -20,6 +20,7 @@ func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
 	if len(l) == 1 {
 		return l[0][len(l[0])-1]
 	}
+	// The last node every deepest path shares is their lowest common ancestor.
 	res := root
 	for i := 0; i < maxDepth; i++ {
 		x := l[0][i]
@@ -42,6 +43,8 @@ func dfs(node *TreeNode, path []*TreeNode) {
 	if node.Left == nil && node.Right == nil {
 		maxDepth = maxVal(maxDepth, len(path))
 		if len(path) == maxDepth {
+			// Copy: path shares its backing array with sibling calls, which
+			// would overwrite it later.
 			c := make([]*TreeNode, len(path))
 			copy(c, path)
 			data[len(path)] = append(data[len(path)], c)
