@@ -7,6 +7,9 @@ func minSubArrayeLen(target int, nums []int) int {
 	if prefixSum[len(prefixSum)-1] < target {
 		return 0
 	}
+	// left is exclusive: the window is (left, right] and its sum is
+	// prefix[right] - prefix[left]. All values are positive, so growing the
+	// window always raises the sum and shrinking always lowers it.
 	left, right, result := -1, 0, math.MaxInt
 	getValue := func(index int) int {
 		if index < 0 {
@@ -16,6 +19,8 @@ func minSubArrayeLen(target int, nums []int) int {
 	}
 	for right < len(nums) {
 		leftValue, rightValue := getValue(left), getValue(right)
+		// Big enough: record it and try a shorter window. Too small: grow.
+		// Each step moves one edge forward, so at most 2n iterations.
 		if rightValue-leftValue >= target {
 			result = minValue(result, right-left)
 			left++
