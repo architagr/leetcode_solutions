@@ -53,6 +53,7 @@ written, not the first one numbered.
 | 31 | [Falling traffic made the peak report 4.02x slower](episodes/31-next-bigger-spike/) | monotonic stack | days 61, 63 |
 | 32 | [20,000 calls took the profiler longer than 200,000](episodes/32-who-holds-the-time/) | the top of the call stack owns the time | days 62, 66 |
 | 33 | [The reuse check took 75 ms on one reply thread](episodes/33-is-this-tree-a-subtree/) | fingerprint every subtree bottom-up | days 68, 70 |
+| 34 | [Pruning 15,004 keys took 19x longer than 500,000](episodes/34-prune-the-dead-config/) | let the children answer first | days 70, 73 |
 
 ## Why it lives in this repo
 
