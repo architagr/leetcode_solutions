@@ -51,6 +51,7 @@ written, not the first one numbered.
 | 29 | [Undo held 122 MB for a 76 KB document](episodes/29-undo-history/) | a stack of edits, each with its inverse | days 60, 62 |
 | 30 | [Replaying the budget's change log took 3 seconds](episodes/30-running-min-without-rescan/) | each stack entry carries the answer at its height | days 60, 62 |
 | 31 | [Falling traffic made the peak report 4.02x slower](episodes/31-next-bigger-spike/) | monotonic stack | days 61, 63 |
+| 32 | [20,000 calls took the profiler longer than 200,000](episodes/32-who-holds-the-time/) | the top of the call stack owns the time | days 62, 66 |
 
 ## Why it lives in this repo
 
