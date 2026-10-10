@@ -56,6 +56,7 @@ written, not the first one numbered.
 | 34 | [Pruning 15,004 keys took 19x longer than 500,000](episodes/34-prune-the-dead-config/) | let the children answer first | days 70, 73 |
 | 35 | [Fixing one tie made the tree layout 8x slower](episodes/35-columns-not-rows/) | the order is the order rows are read in | days 29, 76 |
 | 36 | [To show ten slow requests, we sorted 3.6 million](episodes/36-slowest-endpoints/) | a size-k heap with the weakest at the root | days 78, 80 |
+| 37 | [The timeline merge allocated 20 GB to show 50 posts](episodes/37-merge-paginated-feeds/) | a heap of the fronts, stopped at a full page | days 22, 82 |
 
 ## Why it lives in this repo
 
